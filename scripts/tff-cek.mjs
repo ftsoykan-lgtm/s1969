@@ -43,17 +43,27 @@ async function supabaseYaz(data) {
     return
   }
   try {
-    const { createClient } = await import('@supabase/supabase-js')
-    const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY, {
-      auth: { persistSession: false },
+    // Kütüphane yerine doğrudan REST (WebSocket gerekmez, her Node sürümünde çalışır)
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/tff_data?on_conflict=id`, {
+      method: 'POST',
+      headers: {
+        apikey: SUPABASE_SERVICE_KEY,
+        Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
+        'Content-Type': 'application/json',
+        Prefer: 'resolution=merge-duplicates,return=minimal',
+      },
+      body: JSON.stringify({ id: 1, data, updated_at: new Date().toISOString() }),
     })
-    const { error } = await supabase
-      .from('tff_data')
-      .upsert({ id: 1, data, updated_at: new Date().toISOString() })
-    if (error) console.error('[TFF] ❌ Supabase yazma hatası:', error.message)
-    else console.log('[TFF] 🟢 Supabase tff_data güncellendi (canlı)')
+    if (!res.ok) {
+      const txt = await res.text()
+      console.error(`[TFF] ❌ Supabase yazma hatası (HTTP ${res.status}):`, txt)
+      process.exitCode = 1
+    } else {
+      console.log('[TFF] 🟢 Supabase tff_data güncellendi (canlı)')
+    }
   } catch (e) {
     console.error('[TFF] ❌ Supabase bağlantı hatası:', e.message)
+    process.exitCode = 1
   }
 }
 
