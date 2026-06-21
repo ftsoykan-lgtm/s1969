@@ -88,6 +88,54 @@ export async function getTffSquad(): Promise<{ season: string | null; players: {
   return { season: null, players: [] }
 }
 
+/* ─── OYUNCU DETAYLARI (admin düzenler) ────────────────────── */
+
+export interface PlayerDetail {
+  name: string
+  tff_id?: string | null
+  photo_url?: string | null
+  number?: number | null
+  position?: string | null
+  nationality?: string | null
+  flag_code?: string | null
+  birth_date?: string | null
+  active?: boolean
+  sort_order?: number | null
+  manual?: boolean
+}
+
+export async function getPlayerDetails(): Promise<Record<string, PlayerDetail>> {
+  try {
+    const { data, error } = await client().from('player_details').select('*')
+    if (error || !data) return {}
+    return Object.fromEntries(data.map((r) => [r.name, r as PlayerDetail]))
+  } catch {
+    return {}
+  }
+}
+
+export async function savePlayerDetail(detail: PlayerDetail): Promise<{ ok: boolean; error?: string }> {
+  try {
+    const { error } = await client()
+      .from('player_details')
+      .upsert({ ...detail, updated_at: new Date().toISOString() }, { onConflict: 'name' })
+    if (error) return { ok: false, error: error.message }
+    return { ok: true }
+  } catch (e) {
+    return { ok: false, error: (e as Error).message }
+  }
+}
+
+export async function deletePlayerDetail(name: string): Promise<{ ok: boolean; error?: string }> {
+  try {
+    const { error } = await client().from('player_details').delete().eq('name', name)
+    if (error) return { ok: false, error: error.message }
+    return { ok: true }
+  } catch (e) {
+    return { ok: false, error: (e as Error).message }
+  }
+}
+
 /* ─── GÖRSEL YÜKLEME (Storage + otomatik boyutlandırma) ─────── */
 
 /**
@@ -97,12 +145,15 @@ export async function getTffSquad(): Promise<{ season: string | null; players: {
  */
 export async function uploadImage(
   file: File,
-  opts: { folder?: string; size?: number } = {}
+  opts: { folder?: string; size?: number; width?: number; height?: number; fit?: 'contain' | 'cover' } = {}
 ): Promise<{ ok: boolean; url?: string; error?: string }> {
   const { folder = 'logos', size = 256 } = opts
+  const w = opts.width ?? size
+  const h = opts.height ?? size
+  const fit = opts.fit ?? 'contain'
   console.log('🔵 [uploadImage] Başladı —', file.name, '|', Math.round(file.size / 1024), 'KB')
   try {
-    const resized = await resizeToSquare(file, size)
+    const resized = await resizeImage(file, w, h, fit)
     console.log('🟡 [uploadImage] Boyutlandırıldı →', size + 'px,', Math.round(resized.size / 1024), 'KB')
     const path = `${folder}/${Date.now()}-${slugify(file.name)}.png`
     console.log('🟡 [uploadImage] Storage\'a yükleniyor → media/' + path)
@@ -127,23 +178,29 @@ function slugify(name: string): string {
   return name.replace(/\.[^.]+$/, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40) || 'img'
 }
 
-/** Görseli kare tuvale ortalayıp orantılı sığdırır → PNG Blob */
-function resizeToSquare(file: File, size: number): Promise<Blob> {
+/** Görseli hedef boyuta ölçekler (contain = orantılı sığdır, cover = doldur+kırp) */
+function resizeImage(file: File, tw: number, th: number, fit: 'contain' | 'cover'): Promise<Blob> {
   return new Promise((resolve, reject) => {
     const url = URL.createObjectURL(file)
     const img = new Image()
     img.onload = () => {
       URL.revokeObjectURL(url)
       const canvas = document.createElement('canvas')
-      canvas.width = size
-      canvas.height = size
+      canvas.width = tw
+      canvas.height = th
       const ctx = canvas.getContext('2d')
       if (!ctx) return reject(new Error('Canvas desteklenmiyor'))
-      // orantılı sığdır (contain)
-      const scale = Math.min(size / img.width, size / img.height)
-      const w = img.width * scale
-      const h = img.height * scale
-      ctx.drawImage(img, (size - w) / 2, (size - h) / 2, w, h)
+      if (fit === 'cover') {
+        const scale = Math.max(tw / img.width, th / img.height)
+        const w = img.width * scale
+        const h = img.height * scale
+        ctx.drawImage(img, (tw - w) / 2, (th - h) / 2, w, h)
+      } else {
+        const scale = Math.min(tw / img.width, th / img.height)
+        const w = img.width * scale
+        const h = img.height * scale
+        ctx.drawImage(img, (tw - w) / 2, (th - h) / 2, w, h)
+      }
       canvas.toBlob((blob) => (blob ? resolve(blob) : reject(new Error('Görsel oluşturulamadı'))), 'image/png', 0.92)
     }
     img.onerror = () => {
