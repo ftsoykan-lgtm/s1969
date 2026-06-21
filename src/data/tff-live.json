@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-21T19:36:56.269Z",
+  "updatedAt": "2026-06-21T19:47:43.852Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2025-2026",
@@ -574,159 +574,103 @@
     }
   ],
   "squad": {
-    "season": "2024-2025",
+    "season": "2025-2026",
     "players": [
       {
         "name": "Abdulkadir Sünger",
         "tffId": "1474032"
       },
       {
-        "name": "Abdullah Kavlak",
-        "tffId": "2065251"
-      },
-      {
-        "name": "Ahmet Gökbayrak",
-        "tffId": "1425361"
-      },
-      {
         "name": "Ahmet Güneş",
         "tffId": "2088408"
       },
       {
-        "name": "Ali Kerem Bostancı",
-        "tffId": "1935604"
+        "name": "Ali Sühan Demirel",
+        "tffId": "2151894"
       },
       {
-        "name": "Alpay Çelebi",
-        "tffId": "1355251"
+        "name": "Anıl Gözütok",
+        "tffId": "2560738"
       },
       {
-        "name": "Aly Malle",
-        "tffId": "2217529"
+        "name": "Berk Yıldız",
+        "tffId": "1024258"
       },
       {
-        "name": "Amar Begiç",
-        "tffId": "2628697"
+        "name": "Berk İsmail Ünsal",
+        "tffId": "1023707"
       },
       {
-        "name": "Atakan Aybastı",
-        "tffId": "1460854"
+        "name": "Berke Kılıç",
+        "tffId": "1847146"
       },
       {
-        "name": "Baran Doğan",
-        "tffId": "1983833"
-      },
-      {
-        "name": "Bilal Selamet",
-        "tffId": "1770452"
-      },
-      {
-        "name": "Bouly Junıor Sambou",
-        "tffId": "2627253"
+        "name": "Burak Öğür",
+        "tffId": "784599"
       },
       {
         "name": "Burak Can Çamoğlu",
         "tffId": "1553173"
       },
       {
-        "name": "Chukwuma Emmanuel Akabueze",
-        "tffId": "1974342"
+        "name": "Çınar Tarhan",
+        "tffId": "1051697"
       },
       {
-        "name": "Cuma Menize",
-        "tffId": "1458939"
+        "name": "Emircan Altıntaş",
+        "tffId": "966501"
       },
       {
-        "name": "Çağrı Giritlioğlu",
-        "tffId": "1101315"
+        "name": "Erhan Çelenk",
+        "tffId": "231495"
       },
       {
-        "name": "Devrim Karpiç",
-        "tffId": "1983825"
+        "name": "Eyüpcan Delibalta",
+        "tffId": "1369129"
       },
       {
-        "name": "Enes Kalyoncu",
-        "tffId": "1566472"
-      },
-      {
-        "name": "Erzhan Tokotaev",
-        "tffId": "2552528"
-      },
-      {
-        "name": "Fatih Eren",
-        "tffId": "1730553"
-      },
-      {
-        "name": "Furkan Şamil Çetin",
-        "tffId": "1650530"
-      },
-      {
-        "name": "Guy Lucıen Mıchel Landel",
-        "tffId": "1625095"
-      },
-      {
-        "name": "Hakan Erçelik",
-        "tffId": "1474052"
+        "name": "Güney Tutcuoğlu",
+        "tffId": "782816"
       },
       {
         "name": "Hasan Hüseyin Acar",
         "tffId": "1051415"
       },
       {
-        "name": "İbrahim Şenel",
-        "tffId": "1990626"
-      },
-      {
-        "name": "Jack Can Karadoğan",
-        "tffId": "2695427"
-      },
-      {
-        "name": "Jani Petteri Forsell",
-        "tffId": "1509897"
-      },
-      {
-        "name": "Leandro Deyrınıo Kappel",
-        "tffId": "1925379"
-      },
-      {
-        "name": "Levent Kolkısa",
-        "tffId": "2087844"
+        "name": "Levent Gülen",
+        "tffId": "1671625"
       },
       {
         "name": "Mahmut Küçük",
         "tffId": "2022359"
       },
       {
-        "name": "Mehmet Coşkun",
-        "tffId": "2350707"
+        "name": "Mazlum Demir",
+        "tffId": "877034"
       },
       {
-        "name": "Mehmet Yüksel",
-        "tffId": "2685648"
+        "name": "Mert Çölgeçen",
+        "tffId": "1526664"
       },
       {
-        "name": "Miraç Acer",
-        "tffId": "1004795"
+        "name": "Onur Karakabak",
+        "tffId": "894942"
       },
       {
-        "name": "Muhammed Gönülaçar",
-        "tffId": "997822"
+        "name": "Orhan Nahırcı",
+        "tffId": "1499627"
       },
       {
-        "name": "Nafican Yardımcı",
-        "tffId": "1522082"
+        "name": "Recep Yemişci",
+        "tffId": "1349471"
       },
       {
-        "name": "Olarenwaju Ayobamı Kayode",
-        "tffId": "2213644"
+        "name": "Sadık Çiftpınar",
+        "tffId": "827547"
       },
       {
-        "name": "Phılıp Gamelı Awuku",
-        "tffId": "2293394"
-      },
-      {
-        "name": "Reagy Baah Ofosu",
-        "tffId": "2294148"
+        "name": "Sadık Arda Yılmaztürk",
+        "tffId": "1024824"
       },
       {
         "name": "Safa Kınalı",
@@ -737,40 +681,20 @@
         "tffId": "2687348"
       },
       {
-        "name": "Seyit Gazanfer",
-        "tffId": "1660061"
+        "name": "Sinan Kurumuş",
+        "tffId": "950263"
       },
       {
-        "name": "Stefan Ashkovskı",
-        "tffId": "1876913"
+        "name": "Turan Çalhanoğlu",
+        "tffId": "2824658"
       },
       {
-        "name": "Sten Reınkort",
-        "tffId": "2685654"
+        "name": "Vedat Bora",
+        "tffId": "1153697"
       },
       {
-        "name": "Uchenna Ogundu",
-        "tffId": "2688447"
-      },
-      {
-        "name": "Umut Taşçı",
-        "tffId": "2063819"
-      },
-      {
-        "name": "Urıe-michel Mboula",
-        "tffId": "2552508"
-      },
-      {
-        "name": "Wrıedt Kwası Okyere",
-        "tffId": "2685598"
-      },
-      {
-        "name": "Yusuf Baturay",
-        "tffId": "2045798"
-      },
-      {
-        "name": "Zach Muscat",
-        "tffId": "2768183"
+        "name": "Yılmaz Ceylan",
+        "tffId": "1586388"
       }
     ]
   }

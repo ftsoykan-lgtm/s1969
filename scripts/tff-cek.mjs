@@ -245,6 +245,15 @@ async function cekKadro(page) {
         await page.waitForLoadState('networkidle', { timeout: 25000 }).catch(() => {})
         await page.waitForTimeout(1200)
       }
+      // Durum filtresini "Tümü" yap (Faal sezon bitince boş döner)
+      const fInput = page.locator('#ctl00_MPane_m_28_196_ctnr_m_28_196_f_Input')
+      const fCur = await fInput.inputValue().catch(() => '')
+      if (fCur.trim() !== 'Tümü') {
+        await fInput.click(); await fInput.fill(''); await fInput.type('Tümü', { delay: 40 })
+        await page.waitForTimeout(700); await fInput.press('Enter')
+        await page.waitForLoadState('networkidle', { timeout: 25000 }).catch(() => {})
+        await page.waitForTimeout(1000)
+      }
       await page.locator('#ctl00_MPane_m_28_196_ctnr_m_28_196_btnAra').click().catch(() => {})
       await page.waitForLoadState('networkidle', { timeout: 25000 }).catch(() => {})
       await page.waitForTimeout(2000)

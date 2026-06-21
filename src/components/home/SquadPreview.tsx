@@ -1,20 +1,22 @@
 import Link from 'next/link'
-import Image from 'next/image'
-import { playersData } from '@/data/players'
+import { getLiveTff } from '@/lib/supabase/tff-server'
 
-export default function SquadPreview() {
-  const featured = playersData.slice(0, 5)
+export default async function SquadPreview() {
+  const { squad } = await getLiveTff()
+  const featured = squad.players.slice(0, 12)
 
   return (
     <section className="py-16 bg-[#0f4a28]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-        {/* Section header — beyaz ve sarı */}
+        {/* Section header */}
         <div className="flex items-center justify-between mb-8">
           <div>
             <div className="flex items-center gap-3 mb-2">
               <span className="block w-6 h-0.5 bg-[#FFD100]" />
-              <p className="text-xs font-black tracking-widest uppercase text-[#FFD100]/60">2026-27 Sezonu</p>
+              <p className="text-xs font-black tracking-widest uppercase text-[#FFD100]/60">
+                Profesyonel Takım{squad.season ? ` · ${squad.season}` : ''}
+              </p>
             </div>
             <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight">
               Takım <span className="text-[#FFD100]">Kadrosu</span>
@@ -28,47 +30,30 @@ export default function SquadPreview() {
           </Link>
         </div>
 
-        {/* Oyuncu kartları — beyaz kart üzerinde */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
-          {featured.map((player) => (
-            <Link
-              key={player.id}
-              href={`/kadro/${player.slug}`}
-              className="group relative rounded-2xl overflow-hidden bg-white border-2 border-white/10 hover:border-[#FFD100] transition-all hover:-translate-y-1.5 duration-300 shadow-lg"
-            >
-              <div className="relative h-52 overflow-hidden bg-[#e8f5ee]">
-                <Image
-                  src={player.imageUrl}
-                  alt={player.name}
-                  fill
-                  sizes="(max-width: 640px) 50vw, 20vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                {/* Forma numarası — sarı yuvarlak */}
-                <div className="absolute top-3 left-3 w-9 h-9 flex items-center justify-center rounded-full bg-[#FFD100] text-[#0f4a28] text-xs font-black shadow-md border-2 border-white">
-                  {player.number}
-                </div>
-                {/* Yeşil alt gradient */}
-                <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent" />
-              </div>
-              <div className="p-3 bg-white">
-                <p className="text-[#092d18] text-sm font-black leading-tight">{player.name}</p>
-                <p className="text-[#1A6B3C] text-[11px] font-bold mt-0.5">{player.position}</p>
-                {/* Mini istatistik */}
-                <div className="mt-2.5 flex gap-2">
-                  <div className="flex-1 text-center bg-[#f8faf9] rounded-lg py-1.5">
-                    <div className="text-sm font-black text-[#1A6B3C]">{player.stats.goals}</div>
-                    <div className="text-[9px] text-gray-400 font-semibold uppercase tracking-wide">Gol</div>
+        {featured.length === 0 ? (
+          <div className="bg-white/5 border border-white/10 rounded-2xl p-10 text-center">
+            <p className="text-white font-bold">Kadro Güncelleniyor...</p>
+            <p className="text-white/40 text-sm mt-1">Güncel sezon kadrosu yakında yayınlanacak.</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+            {featured.map((p, i) => {
+              const initials = p.name.split(' ').filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toLocaleUpperCase('tr-TR')
+              return (
+                <div key={`${p.name}-${i}`}
+                  className="flex items-center gap-3 rounded-2xl bg-white/5 border border-white/10 hover:border-[#FFD100]/50 hover:bg-white/8 transition-all p-3.5">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#FFD100] text-[#0f4a28] text-sm font-black shrink-0">
+                    {initials}
                   </div>
-                  <div className="flex-1 text-center bg-[#f8faf9] rounded-lg py-1.5">
-                    <div className="text-sm font-black text-[#FFD100]">{player.stats.assists}</div>
-                    <div className="text-[9px] text-gray-400 font-semibold uppercase tracking-wide">Ast</div>
+                  <div className="min-w-0">
+                    <p className="text-white text-sm font-bold truncate">{p.name}</p>
+                    <p className="text-[#FFD100]/60 text-[11px] font-bold">Profesyonel</p>
                   </div>
                 </div>
-              </div>
-            </Link>
-          ))}
-        </div>
+              )
+            })}
+          </div>
+        )}
       </div>
     </section>
   )

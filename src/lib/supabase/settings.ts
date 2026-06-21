@@ -77,6 +77,17 @@ export async function saveTeamLogo(teamName: string, logoUrl: string): Promise<{
   }
 }
 
+/* ─── TFF KADRO (canlı, salt-okunur) ───────────────────────── */
+
+export async function getTffSquad(): Promise<{ season: string | null; players: { name: string; tffId: string | null }[] }> {
+  try {
+    const { data, error } = await client().from('tff_data').select('data').eq('id', 1).single()
+    const sq = (data?.data as { squad?: { season: string | null; players: { name: string; tffId: string | null }[] } })?.squad
+    if (!error && sq?.players?.length) return sq
+  } catch {}
+  return { season: null, players: [] }
+}
+
 /* ─── GÖRSEL YÜKLEME (Storage + otomatik boyutlandırma) ─────── */
 
 /**
