@@ -222,6 +222,56 @@ async function cekFikstur(page) {
   return fixtures
 }
 
+/* ─── 3) KADRO (oyuncular) ─────────────────────────────────── */
+// BÜYÜK HARF ismi → "Başlık Düzeni"
+function titleCaseTr(s) {
+  return s.toLocaleLowerCase('tr-TR').split(' ')
+    .map((w) => (w ? w.charAt(0).toLocaleUpperCase('tr-TR') + w.slice(1) : w)).join(' ').trim()
+}
+
+async function cekKadro(page) {
+  log('Kadro çekiliyor → en güncel dolu sezon aranıyor...')
+  // En yeniden eskiye dene; ilk dolu sezonu kullan
+  const seasonlar = ['2026-2027', '2025-2026', '2024-2025']
+  for (const season of seasonlar) {
+    try {
+      await page.goto(FIXTURE_URL, { waitUntil: 'networkidle', timeout: 60000 })
+      await page.waitForTimeout(1200)
+      const si = page.locator('#ctl00_MPane_m_28_196_ctnr_m_28_196_SezonSelector1_combo_Input')
+      const cur = await si.inputValue().catch(() => '')
+      if (cur.trim() !== season) {
+        await si.click(); await si.fill(''); await si.type(season, { delay: 40 })
+        await page.waitForTimeout(800); await si.press('Enter')
+        await page.waitForLoadState('networkidle', { timeout: 25000 }).catch(() => {})
+        await page.waitForTimeout(1200)
+      }
+      await page.locator('#ctl00_MPane_m_28_196_ctnr_m_28_196_btnAra').click().catch(() => {})
+      await page.waitForLoadState('networkidle', { timeout: 25000 }).catch(() => {})
+      await page.waitForTimeout(2000)
+
+      const players = await page.$$eval(
+        '[id*="grdKadro"] tr.GridRow_TFF_Contents a[id*="lnkOyuncu"], [id*="grdKadro"] tr.GridAltRow_TFF_Contents a[id*="lnkOyuncu"]',
+        (as) => as.map((a) => ({
+          name: a.textContent.replace(/\s+/g, ' ').trim(),
+          href: a.getAttribute('href') || '',
+        }))
+      )
+      if (players.length > 0) {
+        const list = players.map((p) => {
+          const idm = p.href.match(/kisiId=(\d+)/i)
+          return { name: titleCaseTr(p.name), tffId: idm ? idm[1] : null }
+        })
+        log(`✓ Kadro: ${list.length} oyuncu (sezon: ${season})`)
+        return { season, players: list }
+      }
+    } catch (e) {
+      log(`Kadro sezon ${season} denenirken hata: ${e.message}`)
+    }
+  }
+  log('⚠ Kadro: hiçbir sezonda oyuncu bulunamadı (Kadro Güncelleniyor durumu)')
+  return { season: null, players: [] }
+}
+
 /* ─── ANA AKIŞ ─────────────────────────────────────────────── */
 async function main() {
   const browser = await chromium.launch({ headless: true })
@@ -236,6 +286,7 @@ async function main() {
     const standings = await cekPuanDurumu(page)
     const logos = await cekLogolar(page, standings)
     const fixtures = await cekFikstur(page)
+    const kadro = await cekKadro(page)
 
     // Logoları standings satırlarına ekle
     standings.forEach((s) => { s.logo = logos[s.team] ?? null })
@@ -248,6 +299,7 @@ async function main() {
       standings,
       logos,
       sanliurfasporFixtures: fixtures,
+      squad: kadro,
     }
 
     mkdirSync(dirname(OUT_FILE), { recursive: true })

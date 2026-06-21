@@ -69,11 +69,24 @@ const kulupMenu = [
   },
 ]
 
-const navLinks = [
+const navLinks: {
+  label: string
+  href: string
+  hasMega?: boolean
+  submenu?: { label: string; href: string }[]
+}[] = [
   { label: 'HABERLER', href: '/haberler' },
   { label: 'KULÜP', href: '#', hasMega: true },
   { label: 'KADRO', href: '/kadro' },
-  { label: 'FİKSTÜR', href: '/fikstur' },
+  {
+    label: 'MAÇ MERKEZİ',
+    href: '/fikstur',
+    submenu: [
+      { label: 'Fikstür', href: '/fikstur?t=fikstur' },
+      { label: 'Sonuçlar', href: '/fikstur?t=sonuclar' },
+      { label: 'Puan Durumu', href: '/fikstur?t=puan' },
+    ],
+  },
   { label: 'TARAFTAR', href: '#' },
   { label: 'İLETİŞİM', href: '/iletisim' },
 ]
@@ -181,6 +194,32 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
                       <ChevronDown size={10} className={cn('transition-transform duration-200', megaOpen && 'rotate-180')} />
                     </button>
                   </div>
+                ) : link.submenu ? (
+                  <div key={link.label} className="relative flex items-center group">
+                    <Link href={link.href}
+                      className={cn(
+                        'flex items-center gap-1 h-full px-4 text-[12px] font-black tracking-widest transition-colors border-b-2',
+                        pathname === link.href
+                          ? 'text-[#FFD100] border-[#FFD100]'
+                          : 'text-white/75 hover:text-white border-transparent group-hover:border-white/20'
+                      )}>
+                      {link.label}
+                      <ChevronDown size={10} className="transition-transform duration-200 group-hover:rotate-180" />
+                    </Link>
+                    {/* Küçük dropdown */}
+                    <div className="absolute top-full left-0 w-48 pt-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
+                      <div className="bg-[#092d18] border border-white/10 rounded-xl shadow-2xl shadow-black/40 overflow-hidden">
+                        <div className="h-0.5 bg-gradient-to-r from-[#1A6B3C] via-[#FFD100] to-[#1A6B3C]" />
+                        {link.submenu.map((item) => (
+                          <Link key={item.href} href={item.href}
+                            className="flex items-center gap-2 px-4 py-3 text-sm text-white/65 hover:text-white hover:bg-white/8 transition-colors border-b border-white/5 last:border-0">
+                            <span className="w-1 h-1 rounded-full bg-[#FFD100]/40" />
+                            {item.label}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
                 ) : (
                   <Link key={link.href} href={link.href}
                     className={cn(
@@ -277,6 +316,17 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
                   <div className="ml-4 mt-1 mb-2 space-y-0.5">
                     {kulupMenu.flatMap((col) => col.linkler).map((item) => (
                       <Link key={item.label} href={item.href}
+                        className="block pl-4 py-2 text-xs text-white/40 hover:text-white/80 rounded-lg transition-colors"
+                        onClick={() => setMobileOpen(false)}>
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+                {link.submenu && (
+                  <div className="ml-4 mt-1 mb-2 space-y-0.5">
+                    {link.submenu.map((item) => (
+                      <Link key={item.href} href={item.href}
                         className="block pl-4 py-2 text-xs text-white/40 hover:text-white/80 rounded-lg transition-colors"
                         onClick={() => setMobileOpen(false)}>
                         {item.label}

@@ -37,6 +37,9 @@ export type TffFixture = {
   result: 'G' | 'M' | 'B'
 }
 
+export type TffSquadPlayer = { name: string; tffId: string | null }
+export type TffSquad = { season: string | null; players: TffSquadPlayer[] }
+
 export type TffRaw = {
   updatedAt: string
   league: string
@@ -44,6 +47,7 @@ export type TffRaw = {
   standings: TffStanding[]
   logos?: Record<string, string>
   sanliurfasporFixtures: TffFixture[]
+  squad?: TffSquad
 }
 
 const SANLIURFA_LOGO = 'https://placehold.co/48x48/1A6B3C/FFD100?text=%C5%9EFK'
@@ -117,6 +121,10 @@ export function buildMatches(raw: TffRaw): Match[] {
 
 export function buildMeta(raw: TffRaw) {
   return { updatedAt: raw.updatedAt, league: raw.league, season: raw.season }
+}
+
+export function buildSquad(raw: TffRaw): TffSquad {
+  return raw.squad ?? { season: null, players: [] }
 }
 
 /* ─── Statik (yedek) veri — build-time JSON'dan ────────────── */
