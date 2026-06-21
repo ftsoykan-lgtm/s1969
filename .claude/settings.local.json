@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p \"C:/Users/ESKİ GÜMRÜKLEME/Desktop/ssk/src/app/haberler/[slug]\")",
+      "Bash(npm run *)",
+      "Bash(rm -rf .github/workflows/tff-guncelle.yml)",
+      "Bash(rmdir .github/workflows .github)"
+    ]
+  }
+}

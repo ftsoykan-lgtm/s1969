@@ -1,0 +1,43 @@
+name: TFF Verisini Güncelle
+
+# Her Pazartesi 06:00 UTC (Türkiye 09:00) + elle tetikleme
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repoyu çek
+        uses: actions/checkout@v4
+
+      - name: Node kur
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Bağımlılıkları yükle
+        run: npm ci
+
+      - name: Playwright Chromium yükle
+        run: npx playwright install --with-deps chromium
+
+      - name: TFF verisini çek ve Supabase'e yaz
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: npm run tff
+
+      - name: Güncellenen JSON'u commit et (varsa)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/tff-live.json
+          git diff --staged --quiet || git commit -m "chore: TFF verisi otomatik güncellendi"
+          git push
+        continue-on-error: true
