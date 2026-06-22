@@ -31,13 +31,12 @@ function MatchCard({ match }: { match: Match }) {
       </div>
       <p className="text-[12px] text-[#7aab8e] font-semibold mb-4">{formatDate(match.date)}</p>
 
-      {/* Takımlar + skor */}
-      <div className="grid grid-cols-[1fr_auto_1fr] items-start gap-2">
-        <div className="flex flex-col items-center gap-2">
+      {/* Logolar + skor — daima ortalı/hizalı */}
+      <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
+        <div className="flex justify-center">
           <div className="relative w-14 h-14"><Image src={match.homeTeamLogo} alt={match.homeTeam} fill className="object-contain" /></div>
-          <span className={`text-[11px] font-bold text-center leading-tight line-clamp-2 min-h-[28px] ${urfaIsHome ? 'text-[#1A6B3C]' : 'text-[#092d18]'}`}>{match.homeTeam}</span>
         </div>
-        <div className="flex items-center gap-1.5 px-1 pt-1">
+        <div className="flex items-center gap-1.5 px-1">
           {match.isCompleted ? (
             <>
               <span className="w-10 h-11 flex items-center justify-center rounded-lg bg-[#0f4a28] text-2xl font-black text-white tabular-nums">{match.homeScore}</span>
@@ -47,10 +46,16 @@ function MatchCard({ match }: { match: Match }) {
             <span className="h-11 flex items-center text-sm font-black text-[#7aab8e] px-2">VS</span>
           )}
         </div>
-        <div className="flex flex-col items-center gap-2">
+        <div className="flex justify-center">
           <div className="relative w-14 h-14"><Image src={match.awayTeamLogo} alt={match.awayTeam} fill className="object-contain" /></div>
-          <span className={`text-[11px] font-bold text-center leading-tight line-clamp-2 min-h-[28px] ${!urfaIsHome ? 'text-[#1A6B3C]' : 'text-[#092d18]'}`}>{match.awayTeam}</span>
         </div>
+      </div>
+
+      {/* Takım isimleri — ayrı satır, sabit yükseklik */}
+      <div className="grid grid-cols-[1fr_auto_1fr] gap-2 mt-2.5">
+        <span className={`text-[11px] font-bold text-center leading-tight line-clamp-2 min-h-[30px] ${urfaIsHome ? 'text-[#1A6B3C]' : 'text-[#092d18]'}`}>{match.homeTeam}</span>
+        <span className="w-[88px]" />
+        <span className={`text-[11px] font-bold text-center leading-tight line-clamp-2 min-h-[30px] ${!urfaIsHome ? 'text-[#1A6B3C]' : 'text-[#092d18]'}`}>{match.awayTeam}</span>
       </div>
 
       {/* Stat — alta sabit */}
