@@ -5,6 +5,7 @@ import Navbar from './Navbar'
 import Footer from './Footer'
 import SplashScreen from './SplashScreen'
 import SponsorsSection from '@/components/home/SponsorsSection'
+import SocialSection from './SocialSection'
 import type { ClubInfo } from '@/data/club'
 import type { Sponsor } from '@/types'
 
@@ -26,6 +27,7 @@ export default function SiteShell({
       <Navbar club={club} />
       <main className="flex-1">{children}</main>
       <SponsorsSection sponsors={sponsors} />
+      <SocialSection club={club} />
       <Footer club={club} />
     </>
   )

@@ -48,6 +48,7 @@ export interface ClubInfo {
     youtube: string
     tiktok: string
   }
+  hashtag: string
 
   // Görseller
   logoUrl: string
@@ -85,6 +86,7 @@ export const clubInfo: ClubInfo = {
     youtube: 'https://www.youtube.com/@sanliurfaspor',
     tiktok: 'https://www.tiktok.com/@sanliurfaspor',
   },
+  hashtag: '#Şanlıurfaspor',
 
   logoUrl: 'https://placehold.co/96x96/1A6B3C/FFD100?text=%C5%9EFK',
 }

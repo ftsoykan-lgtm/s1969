@@ -49,6 +49,7 @@ export default function AdminAyarlarPage() {
     facebook: clubInfo.social.facebook, twitter: clubInfo.social.twitter,
     instagram: clubInfo.social.instagram, youtube: clubInfo.social.youtube, tiktok: clubInfo.social.tiktok,
   })
+  const [hashtag, setHashtag] = useState(clubInfo.hashtag)
   const [contact, setContact] = useState({
     address: clubInfo.address, phone: clubInfo.phone, email: clubInfo.email,
     workHours: clubInfo.workHours, mapUrl: clubInfo.mapEmbedUrl,
@@ -64,6 +65,7 @@ export default function AdminAyarlarPage() {
         president: s.president, headCoach: s.headCoach, logoUrl: s.logoUrl,
       })
       setSocial({ ...s.social })
+      setHashtag(s.hashtag ?? clubInfo.hashtag)
       setContact({ address: s.address, phone: s.phone, email: s.email, workHours: s.workHours, mapUrl: s.mapEmbedUrl })
       setLoading(false)
     })
@@ -80,6 +82,7 @@ export default function AdminAyarlarPage() {
       address: contact.address, phone: contact.phone, email: contact.email,
       workHours: contact.workHours, mapEmbedUrl: contact.mapUrl,
       social: { ...social },
+      hashtag,
     }
     const res = await saveSettings(payload)
     setSaving(false)
@@ -166,6 +169,11 @@ export default function AdminAyarlarPage() {
                 </div>
               </Field>
             ))}
+            <div className="pt-3 border-t border-[#edf7f2]">
+              <Field label="Hashtag" hint="Sosyal medya bölümünün altında gösterilir">
+                <Input value={hashtag} onChange={e => setHashtag(e.target.value)} placeholder="#Şanlıurfaspor" />
+              </Field>
+            </div>
           </div>
         )}
 
