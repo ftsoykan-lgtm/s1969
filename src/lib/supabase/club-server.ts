@@ -15,7 +15,13 @@ export async function getClubInfo(): Promise<ClubInfo> {
       .eq('id', 1)
       .single()
     if (error || !data?.data || Object.keys(data.data).length === 0) return fallback
-    return { ...fallback, ...(data.data as Partial<ClubInfo>) }
+    const saved = data.data as Partial<ClubInfo>
+    // Sosyal medyayı alan-bazında birleştir: kayıtta boş/eksik link varsayılandan gelsin
+    const social = { ...fallback.social }
+    for (const [k, v] of Object.entries(saved.social ?? {})) {
+      if (v && v !== '#') social[k as keyof typeof social] = v as string
+    }
+    return { ...fallback, ...saved, social }
   } catch {
     return fallback
   }
