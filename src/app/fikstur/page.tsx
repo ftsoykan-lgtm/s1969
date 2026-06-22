@@ -25,7 +25,6 @@ export default async function MacMerkeziPage({
   const matches = applyLogosToMatches(rawMatches, logoMap)
   const standings = applyLogosToStandings(rawStandings, logoMap)
   const completed = matches.filter((m) => m.isCompleted)
-  const upcoming = matches.filter((m) => !m.isCompleted)
 
   return (
     <div className="min-h-screen bg-[#f5f9f6]">
@@ -45,7 +44,7 @@ export default async function MacMerkeziPage({
       </div>
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-        <MacMerkezi upcoming={upcoming} completed={completed} standings={standings} initialTab={initialTab} />
+        <MacMerkezi all={matches} completed={completed} standings={standings} initialTab={initialTab} />
       </div>
     </div>
   )

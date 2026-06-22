@@ -109,9 +109,9 @@ function StandingsTable({ standings }: { standings: StandingRow[] }) {
 }
 
 export default function MacMerkezi({
-  upcoming, completed, standings, initialTab = 'fikstur',
+  all, completed, standings, initialTab = 'fikstur',
 }: {
-  upcoming: Match[]
+  all: Match[]
   completed: Match[]
   standings: StandingRow[]
   initialTab?: Tab
@@ -132,15 +132,15 @@ export default function MacMerkezi({
         ))}
       </div>
 
-      {/* Fikstür (yaklaşan) */}
+      {/* Fikstür (tüm maçlar) */}
       {tab === 'fikstur' && (
         <div className="space-y-2 max-w-3xl">
-          {upcoming.length > 0 ? (
-            upcoming.map((m) => <MatchRow key={m.id} match={m} />)
+          {all.length > 0 ? (
+            all.map((m) => <MatchRow key={m.id} match={m} />)
           ) : (
             <div className="bg-white rounded-2xl border border-[#ddeae2] p-10 text-center">
-              <p className="text-sm font-bold text-[#092d18]">Yaklaşan maç bulunmuyor</p>
-              <p className="text-xs text-[#7aab8e] mt-1">Yeni sezon fikstürü açıklandığında burada görünecek.</p>
+              <p className="text-sm font-bold text-[#092d18]">Fikstür bulunmuyor</p>
+              <p className="text-xs text-[#7aab8e] mt-1">Sezon fikstürü açıklandığında burada görünecek.</p>
             </div>
           )}
         </div>

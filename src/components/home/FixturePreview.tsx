@@ -1,116 +1,133 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { formatDate } from '@/lib/utils'
-import { Match } from '@/types'
-import { MapPin } from 'lucide-react'
-import { getTeamLogoMap, applyLogosToMatches } from '@/lib/supabase/logos-server'
+import { Match, StandingRow } from '@/types'
+import { MapPin, ArrowUpRight } from 'lucide-react'
+import { getTeamLogoMap, applyLogosToMatches, applyLogosToStandings } from '@/lib/supabase/logos-server'
 import { getLiveTff } from '@/lib/supabase/tff-server'
 
+/* ─── Tek maç kartı ─────────────────────────────────────────── */
 function MatchCard({ match }: { match: Match }) {
-  const urfaIsHome = match.homeTeam === 'Şanlıurfaspor'
-  const urfaScore = urfaIsHome ? match.homeScore : match.awayScore
-  const oppScore = urfaIsHome ? match.awayScore : match.homeScore
-  const result = match.isCompleted && urfaScore !== null && oppScore !== null
-    ? urfaScore > oppScore ? 'G' : urfaScore < oppScore ? 'M' : 'B'
-    : null
-
-  // Sonuca göre kart rengi (G: yeşil, M: kırmızı, B: sarı)
-  const cardStyle =
-    result === 'G' ? 'bg-[#edf7f2] border-[#1A6B3C]/40'
-    : result === 'M' ? 'bg-red-50 border-red-200'
-    : 'bg-white border-[#ddeae2]'
-  const scoreColor =
-    result === 'G' ? 'text-[#1A6B3C]'
-    : result === 'M' ? 'text-red-600'
-    : 'text-[#0f4a28]'
-
   return (
-    <div className={`rounded-2xl p-5 border-2 shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5 duration-200 ${cardStyle}`}>
-      {/* Üst etiket */}
-      <div className="flex items-center justify-between mb-4 h-4">
-        <span className="text-[10px] font-black tracking-widest uppercase text-[#1A6B3C] truncate">
-          {match.competition}{match.week ? ` ${match.week}.Hafta` : ''}
+    <div className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm p-4 hover:shadow-md transition-all">
+      {/* Üst: hafta + tarih */}
+      <div className="flex items-center justify-between mb-4">
+        <span className="text-[10px] font-black tracking-widest uppercase text-[#1A6B3C]">
+          {match.week ? `${match.week}. Hafta` : match.competition}
         </span>
-        {!match.isCompleted && (
-          <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-[#FFD100]/30 text-[#0f4a28] shrink-0 ml-2">YAKLAŞAN</span>
-        )}
       </div>
+      <p className="text-[11px] text-[#7aab8e] font-semibold mb-3">{formatDate(match.date)}</p>
 
-      {/* Takımlar ve skor — sabit 3 sütun (kaymaz) */}
-      <div className="grid grid-cols-[1fr_auto_1fr] items-start gap-2">
-        {/* Ev sahibi */}
-        <div className="flex flex-col items-center gap-2 min-w-0">
-          <div className="relative w-10 h-10 shrink-0">
+      {/* Takımlar + skor */}
+      <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
+        <div className="flex justify-center">
+          <div className="relative w-12 h-12">
             <Image src={match.homeTeamLogo} alt={match.homeTeam} fill className="object-contain" />
           </div>
-          <span className="text-xs font-bold text-[#092d18] text-center w-full truncate">{match.homeTeam}</span>
         </div>
-
-        {/* Skor — sabit genişlik, asla bölünmez */}
-        <div className="flex items-center justify-center px-1 pt-1 shrink-0">
-          {match.isCompleted ? (
-            <span className={`text-2xl font-black tabular-nums whitespace-nowrap tracking-tight ${scoreColor}`}>
-              {match.homeScore}<span className="text-[#7aab8e] mx-1">-</span>{match.awayScore}
-            </span>
-          ) : (
-            <div className="text-center whitespace-nowrap">
-              <div className="text-base font-black text-[#1A6B3C]">{match.time || 'vs'}</div>
-              <div className="text-[10px] text-[#7aab8e] mt-0.5">{formatDate(match.date)}</div>
-            </div>
-          )}
+        <div className="flex items-center gap-1 px-1">
+          <span className="w-8 h-9 flex items-center justify-center rounded-lg bg-[#f5f9f6] text-xl font-black text-[#092d18] tabular-nums">{match.homeScore}</span>
+          <span className="text-[#7aab8e] font-black">-</span>
+          <span className="w-8 h-9 flex items-center justify-center rounded-lg bg-[#f5f9f6] text-xl font-black text-[#092d18] tabular-nums">{match.awayScore}</span>
         </div>
-
-        {/* Deplasman */}
-        <div className="flex flex-col items-center gap-2 min-w-0">
-          <div className="relative w-10 h-10 shrink-0">
+        <div className="flex justify-center">
+          <div className="relative w-12 h-12">
             <Image src={match.awayTeamLogo} alt={match.awayTeam} fill className="object-contain" />
           </div>
-          <span className="text-xs font-bold text-[#092d18] text-center w-full truncate">{match.awayTeam}</span>
         </div>
       </div>
 
-      <div className="mt-4 flex items-center gap-1.5 text-[11px] text-[#7aab8e] border-t border-black/5 pt-3">
-        <MapPin size={11} className="shrink-0 text-[#1A6B3C]" />
+      {/* Stat */}
+      <div className="mt-4 pt-3 border-t border-[#edf7f2] flex items-center gap-1.5 text-[11px] text-[#7aab8e]">
+        <MapPin size={11} className="text-[#1A6B3C] shrink-0" />
         <span className="truncate">{match.venue}</span>
       </div>
     </div>
   )
 }
 
+/* ─── Mini puan durumu ──────────────────────────────────────── */
+function MiniStandings({ standings }: { standings: StandingRow[] }) {
+  const ourIdx = standings.findIndex((s) => s.isCurrentTeam)
+  // Bizi içerecek şekilde ~6 satır göster
+  let shown = standings.slice(0, 6)
+  if (ourIdx >= 6) shown = [...standings.slice(0, 5), standings[ourIdx]]
+
+  return (
+    <div className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm overflow-hidden">
+      <div className="grid grid-cols-[1fr_56px_48px] gap-2 px-5 py-3.5 border-b border-[#edf7f2]">
+        <span className="text-xs font-black text-[#092d18]">Takım</span>
+        <span className="text-[11px] font-bold text-[#7aab8e] text-center">Averaj</span>
+        <span className="text-[11px] font-bold text-[#7aab8e] text-center">Puan</span>
+      </div>
+      {shown.map((row) => {
+        const av = row.goalsFor - row.goalsAgainst
+        return (
+          <div key={row.rank}
+            className={`grid grid-cols-[1fr_56px_48px] gap-2 items-center px-5 py-3.5 transition-colors ${
+              row.isCurrentTeam ? 'bg-[#092d18]' : 'border-b border-[#edf7f2] last:border-0'
+            }`}>
+            <div className="flex items-center gap-3 min-w-0">
+              <span className={`flex h-6 w-6 items-center justify-center rounded-full text-[11px] font-black shrink-0 ${
+                row.isCurrentTeam ? 'bg-[#FFD100] text-[#092d18]' : 'bg-[#f5f9f6] text-[#7aab8e]'
+              }`}>{row.rank}</span>
+              <span className={`text-sm font-bold truncate ${row.isCurrentTeam ? 'text-white' : 'text-[#092d18]'}`}>{row.team}</span>
+            </div>
+            <span className={`text-xs text-center tabular-nums ${row.isCurrentTeam ? 'text-white/80' : 'text-[#3d6b52]'}`}>
+              {av > 0 ? `+${av}` : av}
+            </span>
+            <span className={`text-sm font-black text-center tabular-nums ${row.isCurrentTeam ? 'text-[#FFD100]' : 'text-[#092d18]'}`}>{row.points}</span>
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
+/* ─── Bölüm ─────────────────────────────────────────────────── */
 export default async function FixturePreview() {
-  const [{ matches, meta: fixtureMeta }, logoMap] = await Promise.all([getLiveTff(), getTeamLogoMap()])
+  const [{ matches, standings: rawStandings, meta }, logoMap] = await Promise.all([getLiveTff(), getTeamLogoMap()])
   const allMatches = applyLogosToMatches(matches, logoMap)
-  const upcomingMatches = allMatches.filter((m) => !m.isCompleted).slice(0, 4)
-  // Yaklaşan maç yoksa (sezon arası) son oynanan 4 maçı göster
-  const displayMatches = upcomingMatches.length >= 4
-    ? upcomingMatches
-    : [...allMatches.filter((m) => m.isCompleted).slice(-(4 - upcomingMatches.length)), ...upcomingMatches]
+  const standings = applyLogosToStandings(rawStandings, logoMap)
+  const completed = allMatches.filter((m) => m.isCompleted)
+  const lastThree = completed.slice(-3)
 
   return (
     <section className="py-16 bg-[#f8faf9]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-        {/* Section header */}
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <div className="flex items-center gap-3 mb-2">
-              <span className="block w-6 h-0.5 bg-[#1A6B3C]" />
-              <p className="text-xs font-black tracking-widest uppercase text-[#1A6B3C]/70">{fixtureMeta.league} · {fixtureMeta.season}</p>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-black text-[#092d18] tracking-tight">
-              Fikstür & <span className="text-[#1A6B3C]">Sonuçlar</span>
-            </h2>
-          </div>
-          <Link
-            href="/fikstur"
-            className="hidden sm:inline-flex text-sm font-bold text-white bg-[#1A6B3C] rounded-xl px-4 py-2 hover:bg-[#0f4a28] transition-colors shadow-sm"
-          >
-            Tam Fikstür →
-          </Link>
+        {/* Başlık */}
+        <div className="flex items-center gap-4 mb-8">
+          <span className="block w-1.5 h-9 bg-[#FFD100] rounded-full" />
+          <h2 className="text-3xl md:text-4xl font-black text-[#092d18] tracking-tight">Maç Merkezi</h2>
+          <span className="ml-auto text-xs font-bold text-[#7aab8e] hidden sm:block">{meta.league} · {meta.season}</span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {displayMatches.map((m) => <MatchCard key={m.id} match={m} />)}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-6">
+          {/* Sol: son 3 maç */}
+          <div>
+            {lastThree.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                {lastThree.map((m) => <MatchCard key={m.id} match={m} />)}
+              </div>
+            ) : (
+              <div className="bg-white rounded-2xl border border-[#ddeae2] p-10 text-center text-sm text-[#7aab8e]">
+                Henüz oynanmış maç yok.
+              </div>
+            )}
+          </div>
+
+          {/* Sağ: puan durumu */}
+          <MiniStandings standings={standings} />
+        </div>
+
+        {/* Orta buton */}
+        <div className="flex justify-center mt-8">
+          <Link href="/fikstur"
+            className="inline-flex items-center gap-2 bg-white border border-[#ddeae2] hover:border-[#1A6B3C]/40 hover:shadow-md text-[#092d18] font-bold text-sm px-6 py-3.5 rounded-2xl transition-all">
+            Maç Merkezine Git
+            <ArrowUpRight size={16} className="text-[#1A6B3C]" />
+          </Link>
         </div>
       </div>
     </section>
