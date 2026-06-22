@@ -14,23 +14,31 @@ function tarihSaat(dateISO: string, time?: string): string {
 }
 
 /* ─── Maç kartı (Trabzonspor tarzı) ─────────────────────────── */
-function MatchCard({ match }: { match: Match }) {
+function MatchCard({ match, logos }: { match: Match; logos: Record<string, string> }) {
   const urfaIsHome = match.homeTeam === 'Şanlıurfaspor'
   const urfaScore = urfaIsHome ? match.homeScore : match.awayScore
   const oppScore = urfaIsHome ? match.awayScore : match.homeScore
   const result = match.isCompleted && urfaScore !== null && oppScore !== null
     ? urfaScore > oppScore ? 'G' : urfaScore < oppScore ? 'M' : 'B'
     : null
+  const tournamentLogo = logos[match.competition]
 
   return (
     <div className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm hover:shadow-md transition-all overflow-hidden">
-      {/* Üst şerit: hafta/turnuva */}
+      {/* Üst şerit: turnuva logosu + hafta */}
       <div className="flex items-center justify-between px-4 py-2.5 bg-[#f5f9f6] border-b border-[#edf7f2]">
-        <span className="text-[10px] font-black tracking-widest uppercase text-[#1A6B3C] truncate">
-          {match.week ? `${match.week}. Hafta` : 'Kupa'}
-        </span>
+        <div className="flex items-center gap-2 min-w-0">
+          {tournamentLogo && (
+            <div className="relative w-5 h-5 shrink-0">
+              <Image src={tournamentLogo} alt={match.competition} fill className="object-contain" />
+            </div>
+          )}
+          <span className="text-[10px] font-black tracking-widest uppercase text-[#1A6B3C] truncate">
+            {match.week ? `${match.week}. Hafta` : 'Kupa'}
+          </span>
+        </div>
         {result && (
-          <span className={`w-2 h-2 rounded-full ${result === 'G' ? 'bg-[#1A6B3C]' : result === 'M' ? 'bg-red-500' : 'bg-[#7aab8e]'}`} />
+          <span className={`w-2 h-2 rounded-full shrink-0 ${result === 'G' ? 'bg-[#1A6B3C]' : result === 'M' ? 'bg-red-500' : 'bg-[#7aab8e]'}`} />
         )}
       </div>
 
@@ -119,11 +127,12 @@ function StandingsTable({ standings }: { standings: StandingRow[] }) {
 
 /* ─── Maç Merkezi (tek sayfa, sekmesiz) ─────────────────────── */
 export default function MacMerkezi({
-  all, standings, season,
+  all, standings, season, logos = {},
 }: {
   all: Match[]
   standings: StandingRow[]
   season?: string
+  logos?: Record<string, string>
 }) {
   const [tournament, setTournament] = useState<string>('hepsi')
 
@@ -161,7 +170,7 @@ export default function MacMerkezi({
         <div>
           {matches.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-              {matches.map((m) => <MatchCard key={m.id} match={m} />)}
+              {matches.map((m) => <MatchCard key={m.id} match={m} logos={logos} />)}
             </div>
           ) : (
             <div className="bg-white rounded-2xl border border-[#ddeae2] p-10 text-center">

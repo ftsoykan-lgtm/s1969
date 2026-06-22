@@ -243,21 +243,27 @@ async function cekFikstur(page) {
 
   log(`✓ ${fixtures.length} maç çekildi (sezon: ${SEASON})`)
 
-  // Her maçın saatini detay sayfasından çek (pageID=29&macID=...)
-  log('Maç saatleri çekiliyor...')
-  let saatli = 0
+  // Her maçın saatini + stadyumunu detay sayfasından çek (pageID=29&macID=...)
+  log('Maç saati + stadyum çekiliyor...')
+  let saatli = 0, statli = 0
   for (const f of fixtures) {
     if (!f.macId) continue
     try {
       await page.goto(`https://www.tff.org/Default.aspx?pageID=29&macID=${f.macId}`,
         { waitUntil: 'domcontentloaded', timeout: 25000 })
       const txt = await page.evaluate(() => document.body.innerText)
-      // "24.08.2025 - 19:00" gibi
+      // Saat: "24.08.2025 - 19:00"
       const tm = txt.match(/\d{2}\.\d{2}\.\d{4}\s*[-–]\s*(\d{2}:\d{2})/)
       if (tm) { f.time = tm[1]; saatli++ }
+      // Stadyum: tarih-saatin hemen üstündeki satır → "11 NİSAN STADYUMU - ŞANLIURFA - ..."
+      const vm = txt.match(/([^\n]{4,90})\n\s*\d{2}\.\d{2}\.\d{4}\s*[-–]\s*\d{2}:\d{2}/)
+      if (vm) {
+        const stat = vm[1].split(/\s+-\s+/)[0].trim()
+        if (stat && stat.length >= 4 && !/\d{2}:\d{2}/.test(stat)) { f.venue = titleCaseTr(stat); statli++ }
+      }
     } catch {}
   }
-  log(`✓ ${saatli}/${fixtures.length} maç saati bulundu`)
+  log(`✓ Saat: ${saatli}/${fixtures.length} · Stadyum: ${statli}/${fixtures.length}`)
 
   // Geçici alanları temizle
   return fixtures.map(({ macId, ...rest }) => rest)

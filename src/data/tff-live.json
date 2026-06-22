@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-22T08:30:01.941Z",
+  "updatedAt": "2026-06-22T08:57:51.763Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2025-2026",
@@ -324,7 +324,8 @@
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": true,
       "opponent": "BEYKOZ ANADOLU SPOR A.Ş.",
-      "result": "G"
+      "result": "G",
+      "venue": "11 Nisan Stadyumu"
     },
     {
       "week": 2,
@@ -338,7 +339,8 @@
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": false,
       "opponent": "BUCASPOR 1928",
-      "result": "G"
+      "result": "G",
+      "venue": "Yeni Buca Stadı"
     },
     {
       "week": null,
@@ -380,7 +382,8 @@
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": false,
       "opponent": "SULTAN SU İNEGÖLSPOR",
-      "result": "G"
+      "result": "G",
+      "venue": "İnegöl İlçe Stadı"
     },
     {
       "week": null,
@@ -394,7 +397,8 @@
       "competition": "Ziraat Türkiye Kupası",
       "isHome": false,
       "opponent": "DERSİM SPOR",
-      "result": "M"
+      "result": "M",
+      "venue": "Tunceli Atatürk"
     },
     {
       "week": 5,
@@ -408,7 +412,8 @@
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": true,
       "opponent": "MERKÜR JET ERBAASPOR",
-      "result": "B"
+      "result": "B",
+      "venue": "11 Nisan Stadyumu"
     },
     {
       "week": 6,
@@ -422,7 +427,8 @@
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": false,
       "opponent": "İSKENDERUNSPOR A.Ş.",
-      "result": "G"
+      "result": "G",
+      "venue": "Kırıkhan İlçe"
     },
     {
       "week": 7,
@@ -450,7 +456,8 @@
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": false,
       "opponent": "ADANA 01 FUTBOL KULÜBÜ SK",
-      "result": "G"
+      "result": "G",
+      "venue": "Ali Hoşfikirer Stadı"
     },
     {
       "week": 9,
@@ -464,7 +471,8 @@
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": true,
       "opponent": "SEZA ÇİMENTO ELAZIĞSPOR",
-      "result": "M"
+      "result": "M",
+      "venue": "11 Nisan Stadyumu"
     },
     {
       "week": 10,
@@ -478,7 +486,8 @@
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": false,
       "opponent": "MKE ANKARAGÜCÜ",
-      "result": "M"
+      "result": "M",
+      "venue": "Eryaman Stadyumu"
     },
     {
       "week": 11,
@@ -520,7 +529,8 @@
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": true,
       "opponent": "BATMAN PETROL SPOR A.Ş.",
-      "result": "M"
+      "result": "M",
+      "venue": "11 Nisan Stadyumu"
     },
     {
       "week": 14,
@@ -534,7 +544,8 @@
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": false,
       "opponent": "KARACABEY BELEDİYE SPOR A.Ş.",
-      "result": "G"
+      "result": "G",
+      "venue": "Karacabey M.fehmi Gerçeker Stadı"
     },
     {
       "week": 15,
@@ -562,7 +573,8 @@
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": false,
       "opponent": "GMG KASTAMONUSPOR",
-      "result": "G"
+      "result": "G",
+      "venue": "Gazi Stadı"
     },
     {
       "week": 18,
@@ -576,7 +588,8 @@
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": true,
       "opponent": "MUĞLASPOR KULÜBÜ",
-      "result": "B"
+      "result": "B",
+      "venue": "11 Nisan Stadyumu"
     },
     {
       "week": 19,
@@ -590,7 +603,8 @@
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": false,
       "opponent": "SİNCAN BELEDİYESİ ANKARASPOR",
-      "result": "M"
+      "result": "M",
+      "venue": "Sincan 15 Temmuz Milli Birlik Stadı"
     },
     {
       "week": 20,
@@ -604,7 +618,8 @@
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": false,
       "opponent": "BEYKOZ ANADOLU SPOR A.Ş.",
-      "result": "G"
+      "result": "G",
+      "venue": "Maltepe Hasan Polat"
     },
     {
       "week": 21,
@@ -618,7 +633,8 @@
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": true,
       "opponent": "BUCASPOR 1928",
-      "result": "G"
+      "result": "G",
+      "venue": "11 Nisan Stadyumu"
     },
     {
       "week": 23,
@@ -632,7 +648,8 @@
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": true,
       "opponent": "SULTAN SU İNEGÖLSPOR",
-      "result": "B"
+      "result": "B",
+      "venue": "11 Nisan Stadyumu"
     },
     {
       "week": 24,
@@ -674,7 +691,8 @@
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": false,
       "opponent": "ANAGOLD 24ERZİNCANSPOR",
-      "result": "M"
+      "result": "M",
+      "venue": "Erzincan 13 Şubat Şehir Stadı"
     },
     {
       "week": 22,
@@ -688,7 +706,8 @@
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": false,
       "opponent": "KEPEZ SPOR FUTBOL A.Ş.",
-      "result": "G"
+      "result": "G",
+      "venue": "Kepez Hasan Doğan Stadı"
     },
     {
       "week": 27,
@@ -702,7 +721,8 @@
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": true,
       "opponent": "ADANA 01 FUTBOL KULÜBÜ SK",
-      "result": "M"
+      "result": "M",
+      "venue": "11 Nisan Stadyumu"
     },
     {
       "week": 28,
@@ -744,7 +764,8 @@
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": false,
       "opponent": "BEYOĞLU YENİ ÇARŞI SPOR FAALİYETLERİ A.Ş.",
-      "result": "M"
+      "result": "M",
+      "venue": "Bayrampaşa Çetin Emeç"
     },
     {
       "week": 31,
@@ -758,7 +779,8 @@
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": true,
       "opponent": "ALTINORDU",
-      "result": "B"
+      "result": "B",
+      "venue": "11 Nisan Stadyumu"
     },
     {
       "week": 32,
@@ -772,7 +794,8 @@
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": false,
       "opponent": "BATMAN PETROL SPOR A.Ş.",
-      "result": "M"
+      "result": "M",
+      "venue": "Batman Stadyumu"
     },
     {
       "week": 33,
@@ -786,7 +809,8 @@
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": true,
       "opponent": "KARACABEY BELEDİYE SPOR A.Ş.",
-      "result": "B"
+      "result": "B",
+      "venue": "11 Nisan Stadyumu"
     },
     {
       "week": 34,
@@ -814,7 +838,8 @@
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": true,
       "opponent": "GMG KASTAMONUSPOR",
-      "result": "G"
+      "result": "G",
+      "venue": "11 Nisan Stadyumu"
     },
     {
       "week": 37,
@@ -828,7 +853,8 @@
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": false,
       "opponent": "MUĞLASPOR KULÜBÜ",
-      "result": "B"
+      "result": "B",
+      "venue": "Muğla Atatürk Stadyumu"
     },
     {
       "week": 38,
@@ -842,7 +868,8 @@
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": true,
       "opponent": "SİNCAN BELEDİYESİ ANKARASPOR",
-      "result": "G"
+      "result": "G",
+      "venue": "11 Nisan Stadyumu"
     },
     {
       "week": null,
@@ -856,7 +883,8 @@
       "competition": "Nesine 2. Lig Play Off Müsabakaları",
       "isHome": true,
       "opponent": "MUĞLASPOR KULÜBÜ",
-      "result": "M"
+      "result": "M",
+      "venue": "11 Nisan Stadyumu"
     },
     {
       "week": null,

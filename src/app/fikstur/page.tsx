@@ -34,7 +34,7 @@ export default async function MacMerkeziPage() {
       </div>
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-        <MacMerkezi all={matches} standings={standings} season={meta.season} />
+        <MacMerkezi all={matches} standings={standings} season={meta.season} logos={logoMap} />
       </div>
     </div>
   )

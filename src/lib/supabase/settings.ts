@@ -88,6 +88,19 @@ export async function getTffSquad(): Promise<{ season: string | null; players: {
   return { season: null, players: [] }
 }
 
+/* ─── TFF TURNUVALARI (maçlardaki farklı turnuvalar) ───────── */
+
+export async function getTffCompetitions(): Promise<string[]> {
+  try {
+    const { data, error } = await client().from('tff_data').select('data').eq('id', 1).single()
+    const fixtures = (data?.data as { sanliurfasporFixtures?: { competition: string }[] })?.sanliurfasporFixtures
+    if (error || !fixtures) return []
+    return Array.from(new Set(fixtures.map((f) => f.competition).filter(Boolean)))
+  } catch {
+    return []
+  }
+}
+
 /* ─── OYUNCU DETAYLARI (admin düzenler) ────────────────────── */
 
 export interface PlayerDetail {
