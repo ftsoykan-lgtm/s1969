@@ -107,11 +107,7 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
       </div>
 
       {/* ── Ana bar ────────────────────────────────────────────────────── */}
-      <div className="relative bg-[#0f4a28]">
-        {/* Hareketli çizgi dokusu (saha hattı esintisi) */}
-        <div className="pointer-events-none absolute inset-0 opacity-[0.06]"
-          style={{ background: 'repeating-linear-gradient(115deg, #fff 0 1px, transparent 1px 26px)' }} />
-
+      <div className="relative bg-[#0f4a28] shadow-lg shadow-black/10">
         <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <div className="flex items-center h-[70px]">
 
@@ -187,12 +183,6 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
               </button>
             </div>
           </div>
-        </div>
-
-        {/* alt çift hat — yeşil zemin üstünde sarı/beyaz */}
-        <div className="h-[3px] flex">
-          <div className="w-1/3 bg-[#FFD100]" />
-          <div className="flex-1 bg-white/15" />
         </div>
 
         {/* ── Mega Menu ──────────────────────────────────────────────── */}
