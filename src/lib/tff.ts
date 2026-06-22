@@ -119,7 +119,7 @@ export function buildMatches(raw: TffRaw): Match[] {
       date: f.date ?? '',
       time: f.time ?? '',
       competition: f.competition,
-      venue: f.venue || (f.isHome ? 'Ev Sahibi' : 'Deplasman'),
+      venue: f.venue || '',
       isCompleted: f.homeScore !== null && f.awayScore !== null,
       isHome: f.isHome,
       week: f.week,

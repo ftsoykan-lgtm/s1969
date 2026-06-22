@@ -256,14 +256,17 @@ async function cekFikstur(page) {
         const clean = (s) => (s || '').replace(/\s+/g, ' ').trim()
         const body = document.body.innerText
 
-        // Saat + stadyum
+        // Saat + stadyum — TFF maç bilgi DOM elementlerinden (güvenilir)
+        const txt0 = (sel) => { const el = document.querySelector(sel); return el ? clean(el.textContent) : '' }
         let time = null, venue = null
-        const tm = body.match(/\d{2}\.\d{2}\.\d{4}\s*[-–]\s*(\d{2}:\d{2})/)
+        const tarihSaat = txt0('[id$="dtMacBilgisi_lblTarih"]')   // "12.04.2026 - 15:00"
+        const tm = (tarihSaat || body).match(/(\d{1,2}:\d{2})/)
         if (tm) time = tm[1]
-        const vm = body.match(/([^\n]{4,90})\n\s*\d{2}\.\d{2}\.\d{4}\s*[-–]\s*\d{2}:\d{2}/)
-        if (vm) {
-          const stat = vm[1].split(/\s+-\s+/)[0].trim()
-          if (stat && stat.length >= 4 && !/\d{2}:\d{2}/.test(stat)) venue = stat
+        const stadRaw = txt0('[id$="dtMacBilgisi_lnkStad"]')       // "11 NİSAN STADYUMU - ŞANLIURFA - ..."
+        if (stadRaw) venue = stadRaw.split(/\s+-\s+/)[0].trim()    // sadece stadyum adı
+        if (!venue) {
+          const vm = body.match(/([^\n]{4,90})\n\s*\d{2}\.\d{2}\.\d{4}\s*[-–]\s*\d{2}:\d{2}/)
+          if (vm) { const stat = vm[1].split(/\s+-\s+/)[0].trim(); if (stat && stat.length >= 4 && !/\d{2}:\d{2}/.test(stat)) venue = stat }
         }
 
         // Hakemler

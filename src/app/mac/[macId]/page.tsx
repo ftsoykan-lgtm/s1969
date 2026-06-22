@@ -4,9 +4,28 @@ import Image from 'next/image'
 import { getLiveTff } from '@/lib/supabase/tff-server'
 import { getTeamLogoMap, applyLogosToMatches } from '@/lib/supabase/logos-server'
 import { formatDate } from '@/lib/utils'
-import { ArrowLeft, MapPin, Calendar, Clock, Flag, ExternalLink, Play, Timer, Trophy } from 'lucide-react'
+import { ArrowLeft, MapPin, Calendar, Clock, Flag, ExternalLink, Timer } from 'lucide-react'
 import type { Metadata } from 'next'
 import type { LineupPlayer, MatchEvent } from '@/types'
+
+/* Düdük ikonu (maç başladı / hakem) */
+function Whistle({ size = 14, className = '' }: { size?: number; className?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path d="M12 7h9a1 1 0 0 1 1 1v1a6 6 0 1 1-7.7-5.74A1 1 0 0 1 16 4v2a1 1 0 0 1-1 1h-3zM6 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/>
+    </svg>
+  )
+}
+/* Damalı bayrak (maç sonucu) */
+function CheckeredFlag({ size = 14, className = '' }: { size?: number; className?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="M4 22V4" />
+      <path d="M4 4h14l-2 4 2 4H4" fill="currentColor" stroke="none" opacity="0.25" />
+      <path d="M4 4h14l-2 4 2 4H4" />
+    </svg>
+  )
+}
 
 export const dynamic = 'force-dynamic'
 
@@ -73,8 +92,12 @@ export default async function MacDetayPage({ params }: Props) {
         <div className="pointer-events-none absolute top-0 right-8 font-heading text-[14rem] font-black leading-none text-white/[0.02] select-none">VS</div>
 
         <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-10">
-          <Link href="/mac-merkezi" className="inline-flex items-center gap-2 text-sm text-white/55 hover:text-white transition-colors mb-8">
-            <ArrowLeft size={16} /> Maç Merkezine Dön
+          <Link href="/mac-merkezi"
+            className="group inline-flex items-center gap-2 mb-8 rounded-full bg-white/[0.07] hover:bg-[#FFD100] border border-white/15 hover:border-[#FFD100] pl-2.5 pr-4 py-2 transition-all">
+            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#FFD100] text-[#0f4a28] group-hover:bg-[#0f4a28] group-hover:text-[#FFD100] transition-colors">
+              <ArrowLeft size={14} />
+            </span>
+            <span className="text-[12px] font-black tracking-wide uppercase text-white group-hover:text-[#0f4a28] transition-colors">Maç Merkezi</span>
           </Link>
 
           <div className="flex justify-center mb-7">
@@ -135,9 +158,9 @@ export default async function MacDetayPage({ params }: Props) {
               <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-[#e3efe8]" />
               <div className="space-y-3">
                 {timeline.map((t, i) => {
-                  if (t.kind === 'start') return <Milestone key={i} icon={Play} label="Maç Başladı" tone="green" />
+                  if (t.kind === 'start') return <Milestone key={i} icon={Whistle} label="Maç Başladı" tone="green" />
                   if (t.kind === 'half') return <Milestone key={i} icon={Timer} label="İlk Yarı Sonucu" score={`${htHome} - ${htAway}`} tone="amber" />
-                  if (t.kind === 'end') return <Milestone key={i} icon={Trophy} label="Maç Sonucu" score={`${match.homeScore} - ${match.awayScore}`} tone="green" />
+                  if (t.kind === 'end') return <Milestone key={i} icon={CheckeredFlag} label="Maç Sonucu" score={`${match.homeScore} - ${match.awayScore}`} tone="green" />
                   const e = t.e
                   const isHome = e.team === 'home'
                   return (
@@ -165,8 +188,8 @@ export default async function MacDetayPage({ params }: Props) {
         {hasLineups ? (
           <Card title="İlk 11">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6">
-              <ElevenList team={match.homeTeam} logo={match.homeTeamLogo} players={lineups!.home.starters} coach={lineups!.home.coach} highlight={urfaIsHome} />
-              <ElevenList team={match.awayTeam} logo={match.awayTeamLogo} players={lineups!.away.starters} coach={lineups!.away.coach} highlight={!urfaIsHome} />
+              <ElevenList team={match.homeTeam} logo={match.homeTeamLogo} players={lineups!.home.starters} coach={lineups!.home.coach} variant={urfaIsHome ? 'sfk' : 'opp'} />
+              <ElevenList team={match.awayTeam} logo={match.awayTeamLogo} players={lineups!.away.starters} coach={lineups!.away.coach} variant={urfaIsHome ? 'opp' : 'sfk'} />
             </div>
           </Card>
         ) : (
@@ -182,8 +205,8 @@ export default async function MacDetayPage({ params }: Props) {
         {hasLineups && (lineups!.home.subs.length > 0 || lineups!.away.subs.length > 0) && (
           <Card title="Yedekler">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6">
-              <ElevenList team={match.homeTeam} logo={match.homeTeamLogo} players={lineups!.home.subs} muted />
-              <ElevenList team={match.awayTeam} logo={match.awayTeamLogo} players={lineups!.away.subs} muted />
+              <ElevenList team={match.homeTeam} logo={match.homeTeamLogo} players={lineups!.home.subs} variant={urfaIsHome ? 'sfk' : 'opp'} muted />
+              <ElevenList team={match.awayTeam} logo={match.awayTeamLogo} players={lineups!.away.subs} variant={urfaIsHome ? 'opp' : 'sfk'} muted />
             </div>
           </Card>
         )}
@@ -191,13 +214,22 @@ export default async function MacDetayPage({ params }: Props) {
         {/* ════ HAKEMLER ════ */}
         {referees.length > 0 && (
           <Card title="Hakemler" icon={Flag}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-              {referees.map((r) => (
-                <div key={r.name + r.role} className="flex items-center justify-between bg-[#f5f9f6] rounded-xl px-4 py-3">
-                  <span className="text-sm font-bold text-[#092d18]">{r.name}</span>
-                  <span className="text-[11px] font-black text-[#1A6B3C] uppercase tracking-wide">{r.role}</span>
-                </div>
-              ))}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {referees.map((r, i) => {
+                const main = i === 0
+                return (
+                  <div key={r.name + r.role}
+                    className={`flex items-center gap-3 rounded-xl px-4 py-3.5 border ${main ? 'bg-gradient-to-br from-[#0f4a28] to-[#0c3a20] border-transparent' : 'bg-[#f8faf9] border-[#edf7f2]'}`}>
+                    <span className={`flex h-9 w-9 items-center justify-center rounded-lg shrink-0 ${main ? 'bg-[#FFD100] text-[#0f4a28]' : 'bg-[#edf7f2] text-[#1A6B3C]'}`}>
+                      <Whistle size={16} />
+                    </span>
+                    <div className="min-w-0">
+                      <p className={`text-sm font-black truncate ${main ? 'text-white' : 'text-[#092d18]'}`}>{r.name}</p>
+                      <p className={`text-[10px] font-bold tracking-wide uppercase ${main ? 'text-[#FFD100]/80' : 'text-[#7aab8e]'}`}>{r.role}</p>
+                    </div>
+                  </div>
+                )
+              })}
             </div>
           </Card>
         )}
@@ -258,34 +290,38 @@ function Milestone({ icon: Icon, label, score, tone }: { icon: React.ComponentTy
   )
 }
 
-function ElevenList({ team, logo, players, coach, highlight, muted }: { team: string; logo: string; players: LineupPlayer[]; coach?: string | null; highlight?: boolean; muted?: boolean }) {
+function ElevenList({ team, logo, players, coach, variant = 'opp', muted = false }: { team: string; logo: string; players: LineupPlayer[]; coach?: string | null; variant?: 'sfk' | 'opp'; muted?: boolean }) {
+  const isSfk = variant === 'sfk'
+  const badge = muted
+    ? (isSfk ? 'bg-[#e3f1e9] text-[#1A6B3C]' : 'bg-[#eef1f4] text-[#475569]')
+    : (isSfk ? 'bg-gradient-to-br from-[#1A6B3C] to-[#0f4a28] text-[#FFD100]' : 'bg-gradient-to-br from-[#475569] to-[#334155] text-white')
+  const stripe = isSfk ? 'bg-[#FFD100]' : 'bg-[#475569]'
   return (
-    <div>
-      <div className="flex items-center gap-2.5 mb-3 pb-3 border-b border-[#edf7f2]">
+    <div className="relative rounded-xl border border-[#edf7f2] overflow-hidden">
+      <span className={`absolute left-0 top-0 bottom-0 w-1 ${stripe}`} />
+      <div className="flex items-center gap-2.5 px-4 py-3 bg-[#f8faf9] border-b border-[#edf7f2]">
         <div className="relative w-7 h-7 shrink-0"><Image src={logo} alt="" fill className="object-contain" /></div>
         <span className="text-sm font-black text-[#092d18]">{team}</span>
-        {highlight && <span className="ml-auto text-[9px] font-black tracking-widest uppercase text-[#1A6B3C] bg-[#edf7f2] rounded-full px-2 py-0.5">Bizim Takım</span>}
+        {isSfk && !muted && <span className="ml-auto text-[9px] font-black tracking-widest uppercase text-[#1A6B3C] bg-[#e3f1e9] rounded-full px-2 py-0.5">Bizim Takım</span>}
       </div>
-      <ul className="space-y-1">
+      <ul className="p-2 space-y-0.5">
         {players.map((p, i) => (
           <li key={i} className="flex items-center gap-3 rounded-lg px-2 py-1.5 hover:bg-[#f5f9f6] transition-colors">
-            <span className={`flex h-7 w-7 items-center justify-center rounded-md text-[11px] font-black tabular-nums shrink-0 ${
-              muted ? 'bg-[#f5f9f6] text-[#7aab8e]' : 'bg-[#0f4a28] text-[#FFD100]'
-            }`}>{p.number ?? '-'}</span>
+            <span className={`flex h-7 w-7 items-center justify-center rounded-md text-[11px] font-black tabular-nums shrink-0 shadow-sm ${badge}`}>{p.number ?? '-'}</span>
             <span className="text-sm font-semibold text-[#092d18] truncate">{p.name}</span>
           </li>
         ))}
       </ul>
-      {coach && <p className="mt-3 text-xs text-[#7aab8e]">Teknik Direktör: <span className="font-bold text-[#092d18]">{coach}</span></p>}
+      {coach && <p className="px-4 pb-3 text-xs text-[#7aab8e]">Teknik Direktör: <span className="font-bold text-[#092d18]">{coach}</span></p>}
     </div>
   )
 }
 
 function Info({ icon: Icon, label, value }: { icon: React.ComponentType<{ size?: number; className?: string }>; label: string; value: string }) {
   return (
-    <div className="flex items-center gap-3 bg-[#f5f9f6] rounded-xl px-4 py-3">
-      <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#edf7f2] text-[#1A6B3C] shrink-0">
-        <Icon size={16} />
+    <div className="flex items-center gap-3.5 bg-gradient-to-br from-[#f8faf9] to-[#eef5f0] rounded-xl px-4 py-4 border border-[#edf7f2]">
+      <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-[#1A6B3C] to-[#0f4a28] text-[#FFD100] shrink-0 shadow-md">
+        <Icon size={18} />
       </div>
       <div className="min-w-0">
         <p className="text-[10px] font-black tracking-widest uppercase text-[#7aab8e]">{label}</p>
