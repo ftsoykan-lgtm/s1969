@@ -27,14 +27,14 @@ type DetailRow = {
   manual: boolean
 }
 
-async function getDetailMap(): Promise<Record<string, DetailRow>> {
+async function getDetailRows(): Promise<DetailRow[]> {
   try {
     const supabase = await createClient()
     const { data, error } = await supabase.from('player_details').select('*')
-    if (error || !data) return {}
-    return Object.fromEntries(data.map((r) => [r.name, r as DetailRow]))
+    if (error || !data) return []
+    return data as DetailRow[]
   } catch {
-    return {}
+    return []
   }
 }
 
@@ -45,13 +45,23 @@ async function getDetailMap(): Promise<Record<string, DetailRow>> {
  * - Sıralama: numara varsa numaraya, yoksa isme göre
  */
 export async function getSitePlayers(): Promise<{ players: SitePlayer[]; season: string | null }> {
-  const [{ squad }, details] = await Promise.all([getLiveTff(), getDetailMap()])
+  const [{ squad }, detailRows] = await Promise.all([getLiveTff(), getDetailRows()])
+
+  // Detayları HEM tff_id HEM isim ile indeksle (kırılgan eşleşmeye karşı)
+  const byTffId = new Map<string, DetailRow>()
+  const byName = new Map<string, DetailRow>()
+  for (const d of detailRows) {
+    if (d.tff_id) byTffId.set(String(d.tff_id), d)
+    if (d.name) byName.set(d.name, d)
+  }
+  const findDetail = (tffId: string | null, name: string): DetailRow | undefined =>
+    (tffId ? byTffId.get(String(tffId)) : undefined) ?? byName.get(name)
 
   const map = new Map<string, SitePlayer>()
 
   // TFF kadrosu
   for (const p of squad.players) {
-    const d = details[p.name]
+    const d = findDetail(p.tffId, p.name)
     map.set(p.name, {
       name: p.name,
       tffId: p.tffId,
@@ -67,7 +77,7 @@ export async function getSitePlayers(): Promise<{ players: SitePlayer[]; season:
   }
 
   // Elle eklenen (TFF'de olmayan) oyuncular
-  for (const d of Object.values(details)) {
+  for (const d of detailRows) {
     if (d.manual && !map.has(d.name)) {
       map.set(d.name, {
         name: d.name,

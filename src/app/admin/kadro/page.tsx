@@ -27,10 +27,16 @@ export default function AdminKadroPage() {
 
   useEffect(() => {
     Promise.all([getTffSquad(), getPlayerDetails()]).then(([squad, details]) => {
-      const merged: Row[] = squad.players.map((p) => ({
-        name: p.name, tffId: p.tffId,
-        detail: details[p.name] ?? { name: p.name, tff_id: p.tffId },
-      }))
+      // tff_id ile de indeksle (isim encoding'ine güvenme)
+      const byTffId: Record<string, PlayerDetail> = {}
+      Object.values(details).forEach((d) => { if (d.tff_id) byTffId[String(d.tff_id)] = d })
+      const merged: Row[] = squad.players.map((p) => {
+        const d = (p.tffId ? byTffId[String(p.tffId)] : undefined) ?? details[p.name]
+        return {
+          name: p.name, tffId: p.tffId,
+          detail: d ? { ...d, name: p.name, tff_id: p.tffId } : { name: p.name, tff_id: p.tffId },
+        }
+      })
       setRows(merged)
       setLoading(false)
     })
