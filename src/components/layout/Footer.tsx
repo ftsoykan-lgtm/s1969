@@ -40,41 +40,17 @@ function IconTikTok() {
 }
 
 const SOCIALS = [
-  { key: 'instagram', label: 'Instagram', Icon: IconInstagram, color: '#E1306C', get: (c: ClubInfo) => c.social.instagram },
-  { key: 'twitter',   label: 'X / Twitter', Icon: IconX,         color: '#ffffff', get: (c: ClubInfo) => c.social.twitter },
-  { key: 'youtube',   label: 'YouTube',    Icon: IconYouTube,    color: '#FF0000', get: (c: ClubInfo) => c.social.youtube },
-  { key: 'facebook',  label: 'Facebook',   Icon: IconFacebook,   color: '#1877F2', get: (c: ClubInfo) => c.social.facebook },
-  { key: 'tiktok',    label: 'TikTok',     Icon: IconTikTok,     color: '#ffffff', get: (c: ClubInfo) => c.social.tiktok },
+  { key: 'instagram', label: 'Instagram', Icon: IconInstagram, get: (c: ClubInfo) => c.social.instagram },
+  { key: 'twitter',   label: 'X',         Icon: IconX,         get: (c: ClubInfo) => c.social.twitter },
+  { key: 'youtube',   label: 'YouTube',   Icon: IconYouTube,   get: (c: ClubInfo) => c.social.youtube },
+  { key: 'facebook',  label: 'Facebook',  Icon: IconFacebook,  get: (c: ClubInfo) => c.social.facebook },
+  { key: 'tiktok',    label: 'TikTok',    Icon: IconTikTok,    get: (c: ClubInfo) => c.social.tiktok },
 ]
 
 const LINKS = [
-  {
-    title: 'Kulüp',
-    items: [
-      { label: 'Tarihçe',        href: '/kulup/tarihce' },
-      { label: 'Yönetim Kurulu', href: '/kulup/yonetim' },
-      { label: 'Tesisler',       href: '/kulup/tarihce' },
-      { label: 'İletişim',       href: '/iletisim' },
-    ],
-  },
-  {
-    title: 'Takım',
-    items: [
-      { label: 'Kadro',       href: '/kadro' },
-      { label: 'Maç Merkezi', href: '/fikstur' },
-      { label: 'Haberler',    href: '/haberler' },
-      { label: 'Taraftar',    href: '/iletisim' },
-    ],
-  },
-  {
-    title: 'Hizmetler',
-    items: [
-      { label: 'Bilet Al',   href: '/bilet' },
-      { label: 'Mağaza',     href: '/magaza' },
-      { label: 'Üyelik',     href: '/iletisim' },
-      { label: 'Sponsorluk', href: '/iletisim' },
-    ],
-  },
+  { title: 'Kulüp',     items: [{ label: 'Tarihçe', href: '/kulup/tarihce' }, { label: 'Yönetim', href: '/kulup/yonetim' }, { label: 'Tesisler', href: '/kulup/tarihce' }, { label: 'İletişim', href: '/iletisim' }] },
+  { title: 'Takım',     items: [{ label: 'Kadro', href: '/kadro' }, { label: 'Maç Merkezi', href: '/fikstur' }, { label: 'Haberler', href: '/haberler' }, { label: 'Taraftar', href: '/iletisim' }] },
+  { title: 'Hizmetler', items: [{ label: 'Bilet Al', href: '/bilet' }, { label: 'Mağaza', href: '/magaza' }, { label: 'Üyelik', href: '/iletisim' }, { label: 'Sponsorluk', href: '/iletisim' }] },
 ]
 
 export default function Footer({ club = defaultClub }: { club?: ClubInfo }) {
@@ -82,133 +58,97 @@ export default function Footer({ club = defaultClub }: { club?: ClubInfo }) {
   const hasLogo = club.logoUrl && !club.logoUrl.includes('placehold.co')
 
   return (
-    <footer className="relative bg-[#04110a] text-white overflow-hidden">
+    <footer className="relative isolate bg-[#03100a] text-white overflow-hidden">
 
-      {/* ── Arka plan ışık efektleri ──────────────────────────── */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        {/* Sol yeşil parıltı */}
-        <div className="absolute -top-32 -left-32 w-[600px] h-[600px] rounded-full bg-[#1A6B3C]/12 blur-[120px]" />
-        {/* Sağ sarı parıltı */}
-        <div className="absolute top-0 right-0 w-[400px] h-[400px] rounded-full bg-[#FFD100]/6 blur-[100px]" />
-        {/* Alt merkez */}
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] rounded-full bg-[#0f4a28]/20 blur-[80px]" />
-        {/* Büyük watermark */}
-        <div className="absolute -bottom-10 right-4 text-[22vw] font-black leading-none select-none tracking-tighter text-white/[0.018]">
-          {club.shortCode}
-        </div>
-        {/* Gürültü doku (SVG noise) */}
-        <svg className="absolute inset-0 w-full h-full opacity-[0.03]" xmlns="http://www.w3.org/2000/svg">
-          <filter id="noise-footer">
-            <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/>
-            <feColorMatrix type="saturate" values="0"/>
-          </filter>
-          <rect width="100%" height="100%" filter="url(#noise-footer)"/>
-        </svg>
+      {/* ════ ARKA PLAN: stadyum atmosferi ════ */}
+      <div className="pointer-events-none absolute inset-0 -z-10">
+        {/* Saha çim şeritleri */}
+        <div className="absolute inset-0 opacity-[0.35]"
+          style={{ background: 'repeating-linear-gradient(105deg, #0a2418 0px, #0a2418 80px, #0c2c1d 80px, #0c2c1d 160px)' }} />
+        {/* Spot ışığı — tepe ortadan */}
+        <div className="absolute -top-1/2 left-1/2 -translate-x-1/2 w-[140%] h-[140%]"
+          style={{ background: 'radial-gradient(ellipse 50% 45% at 50% 0%, rgba(255,209,0,0.10), transparent 60%)' }} />
+        {/* Yan yeşil parıltılar */}
+        <div className="absolute top-0 -left-40 w-[500px] h-[500px] rounded-full bg-[#1A6B3C]/20 blur-[130px]" />
+        <div className="absolute bottom-0 -right-40 w-[500px] h-[500px] rounded-full bg-[#0f4a28]/30 blur-[130px]" />
+        {/* Alt karartma — okunabilirlik */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#03100a]/40 via-transparent to-[#03100a]" />
       </div>
 
-      {/* ── Üst altın çizgi ──────────────────────────────────── */}
-      <div className="relative h-px bg-gradient-to-r from-transparent via-[#FFD100]/50 to-transparent" />
+      {/* Üst altın çizgi */}
+      <div className="h-px bg-gradient-to-r from-transparent via-[#FFD100]/60 to-transparent" />
 
-      {/* ── HERO şeridi ──────────────────────────────────────── */}
-      <div className="relative border-b border-white/[0.06]">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8 py-16 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-12">
-
-          {/* Marka bloğu */}
-          <div className="flex items-center gap-6">
-            {hasLogo ? (
-              <div className="relative shrink-0">
-                <div className="absolute inset-0 rounded-2xl bg-[#FFD100]/20 blur-xl scale-110" />
-                <img src={club.logoUrl} alt={club.name}
-                  className="relative h-24 w-24 rounded-2xl object-contain bg-white/5 ring-1 ring-white/10 shadow-2xl" />
-              </div>
-            ) : (
-              <div className="relative shrink-0">
-                <div className="absolute inset-0 rounded-2xl bg-[#FFD100]/30 blur-xl scale-110" />
-                <div className="relative flex h-24 w-24 items-center justify-center rounded-2xl bg-gradient-to-br from-[#FFD100] to-[#e8b800] text-[#0f4a28] font-black text-2xl shadow-2xl">
-                  {club.shortCode}
-                </div>
-              </div>
-            )}
-            <div>
-              <p className="text-[10px] font-black tracking-[0.35em] uppercase text-[#FFD100]/50 mb-1">
-                Est. {club.founded} · TFF 2. Lig
-              </p>
-              <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-white uppercase leading-tight">
-                {club.name}
-              </h2>
-              <p className="text-white/35 text-sm mt-1.5 max-w-xs leading-relaxed">
-                Güneydoğu Anadolu&apos;nun tutkulu kulübü. Sahada ve tribünde bir.
-              </p>
+      {/* ════ DEV MARKA SAHNESİ ════ */}
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-8 pt-16 pb-10 text-center">
+        {/* Logo */}
+        <div className="flex justify-center mb-7">
+          {hasLogo ? (
+            <div className="relative">
+              <div className="absolute inset-0 rounded-3xl bg-[#FFD100]/25 blur-2xl scale-125" />
+              <img src={club.logoUrl} alt={club.name}
+                className="relative h-28 w-28 rounded-3xl object-contain bg-white/5 ring-1 ring-white/10 shadow-2xl" />
             </div>
-          </div>
+          ) : (
+            <div className="relative">
+              <div className="absolute inset-0 rounded-3xl bg-[#FFD100]/30 blur-2xl scale-125" />
+              <div className="relative flex h-28 w-28 items-center justify-center rounded-3xl bg-gradient-to-br from-[#FFD100] to-[#e8b800] text-[#0f4a28] font-black text-3xl shadow-2xl">
+                {club.shortCode}
+              </div>
+            </div>
+          )}
+        </div>
 
-          {/* Sosyal medya ikon grubu */}
-          <div className="flex flex-wrap gap-3">
-            {socials.map(({ href, label, Icon, color }) => (
-              <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
-                className="group relative flex h-14 w-14 items-center justify-center rounded-2xl bg-white/[0.05] border border-white/[0.08] text-white/50 hover:text-white transition-all duration-300 hover:scale-110 hover:border-white/20 hover:bg-white/[0.09] overflow-hidden"
-              >
-                {/* hover'da arka plan rengi */}
-                <span className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-2xl"
-                  style={{ background: color }} />
-                <Icon />
-              </a>
-            ))}
-          </div>
+        {/* Üst etiket */}
+        <p className="text-[11px] font-black tracking-[0.45em] uppercase text-[#FFD100]/70 mb-3">
+          Est. {club.founded} · {club.nickname} · {club.league}
+        </p>
+
+        {/* DEV İSİM */}
+        <h2 className="font-black uppercase leading-[0.82] tracking-tighter
+                       text-[clamp(2.6rem,11vw,9rem)]
+                       bg-gradient-to-b from-white via-white to-white/40 bg-clip-text text-transparent
+                       drop-shadow-[0_8px_30px_rgba(0,0,0,0.5)]">
+          {club.name}
+        </h2>
+
+        {/* Slogan */}
+        <p className="mt-5 text-white/45 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
+          Güneydoğu Anadolu&apos;nun köklü ve tutkulu kulübü.
+          {club.stadium ? ` ${club.stadium}'da sahada, ${club.city} sokaklarında tribünde — daima bir.` : ''}
+        </p>
+
+        {/* Sosyal medya */}
+        <div className="mt-8 flex justify-center flex-wrap gap-3">
+          {socials.map(({ href, label, Icon }) => (
+            <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
+              className="group flex h-12 w-12 items-center justify-center rounded-2xl bg-white/[0.06] border border-white/10 text-white/55 hover:text-[#03100a] hover:bg-[#FFD100] hover:border-[#FFD100] hover:scale-110 transition-all duration-300 shadow-lg">
+              <Icon />
+            </a>
+          ))}
         </div>
       </div>
 
-      {/* ── Orta: bağlantı kolonları + iletişim ─────────────── */}
-      <div className="relative">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8 py-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr] gap-12">
+      {/* ════ ALT BÖLÜM: linkler + iletişim ════ */}
+      <div className="relative border-t border-white/[0.07] backdrop-blur-sm">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12 grid grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr] gap-10">
 
-          {/* İletişim kolonu */}
-          <div className="space-y-6">
-            <div className="inline-flex items-center gap-2 rounded-full bg-[#FFD100]/10 border border-[#FFD100]/20 px-4 py-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#FFD100] animate-pulse" />
-              <span className="text-[10px] font-black tracking-[0.2em] uppercase text-[#FFD100]">İletişim</span>
-            </div>
-            <div className="space-y-4">
-              {club.address && (
-                <div className="flex items-start gap-3 group">
-                  <div className="mt-0.5 shrink-0 w-8 h-8 rounded-xl bg-white/[0.05] border border-white/[0.08] flex items-center justify-center text-[#FFD100] group-hover:bg-[#FFD100]/10 transition-colors">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                  </div>
-                  <p className="text-sm text-white/45 leading-relaxed pt-1">{club.address}</p>
-                </div>
-              )}
-              {club.phone && (
-                <a href={`tel:${club.phone}`} className="flex items-center gap-3 group">
-                  <div className="shrink-0 w-8 h-8 rounded-xl bg-white/[0.05] border border-white/[0.08] flex items-center justify-center text-[#FFD100] group-hover:bg-[#FFD100]/10 transition-colors">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.02 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/></svg>
-                  </div>
-                  <span className="text-sm text-white/45 group-hover:text-white/70 transition-colors">{club.phone}</span>
-                </a>
-              )}
-              {club.email && (
-                <a href={`mailto:${club.email}`} className="flex items-center gap-3 group">
-                  <div className="shrink-0 w-8 h-8 rounded-xl bg-white/[0.05] border border-white/[0.08] flex items-center justify-center text-[#FFD100] group-hover:bg-[#FFD100]/10 transition-colors">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                  </div>
-                  <span className="text-sm text-white/45 group-hover:text-white/70 transition-colors">{club.email}</span>
-                </a>
-              )}
-            </div>
+          {/* İletişim */}
+          <div className="col-span-2 lg:col-span-1 space-y-4">
+            <h3 className="text-[10px] font-black tracking-[0.25em] uppercase text-[#FFD100] mb-5">İletişim</h3>
+            {club.address && <p className="text-sm text-white/45 leading-relaxed max-w-xs">{club.address}</p>}
+            {club.phone && <a href={`tel:${club.phone}`} className="block text-sm text-white/45 hover:text-white transition-colors">{club.phone}</a>}
+            {club.email && <a href={`mailto:${club.email}`} className="block text-sm text-white/45 hover:text-white transition-colors">{club.email}</a>}
           </div>
 
-          {/* Bağlantı kolonları */}
+          {/* Link kolonları */}
           {LINKS.map((col) => (
             <div key={col.title}>
-              <div className="flex items-center gap-2 mb-7">
-                <span className="w-0.5 h-5 rounded-full bg-gradient-to-b from-[#FFD100] to-[#FFD100]/20" />
-                <h3 className="text-[10px] font-black tracking-[0.25em] uppercase text-white/60">{col.title}</h3>
-              </div>
+              <h3 className="text-[10px] font-black tracking-[0.25em] uppercase text-[#FFD100] mb-5">{col.title}</h3>
               <ul className="space-y-3">
                 {col.items.map((link) => (
                   <li key={link.label}>
-                    <Link href={link.href}
-                      className="group flex items-center gap-2.5 text-[15px] text-white/40 hover:text-white transition-colors duration-200">
-                      <span className="w-1 h-1 rounded-full bg-white/20 group-hover:bg-[#FFD100] group-hover:scale-125 transition-all duration-200" />
+                    <Link href={link.href} className="group inline-flex items-center gap-2 text-[15px] text-white/45 hover:text-white transition-colors">
+                      <span className="w-1 h-1 rounded-full bg-white/20 group-hover:bg-[#FFD100] group-hover:scale-150 transition-all" />
                       {link.label}
                     </Link>
                   </li>
@@ -219,40 +159,25 @@ export default function Footer({ club = defaultClub }: { club?: ClubInfo }) {
         </div>
       </div>
 
-      {/* ── Newsletter / hashtag şeridi ──────────────────────── */}
-      {club.hashtag && (
-        <div className="relative border-t border-white/[0.05]">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8 py-8 flex items-center justify-center gap-4">
-            <div className="flex-1 h-px bg-gradient-to-r from-transparent to-white/10" />
-            <p className="text-2xl font-black text-white/[0.07] tracking-widest uppercase select-none">
-              {club.hashtag}
-            </p>
-            <div className="flex-1 h-px bg-gradient-to-l from-transparent to-white/10" />
-          </div>
-        </div>
-      )}
-
-      {/* ── Alt bar ──────────────────────────────────────────── */}
-      <div className="relative border-t border-white/[0.06]">
+      {/* ════ ALT BAR ════ */}
+      <div className="relative border-t border-white/[0.07]">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs text-white/20 order-2 sm:order-1">
-            © {new Date().getFullYear()} {club.fullName}. Tüm hakları saklıdır.
-          </p>
-          <div className="flex items-center gap-5 text-xs text-white/20 order-1 sm:order-2">
-            <Link href="/gizlilik" className="hover:text-white/50 transition-colors">Gizlilik</Link>
+          <p className="text-xs text-white/25 order-2 sm:order-1">© {new Date().getFullYear()} {club.fullName}. Tüm hakları saklıdır.</p>
+          <div className="flex items-center gap-5 text-xs text-white/25 order-1 sm:order-2">
+            <Link href="/gizlilik" className="hover:text-white/55 transition-colors">Gizlilik</Link>
             <span className="w-px h-3 bg-white/10" />
-            <Link href="/kullanim" className="hover:text-white/50 transition-colors">Kullanım Koşulları</Link>
+            <Link href="/kullanim" className="hover:text-white/55 transition-colors">Kullanım Koşulları</Link>
             <span className="w-px h-3 bg-white/10" />
-            <Link href="/cerez" className="hover:text-white/50 transition-colors">Çerezler</Link>
+            <Link href="/cerez" className="hover:text-white/55 transition-colors">Çerezler</Link>
           </div>
         </div>
       </div>
 
-      {/* ── Alt üçlü renk şeridi ─────────────────────────────── */}
+      {/* Üçlü renk şeridi */}
       <div className="flex h-1">
-        <div className="flex-1 bg-gradient-to-r from-[#1A6B3C] to-[#14532d]" />
-        <div className="flex-1 bg-gradient-to-r from-[#FFD100] to-[#f0c000]" />
-        <div className="flex-1 bg-gradient-to-r from-white/60 to-white/40" />
+        <div className="flex-1 bg-[#1A6B3C]" />
+        <div className="flex-1 bg-[#FFD100]" />
+        <div className="flex-1 bg-white/70" />
       </div>
     </footer>
   )
