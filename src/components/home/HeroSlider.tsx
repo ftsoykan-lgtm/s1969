@@ -44,7 +44,7 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
             const aktif = i === current
             return (
               <div key={i} className="shrink-0 h-full" style={{ width: `${SLOT}%` }}>
-                <div className="relative h-full overflow-hidden mx-[3px]">
+                <div className="relative h-full overflow-hidden">
                   <Image src={slide.imageUrl} alt={slide.title} fill priority={aktif} sizes="78vw" className="object-cover" />
 
                   {aktif ? (
