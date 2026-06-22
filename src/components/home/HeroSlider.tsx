@@ -36,7 +36,7 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
   const translate = (100 - SLOT) / 2 - current * SLOT
 
   return (
-    <section className="relative bg-[#0b0b0e] pb-6 overflow-hidden">
+    <section className="relative bg-[#0f4a28] pb-6 overflow-hidden">
       <div className="relative h-[480px] md:h-[660px]">
         <div className="flex h-full transition-transform duration-700"
           style={{ transform: `translateX(${translate}%)`, transitionTimingFunction: 'cubic-bezier(0.65,0,0.35,1)' }}>
@@ -49,8 +49,8 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
 
                   {aktif ? (
                     <Link href={slide.href} className="absolute inset-0 block group">
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b0e]/95 via-[#0b0b0e]/15 to-transparent" />
-                      <div className="absolute inset-0 bg-gradient-to-r from-[#0b0b0e]/45 via-transparent to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#0f4a28]/95 via-[#0f4a28]/15 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-[#0f4a28]/45 via-transparent to-transparent" />
                       <div className="absolute inset-x-0 bottom-0 p-6 md:p-10 lg:p-12">
                         <div className="max-w-2xl" key={current}>
                           {slide.category && (
@@ -76,7 +76,7 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
                     </Link>
                   ) : (
                     <button onClick={() => goTo(i)} aria-label={slide.title} className="absolute inset-0 flex items-end p-5 text-left">
-                      <span className="absolute inset-0 bg-[#0b0b0e]/82" />
+                      <span className="absolute inset-0 bg-[#0f4a28]/82" />
                       <span className="relative text-white/45 text-sm font-bold leading-snug line-clamp-3">{slide.title}</span>
                     </button>
                   )}
@@ -91,7 +91,7 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
       {n > 1 && (
         <div className="flex items-center justify-center gap-4 mt-6">
           <button onClick={prev} aria-label="Önceki"
-            className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#FFD100]/60 text-[#FFD100] hover:bg-[#FFD100] hover:text-[#0b0b0e] transition-all">
+            className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#FFD100]/60 text-[#FFD100] hover:bg-[#FFD100] hover:text-[#0f4a28] transition-all">
             <ChevronLeft size={18} />
           </button>
           <div className="flex items-center gap-2">
@@ -104,7 +104,7 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
             ))}
           </div>
           <button onClick={next} aria-label="Sonraki"
-            className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#FFD100]/60 text-[#FFD100] hover:bg-[#FFD100] hover:text-[#0b0b0e] transition-all">
+            className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#FFD100]/60 text-[#FFD100] hover:bg-[#FFD100] hover:text-[#0f4a28] transition-all">
             <ChevronRight size={18} />
           </button>
         </div>
