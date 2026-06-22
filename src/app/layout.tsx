@@ -3,6 +3,7 @@ import { Inter, Sora } from 'next/font/google'
 import './globals.css'
 import SiteShell from '@/components/layout/SiteShell'
 import { getClubInfo } from '@/lib/supabase/club-server'
+import { getSponsors } from '@/lib/supabase/sponsors-server'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -33,11 +34,11 @@ export const metadata: Metadata = {
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const club = await getClubInfo()
+  const [club, sponsors] = await Promise.all([getClubInfo(), getSponsors()])
   return (
     <html lang="tr" className={`${inter.variable} ${sora.variable} h-full`}>
       <body className="min-h-full flex flex-col bg-[#f8faf9] antialiased">
-        <SiteShell club={club}>{children}</SiteShell>
+        <SiteShell club={club} sponsors={sponsors}>{children}</SiteShell>
       </body>
     </html>
   )

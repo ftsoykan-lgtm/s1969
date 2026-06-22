@@ -88,6 +88,57 @@ export async function getTffSquad(): Promise<{ season: string | null; players: {
   return { season: null, players: [] }
 }
 
+/* ─── SPONSORLAR (admin yönetir) ───────────────────────────── */
+
+export interface SponsorRow {
+  id?: number
+  name: string
+  logo_url?: string | null
+  website?: string | null
+  tier: 'ana' | 'resmi' | 'destekci'
+  active?: boolean
+  sort_order?: number | null
+}
+
+export async function getSponsorsAdmin(): Promise<SponsorRow[]> {
+  try {
+    const { data, error } = await client().from('sponsors').select('*').order('sort_order', { ascending: true })
+    if (error || !data) return []
+    return data as SponsorRow[]
+  } catch {
+    return []
+  }
+}
+
+export async function saveSponsor(s: SponsorRow): Promise<{ ok: boolean; error?: string }> {
+  try {
+    const row = {
+      ...(s.id ? { id: s.id } : {}),
+      name: s.name,
+      logo_url: s.logo_url ?? null,
+      website: s.website ?? '#',
+      tier: s.tier,
+      active: s.active ?? true,
+      sort_order: s.sort_order ?? 0,
+    }
+    const { error } = await client().from('sponsors').upsert(row)
+    if (error) return { ok: false, error: error.message }
+    return { ok: true }
+  } catch (e) {
+    return { ok: false, error: (e as Error).message }
+  }
+}
+
+export async function deleteSponsor(id: number): Promise<{ ok: boolean; error?: string }> {
+  try {
+    const { error } = await client().from('sponsors').delete().eq('id', id)
+    if (error) return { ok: false, error: error.message }
+    return { ok: true }
+  } catch (e) {
+    return { ok: false, error: (e as Error).message }
+  }
+}
+
 /* ─── TFF TURNUVALARI (maçlardaki farklı turnuvalar) ───────── */
 
 export async function getTffCompetitions(): Promise<string[]> {

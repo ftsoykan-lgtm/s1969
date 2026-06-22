@@ -4,10 +4,17 @@ import { usePathname } from 'next/navigation'
 import Navbar from './Navbar'
 import Footer from './Footer'
 import SplashScreen from './SplashScreen'
-import SponsorStrip from './SponsorStrip'
+import SponsorsSection from '@/components/home/SponsorsSection'
 import type { ClubInfo } from '@/data/club'
+import type { Sponsor } from '@/types'
 
-export default function SiteShell({ club, children }: { club: ClubInfo; children: React.ReactNode }) {
+export default function SiteShell({
+  club, sponsors, children,
+}: {
+  club: ClubInfo
+  sponsors: Sponsor[]
+  children: React.ReactNode
+}) {
   const pathname = usePathname()
   const isAdmin = pathname.startsWith('/admin')
 
@@ -18,7 +25,7 @@ export default function SiteShell({ club, children }: { club: ClubInfo; children
       <SplashScreen club={club} />
       <Navbar club={club} />
       <main className="flex-1">{children}</main>
-      <SponsorStrip />
+      <SponsorsSection sponsors={sponsors} />
       <Footer club={club} />
     </>
   )
