@@ -5,7 +5,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 import PlayerCard from '@/components/players/PlayerCard'
 import type { SitePlayer } from '@/lib/supabase/players-server'
 
-const CARD_W = 256 + 20 // w-64 (256px) + gap (pr-5 = 20px)
+const CARD_W = 320 + 24 // w-80 (320px) + gap (24px)
 const SCROLL_STEP = CARD_W * 2 // 2 kart kaydır
 const SCROLL_DURATION = 480 // ms — yavaş, pürüzsüz
 
@@ -112,7 +112,7 @@ export default function SquadMarquee({ players }: { players: SitePlayer[] }) {
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         {players.map((p, i) => (
-          <div key={i} className="w-56 sm:w-64 shrink-0">
+          <div key={i} className="w-72 sm:w-80 shrink-0">
             <PlayerCard player={p} />
           </div>
         ))}

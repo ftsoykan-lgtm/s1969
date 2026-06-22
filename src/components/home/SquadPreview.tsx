@@ -1,10 +1,9 @@
 import Link from 'next/link'
 import { getSitePlayers } from '@/lib/supabase/players-server'
-import PlayerCard from '@/components/players/PlayerCard'
+import SquadMarquee from './SquadMarquee'
 
 export default async function SquadPreview() {
   const { players, season } = await getSitePlayers()
-  const featured = players.slice(0, 5)
 
   return (
     <section className="py-16 md:py-20 bg-[#0f4a28]">
@@ -36,11 +35,7 @@ export default async function SquadPreview() {
           </div>
         </div>
       ) : (
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5">
-            {featured.map((p) => <PlayerCard key={p.name} player={p} />)}
-          </div>
-        </div>
+        <SquadMarquee players={players} />
       )}
     </section>
   )
