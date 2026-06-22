@@ -34,32 +34,47 @@ function handle(url: string): string {
 
 export default function SocialSection({ club }: { club: ClubInfo }) {
   const cards = [
-    { key: 'instagram', href: club.social.instagram, icon: Icons.instagram, cls: 'bg-gradient-to-br from-[#f09433] via-[#dc2743] to-[#bc1888]' },
-    { key: 'twitter', href: club.social.twitter, icon: Icons.twitter, cls: 'bg-black' },
-    { key: 'youtube', href: club.social.youtube, icon: Icons.youtube, cls: 'bg-[#FF0000]' },
-    { key: 'facebook', href: club.social.facebook, icon: Icons.facebook, cls: 'bg-[#1877F2]' },
-    { key: 'tiktok', href: club.social.tiktok, icon: Icons.tiktok, cls: 'bg-black' },
+    { key: 'Instagram', href: club.social.instagram, icon: Icons.instagram, grad: 'from-[#f09433] via-[#dc2743] to-[#bc1888]', glow: 'rgba(220,39,67,0.45)' },
+    { key: 'X', href: club.social.twitter, icon: Icons.twitter, grad: 'from-[#2b2b2b] to-[#000]', glow: 'rgba(0,0,0,0.5)' },
+    { key: 'YouTube', href: club.social.youtube, icon: Icons.youtube, grad: 'from-[#ff4747] to-[#c4302b]', glow: 'rgba(255,0,0,0.4)' },
+    { key: 'Facebook', href: club.social.facebook, icon: Icons.facebook, grad: 'from-[#3b8bff] to-[#1877F2]', glow: 'rgba(24,119,242,0.45)' },
+    { key: 'TikTok', href: club.social.tiktok, icon: Icons.tiktok, grad: 'from-[#2b2b2b] to-[#000]', glow: 'rgba(0,0,0,0.5)' },
   ].filter((c) => c.href && c.href !== '#')
 
   if (!cards.length) return null
 
   return (
-    <section className="bg-white border-t border-[#ddeae2] py-14">
+    <section className="relative bg-[#f5f9f6] border-t border-[#ddeae2] py-16 overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="text-2xl md:text-3xl font-black text-[#092d18] tracking-tight mb-8 uppercase">Sosyal Medya Hesaplarımız</h2>
+        <div className="inline-flex items-center gap-3 mb-3">
+          <span className="block w-8 h-0.5 bg-[#FFD100]" />
+          <p className="text-[11px] font-black tracking-[0.25em] uppercase text-[#1A6B3C]">Bizi Takip Et</p>
+          <span className="block w-8 h-0.5 bg-[#FFD100]" />
+        </div>
+        <h2 className="text-2xl md:text-3xl font-black text-[#092d18] tracking-tight mb-10">Sosyal Medya Hesaplarımız</h2>
 
-        <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+        <div className="flex flex-wrap items-stretch justify-center gap-4">
           {cards.map((c) => (
             <a key={c.key} href={c.href} target="_blank" rel="noopener noreferrer"
-              className={`group relative flex flex-col items-center justify-center gap-3 w-[150px] sm:w-[200px] h-24 rounded-xl text-white shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ${c.cls}`}>
-              <span className="opacity-95 group-hover:scale-110 transition-transform">{c.icon}</span>
-              <span className="text-[13px] font-semibold opacity-90">{handle(c.href) || c.key}</span>
+              className="group relative w-[160px] sm:w-[210px] rounded-2xl bg-white border border-[#ddeae2] p-5 shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 overflow-hidden">
+              {/* Marka glow */}
+              <span className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                style={{ boxShadow: `inset 0 -60px 60px -40px ${c.glow}` }} />
+              <div className="relative flex flex-col items-center gap-3">
+                <span className={`flex h-14 w-14 items-center justify-center rounded-2xl text-white bg-gradient-to-br ${c.grad} shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                  {c.icon}
+                </span>
+                <div>
+                  <p className="text-sm font-black text-[#092d18]">{c.key}</p>
+                  <p className="text-[12px] text-[#7aab8e] font-semibold">{handle(c.href) || ''}</p>
+                </div>
+              </div>
             </a>
           ))}
         </div>
 
         {club.hashtag && (
-          <p className="mt-8 text-xl md:text-2xl font-black tracking-tight text-[#092d18]">
+          <p className="mt-10 text-2xl md:text-3xl font-black tracking-tight text-[#1A6B3C]">
             {club.hashtag.startsWith('#') ? club.hashtag : `#${club.hashtag}`}
           </p>
         )}

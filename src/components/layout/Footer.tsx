@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Mail, Phone, MapPin } from 'lucide-react'
+import { Mail, Phone, MapPin, ArrowRight } from 'lucide-react'
 import { clubInfo as defaultClub } from '@/data/club'
 import type { ClubInfo } from '@/data/club'
 
@@ -12,21 +12,15 @@ const footerLinks = {
   ],
   'Takım': [
     { label: 'Kadro', href: '/kadro' },
-    { label: 'Teknik Kadro', href: '/kadro/teknik' },
-    { label: 'Fikstür', href: '/fikstur' },
-    { label: 'İstatistikler', href: '/istatistikler' },
+    { label: 'Maç Merkezi', href: '/fikstur' },
+    { label: 'Mağaza', href: '/magaza' },
+    { label: 'Bilet Al', href: '/bilet' },
   ],
   'Haberler': [
     { label: 'Tüm Haberler', href: '/haberler' },
-    { label: 'Transferler', href: '/haberler?kategori=transfer' },
-    { label: 'Maç Raporları', href: '/haberler?kategori=mac-raporu' },
-    { label: 'Basın Bültenleri', href: '/haberler?kategori=basin-bildirisi' },
-  ],
-  'Taraftar': [
-    { label: 'Bilet Al', href: '/bilet' },
-    { label: 'Forma & Mağaza', href: '/magaza' },
-    { label: 'Taraftar Kartı', href: '/taraftar-karti' },
-    { label: 'İletişim', href: '/iletisim' },
+    { label: 'Transferler', href: '/haberler' },
+    { label: 'Maç Raporları', href: '/haberler' },
+    { label: 'Taraftar', href: '/iletisim' },
   ],
 }
 
@@ -35,110 +29,116 @@ export default function Footer({ club = defaultClub }: { club?: ClubInfo }) {
     { label: 'Facebook', href: club.social.facebook, abbr: 'f' },
     { label: 'X', href: club.social.twitter, abbr: 'X' },
     { label: 'Instagram', href: club.social.instagram, abbr: 'ig' },
-    { label: 'YouTube', href: club.social.youtube, abbr: 'yt' },
-  ]
+    { label: 'YouTube', href: club.social.youtube, abbr: '▶' },
+    { label: 'TikTok', href: club.social.tiktok, abbr: '♪' },
+  ].filter((s) => s.href && s.href !== '#')
   const hasLogo = club.logoUrl && !club.logoUrl.includes('placehold.co')
+
   return (
-    <footer className="bg-[#0f4a28]">
-      {/* Sarı şerit üstte */}
-      <div className="h-1 bg-[#FFD100]" />
-
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10">
-
-          {/* Marka + iletişim */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Logo */}
-            <div className="flex items-center gap-3">
-              {hasLogo ? (
-                <img src={club.logoUrl} alt={club.name}
-                  className="h-14 w-14 rounded-full object-contain bg-white/5 shadow-lg" />
-              ) : (
-                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#FFD100] text-[#0f4a28] font-black text-base shadow-lg">
-                  {club.shortCode}
-                </div>
-              )}
-              <div>
-                <p className="text-white font-black text-lg tracking-wide uppercase">{club.name}</p>
-                <p className="text-[#FFD100]/60 text-[11px] font-semibold tracking-widest uppercase">Futbol Kulübü — {club.founded}</p>
-              </div>
-            </div>
-
-            <p className="text-white/50 text-sm leading-relaxed max-w-xs">
-              {club.founded} yılında kurulan {club.fullName}, Güneydoğu Anadolu'nun köklü ve tutkulu futbol kulübüdür.
-            </p>
-
-            {/* İletişim bilgileri */}
-            <div className="space-y-2.5 text-sm text-white/50">
-              <div className="flex items-start gap-2.5">
-                <MapPin size={14} className="mt-0.5 shrink-0 text-[#FFD100]" />
-                <span>{club.address}</span>
-              </div>
-              <div className="flex items-center gap-2.5">
-                <Phone size={14} className="shrink-0 text-[#FFD100]" />
-                <span>{club.phone}</span>
-              </div>
-              <div className="flex items-center gap-2.5">
-                <Mail size={14} className="shrink-0 text-[#FFD100]" />
-                <span>{club.email}</span>
-              </div>
-            </div>
-
-            {/* Sosyal medya */}
-            <div className="flex gap-2">
-              {socials.map(({ href, label, abbr }) => (
-                <a
-                  key={label}
-                  href={href}
-                  aria-label={label}
-                  className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/15 text-white/50 hover:text-[#FFD100] hover:border-[#FFD100]/50 hover:bg-[#FFD100]/10 transition-all text-xs font-black"
-                >
-                  {abbr}
-                </a>
-              ))}
-            </div>
-          </div>
-
-          {/* Link kolonları */}
-          {Object.entries(footerLinks).map(([title, links]) => (
-            <div key={title} className="space-y-4">
-              <h3 className="text-[10px] font-black tracking-widest uppercase text-[#FFD100]">
-                {title}
-              </h3>
-              <ul className="space-y-2.5">
-                {links.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="text-sm text-white/50 hover:text-white transition-colors"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-
-        {/* Alt çizgi */}
-        <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-white/30">
-            © {new Date().getFullYear()} Şanlıurfaspor FK. Tüm hakları saklıdır.
-          </p>
-          <div className="flex gap-6 text-xs text-white/30">
-            <Link href="/gizlilik" className="hover:text-white/60 transition-colors">Gizlilik</Link>
-            <Link href="/kullanim" className="hover:text-white/60 transition-colors">Kullanım Koşulları</Link>
-            <Link href="/cerez" className="hover:text-white/60 transition-colors">Çerezler</Link>
-          </div>
-        </div>
+    <footer className="relative bg-[#0b3a20] overflow-hidden">
+      {/* Üst gradient + radyal ışık */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0f4a28] to-[#071f10]" />
+      <div className="absolute -top-32 -right-20 w-[520px] h-[520px] rounded-full bg-[#1A6B3C]/30 blur-3xl" />
+      {/* Dev filigran */}
+      <div className="absolute -bottom-16 -left-6 text-[14rem] font-black text-white/[0.03] leading-none select-none pointer-events-none tracking-tighter">
+        {club.shortCode}
       </div>
 
-      {/* En altta 3 renk şeridi */}
-      <div className="flex h-1">
-        <div className="flex-1 bg-[#1A6B3C]" />
-        <div className="flex-1 bg-[#FFD100]" />
-        <div className="flex-1 bg-white" />
+      <div className="relative">
+        {/* Üst şerit */}
+        <div className="h-1 bg-gradient-to-r from-[#1A6B3C] via-[#FFD100] to-[#1A6B3C]" />
+
+        {/* E-bülten bandı */}
+        <div className="border-b border-white/10">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row items-center justify-between gap-5">
+            <div>
+              <h3 className="text-white font-black text-xl tracking-tight">Gelişmelerden ilk sen haberdar ol</h3>
+              <p className="text-white/45 text-sm mt-1">Kulüp haberleri ve duyurular için e-bültene kayıt ol.</p>
+            </div>
+            <form className="flex items-center gap-2 w-full md:w-auto">
+              <input type="email" placeholder="E-posta adresin"
+                className="flex-1 md:w-72 bg-white/8 border border-white/15 rounded-xl px-4 py-3 text-sm text-white placeholder-white/35 focus:outline-none focus:border-[#FFD100]/50 transition-colors" />
+              <button type="submit"
+                className="inline-flex items-center gap-2 bg-[#FFD100] hover:bg-[#e8c000] text-[#0f4a28] font-black text-sm px-5 py-3 rounded-xl transition-all hover:scale-105 shrink-0">
+                Abone Ol <ArrowRight size={15} />
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.6fr_1fr_1fr_1fr] gap-10">
+
+            {/* Marka */}
+            <div className="space-y-6">
+              <div className="flex items-center gap-3">
+                {hasLogo ? (
+                  <img src={club.logoUrl} alt={club.name} className="h-16 w-16 rounded-2xl object-contain bg-white/5 shadow-lg ring-1 ring-white/10" />
+                ) : (
+                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#FFD100] text-[#0f4a28] font-black text-lg shadow-lg">{club.shortCode}</div>
+                )}
+                <div>
+                  <p className="text-white font-black text-xl tracking-wide uppercase">{club.name}</p>
+                  <p className="text-[#FFD100]/60 text-[11px] font-bold tracking-[0.2em] uppercase">Futbol Kulübü · {club.founded}</p>
+                </div>
+              </div>
+
+              <p className="text-white/45 text-sm leading-relaxed max-w-sm">
+                {club.founded} yılında kurulan {club.fullName}, Güneydoğu Anadolu'nun köklü ve tutkulu futbol kulübüdür.
+              </p>
+
+              <div className="space-y-2.5 text-sm text-white/50">
+                <div className="flex items-start gap-2.5"><MapPin size={15} className="mt-0.5 shrink-0 text-[#FFD100]" /><span>{club.address}</span></div>
+                <div className="flex items-center gap-2.5"><Phone size={15} className="shrink-0 text-[#FFD100]" /><span>{club.phone}</span></div>
+                <div className="flex items-center gap-2.5"><Mail size={15} className="shrink-0 text-[#FFD100]" /><span>{club.email}</span></div>
+              </div>
+
+              <div className="flex gap-2">
+                {socials.map(({ href, label, abbr }) => (
+                  <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
+                    className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 border border-white/10 text-white/60 hover:text-[#0f4a28] hover:bg-[#FFD100] hover:border-[#FFD100] transition-all text-xs font-black">
+                    {abbr}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Link kolonları */}
+            {Object.entries(footerLinks).map(([title, links]) => (
+              <div key={title}>
+                <h3 className="text-[11px] font-black tracking-[0.2em] uppercase text-[#FFD100] mb-5 flex items-center gap-2">
+                  <span className="w-4 h-px bg-[#FFD100]/50" /> {title}
+                </h3>
+                <ul className="space-y-3">
+                  {links.map((link) => (
+                    <li key={link.label}>
+                      <Link href={link.href} className="group inline-flex items-center gap-2 text-sm text-white/50 hover:text-white transition-colors">
+                        <span className="w-0 group-hover:w-3 h-px bg-[#FFD100] transition-all duration-300" />
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+
+          {/* Alt çizgi */}
+          <div className="mt-14 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p className="text-xs text-white/30">© {new Date().getFullYear()} {club.fullName}. Tüm hakları saklıdır.</p>
+            <div className="flex gap-6 text-xs text-white/30">
+              <Link href="/gizlilik" className="hover:text-white/70 transition-colors">Gizlilik</Link>
+              <Link href="/kullanim" className="hover:text-white/70 transition-colors">Kullanım Koşulları</Link>
+              <Link href="/cerez" className="hover:text-white/70 transition-colors">Çerezler</Link>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex h-1.5">
+          <div className="flex-1 bg-[#1A6B3C]" />
+          <div className="flex-1 bg-[#FFD100]" />
+          <div className="flex-1 bg-white/80" />
+        </div>
       </div>
     </footer>
   )
