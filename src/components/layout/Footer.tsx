@@ -170,7 +170,7 @@ export default function Footer({ club = defaultClub }: { club?: ClubInfo }) {
       <div className="relative border-t border-white/10 bg-[#061d10]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-white/25 order-2 sm:order-1">
-            © {new Date().getFullYear()} {club.fullName}. Tüm hakları saklıdır.
+            © {new Date().getFullYear()} {club.name}. Tüm hakları saklıdır.
           </p>
           <div className="flex items-center gap-5 text-xs text-white/25 order-1 sm:order-2">
             <Link href="/gizlilik" className="hover:text-white/55 transition-colors">Gizlilik</Link>

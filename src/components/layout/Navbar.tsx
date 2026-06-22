@@ -129,8 +129,7 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
                   </div>
                 )}
                 <div className="leading-none">
-                  <p className="font-heading font-black text-[17px] tracking-tight uppercase text-[#0f4a28]">{club.name}</p>
-                  <p className="text-[#0f4a28]/60 text-[9px] font-black tracking-[0.28em] uppercase mt-1">Futbol Kulübü</p>
+                  <p className="font-heading font-black text-[19px] tracking-tight uppercase text-[#0f4a28]">{club.name}</p>
                 </div>
               </div>
             </Link>

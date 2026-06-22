@@ -46,7 +46,6 @@ export default function SplashScreen({ club }: { club: ClubInfo }) {
         )}
         <div className="text-center">
           <p className="text-white font-black text-2xl tracking-wide uppercase">{club.name}</p>
-          <p className="text-[#FFD100]/60 text-[10px] font-bold tracking-[0.3em] uppercase mt-1">Futbol Kulübü</p>
         </div>
 
         {/* Yükleniyor çubuğu */}
