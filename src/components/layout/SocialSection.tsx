@@ -56,19 +56,18 @@ export default function SocialSection({ club }: { club: ClubInfo }) {
         <div className="flex flex-wrap items-stretch justify-center gap-4">
           {cards.map((c) => (
             <a key={c.key} href={c.href} target="_blank" rel="noopener noreferrer"
-              className="group relative w-[160px] sm:w-[210px] rounded-2xl bg-white border border-[#ddeae2] p-5 shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 overflow-hidden">
-              {/* Marka glow */}
-              <span className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                style={{ boxShadow: `inset 0 -60px 60px -40px ${c.glow}` }} />
-              <div className="relative flex flex-col items-center gap-3">
-                <span className={`flex h-14 w-14 items-center justify-center rounded-2xl text-white bg-gradient-to-br ${c.grad} shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                  {c.icon}
-                </span>
-                <div>
-                  <p className="text-sm font-black text-[#092d18]">{c.key}</p>
-                  <p className="text-[12px] text-[#7aab8e] font-semibold">{handle(c.href) || ''}</p>
-                </div>
+              className={`group relative flex items-center gap-4 w-full sm:w-[260px] rounded-2xl px-5 py-4 text-white bg-gradient-to-br ${c.grad} shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden`}
+              style={{ boxShadow: `0 10px 30px -10px ${c.glow}` }}>
+              {/* Üst parlama */}
+              <span className="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-white/10" />
+              <span className="relative flex h-12 w-12 items-center justify-center rounded-xl bg-white/15 backdrop-blur-sm shrink-0 group-hover:scale-110 transition-transform">
+                {c.icon}
+              </span>
+              <div className="relative text-left min-w-0">
+                <p className="text-sm font-black leading-tight">{c.key}</p>
+                <p className="text-[12px] font-semibold opacity-80 truncate">{handle(c.href) || 'Takip Et'}</p>
               </div>
+              <svg className="relative ml-auto opacity-60 group-hover:opacity-100 group-hover:translate-x-1 transition-all shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
             </a>
           ))}
         </div>

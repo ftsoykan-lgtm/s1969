@@ -1,26 +1,26 @@
 import Link from 'next/link'
-import { Mail, Phone, MapPin, ArrowRight } from 'lucide-react'
+import { Mail, Phone, MapPin, ArrowUpRight } from 'lucide-react'
 import { clubInfo as defaultClub } from '@/data/club'
 import type { ClubInfo } from '@/data/club'
 
 const footerLinks = {
   'Kulüp': [
     { label: 'Tarihçe', href: '/kulup/tarihce' },
-    { label: 'Yönetim', href: '/kulup/yonetim' },
-    { label: 'Tesisler', href: '/kulup/tesisler' },
-    { label: 'Altyapı', href: '/kulup/altyapi' },
+    { label: 'Yönetim Kurulu', href: '/kulup/yonetim' },
+    { label: 'Tesisler', href: '/kulup/tarihce' },
+    { label: 'İletişim', href: '/iletisim' },
   ],
   'Takım': [
     { label: 'Kadro', href: '/kadro' },
     { label: 'Maç Merkezi', href: '/fikstur' },
-    { label: 'Mağaza', href: '/magaza' },
-    { label: 'Bilet Al', href: '/bilet' },
-  ],
-  'Haberler': [
-    { label: 'Tüm Haberler', href: '/haberler' },
-    { label: 'Transferler', href: '/haberler' },
-    { label: 'Maç Raporları', href: '/haberler' },
+    { label: 'Haberler', href: '/haberler' },
     { label: 'Taraftar', href: '/iletisim' },
+  ],
+  'Hizmetler': [
+    { label: 'Bilet Al', href: '/bilet' },
+    { label: 'Mağaza', href: '/magaza' },
+    { label: 'Üyelik', href: '/iletisim' },
+    { label: 'Sponsorluk', href: '/iletisim' },
   ],
 }
 
@@ -35,96 +35,74 @@ export default function Footer({ club = defaultClub }: { club?: ClubInfo }) {
   const hasLogo = club.logoUrl && !club.logoUrl.includes('placehold.co')
 
   return (
-    <footer className="relative bg-[#0b3a20] overflow-hidden">
-      {/* Üst gradient + radyal ışık */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0f4a28] to-[#071f10]" />
-      <div className="absolute -top-32 -right-20 w-[520px] h-[520px] rounded-full bg-[#1A6B3C]/30 blur-3xl" />
-      {/* Dev filigran */}
-      <div className="absolute -bottom-16 -left-6 text-[14rem] font-black text-white/[0.03] leading-none select-none pointer-events-none tracking-tighter">
+    <footer className="relative bg-[#061a0f] text-white overflow-hidden">
+      {/* Atmosfer */}
+      <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_-20%,#0f4a28_0%,transparent_60%)]" />
+      <div className="absolute -bottom-24 right-0 text-[18rem] font-black text-white/[0.025] leading-none select-none pointer-events-none tracking-tighter">
         {club.shortCode}
       </div>
 
       <div className="relative">
-        {/* Üst şerit */}
-        <div className="h-1 bg-gradient-to-r from-[#1A6B3C] via-[#FFD100] to-[#1A6B3C]" />
+        <div className="h-px bg-gradient-to-r from-transparent via-[#FFD100]/60 to-transparent" />
 
-        {/* E-bülten bandı */}
-        <div className="border-b border-white/10">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row items-center justify-between gap-5">
+        {/* Üst — marka şeridi */}
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-14 pb-10 flex flex-col md:flex-row md:items-center md:justify-between gap-8 border-b border-white/8">
+          <div className="flex items-center gap-4">
+            {hasLogo ? (
+              <img src={club.logoUrl} alt={club.name} className="h-20 w-20 rounded-2xl object-contain bg-white/5 ring-1 ring-white/10 shadow-xl" />
+            ) : (
+              <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-[#FFD100] text-[#0f4a28] font-black text-2xl shadow-xl">{club.shortCode}</div>
+            )}
             <div>
-              <h3 className="text-white font-black text-xl tracking-tight">Gelişmelerden ilk sen haberdar ol</h3>
-              <p className="text-white/45 text-sm mt-1">Kulüp haberleri ve duyurular için e-bültene kayıt ol.</p>
+              <p className="text-white font-black text-2xl md:text-3xl tracking-tight uppercase">{club.name}</p>
+              <p className="text-[#FFD100]/60 text-xs font-bold tracking-[0.25em] uppercase mt-1">Futbol Kulübü · Est. {club.founded}</p>
             </div>
-            <form className="flex items-center gap-2 w-full md:w-auto">
-              <input type="email" placeholder="E-posta adresin"
-                className="flex-1 md:w-72 bg-white/8 border border-white/15 rounded-xl px-4 py-3 text-sm text-white placeholder-white/35 focus:outline-none focus:border-[#FFD100]/50 transition-colors" />
-              <button type="submit"
-                className="inline-flex items-center gap-2 bg-[#FFD100] hover:bg-[#e8c000] text-[#0f4a28] font-black text-sm px-5 py-3 rounded-xl transition-all hover:scale-105 shrink-0">
-                Abone Ol <ArrowRight size={15} />
-              </button>
-            </form>
+          </div>
+
+          {/* Sosyal */}
+          <div className="flex gap-2.5">
+            {socials.map(({ href, label, abbr }) => (
+              <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
+                className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/5 border border-white/10 text-white/60 hover:text-[#0f4a28] hover:bg-[#FFD100] hover:border-[#FFD100] transition-all text-sm font-black">
+                {abbr}
+              </a>
+            ))}
           </div>
         </div>
 
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14">
-          <div className="grid grid-cols-1 lg:grid-cols-[1.6fr_1fr_1fr_1fr] gap-10">
-
-            {/* Marka */}
-            <div className="space-y-6">
-              <div className="flex items-center gap-3">
-                {hasLogo ? (
-                  <img src={club.logoUrl} alt={club.name} className="h-16 w-16 rounded-2xl object-contain bg-white/5 shadow-lg ring-1 ring-white/10" />
-                ) : (
-                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#FFD100] text-[#0f4a28] font-black text-lg shadow-lg">{club.shortCode}</div>
-                )}
-                <div>
-                  <p className="text-white font-black text-xl tracking-wide uppercase">{club.name}</p>
-                  <p className="text-[#FFD100]/60 text-[11px] font-bold tracking-[0.2em] uppercase">Futbol Kulübü · {club.founded}</p>
-                </div>
-              </div>
-
-              <p className="text-white/45 text-sm leading-relaxed max-w-sm">
-                {club.founded} yılında kurulan {club.fullName}, Güneydoğu Anadolu'nun köklü ve tutkulu futbol kulübüdür.
-              </p>
-
-              <div className="space-y-2.5 text-sm text-white/50">
-                <div className="flex items-start gap-2.5"><MapPin size={15} className="mt-0.5 shrink-0 text-[#FFD100]" /><span>{club.address}</span></div>
-                <div className="flex items-center gap-2.5"><Phone size={15} className="shrink-0 text-[#FFD100]" /><span>{club.phone}</span></div>
-                <div className="flex items-center gap-2.5"><Mail size={15} className="shrink-0 text-[#FFD100]" /><span>{club.email}</span></div>
-              </div>
-
-              <div className="flex gap-2">
-                {socials.map(({ href, label, abbr }) => (
-                  <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
-                    className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 border border-white/10 text-white/60 hover:text-[#0f4a28] hover:bg-[#FFD100] hover:border-[#FFD100] transition-all text-xs font-black">
-                    {abbr}
-                  </a>
-                ))}
-              </div>
+        {/* Orta — kolonlar */}
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14 grid grid-cols-1 lg:grid-cols-[1.4fr_1fr_1fr_1fr] gap-12">
+          <div className="space-y-5">
+            <p className="text-white/45 text-sm leading-relaxed max-w-sm">
+              {club.founded} yılında kurulan {club.fullName}, Güneydoğu Anadolu'nun köklü ve tutkulu futbol kulübüdür. Sahada ve tribünde bir.
+            </p>
+            <div className="space-y-3 text-sm text-white/55">
+              <div className="flex items-start gap-3"><MapPin size={16} className="mt-0.5 shrink-0 text-[#FFD100]" /><span>{club.address}</span></div>
+              <div className="flex items-center gap-3"><Phone size={16} className="shrink-0 text-[#FFD100]" /><span>{club.phone}</span></div>
+              <div className="flex items-center gap-3"><Mail size={16} className="shrink-0 text-[#FFD100]" /><span>{club.email}</span></div>
             </div>
-
-            {/* Link kolonları */}
-            {Object.entries(footerLinks).map(([title, links]) => (
-              <div key={title}>
-                <h3 className="text-[11px] font-black tracking-[0.2em] uppercase text-[#FFD100] mb-5 flex items-center gap-2">
-                  <span className="w-4 h-px bg-[#FFD100]/50" /> {title}
-                </h3>
-                <ul className="space-y-3">
-                  {links.map((link) => (
-                    <li key={link.label}>
-                      <Link href={link.href} className="group inline-flex items-center gap-2 text-sm text-white/50 hover:text-white transition-colors">
-                        <span className="w-0 group-hover:w-3 h-px bg-[#FFD100] transition-all duration-300" />
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
           </div>
 
-          {/* Alt çizgi */}
-          <div className="mt-14 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+          {Object.entries(footerLinks).map(([title, links]) => (
+            <div key={title}>
+              <h3 className="text-xs font-black tracking-[0.2em] uppercase text-[#FFD100] mb-6">{title}</h3>
+              <ul className="space-y-3.5">
+                {links.map((link) => (
+                  <li key={link.label}>
+                    <Link href={link.href} className="group inline-flex items-center gap-1.5 text-[15px] text-white/55 hover:text-white transition-colors">
+                      {link.label}
+                      <ArrowUpRight size={13} className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 text-[#FFD100] transition-all" />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        {/* Alt bar */}
+        <div className="border-t border-white/8">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-xs text-white/30">© {new Date().getFullYear()} {club.fullName}. Tüm hakları saklıdır.</p>
             <div className="flex gap-6 text-xs text-white/30">
               <Link href="/gizlilik" className="hover:text-white/70 transition-colors">Gizlilik</Link>

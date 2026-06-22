@@ -97,7 +97,7 @@ function MatchCard({ match, logos }: { match: Match; logos: Record<string, strin
 function StandingsTable({ standings }: { standings: StandingRow[] }) {
   return (
     <div className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm overflow-hidden">
-      <div className="grid grid-cols-[24px_1fr_26px_26px_26px_26px_38px_34px] gap-1 px-3 py-3 bg-[#0f4a28] text-[10px] font-black tracking-wide uppercase text-white/60">
+      <div className="grid grid-cols-[28px_1fr_30px_30px_30px_30px_44px_40px] gap-1.5 px-4 py-3.5 bg-[#0f4a28] text-[11px] font-black tracking-wide uppercase text-white/60">
         <span>#</span><span>Takım</span>
         <span className="text-center">O</span><span className="text-center">G</span>
         <span className="text-center">B</span><span className="text-center">M</span>
@@ -108,22 +108,22 @@ function StandingsTable({ standings }: { standings: StandingRow[] }) {
         const av = row.goalsFor - row.goalsAgainst
         return (
           <div key={row.rank}
-            className={`grid grid-cols-[24px_1fr_26px_26px_26px_26px_38px_34px] gap-1 items-center px-3 py-2.5 border-b border-l-4 border-[#edf7f2] last:border-b-0 ${
+            className={`grid grid-cols-[28px_1fr_30px_30px_30px_30px_44px_40px] gap-1.5 items-center px-4 py-3 border-b border-l-4 border-[#edf7f2] last:border-b-0 ${
               row.isCurrentTeam ? 'bg-[#edf7f2] border-l-[#1A6B3C]' : 'border-l-transparent hover:bg-[#f5f9f6]'
             }`}>
-            <span className={`text-xs font-black ${row.rank <= 3 ? 'text-[#1A6B3C]' : 'text-[#7aab8e]'}`}>{row.rank}</span>
-            <div className="flex items-center gap-1.5 min-w-0">
-              <div className="relative w-4 h-4 shrink-0">
+            <span className={`text-sm font-black ${row.rank <= 3 ? 'text-[#1A6B3C]' : 'text-[#7aab8e]'}`}>{row.rank}</span>
+            <div className="flex items-center gap-2 min-w-0">
+              <div className="relative w-5 h-5 shrink-0">
                 <Image src={row.teamLogo} alt={row.team} fill className="object-contain" />
               </div>
-              <span className={`text-[11px] font-bold truncate ${row.isCurrentTeam ? 'text-[#1A6B3C]' : 'text-[#092d18]'}`}>{row.team}</span>
+              <span className={`text-sm font-bold truncate ${row.isCurrentTeam ? 'text-[#1A6B3C]' : 'text-[#092d18]'}`}>{row.team}</span>
             </div>
-            <span className="text-[11px] text-[#3d6b52] text-center tabular-nums">{row.played}</span>
-            <span className="text-[11px] text-[#3d6b52] text-center tabular-nums">{row.won}</span>
-            <span className="text-[11px] text-[#3d6b52] text-center tabular-nums">{row.drawn}</span>
-            <span className="text-[11px] text-[#3d6b52] text-center tabular-nums">{row.lost}</span>
-            <span className="text-[11px] text-[#3d6b52] text-center tabular-nums">{av > 0 ? `+${av}` : av}</span>
-            <span className={`text-xs font-black text-center tabular-nums ${row.isCurrentTeam ? 'text-[#1A6B3C]' : 'text-[#092d18]'}`}>{row.points}</span>
+            <span className="text-sm text-[#3d6b52] text-center tabular-nums">{row.played}</span>
+            <span className="text-sm text-[#3d6b52] text-center tabular-nums">{row.won}</span>
+            <span className="text-sm text-[#3d6b52] text-center tabular-nums">{row.drawn}</span>
+            <span className="text-sm text-[#3d6b52] text-center tabular-nums">{row.lost}</span>
+            <span className="text-sm text-[#3d6b52] text-center tabular-nums">{av > 0 ? `+${av}` : av}</span>
+            <span className={`text-base font-black text-center tabular-nums ${row.isCurrentTeam ? 'text-[#1A6B3C]' : 'text-[#092d18]'}`}>{row.points}</span>
           </div>
         )
       })}
