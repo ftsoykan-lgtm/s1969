@@ -180,11 +180,16 @@ async function cekFikstur(page) {
     await page.waitForSelector('[id*="grdFikstur"] tr', { timeout: 30000 }).catch(() => {})
     const rows = await page.$$eval(
       '[id*="grdFikstur"] tr.GridRow_TFF_Contents, [id*="grdFikstur"] tr.GridAltRow_TFF_Contents',
-      (trs) => trs.map((tr) => Array.from(tr.querySelectorAll('td')).map((td) => td.textContent.replace(/\s+/g, ' ').trim()))
+      (trs) => trs.map((tr) => {
+        const cells = Array.from(tr.querySelectorAll('td')).map((td) => td.textContent.replace(/\s+/g, ' ').trim())
+        const link = tr.querySelector('a[href*="macID"], a[href*="macId"]')
+        const m = link?.getAttribute('href')?.match(/mac[Ii][Dd]=(\d+)/)
+        return { cells, macId: m ? m[1] : null }
+      })
     )
     let yeni = 0
     for (const r of rows) {
-      const key = r.join('|')
+      const key = r.cells.join('|')
       if (!seen.has(key)) { seen.add(key); rawRows.push(r); yeni++ }
     }
     // Yeni satır gelmediyse veya "Sonraki" yoksa dur
@@ -201,7 +206,7 @@ async function cekFikstur(page) {
     Temmuz: '07', Ağustos: '08', Eylül: '09', Ekim: '10', Kasım: '11', Aralık: '12' }
 
   const fixtures = rawRows
-    .map((cells) => {
+    .map(({ cells, macId }) => {
       const c = cells.filter(Boolean)
       // Skor hücresini bul (örn "2-0")
       const scoreIdx = c.findIndex((x) => /^\d+\s*-\s*\d+$/.test(x))
@@ -220,6 +225,8 @@ async function cekFikstur(page) {
       const homeIsSfk = home.toUpperCase().includes(TEAM_KEY)
       return {
         week: /^\d+$/.test(c[0]) ? Number(c[0]) : null,
+        macId: macId ?? null,
+        time: '',
         homeTeam: home,
         awayTeam: away,
         homeScore: hs,
@@ -235,7 +242,25 @@ async function cekFikstur(page) {
     .filter(Boolean)
 
   log(`✓ ${fixtures.length} maç çekildi (sezon: ${SEASON})`)
-  return fixtures
+
+  // Her maçın saatini detay sayfasından çek (pageID=29&macID=...)
+  log('Maç saatleri çekiliyor...')
+  let saatli = 0
+  for (const f of fixtures) {
+    if (!f.macId) continue
+    try {
+      await page.goto(`https://www.tff.org/Default.aspx?pageID=29&macID=${f.macId}`,
+        { waitUntil: 'domcontentloaded', timeout: 25000 })
+      const txt = await page.evaluate(() => document.body.innerText)
+      // "24.08.2025 - 19:00" gibi
+      const tm = txt.match(/\d{2}\.\d{2}\.\d{4}\s*[-–]\s*(\d{2}:\d{2})/)
+      if (tm) { f.time = tm[1]; saatli++ }
+    } catch {}
+  }
+  log(`✓ ${saatli}/${fixtures.length} maç saati bulundu`)
+
+  // Geçici alanları temizle
+  return fixtures.map(({ macId, ...rest }) => rest)
 }
 
 /* ─── 3) KADRO (oyuncular) ─────────────────────────────────── */

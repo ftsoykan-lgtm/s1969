@@ -25,6 +25,7 @@ export type TffStanding = {
 
 export type TffFixture = {
   week: number | null
+  time?: string
   homeTeam: string
   awayTeam: string
   homeScore: number | null
@@ -109,7 +110,7 @@ export function buildMatches(raw: TffRaw): Match[] {
       homeScore: f.homeScore,
       awayScore: f.awayScore,
       date: f.date ?? '',
-      time: '',
+      time: f.time ?? '',
       competition: f.competition,
       venue: f.isHome ? 'GAP Arena, Şanlıurfa' : 'Deplasman',
       isCompleted: f.homeScore !== null && f.awayScore !== null,

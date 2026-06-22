@@ -78,15 +78,7 @@ const navLinks: {
   { label: 'HABERLER', href: '/haberler' },
   { label: 'KULÜP', href: '#', hasMega: true },
   { label: 'KADRO', href: '/kadro' },
-  {
-    label: 'MAÇ MERKEZİ',
-    href: '/fikstur',
-    submenu: [
-      { label: 'Fikstür', href: '/fikstur?t=fikstur' },
-      { label: 'Sonuçlar', href: '/fikstur?t=sonuclar' },
-      { label: 'Puan Durumu', href: '/fikstur?t=puan' },
-    ],
-  },
+  { label: 'MAÇ MERKEZİ', href: '/fikstur' },
   { label: 'TARAFTAR', href: '#' },
   { label: 'İLETİŞİM', href: '/iletisim' },
 ]

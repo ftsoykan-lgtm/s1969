@@ -10,21 +10,11 @@ export const metadata: Metadata = {
 
 export const dynamic = 'force-dynamic'
 
-type Tab = 'fikstur' | 'sonuclar' | 'puan'
-
-export default async function MacMerkeziPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ t?: string }>
-}) {
-  const { t } = await searchParams
-  const initialTab: Tab = t === 'sonuclar' || t === 'puan' ? t : 'fikstur'
-
+export default async function MacMerkeziPage() {
   const [{ standings: rawStandings, matches: rawMatches, meta }, logoMap] =
     await Promise.all([getLiveTff(), getTeamLogoMap()])
   const matches = applyLogosToMatches(rawMatches, logoMap)
   const standings = applyLogosToStandings(rawStandings, logoMap)
-  const completed = matches.filter((m) => m.isCompleted)
 
   return (
     <div className="min-h-screen bg-[#f5f9f6]">
@@ -44,7 +34,7 @@ export default async function MacMerkeziPage({
       </div>
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-        <MacMerkezi all={matches} completed={completed} standings={standings} season={meta.season} initialTab={initialTab} />
+        <MacMerkezi all={matches} standings={standings} season={meta.season} />
       </div>
     </div>
   )
