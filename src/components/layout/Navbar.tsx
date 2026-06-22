@@ -27,7 +27,7 @@ const SocialIcons = {
   ),
   YouTube: () => (
     <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-1.96C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.4 19.54C5.12 20 12 20 12 20s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white"/>
+      <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-1.96C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.4 19.54C5.12 20 12 20 12 20s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#0a3320"/>
     </svg>
   ),
   TikTok: () => (
@@ -69,11 +69,7 @@ const kulupMenu = [
   },
 ]
 
-const navLinks: {
-  label: string
-  href: string
-  hasMega?: boolean
-}[] = [
+const navLinks: { label: string; href: string; hasMega?: boolean }[] = [
   { label: 'Haberler', href: '/haberler' },
   { label: 'Kulüp', href: '#', hasMega: true },
   { label: 'Kadro', href: '/kadro' },
@@ -123,51 +119,63 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
   return (
     <header className="sticky top-0 z-50 w-full">
 
-      {/* ── İnce üst bant ─────────────────────────────────────────────── */}
-      <div className="hidden lg:block bg-[#072414]">
+      {/* ── İnce premium üst bant ─────────────────────────────────────── */}
+      <div className="hidden lg:block bg-[#061d10]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-between h-8">
-          <p className="text-[10px] text-white/30 font-medium tracking-wide">
-            {club.fullName} — Resmi Web Sitesi
+          <p className="text-[10px] text-white/35 font-medium tracking-[0.15em] uppercase">
+            {club.fullName} <span className="text-[#FFD100]/40">— Resmi Web Sitesi</span>
           </p>
-          <div className="flex items-center gap-3.5">
-            {socials.map(({ icon: Icon, href, label }) => (
-              <a key={label} href={href} aria-label={label} target="_blank" rel="noopener noreferrer"
-                className="text-white/30 hover:text-[#FFD100] transition-colors duration-150">
-                <Icon />
-              </a>
-            ))}
+          <div className="flex items-center gap-4">
+            <Link href="/bilet" className="text-[10px] font-black tracking-[0.2em] uppercase text-[#FFD100]/70 hover:text-[#FFD100] transition-colors">
+              Bilet
+            </Link>
+            <span className="w-px h-3.5 bg-white/15" />
+            <div className="flex items-center gap-3.5">
+              {socials.map(({ icon: Icon, href, label }) => (
+                <a key={label} href={href} aria-label={label} target="_blank" rel="noopener noreferrer"
+                  className="text-white/30 hover:text-[#FFD100] transition-colors duration-150">
+                  <Icon />
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </div>
 
-      {/* ── Ana navbar — cam yüzey ────────────────────────────────────── */}
+      {/* ── Ana navbar — premium cam yüzey ─────────────────────────────── */}
       <div className={cn(
-        'transition-all duration-300 border-b',
+        'relative transition-all duration-300',
         scrolled
-          ? 'bg-[#0a3320]/85 backdrop-blur-xl border-white/10 shadow-lg shadow-black/30'
-          : 'bg-[#0a3320] border-transparent'
+          ? 'bg-[#0a3320]/80 backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.35)]'
+          : 'bg-gradient-to-b from-[#0c3a25] to-[#0a3320]'
       )}>
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-[72px] items-center gap-6">
+        {/* Alt altın hat */}
+        <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#FFD100]/30 to-transparent" />
 
-            {/* Logo */}
-            <Link href="/" className="flex items-center gap-3 shrink-0 group">
-              {hasLogo ? (
-                <img src={club.logoUrl} alt={club.name}
-                  className="h-12 w-12 rounded-2xl object-contain bg-white/5 ring-1 ring-white/10 group-hover:ring-[#FFD100]/50 transition-all duration-200" />
-              ) : (
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#FFD100] to-[#e8b800] text-[#0a3320] font-black text-sm shadow-lg ring-1 ring-white/10 group-hover:ring-[#FFD100]/50 transition-all duration-200">
-                  {club.shortCode}
-                </div>
-              )}
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex h-[74px] items-center gap-6">
+
+            {/* Logo + wordmark */}
+            <Link href="/" className="flex items-center gap-3.5 shrink-0 group">
+              <div className="relative">
+                <div className="absolute -inset-1 rounded-2xl bg-[#FFD100]/0 group-hover:bg-[#FFD100]/20 blur-md transition-all duration-300" />
+                {hasLogo ? (
+                  <img src={club.logoUrl} alt={club.name}
+                    className="relative h-12 w-12 rounded-2xl object-contain bg-white/5 ring-1 ring-white/15 group-hover:ring-[#FFD100]/60 transition-all duration-200" />
+                ) : (
+                  <div className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#FFD100] to-[#d4ad00] text-[#0a3320] font-black text-sm shadow-lg ring-1 ring-white/15 group-hover:ring-[#FFD100]/60 transition-all duration-200">
+                    {club.shortCode}
+                  </div>
+                )}
+              </div>
               <div className="hidden sm:block leading-tight">
-                <p className="text-white font-black text-[15px] tracking-wide uppercase">{club.name}</p>
-                <p className="text-[#FFD100]/50 text-[9px] font-bold tracking-[0.25em] uppercase">Futbol Kulübü</p>
+                <p className="font-heading text-white font-extrabold text-[16px] tracking-wide uppercase">{club.name}</p>
+                <p className="text-[#FFD100]/55 text-[9px] font-bold tracking-[0.3em] uppercase mt-0.5">Futbol Kulübü · {club.founded}</p>
               </div>
             </Link>
 
             {/* Desktop linkler — pill grup */}
-            <nav className="hidden lg:flex items-center gap-1 flex-1 justify-center">
+            <nav className="hidden lg:flex items-center gap-0.5 flex-1 justify-center">
               {navLinks.map((link) =>
                 link.hasMega ? (
                   <div key={link.label} className="relative"
@@ -185,12 +193,17 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
                 ) : (
                   <Link key={link.href} href={link.href}
                     className={cn(
-                      'px-4 py-2 rounded-full text-[12.5px] font-bold tracking-wide transition-all duration-200',
+                      'relative px-4 py-2 rounded-full text-[12.5px] font-bold tracking-wide transition-all duration-200 group',
                       isActive(link.href)
-                        ? 'text-[#0a3320] bg-[#FFD100] shadow-md shadow-[#FFD100]/20'
+                        ? 'text-[#FFD100]'
                         : 'text-white/70 hover:text-white hover:bg-white/[0.06]'
                     )}>
                     {link.label}
+                    {/* aktif alt gösterge */}
+                    <span className={cn(
+                      'absolute left-1/2 -translate-x-1/2 -bottom-[19px] h-[2px] rounded-full bg-[#FFD100] shadow-[0_0_8px_rgba(255,209,0,0.6)] transition-all duration-300',
+                      isActive(link.href) ? 'w-6 opacity-100' : 'w-0 opacity-0'
+                    )} />
                   </Link>
                 )
               )}
@@ -202,11 +215,14 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
                 className="hidden lg:flex h-10 w-10 items-center justify-center text-white/55 hover:text-white bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 rounded-full transition-all">
                 <Search size={16} />
               </button>
+              {/* Premium bilet butonu */}
               <Link href="/bilet"
-                className="inline-flex items-center gap-2 bg-[#FFD100] hover:bg-[#e8c000] text-[#0a3320] font-black text-[12px] tracking-wide uppercase pl-4 pr-5 py-2.5 rounded-full transition-all hover:scale-[1.03] shadow-md shadow-[#FFD100]/25">
-                <Ticket size={15} />
-                <span className="hidden sm:inline">Bilet Al</span>
-                <span className="sm:hidden">Bilet</span>
+                className="group relative inline-flex items-center gap-2 text-[#0a3320] font-black text-[12px] tracking-wide uppercase pl-4 pr-5 py-2.5 rounded-full transition-all hover:scale-[1.03] overflow-hidden
+                           bg-gradient-to-b from-[#FFE04D] to-[#FFD100] shadow-[0_4px_14px_rgba(255,209,0,0.35)]">
+                <span className="absolute inset-x-0 top-0 h-1/2 bg-white/25" />
+                <Ticket size={15} className="relative" />
+                <span className="relative hidden sm:inline">Bilet Al</span>
+                <span className="relative sm:hidden">Bilet</span>
               </Link>
               <button onClick={() => setMobileOpen(!mobileOpen)} aria-label="Menü"
                 className="lg:hidden h-10 w-10 flex items-center justify-center text-white/70 hover:text-white bg-white/[0.05] border border-white/10 rounded-full transition-all">
@@ -217,7 +233,7 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
           </div>
         </div>
 
-        {/* ── Mega Menu — cam panel ──────────────────────────────────── */}
+        {/* ── Mega Menu — premium cam panel ──────────────────────────── */}
         <div
           className={cn(
             'hidden lg:block absolute left-0 right-0 transition-all duration-200',
@@ -227,15 +243,15 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
           onMouseLeave={closeMega}
         >
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-3">
-            <div className="bg-[#072414]/95 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl shadow-black/50 overflow-hidden">
+            <div className="relative rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)] bg-[#061d10]/95 backdrop-blur-xl ring-1 ring-white/10">
               <div className="h-1 bg-gradient-to-r from-[#1A6B3C] via-[#FFD100] to-[#1A6B3C]" />
-              <div className="p-8 grid grid-cols-3 gap-10">
+              <div className="p-8 grid grid-cols-[1fr_1fr_1fr_1.1fr] gap-10">
                 {kulupMenu.map((col) => (
                   <div key={col.baslik}>
                     <p className="text-[#FFD100] text-[10px] font-black tracking-[0.25em] mb-4 pb-3 border-b border-white/10">
                       {col.baslik}
                     </p>
-                    <ul className="space-y-1">
+                    <ul className="space-y-0.5">
                       {col.linkler.map((item) => (
                         <li key={item.label}>
                           <Link href={item.href}
@@ -248,6 +264,15 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
                     </ul>
                   </div>
                 ))}
+                {/* Vitrin kartı */}
+                <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-[#1A6B3C] to-[#0a3320] ring-1 ring-white/10 p-5 flex flex-col justify-end">
+                  <div className="absolute top-3 right-3 text-[5rem] font-black text-white/[0.04] leading-none">{club.shortCode}</div>
+                  <p className="relative text-[10px] font-black tracking-[0.25em] uppercase text-[#FFD100]/70 mb-1">{club.nickname}</p>
+                  <p className="relative text-white font-black text-lg leading-tight mb-3">Tribünde yerini al</p>
+                  <Link href="/bilet" className="relative inline-flex items-center justify-center gap-2 bg-[#FFD100] text-[#0a3320] font-black text-[11px] tracking-wide uppercase px-4 py-2.5 rounded-full hover:bg-[#e8c000] transition-colors">
+                    Bilet Al →
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
@@ -256,16 +281,16 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
         {/* ── Mobil menü ─────────────────────────────────────────────── */}
         <div className={cn(
           'lg:hidden overflow-hidden transition-all duration-300',
-          mobileOpen ? 'max-h-[640px] opacity-100' : 'max-h-0 opacity-0'
+          mobileOpen ? 'max-h-[680px] opacity-100' : 'max-h-0 opacity-0'
         )}>
-          <div className="bg-[#072414] px-4 py-4 space-y-1">
+          <div className="bg-[#061d10] px-4 py-4 space-y-1">
             {navLinks.map((link) => (
               <div key={link.label}>
                 <Link href={link.href === '#' ? '#' : link.href}
                   className={cn(
                     'block px-4 py-3 text-sm font-bold tracking-wide rounded-2xl transition-all',
                     isActive(link.href)
-                      ? 'text-[#0a3320] bg-[#FFD100]'
+                      ? 'text-[#0a3320] bg-gradient-to-b from-[#FFE04D] to-[#FFD100]'
                       : 'text-white/70 hover:text-white hover:bg-white/[0.06]'
                   )}
                   onClick={() => setMobileOpen(false)}>
@@ -303,7 +328,7 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
 
       {/* ── Arama ────────────────────────────────────────────────────── */}
       {searchOpen && (
-        <div className="hidden lg:block bg-[#072414]/95 backdrop-blur-xl border-b border-white/10 px-4 py-3">
+        <div className="hidden lg:block bg-[#061d10]/95 backdrop-blur-xl border-b border-white/10 px-4 py-3">
           <div className="mx-auto max-w-7xl">
             <div className="relative">
               <Search size={15} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" />
