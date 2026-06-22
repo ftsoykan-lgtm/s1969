@@ -8,21 +8,36 @@ import { ArrowLeft, MapPin, Calendar, Clock, Flag, ExternalLink, Timer } from 'l
 import type { Metadata } from 'next'
 import type { LineupPlayer, MatchEvent } from '@/types'
 
-/* Düdük ikonu (maç başladı / hakem) */
-function Whistle({ size = 14, className = '' }: { size?: number; className?: string }) {
+/* Futbol topu (maç başladı) */
+function BallIcon({ size = 14, className = '' }: { size?: number; className?: string }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
-      <path d="M12 7h9a1 1 0 0 1 1 1v1a6 6 0 1 1-7.7-5.74A1 1 0 0 1 16 4v2a1 1 0 0 1-1 1h-3zM6 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/>
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" className={className}>
+      <circle cx="12" cy="12" r="9.2" />
+      <path d="M12 6.8l3.4 2.5-1.3 4.1H9.9L8.6 9.3z" fill="currentColor" stroke="none" opacity="0.9" />
+      <path d="M12 6.8V3M15.4 9.3l3.3-1.1M14.1 13.4l2.1 2.9M9.9 13.4l-2.1 2.9M8.6 9.3 5.3 8.2" />
     </svg>
   )
 }
 /* Damalı bayrak (maç sonucu) */
 function CheckeredFlag({ size = 14, className = '' }: { size?: number; className?: string }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-      <path d="M4 22V4" />
-      <path d="M4 4h14l-2 4 2 4H4" fill="currentColor" stroke="none" opacity="0.25" />
-      <path d="M4 4h14l-2 4 2 4H4" />
+    <svg width={size} height={size} viewBox="0 0 24 24" className={className}>
+      <path d="M5 3v18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      <g fill="currentColor">
+        <rect x="7" y="4" width="3.5" height="3" /><rect x="14" y="4" width="3.5" height="3" />
+        <rect x="10.5" y="7" width="3.5" height="3" /><rect x="17.5" y="7" width="2" height="3" />
+        <rect x="7" y="10" width="3.5" height="3" /><rect x="14" y="10" width="3.5" height="3" />
+      </g>
+      <rect x="7" y="4" width="12.5" height="9" fill="none" stroke="currentColor" strokeWidth="1.3" />
+    </svg>
+  )
+}
+/* Düdük (hakemler) */
+function Whistle({ size = 14, className = '' }: { size?: number; className?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path d="M10.5 4.2a1 1 0 0 1 1 .8l.4 2.5h7.6a2 2 0 0 1 2 2v1.3A6.8 6.8 0 1 1 8.7 8.2l-.2-2A1 1 0 0 1 9.5 5l1-.8zM8.5 11a3.3 3.3 0 1 0 0 6.6 3.3 3.3 0 0 0 0-6.6z" />
+      <circle cx="8.5" cy="14.3" r="1.4" fill="#fff" opacity="0.55" />
     </svg>
   )
 }
@@ -158,7 +173,7 @@ export default async function MacDetayPage({ params }: Props) {
               <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-[#e3efe8]" />
               <div className="space-y-3">
                 {timeline.map((t, i) => {
-                  if (t.kind === 'start') return <Milestone key={i} icon={Whistle} label="Maç Başladı" tone="green" />
+                  if (t.kind === 'start') return <Milestone key={i} icon={BallIcon} label="Maç Başladı" tone="green" />
                   if (t.kind === 'half') return <Milestone key={i} icon={Timer} label="İlk Yarı Sonucu" score={`${htHome} - ${htAway}`} tone="amber" />
                   if (t.kind === 'end') return <Milestone key={i} icon={CheckeredFlag} label="Maç Sonucu" score={`${match.homeScore} - ${match.awayScore}`} tone="green" />
                   const e = t.e

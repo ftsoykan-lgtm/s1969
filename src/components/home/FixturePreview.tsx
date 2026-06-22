@@ -8,42 +8,63 @@ import { getLiveTff } from '@/lib/supabase/tff-server'
 
 /* ─── Tek maç kartı ─────────────────────────────────────────── */
 function MatchCard({ match }: { match: Match }) {
-  return (
-    <div className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm p-5 hover:shadow-md transition-all">
-      {/* Üst: hafta + tarih */}
+  const urfaIsHome = match.homeTeam === 'Şanlıurfaspor'
+  const urfaScore = urfaIsHome ? match.homeScore : match.awayScore
+  const oppScore = urfaIsHome ? match.awayScore : match.homeScore
+  const result = match.isCompleted && urfaScore !== null && oppScore !== null
+    ? urfaScore > oppScore ? 'G' : urfaScore < oppScore ? 'M' : 'B'
+    : null
+
+  const Inner = (
+    <div className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm p-5 hover:shadow-md hover:border-[#1A6B3C]/30 transition-all h-full">
+      {/* Üst: hafta + sonuç rozeti */}
       <div className="flex items-center justify-between mb-4">
         <span className="text-[11px] font-black tracking-widest uppercase text-[#1A6B3C]">
           {match.week ? `${match.week}. Hafta` : match.competition}
         </span>
+        {result && (
+          <span className={`flex h-6 w-6 items-center justify-center rounded-md text-[12px] font-black shadow-sm ${
+            result === 'G' ? 'bg-[#1A6B3C] text-white' : result === 'M' ? 'bg-[#d01b2a] text-white' : 'bg-[#FFD100] text-[#0f4a28]'
+          }`} title={result === 'G' ? 'Galibiyet' : result === 'M' ? 'Mağlubiyet' : 'Beraberlik'}>{result}</span>
+        )}
       </div>
       <p className="text-[12px] text-[#7aab8e] font-semibold mb-4">{formatDate(match.date)}</p>
 
       {/* Takımlar + skor */}
       <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
-        <div className="flex justify-center">
-          <div className="relative w-14 h-14">
-            <Image src={match.homeTeamLogo} alt={match.homeTeam} fill className="object-contain" />
-          </div>
+        <div className="flex flex-col items-center gap-2">
+          <div className="relative w-14 h-14"><Image src={match.homeTeamLogo} alt={match.homeTeam} fill className="object-contain" /></div>
+          <span className={`text-[11px] font-bold text-center leading-tight line-clamp-1 ${urfaIsHome ? 'text-[#1A6B3C]' : 'text-[#092d18]'}`}>{match.homeTeam}</span>
         </div>
         <div className="flex items-center gap-1.5 px-1">
-          <span className="w-10 h-11 flex items-center justify-center rounded-lg bg-[#f5f9f6] text-2xl font-black text-[#092d18] tabular-nums">{match.homeScore}</span>
-          <span className="text-[#7aab8e] font-black">-</span>
-          <span className="w-10 h-11 flex items-center justify-center rounded-lg bg-[#f5f9f6] text-2xl font-black text-[#092d18] tabular-nums">{match.awayScore}</span>
+          {match.isCompleted ? (
+            <>
+              <span className="w-10 h-11 flex items-center justify-center rounded-lg bg-[#0f4a28] text-2xl font-black text-white tabular-nums">{match.homeScore}</span>
+              <span className="w-10 h-11 flex items-center justify-center rounded-lg bg-[#0f4a28] text-2xl font-black text-white tabular-nums">{match.awayScore}</span>
+            </>
+          ) : (
+            <span className="text-sm font-black text-[#7aab8e] px-2">VS</span>
+          )}
         </div>
-        <div className="flex justify-center">
-          <div className="relative w-14 h-14">
-            <Image src={match.awayTeamLogo} alt={match.awayTeam} fill className="object-contain" />
-          </div>
+        <div className="flex flex-col items-center gap-2">
+          <div className="relative w-14 h-14"><Image src={match.awayTeamLogo} alt={match.awayTeam} fill className="object-contain" /></div>
+          <span className={`text-[11px] font-bold text-center leading-tight line-clamp-1 ${!urfaIsHome ? 'text-[#1A6B3C]' : 'text-[#092d18]'}`}>{match.awayTeam}</span>
         </div>
       </div>
 
       {/* Stat */}
-      <div className="mt-4 pt-3.5 border-t border-[#edf7f2] flex items-center gap-1.5 text-[12px] text-[#7aab8e]">
-        <MapPin size={12} className="text-[#1A6B3C] shrink-0" />
-        <span className="truncate">{match.venue}</span>
-      </div>
+      {match.venue && (
+        <div className="mt-4 pt-3.5 border-t border-[#edf7f2] flex items-center justify-center gap-1.5 text-[12px] text-[#7aab8e]">
+          <MapPin size={12} className="text-[#1A6B3C] shrink-0" />
+          <span className="truncate">{match.venue}</span>
+        </div>
+      )}
     </div>
   )
+
+  return match.macId
+    ? <Link href={`/mac/${match.macId}`} className="block group">{Inner}</Link>
+    : Inner
 }
 
 /* ─── Mini puan durumu ──────────────────────────────────────── */
