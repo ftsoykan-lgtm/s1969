@@ -245,7 +245,7 @@ async function cekFikstur(page) {
 
   // Her maçın detayını çek (saat, stadyum, hakemler, kadrolar) — pageID=29&macID
   log('Maç detayları çekiliyor (saat, stadyum, hakem, kadro)...')
-  let saatli = 0, statli = 0, detayli = 0
+  let saatli = 0, statli = 0, detayli = 0, kadrolu = 0
   for (const f of fixtures) {
     if (!f.macId) continue
     try {
@@ -273,18 +273,79 @@ async function cekFikstur(page) {
           if (m) referees.push({ name: m[1].trim(), role: m[2] })
         })
 
-        return { time, venue, referees }
+        /* ── Kadrolar (İlk 11 + Yedekler) ──────────────────────────
+           TFF maç detay sayfası iki takım için "İlk 11" ve "Yedekler"
+           listeleri içerir. Oyuncu satırları "<no> <İSİM>" biçiminde.
+           Başlıklara göre sırayla: ev İlk11, ev Yedek, dep İlk11, dep Yedek. */
+        const lineBlocks = { home: { starters: [], subs: [], coach: null }, away: { starters: [], subs: [], coach: null } }
+        const lines = body.split('\n').map(clean).filter(Boolean)
+        const playerRe = /^(\d{1,2})\s+([A-Za-zÇĞİÖŞÜçğıöşü.\-' ]{2,40})$/
+        const isHeader = (t) => /İlk\s*(11|onbir)/i.test(t) || /yedek/i.test(t) || /teknik\s*direktör/i.test(t)
+        // başlık → kova eşlemesi, sırayla doldur
+        const buckets = [
+          ['home', 'starters'], ['home', 'subs'], ['away', 'starters'], ['away', 'subs'],
+        ]
+        let bIdx = -1, curType = null
+        for (const t of lines) {
+          if (/İlk\s*(11|onbir)/i.test(t)) { curType = 'starters'; bIdx++; continue }
+          if (/yedek/i.test(t)) { curType = 'subs'; bIdx++; continue }
+          if (/teknik\s*direktör/i.test(t)) { curType = 'coach'; continue }
+          if (curType === 'coach') {
+            const side = bIdx < 2 ? 'home' : 'away'
+            if (t.length > 2 && !playerRe.test(t)) { lineBlocks[side].coach = t; curType = null }
+            continue
+          }
+          const pm = t.match(playerRe)
+          if (pm && bIdx >= 0 && bIdx < buckets.length) {
+            const [side, kind] = buckets[bIdx]
+            lineBlocks[side][kind].push({ number: parseInt(pm[1], 10), name: pm[2].trim() })
+          }
+        }
+
+        /* ── Olaylar (gol / kart) ──────────────────────────────────
+           "45' Gol - OYUNCU", "67' Sarı Kart - OYUNCU" gibi satırlar. */
+        const events = []
+        for (const t of lines) {
+          const em = t.match(/^(\d{1,3})['.\s]+\s*(Gol|Penaltı(?:dan)?\s*Gol|Sarı\s*Kart|Kırmızı\s*Kart)\s*[-–:]?\s*(.+)$/i)
+          if (em) {
+            const minute = parseInt(em[1], 10)
+            const raw = em[2].toLowerCase()
+            const type = raw.includes('kırmızı') ? 'red' : raw.includes('sarı') ? 'yellow' : 'goal'
+            events.push({ minute, type, player: em[3].trim() })
+          }
+        }
+
+        return { time, venue, referees, lineups: lineBlocks, events }
       }, { homeName: f.homeTeam, awayName: f.awayTeam })
 
       if (d.time) { f.time = d.time; saatli++ }
       if (d.venue) { f.venue = titleCaseTr(d.venue); statli++ }
       if (d.referees.length) detayli++
+
+      const tc = (arr) => arr.map((p) => ({ number: p.number, name: titleCaseTr(p.name) }))
+      const homeStart = tc(d.lineups.home.starters), awayStart = tc(d.lineups.away.starters)
+      const hasLineup = homeStart.length >= 7 || awayStart.length >= 7
+      // Olay takımını tahmin et: oyuncu adı hangi takımın kadrosunda?
+      const nameSet = (arr) => new Set(arr.map((p) => p.name.toLocaleLowerCase('tr-TR')))
+      const homeNames = nameSet([...homeStart, ...tc(d.lineups.home.subs)])
+      const events = (d.events || []).map((e) => {
+        const nm = titleCaseTr(e.player)
+        const team = homeNames.has(nm.toLocaleLowerCase('tr-TR')) ? 'home' : 'away'
+        return { minute: e.minute, type: e.type, team, player: nm }
+      })
+
       f.detail = {
         referees: d.referees.map((r) => ({ name: titleCaseTr(r.name), role: r.role })),
+        lineups: hasLineup ? {
+          home: { starters: homeStart, subs: tc(d.lineups.home.subs), coach: d.lineups.home.coach ? titleCaseTr(d.lineups.home.coach) : null },
+          away: { starters: awayStart, subs: tc(d.lineups.away.subs), coach: d.lineups.away.coach ? titleCaseTr(d.lineups.away.coach) : null },
+        } : null,
+        events,
       }
+      if (hasLineup) kadrolu = (kadrolu || 0) + 1
     } catch {}
   }
-  log(`✓ Saat: ${saatli}/${fixtures.length} · Stadyum: ${statli}/${fixtures.length} · Detay: ${detayli}/${fixtures.length}`)
+  log(`✓ Saat: ${saatli}/${fixtures.length} · Stadyum: ${statli}/${fixtures.length} · Hakem: ${detayli}/${fixtures.length} · Kadro: ${kadrolu}/${fixtures.length}`)
 
   // macId'yi koru (detay sayfası linki için), geçici alan yok
   return fixtures

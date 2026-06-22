@@ -46,6 +46,26 @@ export interface Match {
   week?: number | null
   macId?: string | null
   referees?: { name: string; role: string }[]
+  lineups?: MatchLineups | null
+  events?: MatchEvent[]
+}
+
+export interface LineupPlayer {
+  number?: number | null
+  name: string
+}
+
+export interface MatchEvent {
+  minute?: number | null
+  type: 'goal' | 'yellow' | 'red' | 'sub'
+  team: 'home' | 'away'
+  player: string
+  detail?: string
+}
+
+export interface MatchLineups {
+  home: { starters: LineupPlayer[]; subs: LineupPlayer[]; coach?: string | null }
+  away: { starters: LineupPlayer[]; subs: LineupPlayer[]; coach?: string | null }
 }
 
 export interface StandingRow {
