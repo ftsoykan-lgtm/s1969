@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-22T09:04:31.950Z",
+  "updatedAt": "2026-06-22T09:28:45.275Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2025-2026",
@@ -314,6 +314,7 @@
   "sanliurfasporFixtures": [
     {
       "week": 1,
+      "macId": "284249",
       "time": "19:00",
       "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
       "awayTeam": "BEYKOZ ANADOLU SPOR A.Ş.",
@@ -325,10 +326,31 @@
       "isHome": true,
       "opponent": "BEYKOZ ANADOLU SPOR A.Ş.",
       "result": "G",
-      "venue": "11 Nisan Stadyumu"
+      "venue": "11 Nisan Stadyumu",
+      "detail": {
+        "referees": [
+          {
+            "name": "Yunus Emre Çakar",
+            "role": "Hakem"
+          },
+          {
+            "name": "Erkan Akbak",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Anıl Çiftçi",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Osman Can Açıklar",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     },
     {
       "week": 2,
+      "macId": "284254",
       "time": "19:00",
       "homeTeam": "BUCASPOR 1928",
       "awayTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
@@ -340,10 +362,31 @@
       "isHome": false,
       "opponent": "BUCASPOR 1928",
       "result": "G",
-      "venue": "Yeni Buca Stadı"
+      "venue": "Yeni Buca Stadı",
+      "detail": {
+        "referees": [
+          {
+            "name": "Emre Kaan Çalışkan",
+            "role": "Hakem"
+          },
+          {
+            "name": "Hüseyin Can",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Baran Can Durmuş",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Berat Osmancıklı",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     },
     {
       "week": null,
+      "macId": "287747",
       "time": "",
       "homeTeam": "KURTALAN SPOR",
       "awayTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
@@ -354,10 +397,31 @@
       "competition": "Ziraat Türkiye Kupası",
       "isHome": false,
       "opponent": "KURTALAN SPOR",
-      "result": "G"
+      "result": "G",
+      "detail": {
+        "referees": [
+          {
+            "name": "Halil Erdoğan",
+            "role": "Hakem"
+          },
+          {
+            "name": "Muhammet Munir Dadı",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Ahmet Fındık",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Yiğit Bora Çağıran",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     },
     {
       "week": 3,
+      "macId": "284266",
       "time": "",
       "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
       "awayTeam": "KEPEZ SPOR FUTBOL A.Ş.",
@@ -368,10 +432,31 @@
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": true,
       "opponent": "KEPEZ SPOR FUTBOL A.Ş.",
-      "result": "G"
+      "result": "G",
+      "detail": {
+        "referees": [
+          {
+            "name": "Burak Demirkıran",
+            "role": "Hakem"
+          },
+          {
+            "name": "Mehmet Özgür İşbilen",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Hasan Genç",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Ali Emir Yolcu",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     },
     {
       "week": 4,
+      "macId": "284274",
       "time": "16:30",
       "homeTeam": "SULTAN SU İNEGÖLSPOR",
       "awayTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
@@ -383,10 +468,31 @@
       "isHome": false,
       "opponent": "SULTAN SU İNEGÖLSPOR",
       "result": "G",
-      "venue": "İnegöl İlçe Stadı"
+      "venue": "İnegöl İlçe Stadı",
+      "detail": {
+        "referees": [
+          {
+            "name": "Mustafa Hakan Belder",
+            "role": "Hakem"
+          },
+          {
+            "name": "Hakan Tunç",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Mert Altan Çakır",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Abdurrahman Faruk Avşar",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     },
     {
       "week": null,
+      "macId": "305220",
       "time": "14:30",
       "homeTeam": "DERSİM SPOR",
       "awayTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
@@ -398,10 +504,31 @@
       "isHome": false,
       "opponent": "DERSİM SPOR",
       "result": "M",
-      "venue": "Tunceli Atatürk"
+      "venue": "Tunceli Atatürk",
+      "detail": {
+        "referees": [
+          {
+            "name": "Kemal Dizdar",
+            "role": "Hakem"
+          },
+          {
+            "name": "Mustafa Pelit",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Umut Kaptan",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Ramazan Doğanay",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     },
     {
       "week": 5,
+      "macId": "284283",
       "time": "19:00",
       "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
       "awayTeam": "MERKÜR JET ERBAASPOR",
@@ -413,10 +540,31 @@
       "isHome": true,
       "opponent": "MERKÜR JET ERBAASPOR",
       "result": "B",
-      "venue": "11 Nisan Stadyumu"
+      "venue": "11 Nisan Stadyumu",
+      "detail": {
+        "referees": [
+          {
+            "name": "Enver Aydın",
+            "role": "Hakem"
+          },
+          {
+            "name": "Erdi Abdulmecit Sayar",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Berat Binbir",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Abdulsamet Şenoğlu",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     },
     {
       "week": 6,
+      "macId": "284294",
       "time": "15:30",
       "homeTeam": "İSKENDERUNSPOR A.Ş.",
       "awayTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
@@ -428,10 +576,31 @@
       "isHome": false,
       "opponent": "İSKENDERUNSPOR A.Ş.",
       "result": "G",
-      "venue": "Kırıkhan İlçe"
+      "venue": "Kırıkhan İlçe",
+      "detail": {
+        "referees": [
+          {
+            "name": "Oğuzhan Gökçen",
+            "role": "Hakem"
+          },
+          {
+            "name": "Emrah Akkaya",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Burak Bakırtaş",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Sabit Selvi",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     },
     {
       "week": 7,
+      "macId": "284300",
       "time": "",
       "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
       "awayTeam": "ANAGOLD 24ERZİNCANSPOR",
@@ -442,10 +611,31 @@
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": true,
       "opponent": "ANAGOLD 24ERZİNCANSPOR",
-      "result": "G"
+      "result": "G",
+      "detail": {
+        "referees": [
+          {
+            "name": "Mustafa Ünver",
+            "role": "Hakem"
+          },
+          {
+            "name": "Beran Yalçın",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Sabri Emre Tekin",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Bekir Doğan",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     },
     {
       "week": 8,
+      "macId": "284305",
       "time": "15:00",
       "homeTeam": "ADANA 01 FUTBOL KULÜBÜ SK",
       "awayTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
@@ -457,10 +647,31 @@
       "isHome": false,
       "opponent": "ADANA 01 FUTBOL KULÜBÜ SK",
       "result": "G",
-      "venue": "Ali Hoşfikirer Stadı"
+      "venue": "Ali Hoşfikirer Stadı",
+      "detail": {
+        "referees": [
+          {
+            "name": "Muhammed Selim Özbek",
+            "role": "Hakem"
+          },
+          {
+            "name": "Batuhan Sarıgül",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Ogün Keleş",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Berkan Çetin",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     },
     {
       "week": 9,
+      "macId": "284317",
       "time": "19:00",
       "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
       "awayTeam": "SEZA ÇİMENTO ELAZIĞSPOR",
@@ -472,10 +683,31 @@
       "isHome": true,
       "opponent": "SEZA ÇİMENTO ELAZIĞSPOR",
       "result": "M",
-      "venue": "11 Nisan Stadyumu"
+      "venue": "11 Nisan Stadyumu",
+      "detail": {
+        "referees": [
+          {
+            "name": "Berkay Erdemir",
+            "role": "Hakem"
+          },
+          {
+            "name": "Barış Sun",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Tolga Düyüncü",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Muhammet Alperen Çopur",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     },
     {
       "week": 10,
+      "macId": "284325",
       "time": "19:00",
       "homeTeam": "MKE ANKARAGÜCÜ",
       "awayTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
@@ -487,10 +719,31 @@
       "isHome": false,
       "opponent": "MKE ANKARAGÜCÜ",
       "result": "M",
-      "venue": "Eryaman Stadyumu"
+      "venue": "Eryaman Stadyumu",
+      "detail": {
+        "referees": [
+          {
+            "name": "Tayfun Güz",
+            "role": "Hakem"
+          },
+          {
+            "name": "Ali Rıza Öztürk",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Anıl Küçükkaraca",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Tolga Tuna",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     },
     {
       "week": 11,
+      "macId": "284334",
       "time": "",
       "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
       "awayTeam": "BEYOĞLU YENİ ÇARŞI SPOR FAALİYETLERİ A.Ş.",
@@ -501,10 +754,31 @@
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": true,
       "opponent": "BEYOĞLU YENİ ÇARŞI SPOR FAALİYETLERİ A.Ş.",
-      "result": "G"
+      "result": "G",
+      "detail": {
+        "referees": [
+          {
+            "name": "Abdulbaki Ayyıldız",
+            "role": "Hakem"
+          },
+          {
+            "name": "Sezgin Şahbaz",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Harun Günaydın",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Berkay Yavuz",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     },
     {
       "week": 12,
+      "macId": "284345",
       "time": "",
       "homeTeam": "ALTINORDU",
       "awayTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
@@ -515,10 +789,31 @@
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": false,
       "opponent": "ALTINORDU",
-      "result": "G"
+      "result": "G",
+      "detail": {
+        "referees": [
+          {
+            "name": "Yücel Büyük",
+            "role": "Hakem"
+          },
+          {
+            "name": "Akın Karabacak",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Mahir Selenga Mısır",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Alp Tanırgan",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     },
     {
       "week": 13,
+      "macId": "284351",
       "time": "15:00",
       "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
       "awayTeam": "BATMAN PETROL SPOR A.Ş.",
@@ -530,10 +825,31 @@
       "isHome": true,
       "opponent": "BATMAN PETROL SPOR A.Ş.",
       "result": "M",
-      "venue": "11 Nisan Stadyumu"
+      "venue": "11 Nisan Stadyumu",
+      "detail": {
+        "referees": [
+          {
+            "name": "Melih Aldemir",
+            "role": "Hakem"
+          },
+          {
+            "name": "Tolga Okumuş",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Emrah Altındağ",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Muhammed Ömür",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     },
     {
       "week": 14,
+      "macId": "284365",
       "time": "13:00",
       "homeTeam": "KARACABEY BELEDİYE SPOR A.Ş.",
       "awayTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
@@ -545,10 +861,31 @@
       "isHome": false,
       "opponent": "KARACABEY BELEDİYE SPOR A.Ş.",
       "result": "G",
-      "venue": "Karacabey M.fehmi Gerçeker Stadı"
+      "venue": "Karacabey M.fehmi Gerçeker Stadı",
+      "detail": {
+        "referees": [
+          {
+            "name": "Yunus Emre Çakar",
+            "role": "Hakem"
+          },
+          {
+            "name": "Servet Bozkurt",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Mevlüt Bozok",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Fuat Filiz",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     },
     {
       "week": 15,
+      "macId": "284368",
       "time": "",
       "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
       "awayTeam": "KARAMAN FUTBOL KULÜBÜ",
@@ -559,10 +896,31 @@
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": true,
       "opponent": "KARAMAN FUTBOL KULÜBÜ",
-      "result": "G"
+      "result": "G",
+      "detail": {
+        "referees": [
+          {
+            "name": "Emre Kaan Çalışkan",
+            "role": "Hakem"
+          },
+          {
+            "name": "Buğra Can Semercioğlu",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Mert Altan Çakır",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Tolga Tuna",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     },
     {
       "week": 17,
+      "macId": "284386",
       "time": "13:00",
       "homeTeam": "GMG KASTAMONUSPOR",
       "awayTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
@@ -574,10 +932,31 @@
       "isHome": false,
       "opponent": "GMG KASTAMONUSPOR",
       "result": "G",
-      "venue": "Gazi Stadı"
+      "venue": "Gazi Stadı",
+      "detail": {
+        "referees": [
+          {
+            "name": "Oğuzhan Gökçen",
+            "role": "Hakem"
+          },
+          {
+            "name": "Enes Berk Güçlü",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Burak Bakırtaş",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Safa Yılmaz",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     },
     {
       "week": 18,
+      "macId": "284403",
       "time": "13:00",
       "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
       "awayTeam": "MUĞLASPOR KULÜBÜ",
@@ -589,10 +968,31 @@
       "isHome": true,
       "opponent": "MUĞLASPOR KULÜBÜ",
       "result": "B",
-      "venue": "11 Nisan Stadyumu"
+      "venue": "11 Nisan Stadyumu",
+      "detail": {
+        "referees": [
+          {
+            "name": "Erdem Mertoğlu",
+            "role": "Hakem"
+          },
+          {
+            "name": "Sezgin Şahbaz",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Kenan Özcan",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Yasin Kalcıoğlu",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     },
     {
       "week": 19,
+      "macId": "284405",
       "time": "14:00",
       "homeTeam": "SİNCAN BELEDİYESİ ANKARASPOR",
       "awayTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
@@ -604,10 +1004,31 @@
       "isHome": false,
       "opponent": "SİNCAN BELEDİYESİ ANKARASPOR",
       "result": "M",
-      "venue": "Sincan 15 Temmuz Milli Birlik Stadı"
+      "venue": "Sincan 15 Temmuz Milli Birlik Stadı",
+      "detail": {
+        "referees": [
+          {
+            "name": "Mustafa Hakan Belder",
+            "role": "Hakem"
+          },
+          {
+            "name": "Sabri Üstünel",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Hasan Ata",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "İsmet Yılmaz",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     },
     {
       "week": 20,
+      "macId": "284420",
       "time": "13:00",
       "homeTeam": "BEYKOZ ANADOLU SPOR A.Ş.",
       "awayTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
@@ -619,10 +1040,31 @@
       "isHome": false,
       "opponent": "BEYKOZ ANADOLU SPOR A.Ş.",
       "result": "G",
-      "venue": "Maltepe Hasan Polat"
+      "venue": "Maltepe Hasan Polat",
+      "detail": {
+        "referees": [
+          {
+            "name": "Mustafa Ünver",
+            "role": "Hakem"
+          },
+          {
+            "name": "Hüseyin Can",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Şükrü Mert",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Furkan Sarıoğlan",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     },
     {
       "week": 21,
+      "macId": "284425",
       "time": "15:00",
       "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
       "awayTeam": "BUCASPOR 1928",
@@ -634,10 +1076,31 @@
       "isHome": true,
       "opponent": "BUCASPOR 1928",
       "result": "G",
-      "venue": "11 Nisan Stadyumu"
+      "venue": "11 Nisan Stadyumu",
+      "detail": {
+        "referees": [
+          {
+            "name": "Doğukan Yıldırım",
+            "role": "Hakem"
+          },
+          {
+            "name": "İsmail Semih İleri",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Emirhan Durmaz",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Kemal Savaş",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     },
     {
       "week": 23,
+      "macId": "284445",
       "time": "15:00",
       "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
       "awayTeam": "SULTAN SU İNEGÖLSPOR",
@@ -649,10 +1112,31 @@
       "isHome": true,
       "opponent": "SULTAN SU İNEGÖLSPOR",
       "result": "B",
-      "venue": "11 Nisan Stadyumu"
+      "venue": "11 Nisan Stadyumu",
+      "detail": {
+        "referees": [
+          {
+            "name": "Yakup Özhan",
+            "role": "Hakem"
+          },
+          {
+            "name": "Ali Gün",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Ali İmran Genli",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Muhammed Ömür",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     },
     {
       "week": 24,
+      "macId": "284454",
       "time": "",
       "homeTeam": "MERKÜR JET ERBAASPOR",
       "awayTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
@@ -663,10 +1147,31 @@
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": false,
       "opponent": "MERKÜR JET ERBAASPOR",
-      "result": "B"
+      "result": "B",
+      "detail": {
+        "referees": [
+          {
+            "name": "Can Cengiz",
+            "role": "Hakem"
+          },
+          {
+            "name": "Muhammet Oğuzhan Öztaş",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Erdoğan Çak",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Erdal Yılmaz",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     },
     {
       "week": 25,
+      "macId": "284465",
       "time": "",
       "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
       "awayTeam": "İSKENDERUNSPOR A.Ş.",
@@ -677,10 +1182,31 @@
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": true,
       "opponent": "İSKENDERUNSPOR A.Ş.",
-      "result": "G"
+      "result": "G",
+      "detail": {
+        "referees": [
+          {
+            "name": "Emre Kaan Çalışkan",
+            "role": "Hakem"
+          },
+          {
+            "name": "Demirhan Emir",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Mert Altan Çakır",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Onur Bingöl",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     },
     {
       "week": 26,
+      "macId": "284471",
       "time": "13:00",
       "homeTeam": "ANAGOLD 24ERZİNCANSPOR",
       "awayTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
@@ -692,10 +1218,31 @@
       "isHome": false,
       "opponent": "ANAGOLD 24ERZİNCANSPOR",
       "result": "M",
-      "venue": "Erzincan 13 Şubat Şehir Stadı"
+      "venue": "Erzincan 13 Şubat Şehir Stadı",
+      "detail": {
+        "referees": [
+          {
+            "name": "Yücel Büyük",
+            "role": "Hakem"
+          },
+          {
+            "name": "Ali Rıza Öztürk",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Enes Samanlı",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Hatem Yarar",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     },
     {
       "week": 22,
+      "macId": "316587",
       "time": "15:00",
       "homeTeam": "KEPEZ SPOR FUTBOL A.Ş.",
       "awayTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
@@ -707,10 +1254,31 @@
       "isHome": false,
       "opponent": "KEPEZ SPOR FUTBOL A.Ş.",
       "result": "G",
-      "venue": "Kepez Hasan Doğan Stadı"
+      "venue": "Kepez Hasan Doğan Stadı",
+      "detail": {
+        "referees": [
+          {
+            "name": "Burak Akdağ",
+            "role": "Hakem"
+          },
+          {
+            "name": "Gürcan Uslu",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Batuhan Sarıgül",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Mustafa Ünver",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     },
     {
       "week": 27,
+      "macId": "284476",
       "time": "15:00",
       "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
       "awayTeam": "ADANA 01 FUTBOL KULÜBÜ SK",
@@ -722,10 +1290,31 @@
       "isHome": true,
       "opponent": "ADANA 01 FUTBOL KULÜBÜ SK",
       "result": "M",
-      "venue": "11 Nisan Stadyumu"
+      "venue": "11 Nisan Stadyumu",
+      "detail": {
+        "referees": [
+          {
+            "name": "Murat Kasap",
+            "role": "Hakem"
+          },
+          {
+            "name": "Sezgin Şahbaz",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Giray Kara",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Batuhan Bayar",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     },
     {
       "week": 28,
+      "macId": "284488",
       "time": "",
       "homeTeam": "SEZA ÇİMENTO ELAZIĞSPOR",
       "awayTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
@@ -736,10 +1325,31 @@
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": false,
       "opponent": "SEZA ÇİMENTO ELAZIĞSPOR",
-      "result": "M"
+      "result": "M",
+      "detail": {
+        "referees": [
+          {
+            "name": "Erdem Mertoğlu",
+            "role": "Hakem"
+          },
+          {
+            "name": "Abdullah Melih Karaduman",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Erdi Abdulmecit Sayar",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Emre Küçük",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     },
     {
       "week": 29,
+      "macId": "284496",
       "time": "",
       "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
       "awayTeam": "MKE ANKARAGÜCÜ",
@@ -750,10 +1360,31 @@
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": true,
       "opponent": "MKE ANKARAGÜCÜ",
-      "result": "B"
+      "result": "B",
+      "detail": {
+        "referees": [
+          {
+            "name": "Yusuf Ziya Gündüz",
+            "role": "Hakem"
+          },
+          {
+            "name": "Turan Çelik",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Erkan Akbak",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Ramazan Haymana",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     },
     {
       "week": 30,
+      "macId": "284505",
       "time": "15:30",
       "homeTeam": "BEYOĞLU YENİ ÇARŞI SPOR FAALİYETLERİ A.Ş.",
       "awayTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
@@ -765,10 +1396,31 @@
       "isHome": false,
       "opponent": "BEYOĞLU YENİ ÇARŞI SPOR FAALİYETLERİ A.Ş.",
       "result": "M",
-      "venue": "Bayrampaşa Çetin Emeç"
+      "venue": "Bayrampaşa Çetin Emeç",
+      "detail": {
+        "referees": [
+          {
+            "name": "Kaan Kara",
+            "role": "Hakem"
+          },
+          {
+            "name": "Berat Binbir",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Okan Delier",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Hakan Aktaş",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     },
     {
       "week": 31,
+      "macId": "284516",
       "time": "13:30",
       "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
       "awayTeam": "ALTINORDU",
@@ -780,10 +1432,31 @@
       "isHome": true,
       "opponent": "ALTINORDU",
       "result": "B",
-      "venue": "11 Nisan Stadyumu"
+      "venue": "11 Nisan Stadyumu",
+      "detail": {
+        "referees": [
+          {
+            "name": "Enver Aydın",
+            "role": "Hakem"
+          },
+          {
+            "name": "Burak Celep",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Bedirhan Soydemir",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Birkan Altındaş",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     },
     {
       "week": 32,
+      "macId": "284522",
       "time": "16:00",
       "homeTeam": "BATMAN PETROL SPOR A.Ş.",
       "awayTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
@@ -795,10 +1468,31 @@
       "isHome": false,
       "opponent": "BATMAN PETROL SPOR A.Ş.",
       "result": "M",
-      "venue": "Batman Stadyumu"
+      "venue": "Batman Stadyumu",
+      "detail": {
+        "referees": [
+          {
+            "name": "İlker Yasin Avcı",
+            "role": "Hakem"
+          },
+          {
+            "name": "Buğra Can Semercioğlu",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Enes Berk Güçlü",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Fırat Kaçmaz",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     },
     {
       "week": 33,
+      "macId": "284536",
       "time": "14:00",
       "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
       "awayTeam": "KARACABEY BELEDİYE SPOR A.Ş.",
@@ -810,10 +1504,31 @@
       "isHome": true,
       "opponent": "KARACABEY BELEDİYE SPOR A.Ş.",
       "result": "B",
-      "venue": "11 Nisan Stadyumu"
+      "venue": "11 Nisan Stadyumu",
+      "detail": {
+        "referees": [
+          {
+            "name": "Safa Yılmaz",
+            "role": "Hakem"
+          },
+          {
+            "name": "Volkan Esen",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Burak Menteşe",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Murat Durgutluoğlu",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     },
     {
       "week": 34,
+      "macId": "284539",
       "time": "",
       "homeTeam": "KARAMAN FUTBOL KULÜBÜ",
       "awayTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
@@ -824,10 +1539,31 @@
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": false,
       "opponent": "KARAMAN FUTBOL KULÜBÜ",
-      "result": "G"
+      "result": "G",
+      "detail": {
+        "referees": [
+          {
+            "name": "Muhammet Alperen Çopur",
+            "role": "Hakem"
+          },
+          {
+            "name": "Kaan Kaya",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Anıl Çiftçi",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Fuat Filiz",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     },
     {
       "week": 36,
+      "macId": "284557",
       "time": "15:00",
       "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
       "awayTeam": "GMG KASTAMONUSPOR",
@@ -839,10 +1575,31 @@
       "isHome": true,
       "opponent": "GMG KASTAMONUSPOR",
       "result": "G",
-      "venue": "11 Nisan Stadyumu"
+      "venue": "11 Nisan Stadyumu",
+      "detail": {
+        "referees": [
+          {
+            "name": "Feridun Daldaş",
+            "role": "Hakem"
+          },
+          {
+            "name": "Tolga Okumuş",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Ali Gün",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "İrfan Çağrı Baş",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     },
     {
       "week": 37,
+      "macId": "284574",
       "time": "15:00",
       "homeTeam": "MUĞLASPOR KULÜBÜ",
       "awayTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
@@ -854,10 +1611,31 @@
       "isHome": false,
       "opponent": "MUĞLASPOR KULÜBÜ",
       "result": "B",
-      "venue": "Muğla Atatürk Stadyumu"
+      "venue": "Muğla Atatürk Stadyumu",
+      "detail": {
+        "referees": [
+          {
+            "name": "Melih Aldemir",
+            "role": "Hakem"
+          },
+          {
+            "name": "İsmail Semih İleri",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Batuhan Sarıgül",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Sezer Yalçın",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     },
     {
       "week": 38,
+      "macId": "284576",
       "time": "15:00",
       "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
       "awayTeam": "SİNCAN BELEDİYESİ ANKARASPOR",
@@ -869,10 +1647,31 @@
       "isHome": true,
       "opponent": "SİNCAN BELEDİYESİ ANKARASPOR",
       "result": "G",
-      "venue": "11 Nisan Stadyumu"
+      "venue": "11 Nisan Stadyumu",
+      "detail": {
+        "referees": [
+          {
+            "name": "Turgut Doman",
+            "role": "Hakem"
+          },
+          {
+            "name": "Hasan Hüseyin Tetik",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Ahmet Oğuz Yılmaz",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Feridun Daldaş",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     },
     {
       "week": null,
+      "macId": "316955",
       "time": "20:00",
       "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
       "awayTeam": "MUĞLASPOR KULÜBÜ",
@@ -884,10 +1683,31 @@
       "isHome": true,
       "opponent": "MUĞLASPOR KULÜBÜ",
       "result": "M",
-      "venue": "11 Nisan Stadyumu"
+      "venue": "11 Nisan Stadyumu",
+      "detail": {
+        "referees": [
+          {
+            "name": "Gürcan Hasova",
+            "role": "Hakem"
+          },
+          {
+            "name": "Ferhat Çalar",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Oğuzhan Kocaçoban",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Safa Yılmaz",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     },
     {
       "week": null,
+      "macId": "316957",
       "time": "",
       "homeTeam": "MUĞLASPOR KULÜBÜ",
       "awayTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
@@ -898,7 +1718,27 @@
       "competition": "Nesine 2. Lig Play Off Müsabakaları",
       "isHome": false,
       "opponent": "MUĞLASPOR KULÜBÜ",
-      "result": "B"
+      "result": "B",
+      "detail": {
+        "referees": [
+          {
+            "name": "Burak Pakkan",
+            "role": "Hakem"
+          },
+          {
+            "name": "Seyfettin Ünal",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Kadir Beyaz",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Kadir Demir",
+            "role": "Dördüncü Hakem"
+          }
+        ]
+      }
     }
   ],
   "squad": {

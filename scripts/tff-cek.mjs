@@ -243,30 +243,51 @@ async function cekFikstur(page) {
 
   log(`✓ ${fixtures.length} maç çekildi (sezon: ${SEASON})`)
 
-  // Her maçın saatini + stadyumunu detay sayfasından çek (pageID=29&macID=...)
-  log('Maç saati + stadyum çekiliyor...')
-  let saatli = 0, statli = 0
+  // Her maçın detayını çek (saat, stadyum, hakemler, kadrolar) — pageID=29&macID
+  log('Maç detayları çekiliyor (saat, stadyum, hakem, kadro)...')
+  let saatli = 0, statli = 0, detayli = 0
   for (const f of fixtures) {
     if (!f.macId) continue
     try {
       await page.goto(`https://www.tff.org/Default.aspx?pageID=29&macID=${f.macId}`,
         { waitUntil: 'domcontentloaded', timeout: 25000 })
-      const txt = await page.evaluate(() => document.body.innerText)
-      // Saat: "24.08.2025 - 19:00"
-      const tm = txt.match(/\d{2}\.\d{2}\.\d{4}\s*[-–]\s*(\d{2}:\d{2})/)
-      if (tm) { f.time = tm[1]; saatli++ }
-      // Stadyum: tarih-saatin hemen üstündeki satır → "11 NİSAN STADYUMU - ŞANLIURFA - ..."
-      const vm = txt.match(/([^\n]{4,90})\n\s*\d{2}\.\d{2}\.\d{4}\s*[-–]\s*\d{2}:\d{2}/)
-      if (vm) {
-        const stat = vm[1].split(/\s+-\s+/)[0].trim()
-        if (stat && stat.length >= 4 && !/\d{2}:\d{2}/.test(stat)) { f.venue = titleCaseTr(stat); statli++ }
+      await page.waitForTimeout(400)
+      const d = await page.evaluate(({ homeName, awayName }) => {
+        const clean = (s) => (s || '').replace(/\s+/g, ' ').trim()
+        const body = document.body.innerText
+
+        // Saat + stadyum
+        let time = null, venue = null
+        const tm = body.match(/\d{2}\.\d{2}\.\d{4}\s*[-–]\s*(\d{2}:\d{2})/)
+        if (tm) time = tm[1]
+        const vm = body.match(/([^\n]{4,90})\n\s*\d{2}\.\d{2}\.\d{4}\s*[-–]\s*\d{2}:\d{2}/)
+        if (vm) {
+          const stat = vm[1].split(/\s+-\s+/)[0].trim()
+          if (stat && stat.length >= 4 && !/\d{2}:\d{2}/.test(stat)) venue = stat
+        }
+
+        // Hakemler
+        const referees = []
+        body.split('\n').forEach((l) => {
+          const m = clean(l).match(/^(.+?)\((Hakem|\d+\. Yardımcı Hakem|Dördüncü Hakem)\)$/)
+          if (m) referees.push({ name: m[1].trim(), role: m[2] })
+        })
+
+        return { time, venue, referees }
+      }, { homeName: f.homeTeam, awayName: f.awayTeam })
+
+      if (d.time) { f.time = d.time; saatli++ }
+      if (d.venue) { f.venue = titleCaseTr(d.venue); statli++ }
+      if (d.referees.length) detayli++
+      f.detail = {
+        referees: d.referees.map((r) => ({ name: titleCaseTr(r.name), role: r.role })),
       }
     } catch {}
   }
-  log(`✓ Saat: ${saatli}/${fixtures.length} · Stadyum: ${statli}/${fixtures.length}`)
+  log(`✓ Saat: ${saatli}/${fixtures.length} · Stadyum: ${statli}/${fixtures.length} · Detay: ${detayli}/${fixtures.length}`)
 
-  // Geçici alanları temizle
-  return fixtures.map(({ macId, ...rest }) => rest)
+  // macId'yi koru (detay sayfası linki için), geçici alan yok
+  return fixtures
 }
 
 /* ─── 3) KADRO (oyuncular) ─────────────────────────────────── */

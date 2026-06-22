@@ -27,6 +27,8 @@ export type TffFixture = {
   week: number | null
   time?: string
   venue?: string
+  macId?: string | null
+  detail?: { referees?: { name: string; role: string }[] }
   homeTeam: string
   awayTeam: string
   homeScore: number | null
@@ -117,6 +119,8 @@ export function buildMatches(raw: TffRaw): Match[] {
       isCompleted: f.homeScore !== null && f.awayScore !== null,
       isHome: f.isHome,
       week: f.week,
+      macId: f.macId ?? null,
+      referees: f.detail?.referees ?? [],
     }
   })
 }

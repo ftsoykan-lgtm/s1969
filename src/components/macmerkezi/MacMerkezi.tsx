@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { MapPin, Calendar } from 'lucide-react'
 import type { Match, StandingRow } from '@/types'
 
@@ -22,9 +23,13 @@ function MatchCard({ match, logos }: { match: Match; logos: Record<string, strin
     ? urfaScore > oppScore ? 'G' : urfaScore < oppScore ? 'M' : 'B'
     : null
   const tournamentLogo = logos[match.competition]
+  const Wrapper = match.macId
+    ? ({ children }: { children: React.ReactNode }) => <Link href={`/mac/${match.macId}`} className="block group">{children}</Link>
+    : ({ children }: { children: React.ReactNode }) => <div>{children}</div>
 
   return (
-    <div className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm hover:shadow-md transition-all overflow-hidden">
+    <Wrapper>
+    <div className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm hover:shadow-md hover:border-[#1A6B3C]/30 transition-all overflow-hidden cursor-pointer">
       {/* Üst şerit: turnuva logosu + hafta */}
       <div className="flex items-center justify-between px-4 py-2.5 bg-[#f5f9f6] border-b border-[#edf7f2]">
         <div className="flex items-center gap-2 min-w-0">
@@ -84,6 +89,7 @@ function MatchCard({ match, logos }: { match: Match; logos: Record<string, strin
         </div>
       </div>
     </div>
+    </Wrapper>
   )
 }
 

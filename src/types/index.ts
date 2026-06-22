@@ -44,6 +44,8 @@ export interface Match {
   isCompleted: boolean
   isHome: boolean
   week?: number | null
+  macId?: string | null
+  referees?: { name: string; role: string }[]
 }
 
 export interface StandingRow {
