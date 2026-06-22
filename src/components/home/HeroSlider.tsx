@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react'
 
 export interface HeroItem {
   title: string
@@ -17,80 +17,96 @@ const INTERVAL = 7000
 
 export default function HeroSlider({ items }: { items: HeroItem[] }) {
   const [current, setCurrent] = useState(0)
-  const [fading, setFading] = useState(false)
+  const n = items.length
 
-  const goTo = useCallback((idx: number) => {
-    setFading(true)
-    setTimeout(() => { setCurrent(idx); setFading(false) }, 350)
-  }, [])
-  const next = useCallback(() => goTo((current + 1) % items.length), [current, goTo, items.length])
+  const goTo = useCallback((idx: number) => setCurrent((idx + n) % n), [n])
+  const next = useCallback(() => setCurrent((c) => (c + 1) % n), [n])
+  const prev = () => goTo(current - 1)
 
   useEffect(() => {
-    if (items.length < 2) return
+    if (n < 2) return
     const t = setInterval(next, INTERVAL)
     return () => clearInterval(t)
-  }, [next, current, items.length])
+  }, [next, current, n])
 
-  if (!items.length) return null
-  const slide = items[current]
-  const thumbs = items.slice(0, 4)
+  if (!n) return null
+
+  // Merkez odaklı kayan şerit: aktif slayt ortada, komşular kenardan görünür
+  const SLOT = 80 // her slayt slotu (% genişlik)
+  const translate = 10 - current * SLOT
 
   return (
-    <section className="relative h-[640px] md:h-[780px] overflow-hidden bg-[#0f4a28]">
-      <div className={`absolute inset-0 transition-opacity duration-500 ${fading ? 'opacity-0' : 'opacity-100'}`}>
-        <Image src={slide.imageUrl} alt="" fill priority sizes="100vw" className="object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#071f10] via-[#0f4a28]/85 to-[#0f4a28]/20" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#071f10] via-transparent to-[#071f10]/30" />
-      </div>
+    <section className="relative bg-[#0a0a0c] py-6 md:py-8 overflow-hidden">
+      {/* Şerit */}
+      <div className="relative h-[460px] md:h-[600px]">
+        <div className="flex h-full transition-transform duration-[600ms] ease-out"
+          style={{ transform: `translateX(${translate}%)` }}>
+          {items.map((slide, i) => {
+            const aktif = i === current
+            return (
+              <div key={i} className="w-[78%] mx-[1%] shrink-0 h-full">
+                <div className={`relative h-full rounded-2xl overflow-hidden transition-all duration-500 ${
+                  aktif ? 'opacity-100 scale-100' : 'opacity-35 scale-[0.97]'
+                }`}>
+                  <Image src={slide.imageUrl} alt={slide.title} fill priority={aktif} sizes="80vw" className="object-cover" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0c]/95 via-[#0a0a0c]/55 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0c]/90 via-transparent to-transparent" />
 
-      <div className="absolute left-0 top-0 bottom-0 w-1.5 flex flex-col z-10">
-        <div className="flex-1 bg-[#FFD100]" />
-        <div className="flex-1 bg-[#1A6B3C]" />
-        <div className="flex-1 bg-white/40" />
-      </div>
+                  {/* İçerik — yalnızca aktif slaytta tıklanabilir */}
+                  <div className={`absolute inset-0 flex items-end transition-opacity duration-500 ${aktif ? 'opacity-100' : 'opacity-0'}`}>
+                    <Link href={aktif ? slide.href : '#'} className="block p-7 md:p-12 max-w-2xl"
+                      tabIndex={aktif ? 0 : -1} aria-hidden={!aktif}>
+                      {slide.category && (
+                        <span className="inline-flex items-center gap-2 mb-4 px-3.5 py-1.5 rounded-full bg-[#FFD100]/15 border border-[#FFD100]/40 backdrop-blur-sm text-[#FFD100] text-[11px] font-black tracking-[0.2em] uppercase">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#FFD100] animate-pulse" />
+                          {slide.category}
+                        </span>
+                      )}
+                      <h1 className="text-3xl md:text-5xl font-black text-white leading-[1.05] tracking-tight mb-4 drop-shadow-2xl line-clamp-3">
+                        {slide.title}
+                      </h1>
+                      <p className="text-white/70 text-base md:text-lg leading-relaxed mb-6 line-clamp-2 max-w-xl">{slide.excerpt}</p>
+                      <span className="inline-flex items-center gap-2 rounded-xl bg-[#FFD100] px-6 py-3.5 text-sm font-black text-[#0a0a0c] hover:bg-[#e8c000] transition-all shadow-xl uppercase tracking-wide">
+                        Haberi Oku <ArrowRight size={16} />
+                      </span>
+                    </Link>
+                  </div>
 
-      <div className="relative h-full mx-auto max-w-7xl px-8 sm:px-10 lg:px-12 flex items-center">
-        <Link href={slide.href} className={`block max-w-3xl transition-all duration-500 ${fading ? 'opacity-0 translate-y-6' : 'opacity-100 translate-y-0'}`}>
-          {slide.category && (
-            <div className="inline-flex items-center gap-2 mb-6 px-3.5 py-1.5 rounded-full bg-[#FFD100]/15 border border-[#FFD100]/40 backdrop-blur-sm">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#FFD100] animate-pulse" />
-              <span className="text-[#FFD100] text-xs font-black tracking-[0.2em] uppercase">{slide.category}</span>
-            </div>
-          )}
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-[1.0] tracking-tight mb-6 drop-shadow-2xl line-clamp-4">
-            {slide.title}
-          </h1>
-          <p className="text-white/70 text-lg md:text-xl leading-relaxed mb-9 max-w-xl line-clamp-2">{slide.excerpt}</p>
-          <span className="inline-flex items-center gap-2 rounded-xl bg-[#FFD100] px-7 py-4 text-sm font-black text-[#0f4a28] hover:bg-[#e8c000] transition-all hover:scale-105 shadow-xl shadow-[#FFD100]/25 uppercase tracking-wide">
-            Haberi Oku <ArrowRight size={16} />
-          </span>
-        </Link>
-      </div>
-
-      {/* İlerleme göstergeleri */}
-      {items.length > 1 && (
-        <div className="absolute bottom-8 left-10 lg:left-12 z-10 flex items-center gap-2">
-          {items.map((_, i) => (
-            <button key={i} onClick={() => goTo(i)} aria-label={`Slayt ${i + 1}`}
-              className="h-1 rounded-full overflow-hidden transition-all duration-300 bg-white/25"
-              style={{ width: i === current ? '44px' : '16px' }}>
-              {i === current && <span key={current} className="block h-full bg-[#FFD100]" style={{ animation: `heroProg ${INTERVAL}ms linear` }} />}
-            </button>
-          ))}
+                  {/* Komşuya tıklayınca ona geç */}
+                  {!aktif && (
+                    <button onClick={() => goTo(i)} aria-label="Slayta git" className="absolute inset-0" />
+                  )}
+                </div>
+              </div>
+            )
+          })}
         </div>
-      )}
+      </div>
 
-      {/* Alt haber küçük kartları */}
-      {thumbs.length > 1 && (
-        <div className="hidden lg:flex absolute bottom-7 right-12 z-10 gap-2">
-          {thumbs.map((n, i) => (
-            <button key={i} onClick={() => goTo(i)}
-              className={`group relative w-44 h-24 rounded-xl overflow-hidden border transition-all shadow-lg ${i === current ? 'border-[#FFD100]' : 'border-white/15 hover:border-[#FFD100]/60'}`}>
-              <Image src={n.imageUrl} alt={n.title} fill sizes="180px" className="object-cover group-hover:scale-105 transition-transform duration-500" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#071f10] via-[#071f10]/40 to-transparent" />
-              <p className="absolute bottom-0 left-0 right-0 p-2.5 text-white text-[11px] font-bold leading-tight line-clamp-2 text-left">{n.title}</p>
-            </button>
-          ))}
+      {/* Alt kontroller — ‹ noktalar › */}
+      {n > 1 && (
+        <div className="flex items-center justify-center gap-4 mt-6">
+          <button onClick={prev} aria-label="Önceki"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-[#FFD100]/50 text-[#FFD100] hover:bg-[#FFD100] hover:text-[#0a0a0c] transition-all">
+            <ChevronLeft size={18} />
+          </button>
+
+          <div className="flex items-center gap-2">
+            {items.map((_, i) => (
+              <button key={i} onClick={() => goTo(i)} aria-label={`Slayt ${i + 1}`}
+                className="h-1.5 rounded-full overflow-hidden transition-all duration-300 bg-white/20"
+                style={{ width: i === current ? '40px' : '8px' }}>
+                {i === current && (
+                  <span key={current} className="block h-full bg-[#FFD100]" style={{ animation: `heroProg ${INTERVAL}ms linear` }} />
+                )}
+              </button>
+            ))}
+          </div>
+
+          <button onClick={next} aria-label="Sonraki"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-[#FFD100]/50 text-[#FFD100] hover:bg-[#FFD100] hover:text-[#0a0a0c] transition-all">
+            <ChevronRight size={18} />
+          </button>
         </div>
       )}
 
