@@ -73,24 +73,23 @@ const navLinks: {
   label: string
   href: string
   hasMega?: boolean
-  submenu?: { label: string; href: string }[]
 }[] = [
-  { label: 'HABERLER', href: '/haberler' },
-  { label: 'KULÜP', href: '#', hasMega: true },
-  { label: 'KADRO', href: '/kadro' },
-  { label: 'MAÇ MERKEZİ', href: '/fikstur' },
-  { label: 'TARAFTAR', href: '#' },
-  { label: 'İLETİŞİM', href: '/iletisim' },
+  { label: 'Haberler', href: '/haberler' },
+  { label: 'Kulüp', href: '#', hasMega: true },
+  { label: 'Kadro', href: '/kadro' },
+  { label: 'Maç Merkezi', href: '/fikstur' },
+  { label: 'Taraftar', href: '#' },
+  { label: 'İletişim', href: '/iletisim' },
 ]
 
 export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
   const pathname = usePathname()
 
   const socials = [
-    { icon: SocialIcons.Facebook, href: club.social.facebook, label: 'Facebook' },
+    { icon: SocialIcons.Instagram, href: club.social.instagram, label: 'Instagram' },
     { icon: SocialIcons.X, href: club.social.twitter, label: 'X (Twitter)' },
     { icon: SocialIcons.YouTube, href: club.social.youtube, label: 'YouTube' },
-    { icon: SocialIcons.Instagram, href: club.social.instagram, label: 'Instagram' },
+    { icon: SocialIcons.Facebook, href: club.social.facebook, label: 'Facebook' },
     { icon: SocialIcons.TikTok, href: club.social.tiktok, label: 'TikTok' },
   ]
   const hasLogo = club.logoUrl && !club.logoUrl.includes('placehold.co')
@@ -119,106 +118,77 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
     megaTimer.current = setTimeout(() => setMegaOpen(false), 120)
   }
 
+  const isActive = (href: string) => pathname === href
+
   return (
     <header className="sticky top-0 z-50 w-full">
 
-      {/* ── Üst bant ─────────────────────────────────────────────────────── */}
-      <div className="hidden lg:block bg-[#092d18] border-b border-white/8">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-between h-9">
+      {/* ── İnce üst bant ─────────────────────────────────────────────── */}
+      <div className="hidden lg:block bg-[#072414]">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-between h-8">
           <p className="text-[10px] text-white/30 font-medium tracking-wide">
-            Şanlıurfaspor FK — Resmi Web Sitesi
+            {club.fullName} — Resmi Web Sitesi
           </p>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3.5">
             {socials.map(({ icon: Icon, href, label }) => (
               <a key={label} href={href} aria-label={label} target="_blank" rel="noopener noreferrer"
-                className="text-white/35 hover:text-white transition-colors duration-150">
+                className="text-white/30 hover:text-[#FFD100] transition-colors duration-150">
                 <Icon />
               </a>
             ))}
-            <div className="w-px h-4 bg-white/10 mx-1" />
-            <Link href="/bilet"
-              className="text-[10px] font-black tracking-widest uppercase text-[#FFD100]/70 hover:text-[#FFD100] transition-colors">
-              BİLET AL
-            </Link>
           </div>
         </div>
       </div>
 
-      {/* ── Ana navbar ────────────────────────────────────────────────────── */}
+      {/* ── Ana navbar — cam yüzey ────────────────────────────────────── */}
       <div className={cn(
-        'transition-all duration-300',
+        'transition-all duration-300 border-b',
         scrolled
-          ? 'bg-[#0f4a28]/96 backdrop-blur-sm shadow-xl shadow-black/30'
-          : 'bg-[#0f4a28]'
+          ? 'bg-[#0a3320]/85 backdrop-blur-xl border-white/10 shadow-lg shadow-black/30'
+          : 'bg-[#0a3320] border-transparent'
       )}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-[66px] items-center gap-8">
+          <div className="flex h-[72px] items-center gap-6">
 
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3 shrink-0 group">
               {hasLogo ? (
                 <img src={club.logoUrl} alt={club.name}
-                  className="h-12 w-12 rounded-full object-contain bg-white/5 ring-2 ring-[#FFD100]/20 group-hover:ring-[#FFD100]/50 transition-all duration-200" />
+                  className="h-12 w-12 rounded-2xl object-contain bg-white/5 ring-1 ring-white/10 group-hover:ring-[#FFD100]/50 transition-all duration-200" />
               ) : (
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#FFD100] text-[#0f4a28] font-black text-sm shadow-lg ring-2 ring-[#FFD100]/20 group-hover:ring-[#FFD100]/50 transition-all duration-200">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#FFD100] to-[#e8b800] text-[#0a3320] font-black text-sm shadow-lg ring-1 ring-white/10 group-hover:ring-[#FFD100]/50 transition-all duration-200">
                   {club.shortCode}
                 </div>
               )}
-              <div className="hidden sm:block">
-                <p className="text-white font-black text-base tracking-wide leading-tight uppercase">{club.name}</p>
+              <div className="hidden sm:block leading-tight">
+                <p className="text-white font-black text-[15px] tracking-wide uppercase">{club.name}</p>
                 <p className="text-[#FFD100]/50 text-[9px] font-bold tracking-[0.25em] uppercase">Futbol Kulübü</p>
               </div>
             </Link>
 
-            {/* Desktop linkler */}
-            <nav className="hidden lg:flex items-stretch h-full flex-1">
+            {/* Desktop linkler — pill grup */}
+            <nav className="hidden lg:flex items-center gap-1 flex-1 justify-center">
               {navLinks.map((link) =>
                 link.hasMega ? (
-                  <div key={link.label} className="relative flex items-center"
+                  <div key={link.label} className="relative"
                     onMouseEnter={openMega} onMouseLeave={closeMega}>
                     <button className={cn(
-                      'flex items-center gap-1 h-full px-4 text-[12px] font-black tracking-widest transition-colors border-b-2',
+                      'flex items-center gap-1 px-4 py-2 rounded-full text-[12.5px] font-bold tracking-wide transition-all duration-200',
                       megaOpen
-                        ? 'text-[#FFD100] border-[#FFD100]'
-                        : 'text-white/75 hover:text-white border-transparent hover:border-white/20'
+                        ? 'text-[#FFD100] bg-white/[0.08]'
+                        : 'text-white/70 hover:text-white hover:bg-white/[0.06]'
                     )}>
                       {link.label}
-                      <ChevronDown size={10} className={cn('transition-transform duration-200', megaOpen && 'rotate-180')} />
+                      <ChevronDown size={12} className={cn('transition-transform duration-200', megaOpen && 'rotate-180')} />
                     </button>
-                  </div>
-                ) : link.submenu ? (
-                  <div key={link.label} className="relative flex items-center group">
-                    <Link href={link.href}
-                      className={cn(
-                        'flex items-center gap-1 h-full px-4 text-[12px] font-black tracking-widest transition-colors border-b-2',
-                        pathname === link.href
-                          ? 'text-[#FFD100] border-[#FFD100]'
-                          : 'text-white/75 hover:text-white border-transparent group-hover:border-white/20'
-                      )}>
-                      {link.label}
-                      <ChevronDown size={10} className="transition-transform duration-200 group-hover:rotate-180" />
-                    </Link>
-                    {/* Küçük dropdown */}
-                    <div className="absolute top-full left-0 w-48 pt-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
-                      <div className="bg-[#092d18] border border-white/10 rounded-xl shadow-2xl shadow-black/40 overflow-hidden">
-                        <div className="h-0.5 bg-gradient-to-r from-[#1A6B3C] via-[#FFD100] to-[#1A6B3C]" />
-                        {link.submenu.map((item) => (
-                          <Link key={item.href} href={item.href}
-                            className="flex items-center gap-2 px-4 py-3 text-sm text-white/65 hover:text-white hover:bg-white/8 transition-colors border-b border-white/5 last:border-0">
-                            <span className="w-1 h-1 rounded-full bg-[#FFD100]/40" />
-                            {item.label}
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
                   </div>
                 ) : (
                   <Link key={link.href} href={link.href}
                     className={cn(
-                      'flex items-center h-full px-4 text-[12px] font-black tracking-widest transition-colors border-b-2',
-                      pathname === link.href
-                        ? 'text-[#FFD100] border-[#FFD100]'
-                        : 'text-white/75 hover:text-white border-transparent hover:border-white/20'
+                      'px-4 py-2 rounded-full text-[12.5px] font-bold tracking-wide transition-all duration-200',
+                      isActive(link.href)
+                        ? 'text-[#0a3320] bg-[#FFD100] shadow-md shadow-[#FFD100]/20'
+                        : 'text-white/70 hover:text-white hover:bg-white/[0.06]'
                     )}>
                     {link.label}
                   </Link>
@@ -226,54 +196,51 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
               )}
             </nav>
 
-            {/* Sağ */}
+            {/* Sağ aksiyonlar */}
             <div className="flex items-center gap-2 ml-auto lg:ml-0 shrink-0">
-              <button onClick={() => setSearchOpen(!searchOpen)}
-                className="p-2.5 text-white/50 hover:text-white hover:bg-white/10 rounded-xl transition-all hidden lg:flex">
-                <Search size={17} />
+              <button onClick={() => setSearchOpen(!searchOpen)} aria-label="Ara"
+                className="hidden lg:flex h-10 w-10 items-center justify-center text-white/55 hover:text-white bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 rounded-full transition-all">
+                <Search size={16} />
               </button>
-              <Link href="/magaza"
-                className="hidden lg:inline-flex items-center px-4 py-2 text-[11px] font-black tracking-widest text-white/60 hover:text-white border border-white/15 hover:border-white/30 rounded-xl transition-all uppercase">
-                Mağaza
-              </Link>
               <Link href="/bilet"
-                className="inline-flex items-center gap-2 bg-[#FFD100] hover:bg-[#e8c000] text-[#0f4a28] font-black text-[12px] tracking-widest uppercase px-5 py-2.5 rounded-xl transition-all hover:scale-105 shadow-md shadow-[#FFD100]/20">
-                <Ticket size={14} />
+                className="inline-flex items-center gap-2 bg-[#FFD100] hover:bg-[#e8c000] text-[#0a3320] font-black text-[12px] tracking-wide uppercase pl-4 pr-5 py-2.5 rounded-full transition-all hover:scale-[1.03] shadow-md shadow-[#FFD100]/25">
+                <Ticket size={15} />
                 <span className="hidden sm:inline">Bilet Al</span>
                 <span className="sm:hidden">Bilet</span>
               </Link>
-              <button onClick={() => setMobileOpen(!mobileOpen)}
-                className="lg:hidden p-2.5 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all">
-                {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+              <button onClick={() => setMobileOpen(!mobileOpen)} aria-label="Menü"
+                className="lg:hidden h-10 w-10 flex items-center justify-center text-white/70 hover:text-white bg-white/[0.05] border border-white/10 rounded-full transition-all">
+                {mobileOpen ? <X size={19} /> : <Menu size={19} />}
               </button>
             </div>
 
           </div>
         </div>
 
-        {/* ── Mega Menu ──────────────────────────────────────────────────── */}
+        {/* ── Mega Menu — cam panel ──────────────────────────────────── */}
         <div
           className={cn(
-            'hidden lg:block absolute left-0 right-0 transition-all duration-200 overflow-hidden',
-            megaOpen ? 'max-h-[400px] opacity-100' : 'max-h-0 opacity-0 pointer-events-none'
+            'hidden lg:block absolute left-0 right-0 transition-all duration-200',
+            megaOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'
           )}
           onMouseEnter={openMega}
           onMouseLeave={closeMega}
         >
-          <div className="bg-[#092d18] border-t border-white/8 shadow-2xl shadow-black/50">
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
-              <div className="grid grid-cols-3 gap-12">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-3">
+            <div className="bg-[#072414]/95 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl shadow-black/50 overflow-hidden">
+              <div className="h-1 bg-gradient-to-r from-[#1A6B3C] via-[#FFD100] to-[#1A6B3C]" />
+              <div className="p-8 grid grid-cols-3 gap-10">
                 {kulupMenu.map((col) => (
                   <div key={col.baslik}>
                     <p className="text-[#FFD100] text-[10px] font-black tracking-[0.25em] mb-4 pb-3 border-b border-white/10">
                       {col.baslik}
                     </p>
-                    <ul className="space-y-2">
+                    <ul className="space-y-1">
                       {col.linkler.map((item) => (
                         <li key={item.label}>
                           <Link href={item.href}
-                            className="flex items-center gap-2 text-sm text-white/55 hover:text-white transition-colors group py-0.5">
-                            <span className="w-1 h-1 rounded-full bg-[#FFD100]/30 group-hover:bg-[#FFD100] transition-colors shrink-0" />
+                            className="flex items-center gap-2.5 text-sm text-white/55 hover:text-white hover:bg-white/[0.05] rounded-xl px-3 py-2 -mx-3 transition-all group">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#FFD100]/30 group-hover:bg-[#FFD100] transition-colors shrink-0" />
                             {item.label}
                           </Link>
                         </li>
@@ -286,40 +253,29 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
           </div>
         </div>
 
-        {/* ── Mobil menü ─────────────────────────────────────────────────── */}
+        {/* ── Mobil menü ─────────────────────────────────────────────── */}
         <div className={cn(
-          'lg:hidden overflow-hidden transition-all duration-300 border-t border-white/8',
-          mobileOpen ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'
+          'lg:hidden overflow-hidden transition-all duration-300',
+          mobileOpen ? 'max-h-[640px] opacity-100' : 'max-h-0 opacity-0'
         )}>
-          <div className="bg-[#092d18] px-4 py-4 space-y-0.5">
+          <div className="bg-[#072414] px-4 py-4 space-y-1">
             {navLinks.map((link) => (
               <div key={link.label}>
                 <Link href={link.href === '#' ? '#' : link.href}
                   className={cn(
-                    'block px-4 py-3 text-sm font-black tracking-widest rounded-xl transition-all',
-                    pathname === link.href
-                      ? 'text-[#FFD100] bg-white/8'
-                      : 'text-white/70 hover:text-white hover:bg-white/6'
+                    'block px-4 py-3 text-sm font-bold tracking-wide rounded-2xl transition-all',
+                    isActive(link.href)
+                      ? 'text-[#0a3320] bg-[#FFD100]'
+                      : 'text-white/70 hover:text-white hover:bg-white/[0.06]'
                   )}
                   onClick={() => setMobileOpen(false)}>
                   {link.label}
                 </Link>
                 {link.hasMega && (
-                  <div className="ml-4 mt-1 mb-2 space-y-0.5">
+                  <div className="ml-3 mt-1 mb-2 space-y-0.5">
                     {kulupMenu.flatMap((col) => col.linkler).map((item) => (
                       <Link key={item.label} href={item.href}
-                        className="block pl-4 py-2 text-xs text-white/40 hover:text-white/80 rounded-lg transition-colors"
-                        onClick={() => setMobileOpen(false)}>
-                        {item.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-                {link.submenu && (
-                  <div className="ml-4 mt-1 mb-2 space-y-0.5">
-                    {link.submenu.map((item) => (
-                      <Link key={item.href} href={item.href}
-                        className="block pl-4 py-2 text-xs text-white/40 hover:text-white/80 rounded-lg transition-colors"
+                        className="block pl-5 py-2 text-xs text-white/40 hover:text-white/80 rounded-xl transition-colors"
                         onClick={() => setMobileOpen(false)}>
                         {item.label}
                       </Link>
@@ -328,39 +284,31 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
                 )}
               </div>
             ))}
-            {/* Mobilde sosyal ikonlar */}
-            <div className="flex items-center gap-4 px-4 pt-4 pb-1 border-t border-white/10 mt-2">
+            <div className="flex items-center justify-center gap-5 px-4 pt-4 pb-1 border-t border-white/10 mt-2">
               {socials.map(({ icon: Icon, href, label }) => (
                 <a key={label} href={href} aria-label={label}
-                  className="text-white/35 hover:text-white transition-colors">
+                  className="text-white/35 hover:text-[#FFD100] transition-colors">
                   <Icon />
                 </a>
               ))}
             </div>
-            <div className="pt-2 flex gap-2 border-t border-white/10">
-              <Link href="/magaza"
-                className="flex-1 py-3 text-center text-xs font-black tracking-widest text-white/60 border border-white/15 rounded-xl uppercase"
-                onClick={() => setMobileOpen(false)}>
-                Mağaza
-              </Link>
-              <Link href="/bilet"
-                className="flex-1 py-3 text-center text-xs font-black tracking-widest bg-[#FFD100] text-[#0f4a28] rounded-xl uppercase"
-                onClick={() => setMobileOpen(false)}>
-                Bilet Al
-              </Link>
-            </div>
+            <Link href="/magaza"
+              className="block py-3 text-center text-xs font-black tracking-widest text-white/60 border border-white/15 rounded-2xl uppercase mt-2"
+              onClick={() => setMobileOpen(false)}>
+              Mağaza
+            </Link>
           </div>
         </div>
       </div>
 
-      {/* Arama */}
+      {/* ── Arama ────────────────────────────────────────────────────── */}
       {searchOpen && (
-        <div className="hidden lg:block bg-[#092d18] border-t border-white/8 px-4 py-3">
+        <div className="hidden lg:block bg-[#072414]/95 backdrop-blur-xl border-b border-white/10 px-4 py-3">
           <div className="mx-auto max-w-7xl">
             <div className="relative">
               <Search size={15} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" />
-              <input autoFocus type="search" placeholder="Ara..."
-                className="w-full bg-white/8 border border-white/10 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:border-[#FFD100]/40 transition-colors"
+              <input autoFocus type="search" placeholder="Haber, oyuncu, maç ara..."
+                className="w-full bg-white/[0.06] border border-white/10 rounded-full pl-11 pr-4 py-3 text-sm text-white placeholder-white/30 focus:outline-none focus:border-[#FFD100]/40 transition-colors"
                 onBlur={() => setSearchOpen(false)} />
             </div>
           </div>
