@@ -24,7 +24,7 @@ const ROLE_ORDER = ['Hakem', '1. Yardımcı Hakem', '2. Yardımcı Hakem', 'Dör
 
 /* Olay ikonu */
 function EventIcon({ type }: { type: MatchEvent['type'] }) {
-  if (type === 'goal') return <span className="text-[17px] leading-none mac-spin">⚽</span>
+  if (type === 'goal') return <span className="text-[17px] leading-none">⚽</span>
   if (type === 'yellow') return <span className="inline-block w-3 rounded-[2px] bg-[#FFD100] shadow" style={{ height: 17 }} />
   if (type === 'red') return <span className="inline-block w-3 rounded-[2px] bg-[#d01b2a] shadow" style={{ height: 17 }} />
   return <span className="text-[#1A6B3C]">↔</span>
@@ -139,9 +139,9 @@ export default async function MacDetayPage({ params }: Props) {
               <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-[#e3efe8]" />
               <div className="space-y-3">
                 {timeline.map((t, i) => {
-                  if (t.kind === 'start') return <Milestone key={i} emoji="⚽" anim="mac-spin" label="Maç Başladı" tone="green" />
-                  if (t.kind === 'half') return <Milestone key={i} emoji="⏱️" anim="mac-bob" label="İlk Yarı Sonucu" score={`${htHome} - ${htAway}`} tone="amber" />
-                  if (t.kind === 'end') return <Milestone key={i} emoji="🏁" anim="mac-bob" label="Maç Sonucu" score={`${match.homeScore} - ${match.awayScore}`} tone="green" />
+                  if (t.kind === 'start') return <Milestone key={i} emoji="⚽" label="Maç Başladı" tone="green" />
+                  if (t.kind === 'half') return <Milestone key={i} emoji="⏱️" label="İlk Yarı Sonucu" score={`${htHome} - ${htAway}`} tone="amber" />
+                  if (t.kind === 'end') return <Milestone key={i} emoji="🏁" label="Maç Sonucu" score={`${match.homeScore} - ${match.awayScore}`} tone="green" />
                   const e = t.e
                   const isHome = e.team === 'home'
                   return (
