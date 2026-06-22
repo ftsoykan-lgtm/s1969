@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Sora } from 'next/font/google'
 import './globals.css'
 import SiteShell from '@/components/layout/SiteShell'
 import { getClubInfo } from '@/lib/supabase/club-server'
@@ -7,6 +7,14 @@ import { getClubInfo } from '@/lib/supabase/club-server'
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-sans',
+  display: 'swap',
+})
+
+// Başlıklar için karakterli display fontu
+const sora = Sora({
+  subsets: ['latin'],
+  weight: ['600', '700', '800'],
+  variable: '--font-display',
   display: 'swap',
 })
 
@@ -27,7 +35,7 @@ export const metadata: Metadata = {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const club = await getClubInfo()
   return (
-    <html lang="tr" className={`${inter.variable} h-full`}>
+    <html lang="tr" className={`${inter.variable} ${sora.variable} h-full`}>
       <body className="min-h-full flex flex-col bg-[#f8faf9] antialiased">
         <SiteShell club={club}>{children}</SiteShell>
       </body>

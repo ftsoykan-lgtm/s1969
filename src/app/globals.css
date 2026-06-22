@@ -9,7 +9,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
+  --font-heading: var(--font-display);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -144,8 +144,74 @@
   }
   body {
     @apply bg-background text-foreground;
+    /* Premium tipografi: net kenarlar + kerning */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
   }
   html {
     @apply font-sans;
+    scroll-behavior: smooth;
+  }
+  /* Başlıklar: display fontu + sıkı harf aralığı — kurumsal his */
+  h1, h2, h3 {
+    font-family: var(--font-display), var(--font-sans), system-ui, sans-serif;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* ═══ Premium dokunuşlar ═══ */
+
+/* Marka renkli metin seçimi */
+::selection {
+  background: var(--c-yellow);
+  color: var(--c-green-900);
+}
+
+/* İnce, marka tonlu kaydırma çubuğu */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--c-border) transparent;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--c-border);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--c-text-3);
+  background-clip: padding-box;
+}
+
+/* Klavye odağı — erişilebilir + rafine halka */
+:focus-visible {
+  outline: 2px solid var(--c-green-500);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Görsellerde sürükleme/seçim engeli (daha "uygulama" hissi) */
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+/* Yumuşak global geçiş zemini — sayfa içi çapa kaydırmaları için boşluk */
+:target {
+  scroll-margin-top: 90px;
+}
+
+/* Azaltılmış hareket tercihi olanlar için animasyonları kıs */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
