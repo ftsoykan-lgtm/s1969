@@ -24,7 +24,7 @@ function MatchCard({ match }: { match: Match }) {
           {match.week ? `${match.week}. Hafta` : match.competition}
         </span>
         {result && (
-          <span className={`flex h-6 w-6 items-center justify-center rounded-md text-[12px] font-black shadow-sm ${
+          <span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-[12px] font-black shadow-sm leading-none ${
             result === 'G' ? 'bg-[#1A6B3C] text-white' : result === 'M' ? 'bg-[#d01b2a] text-white' : 'bg-[#FFD100] text-[#0f4a28]'
           }`} title={result === 'G' ? 'Galibiyet' : result === 'M' ? 'Mağlubiyet' : 'Beraberlik'}>{result}</span>
         )}
