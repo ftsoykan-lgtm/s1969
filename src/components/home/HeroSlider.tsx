@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react'
@@ -14,45 +14,59 @@ export interface HeroItem {
 }
 
 const INTERVAL = 6500
+const SLOT = 78 // aktif slayt genişliği (%)
 
 export default function HeroSlider({ items }: { items: HeroItem[] }) {
-  const [current, setCurrent] = useState(0)
   const n = items.length
+  // Sonsuz döngü için 3 kopya; başlangıç ortadaki kopyada
+  const [idx, setIdx] = useState(n)
+  const [anim, setAnim] = useState(true)
+  const logical = ((idx % n) + n) % n
 
-  const goTo = useCallback((idx: number) => setCurrent((idx + n) % n), [n])
-  const next = useCallback(() => setCurrent((c) => (c + 1) % n), [n])
-  const prev = () => goTo(current - 1)
+  const move = useCallback((dir: number) => { setAnim(true); setIdx((i) => i + dir) }, [])
+  const next = useCallback(() => move(1), [move])
+  const goTo = (target: number) => { setAnim(true); setIdx((i) => i + (target - (((i % n) + n) % n))) }
 
+  // Otomatik oynatma
+  const timer = useRef<ReturnType<typeof setInterval> | null>(null)
   useEffect(() => {
     if (n < 2) return
-    const t = setInterval(next, INTERVAL)
-    return () => clearInterval(t)
-  }, [next, current, n])
+    timer.current = setInterval(next, INTERVAL)
+    return () => { if (timer.current) clearInterval(timer.current) }
+  }, [next, n])
+
+  // Kenara gelince görünmez şekilde ortaya sıçra
+  const onEnd = () => {
+    if (idx >= 2 * n) { setAnim(false); setIdx(idx - n) }
+    else if (idx < n) { setAnim(false); setIdx(idx + n) }
+  }
+  useEffect(() => { if (!anim) { const r = requestAnimationFrame(() => setAnim(true)); return () => cancelAnimationFrame(r) } }, [anim])
 
   if (!n) return null
-
-  // Geniş aktif merkez (~%78); iki yanda komşular etiketli görünür (~%11)
-  const SLOT = 78
-  const translate = (100 - SLOT) / 2 - current * SLOT
+  const tripled = [...items, ...items, ...items]
+  const translate = (100 - SLOT) / 2 - idx * SLOT
 
   return (
     <section className="relative bg-[#0f4a28] pb-6 overflow-hidden">
       <div className="relative h-[480px] md:h-[660px]">
-        <div className="flex h-full transition-transform duration-700"
-          style={{ transform: `translateX(${translate}%)`, transitionTimingFunction: 'cubic-bezier(0.65,0,0.35,1)' }}>
-          {items.map((slide, i) => {
-            const aktif = i === current
+        <div className="flex h-full" onTransitionEnd={onEnd}
+          style={{
+            transform: `translateX(${translate}%)`,
+            transition: anim ? 'transform 700ms cubic-bezier(0.65,0,0.35,1)' : 'none',
+          }}>
+          {tripled.map((slide, i) => {
+            const aktif = i === idx
             return (
               <div key={i} className="shrink-0 h-full" style={{ width: `${SLOT}%` }}>
                 <div className="relative h-full overflow-hidden">
-                  <Image src={slide.imageUrl} alt={slide.title} fill priority={aktif} sizes="78vw" className="object-cover" />
+                  <Image src={slide.imageUrl} alt={slide.title} fill priority={i === n} sizes="78vw" className="object-cover" />
 
                   {aktif ? (
                     <Link href={slide.href} className="absolute inset-0 block group">
                       <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b0e]/95 via-[#0b0b0e]/15 to-transparent" />
                       <div className="absolute inset-0 bg-gradient-to-r from-[#0b0b0e]/45 via-transparent to-transparent" />
                       <div className="absolute inset-x-0 bottom-0 p-6 md:p-10 lg:p-12">
-                        <div className="max-w-2xl" key={current}>
+                        <div className="max-w-2xl" key={logical}>
                           {slide.category && (
                             <div className="flex items-center gap-3 mb-3" style={{ animation: 'hUp .5s ease-out both' }}>
                               <span className="block w-8 h-px bg-[#FFD100]" />
@@ -75,7 +89,7 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
                       </div>
                     </Link>
                   ) : (
-                    <button onClick={() => goTo(i)} aria-label={slide.title} className="absolute inset-0 flex items-end p-5 text-left">
+                    <button onClick={() => goTo(((i % n) + n) % n)} aria-label={slide.title} className="absolute inset-0 flex items-end p-5 text-left">
                       <span className="absolute inset-0 bg-[#0b0b0e]/82" />
                       <span className="relative text-white/45 text-sm font-bold leading-snug line-clamp-3">{slide.title}</span>
                     </button>
@@ -90,21 +104,21 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
       {/* Alt orta — ‹ noktalar › */}
       {n > 1 && (
         <div className="flex items-center justify-center gap-4 mt-6">
-          <button onClick={prev} aria-label="Önceki"
-            className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#FFD100]/60 text-[#FFD100] hover:bg-[#FFD100] hover:text-[#0b0b0e] transition-all">
+          <button onClick={() => move(-1)} aria-label="Önceki"
+            className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#FFD100]/60 text-[#FFD100] hover:bg-[#FFD100] hover:text-[#0f4a28] transition-all">
             <ChevronLeft size={18} />
           </button>
           <div className="flex items-center gap-2">
             {items.map((_, i) => (
               <button key={i} onClick={() => goTo(i)} aria-label={`Slayt ${i + 1}`}
                 className="h-2 rounded-full overflow-hidden transition-all duration-300"
-                style={{ width: i === current ? '40px' : '8px', backgroundColor: i === current ? 'rgba(255,209,0,0.25)' : 'rgba(255,255,255,0.25)' }}>
-                {i === current && <span key={current} className="block h-full rounded-full bg-[#FFD100]" style={{ animation: `hProg ${INTERVAL}ms linear` }} />}
+                style={{ width: i === logical ? '40px' : '8px', backgroundColor: i === logical ? 'rgba(255,209,0,0.25)' : 'rgba(255,255,255,0.25)' }}>
+                {i === logical && <span key={idx} className="block h-full rounded-full bg-[#FFD100]" style={{ animation: `hProg ${INTERVAL}ms linear` }} />}
               </button>
             ))}
           </div>
-          <button onClick={next} aria-label="Sonraki"
-            className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#FFD100]/60 text-[#FFD100] hover:bg-[#FFD100] hover:text-[#0b0b0e] transition-all">
+          <button onClick={() => move(1)} aria-label="Sonraki"
+            className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#FFD100]/60 text-[#FFD100] hover:bg-[#FFD100] hover:text-[#0f4a28] transition-all">
             <ChevronRight size={18} />
           </button>
         </div>
