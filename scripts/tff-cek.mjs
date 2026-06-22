@@ -173,13 +173,29 @@ async function cekFikstur(page) {
   await page.waitForTimeout(2500)
   await page.waitForSelector('[id*="grdFikstur"] tr', { timeout: 30000 }).catch(() => {})
 
-  const rawRows = await page.$$eval(
-    '[id*="grdFikstur"] tr.GridRow_TFF_Contents, [id*="grdFikstur"] tr.GridAltRow_TFF_Contents',
-    (trs) =>
-      trs.map((tr) =>
-        Array.from(tr.querySelectorAll('td')).map((td) => td.textContent.replace(/\s+/g, ' ').trim())
-      )
-  )
+  // Sayfalı tablo: "Sonraki »" ile tüm sayfaları topla
+  const rawRows = []
+  const seen = new Set()
+  for (let sayfa = 1; sayfa <= 12; sayfa++) {
+    await page.waitForSelector('[id*="grdFikstur"] tr', { timeout: 30000 }).catch(() => {})
+    const rows = await page.$$eval(
+      '[id*="grdFikstur"] tr.GridRow_TFF_Contents, [id*="grdFikstur"] tr.GridAltRow_TFF_Contents',
+      (trs) => trs.map((tr) => Array.from(tr.querySelectorAll('td')).map((td) => td.textContent.replace(/\s+/g, ' ').trim()))
+    )
+    let yeni = 0
+    for (const r of rows) {
+      const key = r.join('|')
+      if (!seen.has(key)) { seen.add(key); rawRows.push(r); yeni++ }
+    }
+    // Yeni satır gelmediyse veya "Sonraki" yoksa dur
+    const nextLink = page.locator('[id*="grdFikstur"] a').filter({ hasText: 'Sonraki' }).first()
+    const hasNext = (await nextLink.count()) > 0
+    if (sayfa > 1 && yeni === 0) break
+    if (!hasNext) break
+    await nextLink.click().catch(() => {})
+    await page.waitForLoadState('networkidle', { timeout: 30000 }).catch(() => {})
+    await page.waitForTimeout(1800)
+  }
 
   const AYLAR = { Ocak: '01', Şubat: '02', Mart: '03', Nisan: '04', Mayıs: '05', Haziran: '06',
     Temmuz: '07', Ağustos: '08', Eylül: '09', Ekim: '10', Kasım: '11', Aralık: '12' }
