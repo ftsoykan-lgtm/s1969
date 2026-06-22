@@ -112,8 +112,8 @@ export async function getSponsorsAdmin(): Promise<SponsorRow[]> {
 
 export async function saveSponsor(s: SponsorRow): Promise<{ ok: boolean; error?: string }> {
   try {
+    // id 'generated always as identity' olduğu için payload'a id koymuyoruz
     const row = {
-      ...(s.id ? { id: s.id } : {}),
       name: s.name,
       logo_url: s.logo_url ?? null,
       website: s.website ?? '#',
@@ -121,7 +121,10 @@ export async function saveSponsor(s: SponsorRow): Promise<{ ok: boolean; error?:
       active: s.active ?? true,
       sort_order: s.sort_order ?? 0,
     }
-    const { error } = await client().from('sponsors').upsert(row)
+    const supabase = client()
+    const { error } = s.id
+      ? await supabase.from('sponsors').update(row).eq('id', s.id)   // mevcut → güncelle
+      : await supabase.from('sponsors').insert(row)                  // yeni → ekle
     if (error) return { ok: false, error: error.message }
     return { ok: true }
   } catch (e) {
