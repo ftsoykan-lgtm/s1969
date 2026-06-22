@@ -88,6 +88,95 @@ export async function getTffSquad(): Promise<{ season: string | null; players: {
   return { season: null, players: [] }
 }
 
+/* ─── HABERLER (admin yönetir) ─────────────────────────────── */
+
+export interface NewsRow {
+  id?: number
+  title: string
+  slug: string
+  excerpt?: string | null
+  content?: string | null
+  image_url?: string | null
+  category: string
+  featured?: boolean
+  published?: boolean
+  published_at?: string | null
+}
+
+const slugifyTr = (s: string) =>
+  s.toLocaleLowerCase('tr-TR')
+    .replace(/ç/g, 'c').replace(/ğ/g, 'g').replace(/ı/g, 'i').replace(/ö/g, 'o').replace(/ş/g, 's').replace(/ü/g, 'u')
+    .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 80)
+
+export async function getNewsAdmin(): Promise<NewsRow[]> {
+  try {
+    const { data, error } = await client().from('news').select('*').order('published_at', { ascending: false })
+    if (error || !data) return []
+    return data as NewsRow[]
+  } catch { return [] }
+}
+
+export async function saveNews(n: NewsRow): Promise<{ ok: boolean; error?: string }> {
+  try {
+    const row = {
+      title: n.title,
+      slug: n.slug || slugifyTr(n.title),
+      excerpt: n.excerpt ?? null,
+      content: n.content ?? null,
+      image_url: n.image_url ?? null,
+      category: n.category,
+      featured: n.featured ?? false,
+      published: n.published ?? true,
+      published_at: n.published_at || new Date().toISOString().slice(0, 10),
+      updated_at: new Date().toISOString(),
+    }
+    const supabase = client()
+    const { error } = n.id
+      ? await supabase.from('news').update(row).eq('id', n.id)
+      : await supabase.from('news').insert(row)
+    if (error) return { ok: false, error: error.message }
+    return { ok: true }
+  } catch (e) { return { ok: false, error: (e as Error).message } }
+}
+
+export async function deleteNews(id: number): Promise<{ ok: boolean; error?: string }> {
+  try {
+    const { error } = await client().from('news').delete().eq('id', id)
+    if (error) return { ok: false, error: error.message }
+    return { ok: true }
+  } catch (e) { return { ok: false, error: (e as Error).message } }
+}
+
+export interface CategoryRow { id?: number; name: string; slug: string; sort_order?: number }
+
+export async function getCategoriesAdmin(): Promise<CategoryRow[]> {
+  try {
+    const { data, error } = await client().from('news_categories').select('*').order('sort_order', { ascending: true })
+    if (error || !data) return []
+    return data as CategoryRow[]
+  } catch { return [] }
+}
+
+export async function saveCategory(c: CategoryRow): Promise<{ ok: boolean; error?: string }> {
+  try {
+    const row = { name: c.name, slug: c.slug || slugifyTr(c.name), sort_order: c.sort_order ?? 0 }
+    const supabase = client()
+    const { error } = c.id
+      ? await supabase.from('news_categories').update(row).eq('id', c.id)
+      : await supabase.from('news_categories').insert(row)
+    if (error) return { ok: false, error: error.message }
+    return { ok: true }
+  } catch (e) { return { ok: false, error: (e as Error).message } }
+}
+
+export async function deleteCategory(id: number): Promise<{ ok: boolean; error?: string }> {
+  try {
+    const { error } = await client().from('news_categories').delete().eq('id', id)
+    if (error) return { ok: false, error: error.message }
+    return { ok: true }
+  } catch (e) { return { ok: false, error: (e as Error).message } }
+}
+
 /* ─── SPONSORLAR (admin yönetir) ───────────────────────────── */
 
 export interface SponsorRow {

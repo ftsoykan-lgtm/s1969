@@ -27,8 +27,8 @@ export default function SponsorsSection({ sponsors = sponsorsData }: { sponsors?
             <div className="flex flex-wrap justify-center gap-4">
               {ana.map((s) => (
                 <a key={s.id} href={s.website} target="_blank" rel="noopener noreferrer" title={s.name}
-                  className="flex items-center justify-center h-16 px-8 rounded-2xl border-2 border-[#FFD100]/40 bg-[#FFD100]/5 hover:border-[#FFD100] hover:bg-[#FFD100]/10 transition-all shadow-sm">
-                  <img src={s.logoUrl} alt={s.name} className="object-contain max-h-10 w-auto opacity-80 hover:opacity-100 transition-opacity" />
+                  className="flex items-center justify-center h-24 px-12 rounded-2xl border-2 border-[#FFD100]/40 bg-[#FFD100]/5 hover:border-[#FFD100] hover:bg-[#FFD100]/10 transition-all shadow-sm">
+                  <img src={s.logoUrl} alt={s.name} className="object-contain max-h-16 w-auto opacity-90 hover:opacity-100 transition-opacity" />
                 </a>
               ))}
             </div>
@@ -41,8 +41,8 @@ export default function SponsorsSection({ sponsors = sponsorsData }: { sponsors?
             <div className="flex flex-wrap justify-center gap-3">
               {resmi.map((s) => (
                 <a key={s.id} href={s.website} target="_blank" rel="noopener noreferrer" title={s.name}
-                  className="flex items-center justify-center h-12 px-6 rounded-xl border border-[#1A6B3C]/20 bg-[#1A6B3C]/5 hover:border-[#1A6B3C]/50 hover:bg-[#1A6B3C]/10 transition-all">
-                  <img src={s.logoUrl} alt={s.name} className="object-contain max-h-8 w-auto opacity-70 hover:opacity-100 transition-opacity" />
+                  className="flex items-center justify-center h-16 px-8 rounded-xl border border-[#1A6B3C]/20 bg-[#1A6B3C]/5 hover:border-[#1A6B3C]/50 hover:bg-[#1A6B3C]/10 transition-all">
+                  <img src={s.logoUrl} alt={s.name} className="object-contain max-h-11 w-auto opacity-80 hover:opacity-100 transition-opacity" />
                 </a>
               ))}
             </div>
@@ -55,8 +55,8 @@ export default function SponsorsSection({ sponsors = sponsorsData }: { sponsors?
             <div className="flex flex-wrap justify-center gap-2">
               {destekci.map((s) => (
                 <a key={s.id} href={s.website} target="_blank" rel="noopener noreferrer" title={s.name}
-                  className="flex items-center justify-center h-10 px-5 rounded-lg border border-[#ddeae2] hover:border-[#7aab8e]/40 bg-[#f5f9f6] hover:bg-[#edf7f2] transition-all">
-                  <img src={s.logoUrl} alt={s.name} className="object-contain max-h-7 w-auto opacity-50 hover:opacity-80 transition-opacity" />
+                  className="flex items-center justify-center h-14 px-7 rounded-lg border border-[#ddeae2] hover:border-[#7aab8e]/40 bg-[#f5f9f6] hover:bg-[#edf7f2] transition-all">
+                  <img src={s.logoUrl} alt={s.name} className="object-contain max-h-9 w-auto opacity-60 hover:opacity-90 transition-opacity" />
                 </a>
               ))}
             </div>
