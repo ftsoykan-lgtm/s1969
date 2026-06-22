@@ -44,19 +44,19 @@ export default function SocialSection({ club }: { club: ClubInfo }) {
   if (!cards.length) return null
 
   return (
-    <section className="relative bg-[#f5f9f6] border-t border-[#ddeae2] py-16 overflow-hidden">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+    <section className="relative bg-[#f5f9f6] border-t border-[#ddeae2] py-16 md:py-20 overflow-hidden">
+      <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 text-center">
         <div className="inline-flex items-center gap-3 mb-3">
           <span className="block w-8 h-0.5 bg-[#FFD100]" />
           <p className="text-[11px] font-black tracking-[0.25em] uppercase text-[#1A6B3C]">Bizi Takip Et</p>
           <span className="block w-8 h-0.5 bg-[#FFD100]" />
         </div>
-        <h2 className="text-2xl md:text-3xl font-black text-[#092d18] tracking-tight mb-10">Sosyal Medya Hesaplarımız</h2>
+        <h2 className="font-heading text-3xl md:text-4xl font-black text-[#092d18] tracking-tight mb-12">Sosyal Medya Hesaplarımız</h2>
 
         <div className="flex flex-wrap items-stretch justify-center gap-4">
           {cards.map((c) => (
             <a key={c.key} href={c.href} target="_blank" rel="noopener noreferrer"
-              className={`group relative flex items-center gap-4 w-full sm:w-[260px] rounded-2xl px-5 py-4 text-white bg-gradient-to-br ${c.grad} shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden`}
+              className={`group relative flex items-center gap-4 w-full sm:w-[280px] rounded-2xl px-6 py-5 text-white bg-gradient-to-br ${c.grad} shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden`}
               style={{ boxShadow: `0 10px 30px -10px ${c.glow}` }}>
               {/* Üst parlama */}
               <span className="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-white/10" />

@@ -16,7 +16,7 @@ function MatchCard({ match }: { match: Match }) {
     : null
 
   const Inner = (
-    <div className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm p-5 hover:shadow-md hover:border-[#1A6B3C]/30 transition-all h-full">
+    <div className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm p-5 hover:shadow-md hover:border-[#1A6B3C]/30 transition-all h-full flex flex-col">
       {/* Üst: hafta + sonuç rozeti */}
       <div className="flex items-center justify-between mb-4">
         <span className="text-[11px] font-black tracking-widest uppercase text-[#1A6B3C]">
@@ -31,34 +31,32 @@ function MatchCard({ match }: { match: Match }) {
       <p className="text-[12px] text-[#7aab8e] font-semibold mb-4">{formatDate(match.date)}</p>
 
       {/* Takımlar + skor */}
-      <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
+      <div className="grid grid-cols-[1fr_auto_1fr] items-start gap-2">
         <div className="flex flex-col items-center gap-2">
           <div className="relative w-14 h-14"><Image src={match.homeTeamLogo} alt={match.homeTeam} fill className="object-contain" /></div>
-          <span className={`text-[11px] font-bold text-center leading-tight line-clamp-1 ${urfaIsHome ? 'text-[#1A6B3C]' : 'text-[#092d18]'}`}>{match.homeTeam}</span>
+          <span className={`text-[11px] font-bold text-center leading-tight line-clamp-2 min-h-[28px] ${urfaIsHome ? 'text-[#1A6B3C]' : 'text-[#092d18]'}`}>{match.homeTeam}</span>
         </div>
-        <div className="flex items-center gap-1.5 px-1">
+        <div className="flex items-center gap-1.5 px-1 pt-1">
           {match.isCompleted ? (
             <>
               <span className="w-10 h-11 flex items-center justify-center rounded-lg bg-[#0f4a28] text-2xl font-black text-white tabular-nums">{match.homeScore}</span>
               <span className="w-10 h-11 flex items-center justify-center rounded-lg bg-[#0f4a28] text-2xl font-black text-white tabular-nums">{match.awayScore}</span>
             </>
           ) : (
-            <span className="text-sm font-black text-[#7aab8e] px-2">VS</span>
+            <span className="h-11 flex items-center text-sm font-black text-[#7aab8e] px-2">VS</span>
           )}
         </div>
         <div className="flex flex-col items-center gap-2">
           <div className="relative w-14 h-14"><Image src={match.awayTeamLogo} alt={match.awayTeam} fill className="object-contain" /></div>
-          <span className={`text-[11px] font-bold text-center leading-tight line-clamp-1 ${!urfaIsHome ? 'text-[#1A6B3C]' : 'text-[#092d18]'}`}>{match.awayTeam}</span>
+          <span className={`text-[11px] font-bold text-center leading-tight line-clamp-2 min-h-[28px] ${!urfaIsHome ? 'text-[#1A6B3C]' : 'text-[#092d18]'}`}>{match.awayTeam}</span>
         </div>
       </div>
 
-      {/* Stat */}
-      {match.venue && (
-        <div className="mt-4 pt-3.5 border-t border-[#edf7f2] flex items-center justify-center gap-1.5 text-[12px] text-[#7aab8e]">
-          <MapPin size={12} className="text-[#1A6B3C] shrink-0" />
-          <span className="truncate">{match.venue}</span>
-        </div>
-      )}
+      {/* Stat — alta sabit */}
+      <div className="mt-auto pt-3.5 border-t border-[#edf7f2] flex items-center justify-center gap-1.5 text-[12px] text-[#7aab8e]">
+        <MapPin size={12} className="text-[#1A6B3C] shrink-0" />
+        <span className="truncate">{match.venue || '—'}</span>
+      </div>
     </div>
   )
 
