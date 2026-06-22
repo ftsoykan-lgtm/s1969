@@ -1,17 +1,17 @@
 import { createClient as createServerClient } from '@/lib/supabase/server'
-import { Newspaper, Users, Calendar, TrendingUp, ArrowUpRight } from 'lucide-react'
+import { Newspaper, Users, FileText, Star, ArrowUpRight } from 'lucide-react'
 import Link from 'next/link'
 
 const stats = [
-  { label: 'Haberler', value: '24', icon: Newspaper, href: '/admin/haberler', color: 'bg-[#edf7f2] text-[#1A6B3C]' },
-  { label: 'Oyuncular', value: '26', icon: Users, href: '/admin/kadro', color: 'bg-[#FFD100]/15 text-[#d4ad00]' },
-  { label: 'Maçlar', value: '38', icon: Calendar, href: '/admin/fikstur', color: 'bg-[#edf7f2] text-[#1A6B3C]' },
-  { label: 'Bu Ayki Ziyaretçi', value: '12.4k', icon: TrendingUp, href: '#', color: 'bg-[#FFD100]/15 text-[#d4ad00]' },
+  { label: 'Haberler', value: 'Yönet', icon: Newspaper, href: '/admin/haberler', color: 'bg-[#edf7f2] text-[#1A6B3C]' },
+  { label: 'Kadro', value: 'Yönet', icon: Users, href: '/admin/kadro', color: 'bg-[#FFD100]/15 text-[#d4ad00]' },
+  { label: 'Sayfalar', value: 'Yönet', icon: FileText, href: '/admin/sayfalar', color: 'bg-[#edf7f2] text-[#1A6B3C]' },
+  { label: 'Sponsorlar', value: 'Yönet', icon: Star, href: '/admin/sponsorlar', color: 'bg-[#FFD100]/15 text-[#d4ad00]' },
 ]
 
 const quickLinks = [
   { label: 'Yeni Haber Ekle', href: '/admin/haberler/yeni', color: 'bg-[#1A6B3C] text-white' },
-  { label: 'Maç Sonucu Gir', href: '/admin/fikstur', color: 'bg-[#FFD100] text-[#092d18]' },
+  { label: 'Sayfa Düzenle', href: '/admin/sayfalar', color: 'bg-[#FFD100] text-[#092d18]' },
   { label: 'Oyuncu Güncelle', href: '/admin/kadro', color: 'border border-[#ddeae2] text-[#092d18]' },
 ]
 
@@ -56,8 +56,8 @@ export default async function AdminDashboard() {
 
       {/* Info */}
       <div className="bg-[#edf7f2] border border-[#1A6B3C]/20 rounded-2xl p-6">
-        <h2 className="text-sm font-black text-[#1A6B3C] mb-2">Supabase Bağlantısı Aktif</h2>
-        <p className="text-sm text-[#3d6b52]">Veritabanı bağlantısı kurulu. Haberler, Kadro ve Fikstür tablolarını Supabase Dashboard'dan yönetebilirsiniz.</p>
+        <h2 className="text-sm font-black text-[#1A6B3C] mb-2">Maç Merkezi otomatik</h2>
+        <p className="text-sm text-[#3d6b52]">Fikstür, sonuçlar, puan durumu ve maç kadroları her gün TFF'den otomatik çekilir — elle girişe gerek yoktur. Diğer tüm içerik (haberler, kadro, sayfalar, sponsorlar, ayarlar) bu panelden yönetilir.</p>
       </div>
     </div>
   )

@@ -5,9 +5,9 @@ import { usePathname, useRouter } from 'next/navigation'
 import { createBrowserClient } from '@supabase/ssr'
 import { useState } from 'react'
 import {
-  LayoutDashboard, Newspaper, Users, Calendar, Image,
-  LogOut, ChevronRight, Settings, Trophy, Heart, Star,
-  Tag, SlidersHorizontal, TableProperties, BarChart3
+  LayoutDashboard, Newspaper, Users, Image,
+  LogOut, ChevronRight, Settings, Trophy, Star,
+  Tag, FolderOpen, SlidersHorizontal, BarChart3, FileText
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -19,24 +19,23 @@ const navGroups = [
     ],
   },
   {
-    label: 'İÇERİK YÖNETİMİ',
+    label: 'İÇERİK',
     items: [
       { label: 'Haberler', href: '/admin/haberler', icon: Newspaper },
-      { label: 'Kadro', href: '/admin/kadro', icon: Users },
-      { label: 'Fikstür & Sonuçlar', href: '/admin/fikstur', icon: Calendar },
-      { label: 'Puan Tablosu', href: '/admin/fikstur/puan-tablosu', icon: TableProperties },
-      { label: 'Slider / Ana Sayfa', href: '/admin/slider', icon: SlidersHorizontal },
-      { label: 'Takım Logoları', href: '/admin/logolar', icon: Image },
+      { label: 'Kategoriler', href: '/admin/kategoriler', icon: FolderOpen },
+      { label: 'Etiketler', href: '/admin/etiketler', icon: Tag },
+      { label: 'Ana Sayfa Slider', href: '/admin/slider', icon: SlidersHorizontal },
+      { label: 'Sayfalar', href: '/admin/sayfalar', icon: FileText },
       { label: 'Medya Kütüphanesi', href: '/admin/medya', icon: BarChart3 },
     ],
   },
   {
-    label: 'KULÜP YÖNETİMİ',
+    label: 'KULÜP',
     items: [
-      { label: 'Sponsorlar', href: '/admin/sponsorlar', icon: Star },
+      { label: 'Kadro', href: '/admin/kadro', icon: Users },
       { label: 'Yönetim Kurulu', href: '/admin/yonetim', icon: Trophy },
-      { label: 'Taraftar İçeriği', href: '/admin/taraftar', icon: Heart },
-      { label: 'Etiketler', href: '/admin/etiketler', icon: Tag },
+      { label: 'Sponsorlar', href: '/admin/sponsorlar', icon: Star },
+      { label: 'Takım Logoları', href: '/admin/logolar', icon: Image },
     ],
   },
   {

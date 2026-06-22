@@ -387,3 +387,62 @@ function resizeImage(file: File, tw: number, th: number, fit: 'contain' | 'cover
     img.src = url
   })
 }
+
+/* ─── Sayfalar CMS ─────────────────────────────────────────────── */
+export interface AdminPage {
+  slug: string
+  title: string
+  subtitle?: string | null
+  hero_image?: string | null
+  body?: string | null
+  nav_group?: string
+  sort?: number
+  published?: boolean
+}
+
+export async function getPagesAdmin(): Promise<AdminPage[]> {
+  try {
+    const { data, error } = await client().from('site_pages').select('*').order('nav_group').order('sort')
+    if (error || !data) return []
+    return data as AdminPage[]
+  } catch { return [] }
+}
+
+export async function getPageAdmin(slug: string): Promise<AdminPage | null> {
+  try {
+    const { data, error } = await client().from('site_pages').select('*').eq('slug', slug).single()
+    if (error || !data) return null
+    return data as AdminPage
+  } catch { return null }
+}
+
+export async function savePage(p: AdminPage, originalSlug?: string): Promise<{ ok: boolean; error?: string }> {
+  try {
+    const row = {
+      slug: p.slug,
+      title: p.title,
+      subtitle: p.subtitle ?? null,
+      hero_image: p.hero_image ?? null,
+      body: p.body ?? null,
+      nav_group: p.nav_group ?? 'kulup',
+      sort: p.sort ?? 0,
+      published: p.published ?? true,
+      updated_at: new Date().toISOString(),
+    }
+    const supabase = client()
+    // slug birincil anahtar; düzenleme = update, yeni = insert
+    const { error } = originalSlug
+      ? await supabase.from('site_pages').update(row).eq('slug', originalSlug)
+      : await supabase.from('site_pages').insert(row)
+    if (error) return { ok: false, error: error.message }
+    return { ok: true }
+  } catch (e) { return { ok: false, error: (e as Error).message } }
+}
+
+export async function deletePage(slug: string): Promise<{ ok: boolean; error?: string }> {
+  try {
+    const { error } = await client().from('site_pages').delete().eq('slug', slug)
+    if (error) return { ok: false, error: error.message }
+    return { ok: true }
+  } catch (e) { return { ok: false, error: (e as Error).message } }
+}

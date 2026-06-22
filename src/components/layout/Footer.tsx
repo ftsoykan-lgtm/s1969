@@ -40,9 +40,9 @@ const SOCIALS = [
 ]
 
 const LINKS = [
-  { title: 'Kulüp',     items: [{ label: 'Tarihçe', href: '/kulup/tarihce' }, { label: 'Yönetim Kurulu', href: '/kulup/yonetim' }, { label: 'Tesisler', href: '/kulup/tarihce' }, { label: 'İletişim', href: '/iletisim' }] },
-  { title: 'Takım',     items: [{ label: 'Kadro', href: '/kadro' }, { label: 'Maç Merkezi', href: '/mac-merkezi' }, { label: 'Haberler', href: '/haberler' }, { label: 'Taraftar', href: '/iletisim' }] },
-  { title: 'Hizmetler', items: [{ label: 'Bilet Al', href: '/bilet' }, { label: 'Mağaza', href: '/magaza' }, { label: 'Üyelik', href: '/iletisim' }, { label: 'Sponsorluk', href: '/iletisim' }] },
+  { title: 'Kulüp',     items: [{ label: 'Tarihçe', href: '/kulup/tarihce' }, { label: 'Yönetim Kurulu', href: '/kulup/yonetim' }, { label: 'Tesisler', href: '/sayfa/gap-arena' }, { label: 'İletişim', href: '/iletisim' }] },
+  { title: 'Takım',     items: [{ label: 'Kadro', href: '/kadro' }, { label: 'Maç Merkezi', href: '/mac-merkezi' }, { label: 'Haberler', href: '/haberler' }, { label: 'Taraftar', href: '/sayfa/taraftar' }] },
+  { title: 'Hizmetler', items: [{ label: 'Bilet Al', href: '/bilet' }, { label: 'Mağaza', href: '/magaza' }, { label: 'Üyelik', href: '/sayfa/uyelik' }, { label: 'Sponsorluk', href: '/sayfa/sponsorluk' }] },
 ]
 
 export default function Footer({ club = defaultClub }: { club?: ClubInfo }) {
@@ -173,11 +173,11 @@ export default function Footer({ club = defaultClub }: { club?: ClubInfo }) {
             © {new Date().getFullYear()} {club.name}. Tüm hakları saklıdır.
           </p>
           <div className="flex items-center gap-5 text-xs text-white/25 order-1 sm:order-2">
-            <Link href="/gizlilik" className="hover:text-white/55 transition-colors">Gizlilik</Link>
+            <Link href="/sayfa/gizlilik" className="hover:text-white/55 transition-colors">Gizlilik</Link>
             <span className="w-px h-3 bg-white/10" />
-            <Link href="/kullanim" className="hover:text-white/55 transition-colors">Kullanım Koşulları</Link>
+            <Link href="/sayfa/kullanim" className="hover:text-white/55 transition-colors">Kullanım Koşulları</Link>
             <span className="w-px h-3 bg-white/10" />
-            <Link href="/cerez" className="hover:text-white/55 transition-colors">Çerezler</Link>
+            <Link href="/sayfa/cerez" className="hover:text-white/55 transition-colors">Çerezler</Link>
           </div>
         </div>
       </div>

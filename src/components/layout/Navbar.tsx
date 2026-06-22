@@ -32,20 +32,20 @@ const kulupMenu = [
   { baslik: 'KULÜP', linkler: [
     { label: 'Tarihçe', href: '/kulup/tarihce' },
     { label: 'Yönetim Kurulu', href: '/kulup/yonetim' },
-    { label: 'Başkanlarımız', href: '#' },
-    { label: 'Kurumsal Kimlik', href: '#' },
-    { label: 'Tüzük', href: '#' },
+    { label: 'Başkanlarımız', href: '/sayfa/baskanlarimiz' },
+    { label: 'Kurumsal Kimlik', href: '/sayfa/kurumsal-kimlik' },
+    { label: 'Tüzük', href: '/sayfa/tuzuk' },
   ]},
   { baslik: 'TESİSLER', linkler: [
-    { label: 'GAP Arena', href: '#' },
-    { label: 'Antrenman Tesisi', href: '#' },
-    { label: 'Altyapı Akademisi', href: '#' },
-    { label: 'Müze', href: '#' },
+    { label: 'GAP Arena', href: '/sayfa/gap-arena' },
+    { label: 'Antrenman Tesisi', href: '/sayfa/antrenman-tesisi' },
+    { label: 'Altyapı Akademisi', href: '/sayfa/altyapi-akademisi' },
+    { label: 'Müze', href: '/sayfa/muze' },
   ]},
   { baslik: 'KURUMSAL', linkler: [
-    { label: 'Basın & Medya', href: '#' },
-    { label: 'Sponsorluk', href: '#' },
-    { label: 'İnsan Kaynakları', href: '#' },
+    { label: 'Basın & Medya', href: '/sayfa/basin-medya' },
+    { label: 'Sponsorluk', href: '/sayfa/sponsorluk' },
+    { label: 'İnsan Kaynakları', href: '/sayfa/insan-kaynaklari' },
     { label: 'İletişim', href: '/iletisim' },
   ]},
 ]
@@ -55,7 +55,7 @@ const navLinks: { label: string; href: string; hasMega?: boolean }[] = [
   { label: 'KULÜP', href: '#', hasMega: true },
   { label: 'KADRO', href: '/kadro' },
   { label: 'MAÇ MERKEZİ', href: '/mac-merkezi' },
-  { label: 'TARAFTAR', href: '#' },
+  { label: 'TARAFTAR', href: '/sayfa/taraftar' },
   { label: 'İLETİŞİM', href: '/iletisim' },
 ]
 
