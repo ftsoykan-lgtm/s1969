@@ -18,8 +18,8 @@ function MatchCard({ match }: { match: Match }) {
   const Inner = (
     <div className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm p-5 hover:shadow-md hover:border-[#1A6B3C]/30 transition-all h-full flex flex-col">
       {/* Üst: hafta + sonuç rozeti */}
-      <div className="flex items-center justify-between mb-4">
-        <span className="text-[11px] font-black tracking-widest uppercase text-[#1A6B3C]">
+      <div className="flex items-start justify-between gap-2 mb-3 min-h-[34px]">
+        <span className="text-[11px] font-black tracking-widest uppercase text-[#1A6B3C] leading-snug line-clamp-2">
           {match.week ? `${match.week}. Hafta` : match.competition}
         </span>
         {result && (
@@ -61,7 +61,7 @@ function MatchCard({ match }: { match: Match }) {
   )
 
   return match.macId
-    ? <Link href={`/mac/${match.macId}`} className="block group">{Inner}</Link>
+    ? <Link href={`/mac/${match.macId}`} className="block group h-full">{Inner}</Link>
     : Inner
 }
 
@@ -126,7 +126,7 @@ export default async function FixturePreview() {
           {/* Sol: son 3 maç */}
           <div>
             {lastThree.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 items-stretch">
                 {lastThree.map((m) => <MatchCard key={m.id} match={m} />)}
               </div>
             ) : (
