@@ -61,6 +61,26 @@ export type TffRaw = {
 const SANLIURFA_LOGO = 'https://placehold.co/48x48/1A6B3C/FFD100?text=%C5%9EFK'
 const DEFAULT_LOGO = 'https://placehold.co/48x48/edf7f2/1A6B3C?text=FK'
 
+/** Turnuva adını kanonik (logo paylaşımı için) tek isme indirger.
+ *  "Nesine 2. Lig Beyaz", "Nesine 2. Lig Play Off..." → "Nesine 2. Lig" */
+export function canonicalCompetition(name: string): string {
+  const n = (name || '').toLocaleLowerCase('tr-TR')
+  if (/t[üu]rkiye kupas|ziraat/.test(n)) return 'Ziraat Türkiye Kupası'
+  if (/2\.?\s*l[iı]g/.test(n)) return 'Nesine 2. Lig'
+  if (/1\.?\s*l[iı]g/.test(n)) return 'Nesine 1. Lig'
+  if (/s[üu]per\s*l[iı]g/.test(n)) return 'Süper Lig'
+  return name
+}
+
+/** Kayıtlı logo haritasından turnuva logosunu çözer (tam → kanonik → bulanık) */
+export function competitionLogo(map: Record<string, string>, competition: string): string | undefined {
+  if (map[competition]) return map[competition]
+  const canon = canonicalCompetition(competition)
+  if (map[canon]) return map[canon]
+  for (const [k, v] of Object.entries(map)) if (v && canonicalCompetition(k) === canon) return v
+  return undefined
+}
+
 /** "KIZILKAYA TARIM ŞANLIURFASPOR" → "Şanlıurfaspor" gibi okunur isim */
 export function temizTakimAdi(raw: string): string {
   if (raw.toUpperCase().includes('URFASPOR')) return 'Şanlıurfaspor'

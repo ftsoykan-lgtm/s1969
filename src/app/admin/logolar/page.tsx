@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { standingsData } from '@/data/fixtures'
 import { getTeamLogos, saveTeamLogo, uploadImage, getTffCompetitions } from '@/lib/supabase/settings'
+import { canonicalCompetition } from '@/lib/tff'
 import { Upload, Loader2, Check, Link as LinkIcon } from 'lucide-react'
 
 export default function AdminLogolarPage() {
@@ -16,7 +17,13 @@ export default function AdminLogolarPage() {
 
   useEffect(() => {
     Promise.all([getTeamLogos(), getTffCompetitions()]).then(([saved, comps]) => {
-      setLogos((prev) => ({ ...prev, ...saved }))
+      // Eski (grup/play-off) anahtarlarla kayıtlı turnuva logosunu kanonik slota taşı
+      const canon: Record<string, string> = {}
+      for (const [k, v] of Object.entries(saved)) {
+        const c = canonicalCompetition(k)
+        if (c !== k && v && !saved[c]) canon[c] = v
+      }
+      setLogos((prev) => ({ ...prev, ...saved, ...canon }))
       setCompetitions(comps)
       setLoading(false)
     })

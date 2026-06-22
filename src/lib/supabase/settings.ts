@@ -3,6 +3,7 @@
 import { createBrowserClient } from '@supabase/ssr'
 import type { ClubInfo } from '@/data/club'
 import { clubInfo as defaultClub } from '@/data/club'
+import { canonicalCompetition } from '@/lib/tff'
 
 function client() {
   return createBrowserClient(
@@ -238,7 +239,8 @@ export async function getTffCompetitions(): Promise<string[]> {
     const { data, error } = await client().from('tff_data').select('data').eq('id', 1).single()
     const fixtures = (data?.data as { sanliurfasporFixtures?: { competition: string }[] })?.sanliurfasporFixtures
     if (error || !fixtures) return []
-    return Array.from(new Set(fixtures.map((f) => f.competition).filter(Boolean)))
+    // Kanonik adla tekilleştir: play-off + grup aynı lig logosunu paylaşır
+    return Array.from(new Set(fixtures.map((f) => canonicalCompetition(f.competition)).filter(Boolean)))
   } catch {
     return []
   }

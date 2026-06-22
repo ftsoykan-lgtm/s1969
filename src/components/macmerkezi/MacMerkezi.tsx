@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { MapPin, Calendar } from 'lucide-react'
 import type { Match, StandingRow } from '@/types'
+import { competitionLogo } from '@/lib/tff'
 
 /* Tarih + saat → "24.08.2025 19:00" */
 function tarihSaat(dateISO: string, time?: string): string {
@@ -22,7 +23,7 @@ function MatchCard({ match, logos }: { match: Match; logos: Record<string, strin
   const result = match.isCompleted && urfaScore !== null && oppScore !== null
     ? urfaScore > oppScore ? 'G' : urfaScore < oppScore ? 'M' : 'B'
     : null
-  const tournamentLogo = logos[match.competition]
+  const tournamentLogo = competitionLogo(logos, match.competition)
   const Wrapper = match.macId
     ? ({ children }: { children: React.ReactNode }) => <Link href={`/mac/${match.macId}`} className="block group">{children}</Link>
     : ({ children }: { children: React.ReactNode }) => <div>{children}</div>
