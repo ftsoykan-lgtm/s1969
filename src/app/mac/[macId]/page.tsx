@@ -109,7 +109,7 @@ export default async function MacDetayPage({ params }: Props) {
       <div className="relative bg-[#0f4a28] overflow-hidden">
         <div className="pointer-events-none absolute -top-24 -right-24 w-[420px] h-[420px] rounded-full bg-[#1A6B3C]/40 blur-3xl" />
         <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-10">
-          <Link href="/fikstur" className="inline-flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors mb-8">
+          <Link href="/mac-merkezi" className="inline-flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors mb-8">
             <ArrowLeft size={16} /> Maç Merkezine Dön
           </Link>
 

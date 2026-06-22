@@ -131,27 +131,34 @@ function StandingsTable({ standings }: { standings: StandingRow[] }) {
   )
 }
 
-/* ─── Maç Merkezi (tek sayfa, sekmesiz) ─────────────────────── */
+/* ─── Maç Merkezi ───────────────────────────────────────────── */
 export default function MacMerkezi({
-  all, standings, season, logos = {},
+  all, standings, season, logos = {}, limit, showFilter = true,
 }: {
   all: Match[]
   standings: StandingRow[]
   season?: string
   logos?: Record<string, string>
+  limit?: number
+  showFilter?: boolean
 }) {
   const [tournament, setTournament] = useState<string>('hepsi')
 
   const tournaments = Array.from(new Set(all.map((m) => m.competition).filter(Boolean)))
-  const matches = all
+  let matches = all
     .filter((m) => tournament === 'hepsi' || m.competition === tournament)
     .slice()
     .reverse() // en yeni maç üstte
+  if (limit) {
+    // Son N maç: önce oynanmışlar, yoksa fikstürden
+    const played = matches.filter((m) => m.isCompleted)
+    matches = (played.length >= limit ? played : matches).slice(0, limit)
+  }
 
   return (
     <div>
       {/* Filtre çubuğu */}
-      <div className="flex flex-wrap items-end gap-4 mb-8">
+      <div className={`flex flex-wrap items-end gap-4 mb-8 ${showFilter ? '' : 'hidden'}`}>
         <div>
           <label className="block text-[10px] font-black tracking-widest uppercase text-[#7aab8e] mb-1.5">Sezon</label>
           <div className="flex items-center gap-2 bg-white border border-[#ddeae2] rounded-xl px-4 py-2.5 shadow-sm">

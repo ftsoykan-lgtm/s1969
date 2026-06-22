@@ -123,7 +123,7 @@ export default async function FixturePreview() {
 
         {/* Orta buton */}
         <div className="flex justify-center mt-10">
-          <Link href="/fikstur"
+          <Link href="/mac-merkezi"
             className="inline-flex items-center gap-2 bg-white border border-[#ddeae2] hover:border-[#1A6B3C]/40 hover:shadow-md text-[#092d18] font-bold text-[15px] px-7 py-4 rounded-2xl transition-all">
             Maç Merkezine Git
             <ArrowUpRight size={17} className="text-[#1A6B3C]" />

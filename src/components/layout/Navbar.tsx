@@ -54,7 +54,7 @@ const navLinks: { label: string; href: string; hasMega?: boolean }[] = [
   { label: 'HABERLER', href: '/haberler' },
   { label: 'KULÜP', href: '#', hasMega: true },
   { label: 'KADRO', href: '/kadro' },
-  { label: 'FİKSTÜR', href: '/fikstur' },
+  { label: 'MAÇ MERKEZİ', href: '/mac-merkezi' },
   { label: 'TARAFTAR', href: '#' },
   { label: 'İLETİŞİM', href: '/iletisim' },
 ]
@@ -79,7 +79,8 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
 
   const openMega = () => { if (megaTimer.current) clearTimeout(megaTimer.current); setMegaOpen(true) }
   const closeMega = () => { megaTimer.current = setTimeout(() => setMegaOpen(false), 120) }
-  const isActive = (href: string) => pathname === href
+  const isActive = (href: string) =>
+    pathname === href || (href !== '/' && href !== '#' && pathname.startsWith(href + '/'))
 
   return (
     <header className="sticky top-0 z-50 w-full">

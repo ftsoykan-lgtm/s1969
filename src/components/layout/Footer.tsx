@@ -41,7 +41,7 @@ const SOCIALS = [
 
 const LINKS = [
   { title: 'Kulüp',     items: [{ label: 'Tarihçe', href: '/kulup/tarihce' }, { label: 'Yönetim Kurulu', href: '/kulup/yonetim' }, { label: 'Tesisler', href: '/kulup/tarihce' }, { label: 'İletişim', href: '/iletisim' }] },
-  { title: 'Takım',     items: [{ label: 'Kadro', href: '/kadro' }, { label: 'Maç Merkezi', href: '/fikstur' }, { label: 'Haberler', href: '/haberler' }, { label: 'Taraftar', href: '/iletisim' }] },
+  { title: 'Takım',     items: [{ label: 'Kadro', href: '/kadro' }, { label: 'Maç Merkezi', href: '/mac-merkezi' }, { label: 'Haberler', href: '/haberler' }, { label: 'Taraftar', href: '/iletisim' }] },
   { title: 'Hizmetler', items: [{ label: 'Bilet Al', href: '/bilet' }, { label: 'Mağaza', href: '/magaza' }, { label: 'Üyelik', href: '/iletisim' }, { label: 'Sponsorluk', href: '/iletisim' }] },
 ]
 
