@@ -60,9 +60,26 @@ function SideCard({ item }: { item: NewsItem }) {
   )
 }
 
+function GridCard({ item }: { item: NewsItem }) {
+  return (
+    <Link href={`/haberler/${item.slug}`}
+      className="group block rounded-xl overflow-hidden bg-white border border-[#ddeae2] shadow-sm hover:shadow-lg hover:border-[#1A6B3C]/30 transition-all hover:-translate-y-1 duration-300">
+      <div className="relative h-40 overflow-hidden bg-[#edf7f2]">
+        <Image src={item.imageUrl} alt={item.title} fill sizes="25vw" className="object-cover group-hover:scale-105 transition-transform duration-500" />
+        <div className="absolute top-3 left-3"><Badge category={item.category} /></div>
+      </div>
+      <div className="p-4">
+        <h3 className="text-sm font-black text-[#092d18] leading-snug line-clamp-2 group-hover:text-[#1A6B3C] transition-colors">{item.title}</h3>
+        <p className="mt-2 text-[11px] text-[#7aab8e] font-medium">{formatDate(item.date)}</p>
+      </div>
+    </Link>
+  )
+}
+
 export default function NewsHeroGrid() {
   const [mainItem, ...rest] = newsData
   const sideItems = rest.slice(0, 3)
+  const gridItems = rest.slice(3, 7)
 
   return (
     <section className="py-16 bg-white">
@@ -70,19 +87,17 @@ export default function NewsHeroGrid() {
 
         {/* Section header */}
         <div className="flex items-center justify-between mb-8">
-          <div>
-            <div className="flex items-center gap-3 mb-2">
-              <span className="block w-6 h-0.5 bg-[#FFD100]" />
-              <p className="text-xs font-black tracking-widest uppercase text-[#1A6B3C]">Son Dakika</p>
+          <div className="flex items-center gap-4">
+            <span className="block w-1.5 h-9 bg-[#FFD100] rounded-full" />
+            <div>
+              <p className="text-[11px] font-black tracking-[0.2em] uppercase text-[#1A6B3C]/70 mb-0.5">Son Dakika</p>
+              <h2 className="text-3xl md:text-4xl font-black text-[#092d18] tracking-tight">
+                Kulüp <span className="text-[#1A6B3C]">Haberleri</span>
+              </h2>
             </div>
-            <h2 className="text-3xl md:text-4xl font-black text-[#092d18] tracking-tight">
-              Kulüp <span className="text-[#1A6B3C]">Haberleri</span>
-            </h2>
           </div>
-          <Link
-            href="/haberler"
-            className="hidden sm:inline-flex items-center gap-2 text-sm font-bold text-[#1A6B3C] border-2 border-[#1A6B3C]/30 rounded-xl px-4 py-2 hover:bg-[#1A6B3C] hover:text-white hover:border-[#1A6B3C] transition-all"
-          >
+          <Link href="/haberler"
+            className="hidden sm:inline-flex items-center gap-2 text-sm font-bold text-[#1A6B3C] border-2 border-[#1A6B3C]/30 rounded-xl px-4 py-2 hover:bg-[#1A6B3C] hover:text-white hover:border-[#1A6B3C] transition-all">
             Tümünü Gör →
           </Link>
         </div>
@@ -93,6 +108,13 @@ export default function NewsHeroGrid() {
             {sideItems.map((item) => <SideCard key={item.id} item={item} />)}
           </div>
         </div>
+
+        {/* Alt satır — daha fazla haber */}
+        {gridItems.length > 0 && (
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+            {gridItems.map((item) => <GridCard key={item.id} item={item} />)}
+          </div>
+        )}
       </div>
     </section>
   )
