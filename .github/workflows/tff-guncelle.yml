@@ -1,9 +1,9 @@
 name: TFF Verisini Güncelle
 
-# Her Pazartesi 06:00 UTC (Türkiye 09:00) + elle tetikleme
+# Her gün 06:00 UTC (Türkiye 09:00) + elle tetikleme
 on:
   schedule:
-    - cron: '0 6 * * 1'
+    - cron: '0 6 * * *'
   workflow_dispatch:
 
 permissions:
