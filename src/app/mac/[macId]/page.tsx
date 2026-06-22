@@ -4,43 +4,9 @@ import Image from 'next/image'
 import { getLiveTff } from '@/lib/supabase/tff-server'
 import { getTeamLogoMap, applyLogosToMatches } from '@/lib/supabase/logos-server'
 import { formatDate } from '@/lib/utils'
-import { ArrowLeft, MapPin, Calendar, Clock, Flag, ExternalLink, Timer } from 'lucide-react'
+import { ArrowLeft, MapPin, Calendar, Clock, Flag, ExternalLink } from 'lucide-react'
 import type { Metadata } from 'next'
 import type { LineupPlayer, MatchEvent } from '@/types'
-
-/* Futbol topu (maç başladı) */
-function BallIcon({ size = 14, className = '' }: { size?: number; className?: string }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" className={className}>
-      <circle cx="12" cy="12" r="9.2" />
-      <path d="M12 6.8l3.4 2.5-1.3 4.1H9.9L8.6 9.3z" fill="currentColor" stroke="none" opacity="0.9" />
-      <path d="M12 6.8V3M15.4 9.3l3.3-1.1M14.1 13.4l2.1 2.9M9.9 13.4l-2.1 2.9M8.6 9.3 5.3 8.2" />
-    </svg>
-  )
-}
-/* Damalı bayrak (maç sonucu) */
-function CheckeredFlag({ size = 14, className = '' }: { size?: number; className?: string }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" className={className}>
-      <path d="M5 3v18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      <g fill="currentColor">
-        <rect x="7" y="4" width="3.5" height="3" /><rect x="14" y="4" width="3.5" height="3" />
-        <rect x="10.5" y="7" width="3.5" height="3" /><rect x="17.5" y="7" width="2" height="3" />
-        <rect x="7" y="10" width="3.5" height="3" /><rect x="14" y="10" width="3.5" height="3" />
-      </g>
-      <rect x="7" y="4" width="12.5" height="9" fill="none" stroke="currentColor" strokeWidth="1.3" />
-    </svg>
-  )
-}
-/* Düdük (hakemler) */
-function Whistle({ size = 14, className = '' }: { size?: number; className?: string }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
-      <path d="M10.5 4.2a1 1 0 0 1 1 .8l.4 2.5h7.6a2 2 0 0 1 2 2v1.3A6.8 6.8 0 1 1 8.7 8.2l-.2-2A1 1 0 0 1 9.5 5l1-.8zM8.5 11a3.3 3.3 0 1 0 0 6.6 3.3 3.3 0 0 0 0-6.6z" />
-      <circle cx="8.5" cy="14.3" r="1.4" fill="#fff" opacity="0.55" />
-    </svg>
-  )
-}
 
 export const dynamic = 'force-dynamic'
 
@@ -58,9 +24,9 @@ const ROLE_ORDER = ['Hakem', '1. Yardımcı Hakem', '2. Yardımcı Hakem', 'Dör
 
 /* Olay ikonu */
 function EventIcon({ type }: { type: MatchEvent['type'] }) {
-  if (type === 'goal') return <span className="text-base leading-none">⚽</span>
-  if (type === 'yellow') return <span className="inline-block w-3.5 h-4.5 rounded-[2px] bg-[#FFD100] shadow" style={{ height: 18 }} />
-  if (type === 'red') return <span className="inline-block w-3.5 rounded-[2px] bg-[#d01b2a] shadow" style={{ height: 18 }} />
+  if (type === 'goal') return <span className="text-[17px] leading-none mac-spin">⚽</span>
+  if (type === 'yellow') return <span className="inline-block w-3 rounded-[2px] bg-[#FFD100] shadow" style={{ height: 17 }} />
+  if (type === 'red') return <span className="inline-block w-3 rounded-[2px] bg-[#d01b2a] shadow" style={{ height: 17 }} />
   return <span className="text-[#1A6B3C]">↔</span>
 }
 
@@ -173,9 +139,9 @@ export default async function MacDetayPage({ params }: Props) {
               <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-[#e3efe8]" />
               <div className="space-y-3">
                 {timeline.map((t, i) => {
-                  if (t.kind === 'start') return <Milestone key={i} icon={BallIcon} label="Maç Başladı" tone="green" />
-                  if (t.kind === 'half') return <Milestone key={i} icon={Timer} label="İlk Yarı Sonucu" score={`${htHome} - ${htAway}`} tone="amber" />
-                  if (t.kind === 'end') return <Milestone key={i} icon={CheckeredFlag} label="Maç Sonucu" score={`${match.homeScore} - ${match.awayScore}`} tone="green" />
+                  if (t.kind === 'start') return <Milestone key={i} emoji="⚽" anim="mac-spin" label="Maç Başladı" tone="green" />
+                  if (t.kind === 'half') return <Milestone key={i} emoji="⏱️" anim="mac-bob" label="İlk Yarı Sonucu" score={`${htHome} - ${htAway}`} tone="amber" />
+                  if (t.kind === 'end') return <Milestone key={i} emoji="🏁" anim="mac-bob" label="Maç Sonucu" score={`${match.homeScore} - ${match.awayScore}`} tone="green" />
                   const e = t.e
                   const isHome = e.team === 'home'
                   return (
@@ -236,7 +202,7 @@ export default async function MacDetayPage({ params }: Props) {
                   <div key={r.name + r.role}
                     className={`flex items-center gap-3 rounded-xl px-4 py-3.5 border ${main ? 'bg-gradient-to-br from-[#0f4a28] to-[#0c3a20] border-transparent' : 'bg-[#f8faf9] border-[#edf7f2]'}`}>
                     <span className={`flex h-9 w-9 items-center justify-center rounded-lg shrink-0 ${main ? 'bg-[#FFD100] text-[#0f4a28]' : 'bg-[#edf7f2] text-[#1A6B3C]'}`}>
-                      <Whistle size={16} />
+                      <Flag size={15} />
                     </span>
                     <div className="min-w-0">
                       <p className={`text-sm font-black truncate ${main ? 'text-white' : 'text-[#092d18]'}`}>{r.name}</p>
@@ -292,12 +258,12 @@ function Card({ title, icon: Icon, children }: { title: string; icon?: React.Com
   )
 }
 
-function Milestone({ icon: Icon, label, score, tone }: { icon: React.ComponentType<{ size?: number; className?: string }>; label: string; score?: string; tone: 'green' | 'amber' }) {
+function Milestone({ emoji, anim, label, score, tone }: { emoji: string; anim?: string; label: string; score?: string; tone: 'green' | 'amber' }) {
   const bg = tone === 'amber' ? 'bg-[#FFD100] text-[#0f4a28]' : 'bg-[#0f4a28] text-white'
   return (
     <div className="relative flex justify-center py-1">
       <div className={`relative z-10 inline-flex items-center gap-2 ${bg} rounded-full pl-3 pr-4 py-2 shadow-md`}>
-        <Icon size={14} />
+        <span className={`text-sm leading-none ${anim ?? ''}`}>{emoji}</span>
         <span className="text-[11px] font-black tracking-wide uppercase">{label}</span>
         {score && <span className="text-sm font-black tabular-nums border-l border-current/20 pl-2 ml-0.5">{score}</span>}
       </div>

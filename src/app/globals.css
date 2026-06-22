@@ -215,3 +215,10 @@ img {
     scroll-behavior: auto !important;
   }
 }
+/* ─── Maç detay ikon animasyonları ─── */
+@keyframes macBob { 0%, 100% { transform: translateY(0) } 50% { transform: translateY(-2px) } }
+@keyframes macSpin { from { transform: rotate(0) } to { transform: rotate(360deg) } }
+@keyframes macPop { 0% { transform: scale(0.6); opacity: 0 } 60% { transform: scale(1.15) } 100% { transform: scale(1); opacity: 1 } }
+.mac-bob { animation: macBob 2.2s ease-in-out infinite; }
+.mac-spin { display: inline-block; animation: macSpin 6s linear infinite; }
+.mac-pop { display: inline-block; animation: macPop .4s ease-out both; }
