@@ -1,44 +1,122 @@
 'use client'
 
+import { useRef, useState, useCallback } from 'react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import PlayerCard from '@/components/players/PlayerCard'
 import type { SitePlayer } from '@/lib/supabase/players-server'
 
+const CARD_W = 256 + 20 // w-64 (256px) + gap (pr-5 = 20px)
+const SCROLL_STEP = CARD_W * 2 // 2 kart kaydır
+const SCROLL_DURATION = 480 // ms — yavaş, pürüzsüz
+
+function smoothScrollBy(el: HTMLElement, delta: number, duration: number) {
+  const start = el.scrollLeft
+  const end = Math.max(0, Math.min(el.scrollWidth - el.clientWidth, start + delta))
+  const startTime = performance.now()
+  function step(now: number) {
+    const elapsed = now - startTime
+    const progress = Math.min(elapsed / duration, 1)
+    // ease-in-out cubic
+    const ease = progress < 0.5
+      ? 4 * progress * progress * progress
+      : 1 - Math.pow(-2 * progress + 2, 3) / 2
+    el.scrollLeft = start + (end - start) * ease
+    if (progress < 1) requestAnimationFrame(step)
+  }
+  requestAnimationFrame(step)
+}
+
 export default function SquadMarquee({ players }: { players: SitePlayer[] }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const [canLeft, setCanLeft] = useState(false)
+  const [canRight, setCanRight] = useState(true)
+
+  // Sürükleme state
+  const drag = useRef({ active: false, startX: 0, startScroll: 0 })
+
+  const updateArrows = useCallback(() => {
+    const el = ref.current
+    if (!el) return
+    setCanLeft(el.scrollLeft > 4)
+    setCanRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 4)
+  }, [])
+
+  const scroll = (dir: 1 | -1) => {
+    if (!ref.current) return
+    smoothScrollBy(ref.current, dir * SCROLL_STEP, SCROLL_DURATION)
+    setTimeout(updateArrows, SCROLL_DURATION + 20)
+  }
+
+  // Mouse sürükleme
+  const onMouseDown = (e: React.MouseEvent) => {
+    drag.current = { active: true, startX: e.pageX, startScroll: ref.current?.scrollLeft ?? 0 }
+  }
+  const onMouseMove = (e: React.MouseEvent) => {
+    if (!drag.current.active || !ref.current) return
+    e.preventDefault()
+    ref.current.scrollLeft = drag.current.startScroll - (e.pageX - drag.current.startX)
+    updateArrows()
+  }
+  const onMouseUp = () => { drag.current.active = false }
+
+  // Touch sürükleme
+  const onTouchStart = (e: React.TouchEvent) => {
+    drag.current = { active: true, startX: e.touches[0].pageX, startScroll: ref.current?.scrollLeft ?? 0 }
+  }
+  const onTouchMove = (e: React.TouchEvent) => {
+    if (!drag.current.active || !ref.current) return
+    ref.current.scrollLeft = drag.current.startScroll - (e.touches[0].pageX - drag.current.startX)
+    updateArrows()
+  }
+
   if (!players.length) return null
 
-  // Az oyuncu varsa doldur
-  let base = players
-  while (base.length < 6) base = [...base, ...players]
-  const loop = [...base, ...base]
-  // Yavaş, sakin hız (kart başına ~10 sn)
-  const duration = Math.max(50, base.length * 10)
-
   return (
-    <div className="relative overflow-hidden">
-      <div className="flex w-max squad-track" style={{ animationDuration: `${duration}s` }}>
-        {loop.map((p, i) => (
-          <div key={i} className="w-56 sm:w-64 shrink-0 pr-5">
+    <div className="relative">
+      {/* Sol ok */}
+      <button
+        onClick={() => scroll(-1)}
+        disabled={!canLeft}
+        className="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-[#0b3a20]/90 border border-white/10 text-white flex items-center justify-center shadow-lg transition-all duration-200 hover:bg-[#FFD100] hover:text-[#0b3a20] disabled:opacity-0 disabled:pointer-events-none"
+        aria-label="Önceki"
+      >
+        <ChevronLeft size={20} />
+      </button>
+
+      {/* Sağ ok */}
+      <button
+        onClick={() => scroll(1)}
+        disabled={!canRight}
+        className="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-[#0b3a20]/90 border border-white/10 text-white flex items-center justify-center shadow-lg transition-all duration-200 hover:bg-[#FFD100] hover:text-[#0b3a20] disabled:opacity-0 disabled:pointer-events-none"
+        aria-label="Sonraki"
+      >
+        <ChevronRight size={20} />
+      </button>
+
+      {/* Kenar gradyanları */}
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-14 bg-gradient-to-r from-[#0f4a28] to-transparent z-[1]" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-14 bg-gradient-to-l from-[#0f4a28] to-transparent z-[1]" />
+
+      {/* Kart listesi */}
+      <div
+        ref={ref}
+        onScroll={updateArrows}
+        onMouseDown={onMouseDown}
+        onMouseMove={onMouseMove}
+        onMouseUp={onMouseUp}
+        onMouseLeave={onMouseUp}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={() => { drag.current.active = false }}
+        className="flex overflow-x-auto scrollbar-none cursor-grab active:cursor-grabbing select-none px-14 gap-5 pb-2"
+        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+      >
+        {players.map((p, i) => (
+          <div key={i} className="w-56 sm:w-64 shrink-0">
             <PlayerCard player={p} />
           </div>
         ))}
       </div>
-
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-28 bg-gradient-to-r from-[#0f4a28] to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-28 bg-gradient-to-l from-[#0f4a28] to-transparent" />
-
-      <style jsx global>{`
-        .squad-track {
-          animation-name: squadScroll;
-          animation-timing-function: linear;
-          animation-iteration-count: infinite;
-          backface-visibility: hidden;
-        }
-        .squad-track:hover { animation-play-state: paused; }
-        @keyframes squadScroll {
-          from { transform: translate3d(0, 0, 0); }
-          to { transform: translate3d(-50%, 0, 0); }
-        }
-      `}</style>
     </div>
   )
 }
