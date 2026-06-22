@@ -5,24 +5,35 @@ import type { SitePlayer } from '@/lib/supabase/players-server'
 
 export default function SquadMarquee({ players }: { players: SitePlayer[] }) {
   if (!players.length) return null
-  // Kesintisiz döngü için iki kez
+  // Kesintisiz döngü için iki kez (aralık kart kutusunun içinde → dikiş tam hizalı)
   const loop = [...players, ...players]
-  const speed = Math.max(24, players.length * 4) // sn
+  // Sakin, sabit hız: kart başına ~6 sn (tek kopya süresi)
+  const duration = Math.max(30, players.length * 6)
 
   return (
-    <div className="relative overflow-hidden group"
-      style={{ maskImage: 'linear-gradient(to right, transparent, #000 6%, #000 94%, transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, #000 6%, #000 94%, transparent)' }}>
-      <div className="flex gap-4 w-max group-hover:[animation-play-state:paused]"
-        style={{ animation: `squadScroll ${speed}s linear infinite` }}>
+    <div className="relative overflow-hidden"
+      style={{ maskImage: 'linear-gradient(to right, transparent, #000 5%, #000 95%, transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, #000 5%, #000 95%, transparent)' }}>
+      <div className="flex w-max squad-track"
+        style={{ animationDuration: `${duration}s` }}>
         {loop.map((p, i) => (
-          <div key={`${p.name}-${i}`} className="w-44 sm:w-52 shrink-0">
+          <div key={`${p.name}-${i}`} className="w-44 sm:w-52 shrink-0 pr-4">
             <PlayerCard player={p} />
           </div>
         ))}
       </div>
 
       <style jsx global>{`
-        @keyframes squadScroll { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+        .squad-track {
+          animation-name: squadScroll;
+          animation-timing-function: linear;
+          animation-iteration-count: infinite;
+          will-change: transform;
+        }
+        .squad-track:hover { animation-play-state: paused; }
+        @keyframes squadScroll {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
+        }
       `}</style>
     </div>
   )
