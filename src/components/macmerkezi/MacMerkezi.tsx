@@ -43,7 +43,9 @@ function MatchCard({ match, logos }: { match: Match; logos: Record<string, strin
           </span>
         </div>
         {result && (
-          <span className={`w-2 h-2 rounded-full shrink-0 ${result === 'G' ? 'bg-[#1A6B3C]' : result === 'M' ? 'bg-red-500' : 'bg-[#7aab8e]'}`} />
+          <span className={`flex h-6 w-6 items-center justify-center rounded-md text-[12px] font-black shrink-0 shadow-sm ${
+            result === 'G' ? 'bg-[#1A6B3C] text-white' : result === 'M' ? 'bg-[#d01b2a] text-white' : 'bg-[#FFD100] text-[#0f4a28]'
+          }`} title={result === 'G' ? 'Galibiyet' : result === 'M' ? 'Mağlubiyet' : 'Beraberlik'}>{result}</span>
         )}
       </div>
 
