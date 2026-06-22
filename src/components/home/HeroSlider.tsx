@@ -31,13 +31,13 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
 
   if (!n) return null
 
-  // Aktif slayt neredeyse tam genişlik; komşular kenardan ince görünür
-  const SLOT = 92
+  // Geniş aktif merkez (~%78); iki yanda komşular etiketli görünür (~%11)
+  const SLOT = 78
   const translate = (100 - SLOT) / 2 - current * SLOT
 
   return (
     <section className="relative bg-[#0b0b0e] pb-6 overflow-hidden">
-      <div className="relative h-[520px] md:h-[700px]">
+      <div className="relative h-[480px] md:h-[660px]">
         <div className="flex h-full transition-transform duration-700"
           style={{ transform: `translateX(${translate}%)`, transitionTimingFunction: 'cubic-bezier(0.65,0,0.35,1)' }}>
           {items.map((slide, i) => {
@@ -45,26 +45,25 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
             return (
               <div key={i} className="shrink-0 h-full" style={{ width: `${SLOT}%` }}>
                 <div className="relative h-full overflow-hidden mx-[3px]">
-                  <Image src={slide.imageUrl} alt={slide.title} fill priority={aktif} sizes="92vw" className="object-cover" />
+                  <Image src={slide.imageUrl} alt={slide.title} fill priority={aktif} sizes="78vw" className="object-cover" />
 
                   {aktif ? (
                     <Link href={slide.href} className="absolute inset-0 block group">
-                      {/* Okunur degrade */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b0e]/95 via-[#0b0b0e]/20 to-transparent" />
-                      <div className="absolute inset-0 bg-gradient-to-r from-[#0b0b0e]/50 via-transparent to-transparent" />
-                      <div className="absolute inset-x-0 bottom-0 p-6 md:p-12 lg:p-16">
-                        <div className="max-w-3xl" key={current}>
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b0e]/95 via-[#0b0b0e]/15 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-[#0b0b0e]/45 via-transparent to-transparent" />
+                      <div className="absolute inset-x-0 bottom-0 p-6 md:p-10 lg:p-12">
+                        <div className="max-w-2xl" key={current}>
                           {slide.category && (
                             <div className="flex items-center gap-3 mb-3" style={{ animation: 'hUp .5s ease-out both' }}>
                               <span className="block w-8 h-px bg-[#FFD100]" />
                               <span className="text-[#FFD100] text-[11px] font-bold tracking-[0.3em] uppercase">{slide.category}</span>
                             </div>
                           )}
-                          <h1 className="text-2xl md:text-4xl lg:text-5xl font-black text-white leading-[1.1] tracking-tight line-clamp-3 drop-shadow-xl"
+                          <h1 className="text-2xl md:text-4xl lg:text-[2.6rem] font-black text-white leading-[1.12] tracking-tight line-clamp-3 drop-shadow-xl"
                             style={{ animation: 'hUp .6s ease-out .08s both' }}>
                             {slide.title}
                           </h1>
-                          <p className="hidden md:block mt-3 text-white/60 text-base lg:text-lg leading-relaxed line-clamp-2 max-w-2xl"
+                          <p className="mt-3 text-white/65 text-sm md:text-base lg:text-lg leading-relaxed line-clamp-2 max-w-2xl"
                             style={{ animation: 'hUp .6s ease-out .16s both' }}>
                             {slide.excerpt}
                           </p>
@@ -76,8 +75,9 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
                       </div>
                     </Link>
                   ) : (
-                    <button onClick={() => goTo(i)} aria-label={slide.title} className="absolute inset-0">
-                      <span className="absolute inset-0 bg-[#0b0b0e]/80" />
+                    <button onClick={() => goTo(i)} aria-label={slide.title} className="absolute inset-0 flex items-end p-5 text-left">
+                      <span className="absolute inset-0 bg-[#0b0b0e]/82" />
+                      <span className="relative text-white/45 text-sm font-bold leading-snug line-clamp-3">{slide.title}</span>
                     </button>
                   )}
                 </div>
