@@ -5,8 +5,8 @@ import SquadMarquee from './SquadMarquee'
 
 export default async function SquadPreview() {
   const { players, season } = await getSitePlayers()
-  const featured = players.slice(0, 6)
-  const rest = players.slice(6)
+  const featured = players.slice(0, 5)
+  const rest = players.slice(5)
 
   return (
     <section className="py-16 md:py-20 bg-[#0f4a28]">
@@ -41,7 +41,7 @@ export default async function SquadPreview() {
         <>
           {/* İlk 6 — statik grid */}
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5">
               {featured.map((p) => <PlayerCard key={p.name} player={p} />)}
             </div>
           </div>

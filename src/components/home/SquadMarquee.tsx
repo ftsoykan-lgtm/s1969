@@ -1,43 +1,44 @@
 'use client'
 
-import { useRef } from 'react'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
 import PlayerCard from '@/components/players/PlayerCard'
 import type { SitePlayer } from '@/lib/supabase/players-server'
 
 export default function SquadMarquee({ players }: { players: SitePlayer[] }) {
-  const ref = useRef<HTMLDivElement>(null)
   if (!players.length) return null
 
-  const scroll = (dir: number) => {
-    ref.current?.scrollBy({ left: dir * 420, behavior: 'smooth' })
-  }
+  // Az oyuncu varsa doldur
+  let base = players
+  while (base.length < 6) base = [...base, ...players]
+  const loop = [...base, ...base]
+  // Yavaş, sakin hız (kart başına ~10 sn)
+  const duration = Math.max(50, base.length * 10)
 
   return (
-    <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      {/* Kaydırma alanı (manuel — kendi kendine hareket etmez) */}
-      <div ref={ref}
-        className="flex gap-4 overflow-x-auto pb-3 snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-        {players.map((p) => (
-          <div key={p.name} className="w-44 sm:w-52 shrink-0 snap-start">
+    <div className="relative overflow-hidden">
+      <div className="flex w-max squad-track" style={{ animationDuration: `${duration}s` }}>
+        {loop.map((p, i) => (
+          <div key={i} className="w-56 sm:w-64 shrink-0 pr-5">
             <PlayerCard player={p} />
           </div>
         ))}
       </div>
 
-      {/* Oklar */}
-      {players.length > 4 && (
-        <>
-          <button onClick={() => scroll(-1)} aria-label="Geri"
-            className="hidden md:flex absolute left-1 top-[42%] -translate-y-1/2 h-11 w-11 items-center justify-center rounded-full bg-white text-[#0f4a28] shadow-lg hover:bg-[#FFD100] transition-all z-10">
-            <ChevronLeft size={20} />
-          </button>
-          <button onClick={() => scroll(1)} aria-label="İleri"
-            className="hidden md:flex absolute right-1 top-[42%] -translate-y-1/2 h-11 w-11 items-center justify-center rounded-full bg-white text-[#0f4a28] shadow-lg hover:bg-[#FFD100] transition-all z-10">
-            <ChevronRight size={20} />
-          </button>
-        </>
-      )}
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-28 bg-gradient-to-r from-[#0f4a28] to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-28 bg-gradient-to-l from-[#0f4a28] to-transparent" />
+
+      <style jsx global>{`
+        .squad-track {
+          animation-name: squadScroll;
+          animation-timing-function: linear;
+          animation-iteration-count: infinite;
+          backface-visibility: hidden;
+        }
+        .squad-track:hover { animation-play-state: paused; }
+        @keyframes squadScroll {
+          from { transform: translate3d(0, 0, 0); }
+          to { transform: translate3d(-50%, 0, 0); }
+        }
+      `}</style>
     </div>
   )
 }
