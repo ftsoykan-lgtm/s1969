@@ -24,6 +24,7 @@ export default function AdminKadroPage() {
   const [editing, setEditing] = useState<string | null>(null)
   const [draft, setDraft] = useState<PlayerDetail | null>(null)
   const [busy, setBusy] = useState(false)
+  const [err, setErr] = useState<string | null>(null)
 
   useEffect(() => {
     Promise.all([getTffSquad(), getPlayerDetails()]).then(([squad, details]) => {
@@ -48,10 +49,13 @@ export default function AdminKadroPage() {
   const save = async () => {
     if (!draft) return
     setBusy(true)
+    setErr(null)
     const res = await savePlayerDetail(draft)
     if (res.ok) {
       setRows((prev) => prev.map((r) => r.name === draft.name ? { ...r, detail: draft } : r))
       setEditing(null); setDraft(null)
+    } else {
+      setErr(`Kaydedilemedi: ${res.error ?? 'bilinmeyen hata'} — "player_details" tablosunu (005 SQL) kurduğunuzdan emin olun.`)
     }
     setBusy(false)
   }
@@ -80,6 +84,10 @@ export default function AdminKadroPage() {
           Fotoğraf, forma numarası, mevki ve uyruğu her oyuncu için <span className="font-bold">elle</span> ekleyebilirsiniz; siteye anında yansır.
         </p>
       </div>
+
+      {err && (
+        <div className="bg-red-50 border border-red-200 text-red-700 rounded-xl px-4 py-3 text-sm">{err}</div>
+      )}
 
       <div className="relative max-w-sm">
         <Search size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#7aab8e]" />

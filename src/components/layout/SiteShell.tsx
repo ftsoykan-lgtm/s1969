@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation'
 import Navbar from './Navbar'
 import Footer from './Footer'
 import SplashScreen from './SplashScreen'
+import SponsorStrip from './SponsorStrip'
 import type { ClubInfo } from '@/data/club'
 
 export default function SiteShell({ club, children }: { club: ClubInfo; children: React.ReactNode }) {
@@ -17,6 +18,7 @@ export default function SiteShell({ club, children }: { club: ClubInfo; children
       <SplashScreen club={club} />
       <Navbar club={club} />
       <main className="flex-1">{children}</main>
+      <SponsorStrip />
       <Footer club={club} />
     </>
   )

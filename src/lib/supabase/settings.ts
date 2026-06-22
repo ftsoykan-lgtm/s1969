@@ -129,12 +129,33 @@ export async function getPlayerDetails(): Promise<Record<string, PlayerDetail>> 
 
 export async function savePlayerDetail(detail: PlayerDetail): Promise<{ ok: boolean; error?: string }> {
   try {
+    // Sadece tablo sütunlarını gönder (id/updated_at gibi fazlalıkları ele)
+    const row = {
+      name: detail.name,
+      tff_id: detail.tff_id ?? null,
+      photo_url: detail.photo_url ?? null,
+      number: detail.number ?? null,
+      position: detail.position ?? null,
+      nationality: detail.nationality ?? null,
+      flag_code: detail.flag_code ?? null,
+      birth_date: detail.birth_date || null,
+      active: detail.active ?? true,
+      sort_order: detail.sort_order ?? 0,
+      manual: detail.manual ?? false,
+      updated_at: new Date().toISOString(),
+    }
+    console.log('🔵 [savePlayerDetail] kaydediliyor:', row)
     const { error } = await client()
       .from('player_details')
-      .upsert({ ...detail, updated_at: new Date().toISOString() }, { onConflict: 'name' })
-    if (error) return { ok: false, error: error.message }
+      .upsert(row, { onConflict: 'name' })
+    if (error) {
+      console.error('🔴 [savePlayerDetail] HATA:', error.message, '| kod:', error.code, '| detay:', error.details)
+      return { ok: false, error: error.message }
+    }
+    console.log('🟢 [savePlayerDetail] kaydedildi:', detail.name)
     return { ok: true }
   } catch (e) {
+    console.error('🔴 [savePlayerDetail] BEKLENMEYEN:', e)
     return { ok: false, error: (e as Error).message }
   }
 }
