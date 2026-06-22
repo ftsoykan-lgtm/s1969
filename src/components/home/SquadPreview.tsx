@@ -6,36 +6,43 @@ export default async function SquadPreview() {
   const { players, season } = await getSitePlayers()
 
   return (
-    <section className="py-16 md:py-20 bg-[#0f4a28]">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-10">
-        <div className="flex items-center justify-between">
+    <section className="relative py-16 md:py-20 bg-[#f5f9f6] overflow-hidden">
+      {/* Hafif marka dokusu */}
+      <div className="pointer-events-none absolute -top-24 -right-24 w-[420px] h-[420px] rounded-full bg-[#1A6B3C]/[0.06] blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-32 -left-24 w-[420px] h-[420px] rounded-full bg-[#FFD100]/[0.07] blur-3xl" />
+      <div className="pointer-events-none absolute top-0 right-8 font-heading text-[12rem] font-black leading-none text-[#0f4a28]/[0.03] select-none">11</div>
+
+      <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 mb-10">
+        <div className="flex items-end justify-between gap-4">
           <div className="flex items-center gap-4">
-            <span className="block w-1.5 h-10 bg-[#FFD100] rounded-full" />
+            <span className="block w-1.5 h-11 bg-[#FFD100] rounded-full" />
             <div>
-              <p className="text-[11px] font-black tracking-[0.2em] uppercase text-[#FFD100]/60 mb-0.5">
+              <p className="text-[11px] font-black tracking-[0.2em] uppercase text-[#1A6B3C] mb-1">
                 Profesyonel Takım{season ? ` · ${season}` : ''}
               </p>
-              <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight">
-                Takım <span className="text-[#FFD100]">Kadrosu</span>
+              <h2 className="font-heading text-3xl md:text-5xl font-black text-[#092d18] tracking-tight">
+                Takım <span className="text-[#1A6B3C]">Kadrosu</span>
               </h2>
             </div>
           </div>
           <Link href="/kadro"
-            className="hidden sm:inline-flex text-sm font-bold text-[#0f4a28] bg-[#FFD100] rounded-xl px-5 py-2.5 hover:bg-[#e8c000] transition-colors shadow-md">
+            className="hidden sm:inline-flex items-center gap-2 text-sm font-black tracking-wide uppercase text-white bg-[#0f4a28] hover:bg-[#1A6B3C] rounded-full px-6 py-3 transition-colors shadow-md">
             Tüm Kadro →
           </Link>
         </div>
       </div>
 
       {players.length === 0 ? (
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-10 text-center">
-            <p className="text-white font-bold">Kadro Güncelleniyor...</p>
-            <p className="text-white/40 text-sm mt-1">Güncel sezon kadrosu yakında yayınlanacak.</p>
+        <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
+          <div className="bg-white border border-[#ddeae2] rounded-2xl p-10 text-center shadow-sm">
+            <p className="text-[#092d18] font-bold">Kadro Güncelleniyor...</p>
+            <p className="text-[#7aab8e] text-sm mt-1">Güncel sezon kadrosu yakında yayınlanacak.</p>
           </div>
         </div>
       ) : (
-        <SquadMarquee players={players} />
+        <div className="relative">
+          <SquadMarquee players={players} />
+        </div>
       )}
     </section>
   )

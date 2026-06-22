@@ -77,7 +77,7 @@ export default function SquadMarquee({ players }: { players: SitePlayer[] }) {
       <button
         onClick={() => scroll(-1)}
         disabled={!canLeft}
-        className="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-[#0b3a20]/90 border border-white/10 text-white flex items-center justify-center shadow-lg transition-all duration-200 hover:bg-[#FFD100] hover:text-[#0b3a20] disabled:opacity-0 disabled:pointer-events-none"
+        className="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white border border-[#ddeae2] text-[#0f4a28] flex items-center justify-center shadow-md transition-all duration-200 hover:bg-[#FFD100] hover:border-[#FFD100] disabled:opacity-0 disabled:pointer-events-none"
         aria-label="Önceki"
       >
         <ChevronLeft size={20} />
@@ -87,15 +87,15 @@ export default function SquadMarquee({ players }: { players: SitePlayer[] }) {
       <button
         onClick={() => scroll(1)}
         disabled={!canRight}
-        className="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-[#0b3a20]/90 border border-white/10 text-white flex items-center justify-center shadow-lg transition-all duration-200 hover:bg-[#FFD100] hover:text-[#0b3a20] disabled:opacity-0 disabled:pointer-events-none"
+        className="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white border border-[#ddeae2] text-[#0f4a28] flex items-center justify-center shadow-md transition-all duration-200 hover:bg-[#FFD100] hover:border-[#FFD100] disabled:opacity-0 disabled:pointer-events-none"
         aria-label="Sonraki"
       >
         <ChevronRight size={20} />
       </button>
 
       {/* Kenar gradyanları */}
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-14 bg-gradient-to-r from-[#0f4a28] to-transparent z-[1]" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-14 bg-gradient-to-l from-[#0f4a28] to-transparent z-[1]" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-14 bg-gradient-to-r from-[#f5f9f6] to-transparent z-[1]" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-14 bg-gradient-to-l from-[#f5f9f6] to-transparent z-[1]" />
 
       {/* Kart listesi */}
       <div
