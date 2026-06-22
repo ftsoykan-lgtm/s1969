@@ -5,6 +5,7 @@ import { Match, StandingRow } from '@/types'
 import { MapPin, ArrowUpRight } from 'lucide-react'
 import { getTeamLogoMap, applyLogosToMatches, applyLogosToStandings } from '@/lib/supabase/logos-server'
 import { getLiveTff } from '@/lib/supabase/tff-server'
+import NextMatchCountdown from './NextMatchCountdown'
 
 /* ─── Tek maç kartı ─────────────────────────────────────────── */
 function MatchCard({ match }: { match: Match }) {
@@ -111,15 +112,29 @@ export default async function FixturePreview() {
   const completed = allMatches.filter((m) => m.isCompleted)
   const lastThree = completed.slice(-3)
 
+  // Sıradaki maç: oynanmamış, tarihe göre en yakın
+  const upcoming = allMatches
+    .filter((m) => !m.isCompleted && m.date)
+    .sort((a, b) => a.date.localeCompare(b.date))
+  const next = upcoming[0] ?? null
+  const target = next ? `${next.date}T${next.time && /^\d{1,2}:\d{2}$/.test(next.time) ? next.time : '00:00'}:00` : null
+
   return (
     <section className="py-20 bg-[#f8faf9]">
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
 
-        {/* Başlık */}
-        <div className="flex items-center gap-4 mb-10">
-          <span className="block w-1.5 h-11 bg-[#FFD100] rounded-full" />
-          <h2 className="font-heading text-4xl md:text-5xl font-black text-[#092d18] tracking-tight">Maç Merkezi</h2>
-          <span className="ml-auto text-sm font-bold text-[#7aab8e] hidden sm:block">{meta.league} · {meta.season}</span>
+        {/* Başlık + sıradaki maç geri sayımı */}
+        <div className="flex flex-col sm:flex-row sm:items-center gap-5 mb-10">
+          <div className="flex items-center gap-4">
+            <span className="block w-1.5 h-11 bg-[#FFD100] rounded-full" />
+            <div>
+              <h2 className="font-heading text-4xl md:text-5xl font-black text-[#092d18] tracking-tight">Maç Merkezi</h2>
+              <p className="text-xs font-bold text-[#7aab8e] mt-1">{meta.league} · {meta.season}</p>
+            </div>
+          </div>
+          <div className="sm:ml-auto bg-white border border-[#ddeae2] rounded-2xl px-4 py-3 shadow-sm">
+            <NextMatchCountdown target={target} />
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_410px] gap-7">

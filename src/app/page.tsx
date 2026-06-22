@@ -21,8 +21,8 @@ export default async function HomePage() {
   return (
     <>
       <HeroSlider items={heroItems} />
-      <NewsHeroGrid news={news} catName={catName} />
       <FixturePreview />
+      <NewsHeroGrid news={news} catName={catName} />
       <SquadPreview />
     </>
   )
