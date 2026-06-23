@@ -52,6 +52,7 @@ export interface ClubInfo {
 
   // Görseller
   logoUrl: string
+  heroVideo: string   // header (üst) alanı için arka plan videosu — boşsa haber slider gösterilir
 }
 
 export const clubInfo: ClubInfo = {
@@ -89,4 +90,5 @@ export const clubInfo: ClubInfo = {
   hashtag: '#Şanlıurfaspor',
 
   logoUrl: 'https://placehold.co/96x96/1A6B3C/FFD100?text=%C5%9EFK',
+  heroVideo: '',   // Admin → Site Ayarları'ndan eklenir (boşsa haber slider gösterilir)
 }

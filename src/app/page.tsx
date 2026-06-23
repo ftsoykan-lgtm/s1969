@@ -1,13 +1,17 @@
 import HeroSlider, { type HeroItem } from '@/components/home/HeroSlider'
+import HeroVideo from '@/components/home/HeroVideo'
 import NewsHeroGrid from '@/components/home/NewsHeroGrid'
 import FixturePreview from '@/components/home/FixturePreview'
 import SquadPreview from '@/components/home/SquadPreview'
 import { getNews, getFeaturedNews, getCategories } from '@/lib/supabase/news-server'
+import { getClubInfo } from '@/lib/supabase/club-server'
 
 export const dynamic = 'force-dynamic'
 
 export default async function HomePage() {
-  const [featured, news, cats] = await Promise.all([getFeaturedNews(), getNews(), getCategories()])
+  const [featured, news, cats, club] = await Promise.all([
+    getFeaturedNews(), getNews(), getCategories(), getClubInfo(),
+  ])
   const catName = (slug: string) => cats.find((c) => c.slug === slug)?.name ?? slug
 
   const heroItems: HeroItem[] = featured.slice(0, 5).map((n) => ({
@@ -20,7 +24,9 @@ export default async function HomePage() {
 
   return (
     <>
-      <HeroSlider items={heroItems} />
+      {club.heroVideo
+        ? <HeroVideo club={club} src={club.heroVideo} />
+        : <HeroSlider items={heroItems} />}
       <FixturePreview />
       <NewsHeroGrid news={news} catName={catName} />
       <SquadPreview />

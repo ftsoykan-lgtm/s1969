@@ -44,6 +44,7 @@ export default function AdminAyarlarPage() {
     nickname: clubInfo.nickname, colors: clubInfo.colors,
     stadium: clubInfo.stadium, capacity: clubInfo.stadiumCapacity, city: clubInfo.city,
     president: clubInfo.president, headCoach: clubInfo.headCoach, logoUrl: clubInfo.logoUrl,
+    heroVideo: clubInfo.heroVideo,
   })
   const [social, setSocial] = useState({
     facebook: clubInfo.social.facebook, twitter: clubInfo.social.twitter,
@@ -63,6 +64,7 @@ export default function AdminAyarlarPage() {
         name: s.name, fullName: s.fullName, founded: s.founded, nickname: s.nickname, colors: s.colors,
         stadium: s.stadium, capacity: s.stadiumCapacity, city: s.city,
         president: s.president, headCoach: s.headCoach, logoUrl: s.logoUrl,
+        heroVideo: s.heroVideo ?? '',
       })
       setSocial({ ...s.social })
       setHashtag(s.hashtag ?? clubInfo.hashtag)
@@ -79,6 +81,7 @@ export default function AdminAyarlarPage() {
       name: club.name, fullName: club.fullName, founded: club.founded, nickname: club.nickname,
       colors: club.colors, stadium: club.stadium, stadiumCapacity: club.capacity, city: club.city,
       president: club.president, headCoach: club.headCoach, logoUrl: club.logoUrl,
+      heroVideo: club.heroVideo,
       address: contact.address, phone: contact.phone, email: contact.email,
       workHours: contact.workHours, mapEmbedUrl: contact.mapUrl,
       social: { ...social },
@@ -149,6 +152,16 @@ export default function AdminAyarlarPage() {
                 size={256}
                 folder="club"
               />
+            </div>
+            <div className="pt-2 border-t border-[#edf7f2]">
+              <Field label="Header Videosu (URL)" hint="MP4 video linki. Boş bırakılırsa üst alanda haber slider gösterilir.">
+                <Input value={club.heroVideo} onChange={e => setClub(p => ({ ...p, heroVideo: e.target.value }))}
+                  placeholder="https://.../header-video.mp4" />
+              </Field>
+              {club.heroVideo && (
+                <video src={club.heroVideo} muted loop autoPlay playsInline
+                  className="mt-3 w-full max-w-md rounded-xl border border-[#ddeae2] aspect-video object-cover" />
+              )}
             </div>
           </>
         )}
