@@ -1,8 +1,9 @@
 {
-  "updatedAt": "2026-06-22T15:04:34.757Z",
+  "updatedAt": "2026-06-23T16:14:18.101Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2025-2026",
+  "complete": true,
   "standings": [
     {
       "rank": 1,
@@ -829,7 +830,7 @@
     {
       "week": null,
       "macId": "287747",
-      "time": "",
+      "time": "15:00",
       "homeTeam": "KURTALAN SPOR",
       "awayTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
       "homeScore": 1,
@@ -840,6 +841,7 @@
       "isHome": false,
       "opponent": "KURTALAN SPOR",
       "result": "G",
+      "venue": "Kurtalan İlçe Stadı",
       "detail": {
         "referees": [
           {
@@ -1098,7 +1100,7 @@
     {
       "week": 3,
       "macId": "284266",
-      "time": "",
+      "time": "19:00",
       "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
       "awayTeam": "KEPEZ SPOR FUTBOL A.Ş.",
       "homeScore": 2,
@@ -1109,6 +1111,7 @@
       "isHome": true,
       "opponent": "KEPEZ SPOR FUTBOL A.Ş.",
       "result": "G",
+      "venue": "11 Nisan Stadyumu",
       "detail": {
         "referees": [
           {
@@ -2374,7 +2377,7 @@
     {
       "week": 7,
       "macId": "284300",
-      "time": "",
+      "time": "19:00",
       "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
       "awayTeam": "ANAGOLD 24ERZİNCANSPOR",
       "homeScore": 3,
@@ -2385,6 +2388,7 @@
       "isHome": true,
       "opponent": "ANAGOLD 24ERZİNCANSPOR",
       "result": "G",
+      "venue": "11 Nisan Stadyumu",
       "detail": {
         "referees": [
           {
@@ -3458,7 +3462,7 @@
     {
       "week": 11,
       "macId": "284334",
-      "time": "",
+      "time": "15:00",
       "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
       "awayTeam": "BEYOĞLU YENİ ÇARŞI SPOR FAALİYETLERİ A.Ş.",
       "homeScore": 3,
@@ -3469,6 +3473,7 @@
       "isHome": true,
       "opponent": "BEYOĞLU YENİ ÇARŞI SPOR FAALİYETLERİ A.Ş.",
       "result": "G",
+      "venue": "11 Nisan Stadyumu",
       "detail": {
         "referees": [
           {
@@ -3746,7 +3751,7 @@
     {
       "week": 12,
       "macId": "284345",
-      "time": "",
+      "time": "13:00",
       "homeTeam": "ALTINORDU",
       "awayTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
       "homeScore": 0,
@@ -3757,6 +3762,7 @@
       "isHome": false,
       "opponent": "ALTINORDU",
       "result": "G",
+      "venue": "Metin Oktay Yerleşkesi Serpil Hamdi Tüzün Sahası -",
       "detail": {
         "referees": [
           {
@@ -4521,7 +4527,7 @@
     {
       "week": 15,
       "macId": "284368",
-      "time": "",
+      "time": "17:00",
       "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
       "awayTeam": "KARAMAN FUTBOL KULÜBÜ",
       "homeScore": 2,
@@ -4532,6 +4538,7 @@
       "isHome": true,
       "opponent": "KARAMAN FUTBOL KULÜBÜ",
       "result": "G",
+      "venue": "11 Nisan Stadyumu",
       "detail": {
         "referees": [
           {
@@ -6257,7 +6264,7 @@
     {
       "week": 24,
       "macId": "284454",
-      "time": "",
+      "time": "13:00",
       "homeTeam": "MERKÜR JET ERBAASPOR",
       "awayTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
       "homeScore": 0,
@@ -6268,6 +6275,7 @@
       "isHome": false,
       "opponent": "MERKÜR JET ERBAASPOR",
       "result": "B",
+      "venue": "Erbaa İlçe",
       "detail": {
         "referees": [
           {
@@ -6486,7 +6494,7 @@
     {
       "week": 25,
       "macId": "284465",
-      "time": "",
+      "time": "15:00",
       "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
       "awayTeam": "İSKENDERUNSPOR A.Ş.",
       "homeScore": 2,
@@ -6497,6 +6505,7 @@
       "isHome": true,
       "opponent": "İSKENDERUNSPOR A.Ş.",
       "result": "G",
+      "venue": "11 Nisan Stadyumu",
       "detail": {
         "referees": [
           {
@@ -7583,7 +7592,7 @@
     {
       "week": 28,
       "macId": "284488",
-      "time": "",
+      "time": "15:00",
       "homeTeam": "SEZA ÇİMENTO ELAZIĞSPOR",
       "awayTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
       "homeScore": 1,
@@ -7594,6 +7603,7 @@
       "isHome": false,
       "opponent": "SEZA ÇİMENTO ELAZIĞSPOR",
       "result": "M",
+      "venue": "Elazığ Stadyumu",
       "detail": {
         "referees": [
           {
@@ -7840,7 +7850,7 @@
     {
       "week": 29,
       "macId": "284496",
-      "time": "",
+      "time": "13:30",
       "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
       "awayTeam": "MKE ANKARAGÜCÜ",
       "homeScore": 2,
@@ -7851,6 +7861,7 @@
       "isHome": true,
       "opponent": "MKE ANKARAGÜCÜ",
       "result": "B",
+      "venue": "11 Nisan Stadyumu",
       "detail": {
         "referees": [
           {
@@ -9147,7 +9158,7 @@
     {
       "week": 34,
       "macId": "284539",
-      "time": "",
+      "time": "15:00",
       "homeTeam": "KARAMAN FUTBOL KULÜBÜ",
       "awayTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
       "homeScore": 1,
@@ -9158,6 +9169,7 @@
       "isHome": false,
       "opponent": "KARAMAN FUTBOL KULÜBÜ",
       "result": "G",
+      "venue": "Yeni Karaman Stadyumu",
       "detail": {
         "referees": [
           {
@@ -10433,7 +10445,7 @@
     {
       "week": null,
       "macId": "316957",
-      "time": "",
+      "time": "16:00",
       "homeTeam": "MUĞLASPOR KULÜBÜ",
       "awayTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
       "homeScore": 1,
@@ -10444,6 +10456,7 @@
       "isHome": false,
       "opponent": "MUĞLASPOR KULÜBÜ",
       "result": "B",
+      "venue": "Muğla Atatürk Stadyumu",
       "detail": {
         "referees": [
           {
