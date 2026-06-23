@@ -222,3 +222,7 @@ img {
 .mac-bob { animation: macBob 2.2s ease-in-out infinite; }
 .mac-spin { display: inline-block; animation: macSpin 6s linear infinite; }
 .mac-pop { display: inline-block; animation: macPop .4s ease-out both; }
+
+/* ─── Header video üzeri haber geçişi ─── */
+@keyframes heroUp { from { opacity: 0; transform: translateY(18px) } to { opacity: 1; transform: translateY(0) } }
+.hero-up { animation: heroUp .6s ease-out both; }
