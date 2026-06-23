@@ -1,27 +1,47 @@
+'use client'
+
+import { useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { ChevronDown } from 'lucide-react'
 import type { ClubInfo } from '@/data/club'
 
 export default function HeroVideo({ club, src }: { club: ClubInfo; src: string }) {
+  const ref = useRef<HTMLVideoElement>(null)
   const hasLogo = club.logoUrl && !club.logoUrl.includes('placehold.co')
+
+  // Otomatik oynatmayı garanti et (React'te muted attribute'u bazen DOM'a yansımaz)
+  useEffect(() => {
+    const v = ref.current
+    if (!v) return
+    v.muted = true
+    v.defaultMuted = true
+    const p = v.play()
+    if (p && typeof p.catch === 'function') p.catch(() => {})
+  }, [src])
 
   return (
     <section className="relative bg-[#092d18] overflow-hidden">
-      <div className="relative h-[60vh] min-h-[420px] md:h-[78vh] md:max-h-[760px]">
-        {/* Video */}
-        <video
-          className="absolute inset-0 w-full h-full object-cover"
-          src={src}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-        />
+      <div className="relative h-[60vh] min-h-[420px] md:h-[80vh] md:max-h-[820px]">
+        {/* Arka plan video (sabit) */}
+        {src ? (
+          <video
+            ref={ref}
+            className="absolute inset-0 w-full h-full object-cover"
+            src={src}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+          />
+        ) : (
+          // Video yoksa sade marka zemini (haber slider yok)
+          <div className="absolute inset-0 bg-[radial-gradient(120%_100%_at_50%_-10%,#1A6B3C_0%,#092d18_60%)]" />
+        )}
 
         {/* Karartma katmanları (okunabilirlik) */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#04130b] via-[#04130b]/30 to-[#04130b]/40" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#04130b]/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#04130b] via-[#04130b]/25 to-[#04130b]/35" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#04130b]/55 to-transparent" />
 
         {/* İçerik */}
         <div className="relative h-full mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 flex flex-col justify-end pb-14 md:pb-20">
