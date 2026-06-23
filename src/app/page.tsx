@@ -16,6 +16,7 @@ export default async function HomePage() {
   const heroItems: HeroItem[] = featured.slice(0, 5).map((n) => ({
     title: n.title,
     excerpt: n.excerpt,
+    imageUrl: n.imageUrl,
     href: `/haberler/${n.slug}`,
     category: catName(n.category),
   }))
