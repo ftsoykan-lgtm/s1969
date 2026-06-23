@@ -154,6 +154,11 @@
     @apply font-sans;
     scroll-behavior: smooth;
   }
+  /* Mobilde yatay kaymayı engelle (%100 mobil uyum) */
+  html, body {
+    overflow-x: hidden;
+    max-width: 100%;
+  }
   /* Başlıklar: display fontu + sıkı harf aralığı — kurumsal his */
   h1, h2, h3 {
     font-family: var(--font-display), var(--font-sans), system-ui, sans-serif;

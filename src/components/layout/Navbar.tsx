@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState, useRef, useEffect } from 'react'
-import { Menu, X, Search, ChevronDown, Ticket } from 'lucide-react'
+import { Menu, X, Search, ChevronDown, Ticket, Globe } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { clubInfo as defaultClub } from '@/data/club'
 import type { ClubInfo } from '@/data/club'
@@ -110,7 +110,32 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
       {/* ── Ana bar ────────────────────────────────────────────────────── */}
       <div className="relative bg-[#0f4a28] shadow-lg shadow-black/10">
         <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center h-[70px]">
+
+          {/* ── MOBİL BAR (menü · logo · dil) ───────────────────────── */}
+          <div className="lg:hidden grid grid-cols-[1fr_auto_1fr] items-center h-16">
+            <button onClick={() => setMobileOpen(!mobileOpen)} aria-label="Menü"
+              className="justify-self-start h-10 w-10 flex items-center justify-center text-white -ml-1">
+              {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+
+            <Link href="/" className="justify-self-center flex items-center gap-2 min-w-0" aria-label={club.name}>
+              {hasLogo ? (
+                <img src={club.logoUrl} alt="" className="h-9 w-9 rounded-full object-contain bg-white ring-1 ring-white/20 shrink-0" />
+              ) : (
+                <div className="h-9 w-9 rounded-full bg-[#FFD100] flex items-center justify-center shrink-0">
+                  <span className="font-heading font-black text-[10px] text-[#0f4a28]">{club.shortCode}</span>
+                </div>
+              )}
+              <span className="font-heading font-black text-[15px] tracking-tight uppercase text-white truncate">{club.name}</span>
+            </Link>
+
+            <button aria-label="Dil" className="justify-self-end h-10 w-10 flex items-center justify-center text-white/80 hover:text-[#FFD100] transition-colors -mr-1">
+              <Globe size={22} />
+            </button>
+          </div>
+
+          {/* ── MASAÜSTÜ BAR ────────────────────────────────────────── */}
+          <div className="hidden lg:flex items-center h-[70px]">
 
             {/* ── SARI FLAMA: logo + wordmark ─────────────────────────── */}
             <Link href="/" className="relative group flex items-center h-full shrink-0 pr-9" aria-label={club.name}>
@@ -172,13 +197,8 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
                            bg-gradient-to-b from-[#FFE04D] to-[#FFD100] shadow-[0_3px_12px_rgba(255,209,0,0.3)] transition-all hover:brightness-105"
                 style={{ clipPath: 'polygon(10px 0, 100% 0, 100% 100%, 0 100%)' }}>
                 <Ticket size={15} />
-                <span className="hidden sm:inline">Bilet Al</span>
-                <span className="sm:hidden">Bilet</span>
+                Bilet Al
               </Link>
-              <button onClick={() => setMobileOpen(!mobileOpen)} aria-label="Menü"
-                className="lg:hidden h-10 w-10 flex items-center justify-center text-white">
-                {mobileOpen ? <X size={22} /> : <Menu size={22} />}
-              </button>
             </div>
           </div>
         </div>
