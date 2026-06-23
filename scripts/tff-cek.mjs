@@ -42,24 +42,39 @@ async function supabaseYaz(data) {
     console.log('[TFF] (Supabase env yok — sadece JSON yazıldı)')
     return
   }
+  const headers = {
+    apikey: SUPABASE_SERVICE_KEY,
+    Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
+    'Content-Type': 'application/json',
+    Prefer: 'resolution=merge-duplicates,return=minimal',
+  }
+  const now = new Date().toISOString()
   try {
-    // Kütüphane yerine doğrudan REST (WebSocket gerekmez, her Node sürümünde çalışır)
+    // 1) Güncel sezon → tff_data id=1 (site bunu okur)
     const res = await fetch(`${SUPABASE_URL}/rest/v1/tff_data?on_conflict=id`, {
-      method: 'POST',
-      headers: {
-        apikey: SUPABASE_SERVICE_KEY,
-        Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
-        'Content-Type': 'application/json',
-        Prefer: 'resolution=merge-duplicates,return=minimal',
-      },
-      body: JSON.stringify({ id: 1, data, updated_at: new Date().toISOString() }),
+      method: 'POST', headers,
+      body: JSON.stringify({ id: 1, data, updated_at: now }),
     })
     if (!res.ok) {
-      const txt = await res.text()
-      console.error(`[TFF] ❌ Supabase yazma hatası (HTTP ${res.status}):`, txt)
+      console.error(`[TFF] ❌ tff_data yazma hatası (HTTP ${res.status}):`, await res.text())
       process.exitCode = 1
     } else {
-      console.log('[TFF] 🟢 Supabase tff_data güncellendi (canlı)')
+      console.log('[TFF] 🟢 tff_data güncellendi (güncel sezon, canlı)')
+    }
+
+    // 2) Sezon arşivi → tff_seasons (her sezon ayrı satır; eski sezonlar korunur)
+    const season = data.season
+    if (season) {
+      const arch = await fetch(`${SUPABASE_URL}/rest/v1/tff_seasons?on_conflict=season`, {
+        method: 'POST', headers,
+        body: JSON.stringify({ season, data, updated_at: now }),
+      })
+      if (!arch.ok) {
+        // Tablo henüz oluşmadıysa uyar ama akışı bozma
+        console.warn(`[TFF] ⚠ tff_seasons arşiv yazılamadı (HTTP ${arch.status}) — 008 migration çalıştırıldı mı?`)
+      } else {
+        console.log(`[TFF] 🟢 tff_seasons arşivlendi (${season})`)
+      }
     }
   } catch (e) {
     console.error('[TFF] ❌ Supabase bağlantı hatası:', e.message)
@@ -68,7 +83,20 @@ async function supabaseYaz(data) {
 }
 
 /* ─── AYARLAR ──────────────────────────────────────────────── */
-const SEASON = '2025-2026'        // Fikstür için sezon
+// Aktif sezonu tarihten otomatik hesaplar (Temmuz'da yeni sezona geçer).
+// Elle sabitlemek için: TFF_SEASON=2025-2026 ortam değişkeni.
+function currentSeason() {
+  if (process.env.TFF_SEASON) return process.env.TFF_SEASON
+  const now = new Date()
+  const y = now.getFullYear()
+  const m = now.getMonth() + 1
+  return m >= 7 ? `${y}-${y + 1}` : `${y - 1}-${y}`
+}
+function prevSeason(s) {
+  const [a, b] = s.split('-').map(Number)
+  return `${a - 1}-${b - 1}`
+}
+const SEASON = currentSeason()    // Fikstür için aktif sezon (otomatik)
 const GRUP_ID = 2782              // 2. Lig Beyaz Grup (Şanlıurfaspor)
 const KULUP_ID = 31               // Şanlıurfaspor kulüp ID
 const TEAM_KEY = 'URFASPOR'       // Takımı tanımak için (büyük harf)
@@ -147,19 +175,19 @@ async function cekLogolar(page, standings) {
 }
 
 /* ─── 2) ŞANLIURFASPOR FİKSTÜRÜ ────────────────────────────── */
-async function cekFikstur(page) {
-  log('Fikstür çekiliyor →', FIXTURE_URL)
+async function cekFikstur(page, season = SEASON) {
+  log('Fikstür çekiliyor →', FIXTURE_URL, `(sezon: ${season})`)
   await page.goto(FIXTURE_URL, { waitUntil: 'networkidle', timeout: 60000 })
   await page.waitForTimeout(1500)
 
   // Sezonu seç (Telerik RadComboBox: yaz + Enter)
   const seasonInput = page.locator('[id*="m_28_398"][id$="SezonSelector1_combo_Input"]')
   const current = await seasonInput.inputValue().catch(() => '')
-  if (current.trim() !== SEASON) {
-    log(`Sezon seçiliyor: "${current}" → "${SEASON}"`)
+  if (current.trim() !== season) {
+    log(`Sezon seçiliyor: "${current}" → "${season}"`)
     await seasonInput.click()
     await seasonInput.fill('')
-    await seasonInput.type(SEASON, { delay: 50 })
+    await seasonInput.type(season, { delay: 50 })
     await page.waitForTimeout(1000)
     await seasonInput.press('Enter')
     await page.waitForLoadState('networkidle', { timeout: 30000 }).catch(() => {})
@@ -241,7 +269,7 @@ async function cekFikstur(page) {
     })
     .filter(Boolean)
 
-  log(`✓ ${fixtures.length} maç çekildi (sezon: ${SEASON})`)
+  log(`✓ ${fixtures.length} maç çekildi (sezon: ${season})`)
 
   // Her maçın detayını çek (saat, stadyum, hakemler, kadrolar) — pageID=29&macID
   log('Maç detayları çekiliyor (saat, stadyum, hakem, kadro)...')
@@ -423,7 +451,16 @@ async function main() {
   try {
     const standings = await cekPuanDurumu(page)
     const logos = await cekLogolar(page, standings)
-    const fixtures = await cekFikstur(page)
+
+    // Aktif sezon fikstürü; boşsa (sezon başı henüz açılmadıysa) bir önceki sezona düş
+    let actualSeason = SEASON
+    let fixtures = await cekFikstur(page, SEASON)
+    if (!fixtures.length) {
+      actualSeason = prevSeason(SEASON)
+      log(`Aktif sezon (${SEASON}) boş — bir önceki sezona düşülüyor: ${actualSeason}`)
+      fixtures = await cekFikstur(page, actualSeason)
+    }
+
     const kadro = await cekKadro(page)
 
     // Logoları standings satırlarına ekle
@@ -433,7 +470,7 @@ async function main() {
       updatedAt: new Date().toISOString(),
       source: 'tff.org',
       league: 'TFF 2. Lig — Beyaz Grup',
-      season: SEASON,
+      season: actualSeason,
       standings,
       logos,
       sanliurfasporFixtures: fixtures,

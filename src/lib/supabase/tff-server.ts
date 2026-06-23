@@ -38,3 +38,47 @@ export async function getLiveTff(): Promise<{
     squad,
   }
 }
+
+/* ─── Sezon arşivi (tff_seasons) ───────────────────────────────── */
+
+/** Arşivdeki sezonların listesi (yeniden eskiye) */
+export async function getSeasons(): Promise<string[]> {
+  try {
+    const supabase = await createClient()
+    const { data, error } = await supabase
+      .from('tff_seasons')
+      .select('season')
+      .order('season', { ascending: false })
+    if (error || !data) return []
+    return data.map((r) => r.season as string)
+  } catch {
+    return []
+  }
+}
+
+/** Belirli bir sezonun verisi (geçmiş sezon görüntüleme); yoksa null */
+export async function getTffBySeason(season: string): Promise<{
+  standings: StandingRow[]
+  matches: Match[]
+  meta: ReturnType<typeof buildMeta>
+  squad: TffSquad
+} | null> {
+  try {
+    const supabase = await createClient()
+    const { data, error } = await supabase
+      .from('tff_seasons')
+      .select('data')
+      .eq('season', season)
+      .single()
+    if (error || !data?.data) return null
+    const raw = data.data as TffRaw
+    return {
+      standings: buildStandings(raw),
+      matches: buildMatches(raw),
+      meta: buildMeta(raw),
+      squad: buildSquad(raw),
+    }
+  } catch {
+    return null
+  }
+}
