@@ -16,7 +16,7 @@ function tarihSaat(dateISO: string, time?: string): string {
 }
 
 /* ─── Maç kartı (Trabzonspor tarzı) ─────────────────────────── */
-function MatchCard({ match, logos }: { match: Match; logos: Record<string, string> }) {
+export function MatchCard({ match, logos }: { match: Match; logos: Record<string, string> }) {
   const urfaIsHome = match.homeTeam === 'Şanlıurfaspor'
   const urfaScore = urfaIsHome ? match.homeScore : match.awayScore
   const oppScore = urfaIsHome ? match.awayScore : match.homeScore
@@ -40,7 +40,7 @@ function MatchCard({ match, logos }: { match: Match; logos: Record<string, strin
             </div>
           )}
           <span className="text-[10px] font-black tracking-widest uppercase text-[#1A6B3C] truncate">
-            {match.week ? `${match.week}. Hafta` : 'Kupa'}
+            {match.roundLabel ?? (match.week ? `${match.week}. Hafta` : match.competition)}
           </span>
         </div>
         {result && (
@@ -97,7 +97,7 @@ function MatchCard({ match, logos }: { match: Match; logos: Record<string, strin
 }
 
 /* ─── Puan tablosu ──────────────────────────────────────────── */
-function StandingsTable({ standings }: { standings: StandingRow[] }) {
+export function StandingsTable({ standings }: { standings: StandingRow[] }) {
   return (
     <div className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm overflow-hidden">
       <div className="grid grid-cols-[28px_1fr_30px_30px_30px_30px_44px_40px] gap-1.5 px-4 py-3.5 bg-[#0f4a28] text-[11px] font-black tracking-wide uppercase text-white/60">

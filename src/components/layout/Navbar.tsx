@@ -117,8 +117,6 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
               {/* eğik sarı zemin */}
               <span className="absolute inset-y-0 -left-4 sm:-left-6 lg:-left-8 right-0 bg-gradient-to-r from-[#FFD100] to-[#FFC400]"
                 style={{ clipPath: 'polygon(0 0, 100% 0, calc(100% - 22px) 100%, 0 100%)' }} />
-              {/* ince yeşil iç çizgi */}
-              <span className="absolute inset-y-0 right-[20px] w-[2px] bg-[#0f4a28]/15" />
 
               <div className="relative flex items-center gap-3 pl-1">
                 {hasLogo ? (

@@ -7,6 +7,7 @@ import { formatDate } from '@/lib/utils'
 import { ArrowLeft, MapPin, Calendar, Clock, Flag, ExternalLink } from 'lucide-react'
 import type { Metadata } from 'next'
 import type { LineupPlayer, MatchEvent } from '@/types'
+import { canonicalCompetition } from '@/lib/tff'
 
 export const dynamic = 'force-dynamic'
 
@@ -84,7 +85,7 @@ export default async function MacDetayPage({ params }: Props) {
           <div className="flex justify-center mb-7">
             <span className="inline-flex items-center gap-2 bg-[#FFD100] text-[#0f4a28] text-[11px] font-black tracking-[0.15em] uppercase px-4 py-1.5"
               style={{ clipPath: 'polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%)' }}>
-              {match.competition}{match.week ? ` · ${match.week}. Hafta` : ''}
+              {canonicalCompetition(match.competition)}{match.roundLabel ? ` · ${match.roundLabel}` : ''}
             </span>
           </div>
 

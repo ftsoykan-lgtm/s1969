@@ -126,7 +126,7 @@ export function buildMatches(raw: TffRaw): Match[] {
   const autoLogos = raw.logos ?? {}
   const logoFor = (team: string, isSfk: boolean) =>
     autoLogos[team] || (isSfk ? SANLIURFA_LOGO : DEFAULT_LOGO)
-  return (raw.sanliurfasporFixtures ?? []).map((f, i) => {
+  const matches: Match[] = (raw.sanliurfasporFixtures ?? []).map((f, i) => {
     const homeIsSfk = f.homeTeam.toUpperCase().includes('URFASPOR')
     return {
       id: `tff-${i + 1}`,
@@ -149,6 +149,19 @@ export function buildMatches(raw: TffRaw): Match[] {
       events: f.detail?.events ?? [],
     }
   })
+  // Tur etiketleri: play-off maçlarını tarihe göre sırala ve "1. Tur, 2. Tur..." numarala
+  const isPlayoff = (c: string) => /play\s*-?\s*off/i.test(c || '')
+  const isCup = (c: string) => /kupa|t[üu]rkiye kupas|ziraat/i.test(c || '')
+  const poSorted = matches.filter((m) => isPlayoff(m.competition))
+    .slice().sort((a, b) => (a.date || '').localeCompare(b.date || ''))
+  const poIndex = new Map(poSorted.map((m, i) => [m.id, i + 1]))
+  for (const m of matches) {
+    if (m.week) m.roundLabel = `${m.week}. Hafta`
+    else if (isPlayoff(m.competition)) m.roundLabel = `Play-Off ${poIndex.get(m.id)}. Tur`
+    else if (isCup(m.competition)) m.roundLabel = 'Türkiye Kupası'
+    else m.roundLabel = m.competition
+  }
+  return matches
 }
 
 export function buildMeta(raw: TffRaw) {

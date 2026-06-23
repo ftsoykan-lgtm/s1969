@@ -21,7 +21,7 @@ function MatchCard({ match }: { match: Match }) {
       {/* Üst: hafta + sonuç rozeti */}
       <div className="flex items-start justify-between gap-2 mb-3 min-h-[34px]">
         <span className="text-[11px] font-black tracking-widest uppercase text-[#1A6B3C] leading-snug line-clamp-2">
-          {match.week ? `${match.week}. Hafta` : match.competition}
+          {match.roundLabel ?? (match.week ? `${match.week}. Hafta` : match.competition)}
         </span>
         {result && (
           <span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-[12px] font-black shadow-sm leading-none ${

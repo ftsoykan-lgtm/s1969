@@ -44,6 +44,7 @@ export interface Match {
   isCompleted: boolean
   isHome: boolean
   week?: number | null
+  roundLabel?: string        // "12. Hafta" / "Play-Off 1. Tur" / "Kupa"
   macId?: string | null
   referees?: { name: string; role: string }[]
   lineups?: MatchLineups | null
