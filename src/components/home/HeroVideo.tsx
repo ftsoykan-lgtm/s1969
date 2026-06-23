@@ -17,13 +17,10 @@ const INTERVAL = 6000
 
 export default function HeroVideo({ club, src, items = [] }: { club: ClubInfo; src: string; items?: HeroItem[] }) {
   const ref = useRef<HTMLVideoElement>(null)
-  const hasLogo = club.logoUrl && !club.logoUrl.includes('placehold.co')
   const n = items.length
-
   const [idx, setIdx] = useState(0)
   const go = useCallback((i: number) => setIdx(((i % n) + n) % n), [n])
 
-  // Otomatik oynatmayı garanti et (React'te muted attribute'u bazen DOM'a yansımaz)
   useEffect(() => {
     const v = ref.current
     if (!v) return
@@ -33,7 +30,6 @@ export default function HeroVideo({ club, src, items = [] }: { club: ClubInfo; s
     if (p && typeof p.catch === 'function') p.catch(() => {})
   }, [src])
 
-  // Haber otomatik geçişi
   useEffect(() => {
     if (n < 2) return
     const t = setInterval(() => setIdx((i) => (i + 1) % n), INTERVAL)
@@ -44,8 +40,8 @@ export default function HeroVideo({ club, src, items = [] }: { club: ClubInfo; s
 
   return (
     <section className="relative bg-[#092d18] overflow-hidden">
-      <div className="relative h-[62vh] min-h-[440px] md:h-[82vh] md:max-h-[840px]">
-        {/* Arka plan video (sabit) */}
+      <div className="relative h-[64vh] min-h-[460px] md:h-[84vh] md:max-h-[860px]">
+        {/* Arka plan video */}
         {src ? (
           <video ref={ref} className="absolute inset-0 w-full h-full object-cover"
             src={src} autoPlay muted loop playsInline preload="auto" />
@@ -54,83 +50,66 @@ export default function HeroVideo({ club, src, items = [] }: { club: ClubInfo; s
         )}
 
         {/* Karartma */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#04130b] via-[#04130b]/35 to-[#04130b]/40" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#04130b]/70 via-[#04130b]/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#04130b] via-[#04130b]/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#04130b]/60 via-transparent to-transparent" />
 
-        {/* Üst sol: marka rozeti */}
-        <div className="absolute top-5 left-0 right-0">
-          <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 flex items-center gap-3">
-            {hasLogo ? (
-              <img src={club.logoUrl} alt={club.name} className="h-11 w-11 rounded-xl object-contain bg-white/5 ring-1 ring-white/15" />
-            ) : (
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#FFD100] text-[#0f4a28] font-black text-xs">{club.shortCode}</div>
-            )}
-            <p className="text-[10px] font-black tracking-[0.3em] uppercase text-white/60">
-              {club.name} <span className="text-[#FFD100]/60">· {club.nickname}</span>
-            </p>
-          </div>
-        </div>
-
-        {/* Ön plan: haber slider (metin + görsel) */}
+        {/* Ön plan */}
         <div className="absolute inset-x-0 bottom-0">
-          <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 pb-12 md:pb-16">
-            <div className="grid lg:grid-cols-[1.45fr_1fr] gap-6 lg:gap-10 items-end">
+          <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 pb-8 md:pb-10">
 
-              {/* Metin */}
-              <div>
-                {active ? (
-                  <Link href={active.href} className="group block max-w-2xl" key={idx}>
-                    {active.category && (
-                      <span className="inline-block bg-[#FFD100] text-[#0f4a28] text-[10px] font-black tracking-[0.2em] uppercase px-3 py-1 mb-3 hero-up"
-                        style={{ clipPath: 'polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%)' }}>
-                        {active.category}
-                      </span>
-                    )}
-                    <h1 className="font-heading text-2xl md:text-4xl lg:text-[2.9rem] font-black text-white leading-[1.08] tracking-tight line-clamp-3 drop-shadow-2xl hero-up"
-                      style={{ animationDelay: '.08s' }}>
-                      {active.title}
-                    </h1>
-                    {active.excerpt && (
-                      <p className="mt-3 text-white/70 text-sm md:text-lg leading-relaxed line-clamp-2 max-w-xl hero-up" style={{ animationDelay: '.16s' }}>
-                        {active.excerpt}
-                      </p>
-                    )}
-                    <span className="inline-flex items-center gap-2 mt-5 text-[#0f4a28] bg-[#FFD100] text-[12px] font-black uppercase tracking-wide pl-4 pr-5 py-2.5 group-hover:gap-3 transition-all shadow-lg shadow-[#FFD100]/20 hero-up"
-                      style={{ clipPath: 'polygon(10px 0, 100% 0, 100% 100%, 0 100%)', animationDelay: '.24s' }}>
-                      Haberin Devamı <ArrowRight size={15} />
-                    </span>
-                  </Link>
-                ) : (
-                  <div className="max-w-2xl">
-                    <h1 className="font-heading text-4xl md:text-6xl font-black text-white uppercase tracking-tight leading-[0.95] drop-shadow-2xl">{club.name}</h1>
-                    <p className="mt-3 text-[#FFD100]/70 text-xs font-black tracking-[0.3em] uppercase">Est. {club.founded} · {club.nickname} · {club.league}</p>
-                  </div>
+            {/* Öne çıkan haber metni */}
+            {active ? (
+              <Link href={active.href} className="group block max-w-2xl mb-6" key={idx}>
+                {active.category && (
+                  <span className="inline-flex items-center gap-2 mb-3 hero-up">
+                    <span className="w-6 h-0.5 bg-[#FFD100]" />
+                    <span className="text-[#FFD100] text-[11px] font-black tracking-[0.25em] uppercase">{active.category}</span>
+                  </span>
                 )}
-
-                {/* Göstergeler */}
-                {n > 1 && (
-                  <div className="flex items-center gap-2 mt-7">
-                    {items.map((_, i) => (
-                      <button key={i} onClick={() => go(i)} aria-label={`Haber ${i + 1}`}
-                        className="h-1.5 rounded-full overflow-hidden transition-all duration-300"
-                        style={{ width: i === idx ? 40 : 10, backgroundColor: i === idx ? 'rgba(255,209,0,0.3)' : 'rgba(255,255,255,0.3)' }}>
-                        {i === idx && <span key={idx} className="block h-full rounded-full bg-[#FFD100]" style={{ animation: `heroProg ${INTERVAL}ms linear` }} />}
-                      </button>
-                    ))}
-                  </div>
-                )}
+                <h1 className="font-heading text-2xl md:text-4xl lg:text-[2.9rem] font-black text-white leading-[1.08] tracking-tight line-clamp-3 drop-shadow-2xl hero-up"
+                  style={{ animationDelay: '.06s' }}>
+                  {active.title}
+                </h1>
+                <span className="inline-flex items-center gap-2 mt-4 text-white text-[12px] font-black uppercase tracking-wide group-hover:gap-3 transition-all hero-up"
+                  style={{ animationDelay: '.14s' }}>
+                  Haberin Devamı
+                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#FFD100] text-[#0f4a28]"><ArrowRight size={14} /></span>
+                </span>
+              </Link>
+            ) : (
+              <div className="max-w-2xl mb-6">
+                <h1 className="font-heading text-4xl md:text-6xl font-black text-white uppercase tracking-tight leading-[0.95] drop-shadow-2xl">{club.name}</h1>
               </div>
+            )}
 
-              {/* Görsel kartı (masaüstü) */}
-              {active?.imageUrl && (
-                <Link href={active.href} key={`img-${idx}`}
-                  className="hidden lg:block relative rounded-2xl overflow-hidden ring-1 ring-white/15 shadow-2xl group hero-up aspect-[16/10]"
-                  style={{ animationDelay: '.1s' }}>
-                  <img src={active.imageUrl} alt={active.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#04130b]/60 to-transparent" />
-                </Link>
-              )}
-            </div>
+            {/* ── Haber akışı — film şeridi ──────────────────────────── */}
+            {n > 1 && (
+              <div className="relative">
+                <div className="flex gap-3 overflow-x-auto pb-1 scrollbar-none" style={{ scrollbarWidth: 'none' }}>
+                  {items.map((it, i) => {
+                    const on = i === idx
+                    return (
+                      <button key={i} onClick={() => go(i)}
+                        className={`group relative shrink-0 rounded-xl overflow-hidden text-left transition-all duration-300 ${
+                          on ? 'w-56 sm:w-64 ring-2 ring-[#FFD100]' : 'w-40 sm:w-48 opacity-70 hover:opacity-100'
+                        }`}
+                        style={{ height: 76 }}>
+                        {it.imageUrl
+                          ? <img src={it.imageUrl} alt="" className="absolute inset-0 w-full h-full object-cover" />
+                          : <span className="absolute inset-0 bg-gradient-to-br from-[#1A6B3C] to-[#0b3a20]" />}
+                        <span className="absolute inset-0 bg-gradient-to-t from-[#04130b]/90 via-[#04130b]/40 to-transparent" />
+                        <span className="absolute inset-x-0 bottom-0 p-2.5">
+                          {it.category && on && <span className="block text-[8px] font-black tracking-widest uppercase text-[#FFD100] mb-0.5">{it.category}</span>}
+                          <span className="block text-[11px] font-bold text-white leading-tight line-clamp-2">{it.title}</span>
+                        </span>
+                        {/* aktif ilerleme çubuğu */}
+                        {on && <span key={idx} className="absolute top-0 left-0 h-[3px] bg-[#FFD100]" style={{ animation: `heroProg ${INTERVAL}ms linear` }} />}
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
