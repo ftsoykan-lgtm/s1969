@@ -93,9 +93,9 @@ export default function SquadMarquee({ players }: { players: SitePlayer[] }) {
         <ChevronRight size={20} />
       </button>
 
-      {/* Kenar gradyanları (marka sarısı) */}
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-[#FFD100] via-[#FFD100]/50 to-transparent z-[1]" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-[#FFD100] via-[#FFD100]/50 to-transparent z-[1]" />
+      {/* Kenar gradyanları */}
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-14 bg-gradient-to-r from-[#f5f9f6] to-transparent z-[1]" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-14 bg-gradient-to-l from-[#f5f9f6] to-transparent z-[1]" />
 
       {/* Kart listesi */}
       <div

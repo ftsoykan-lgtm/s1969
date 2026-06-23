@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 import type { ClubInfo } from '@/data/club'
 
 export interface HeroItem {
@@ -20,6 +20,8 @@ export default function HeroVideo({ club, src, items = [] }: { club: ClubInfo; s
   const n = items.length
   const [idx, setIdx] = useState(0)
   const go = useCallback((i: number) => setIdx(((i % n) + n) % n), [n])
+  const next = useCallback(() => setIdx((i) => (i + 1) % n), [n])
+  const prev = useCallback(() => setIdx((i) => (i - 1 + n) % n), [n])
 
   useEffect(() => {
     const v = ref.current
@@ -37,6 +39,7 @@ export default function HeroVideo({ club, src, items = [] }: { club: ClubInfo; s
   }, [n, idx])
 
   const active = n > 0 ? items[idx] : null
+  const num = (i: number) => String(i + 1).padStart(2, '0')
 
   return (
     <section className="relative bg-[#092d18] overflow-hidden">
@@ -50,67 +53,73 @@ export default function HeroVideo({ club, src, items = [] }: { club: ClubInfo; s
         )}
 
         {/* Karartma */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#04130b] via-[#04130b]/30 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#04130b]/60 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#04130b] via-[#04130b]/25 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#04130b]/55 via-transparent to-transparent" />
 
         {/* Ön plan */}
         <div className="absolute inset-x-0 bottom-0">
-          <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 pb-8 md:pb-10">
+          <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 pb-10 md:pb-14">
+            <div className="flex items-end justify-between gap-6">
 
-            {/* Öne çıkan haber metni */}
-            {active ? (
-              <Link href={active.href} className="group block max-w-2xl mb-6" key={idx}>
-                {active.category && (
-                  <span className="inline-flex items-center gap-2 mb-3 hero-up">
-                    <span className="w-6 h-0.5 bg-[#FFD100]" />
-                    <span className="text-[#FFD100] text-[11px] font-black tracking-[0.25em] uppercase">{active.category}</span>
-                  </span>
+              {/* Sol: öne çıkan haber */}
+              <div className="min-w-0">
+                {active ? (
+                  <Link href={active.href} className="group block max-w-3xl" key={idx}>
+                    {active.category && (
+                      <span className="inline-flex items-center gap-2 mb-3 hero-up">
+                        <span className="w-7 h-0.5 bg-[#FFD100]" />
+                        <span className="text-[#FFD100] text-[11px] font-black tracking-[0.28em] uppercase">{active.category}</span>
+                      </span>
+                    )}
+                    <h1 className="font-heading text-2xl md:text-4xl lg:text-[3rem] font-black text-white leading-[1.05] tracking-tight line-clamp-3 drop-shadow-2xl hero-up"
+                      style={{ animationDelay: '.06s' }}>
+                      {active.title}
+                    </h1>
+                    {active.excerpt && (
+                      <p className="mt-3 text-white/65 text-sm md:text-base leading-relaxed line-clamp-2 max-w-xl hero-up" style={{ animationDelay: '.12s' }}>
+                        {active.excerpt}
+                      </p>
+                    )}
+                    <span className="inline-flex items-center gap-2 mt-5 text-[#0f4a28] bg-[#FFD100] text-[12px] font-black uppercase tracking-wide pl-4 pr-5 py-2.5 rounded-full group-hover:gap-3 transition-all shadow-lg shadow-[#FFD100]/20 hero-up"
+                      style={{ animationDelay: '.18s' }}>
+                      Haberin Devamı <ArrowRight size={15} />
+                    </span>
+                  </Link>
+                ) : (
+                  <div className="max-w-2xl">
+                    <h1 className="font-heading text-4xl md:text-6xl font-black text-white uppercase tracking-tight leading-[0.95] drop-shadow-2xl">{club.name}</h1>
+                  </div>
                 )}
-                <h1 className="font-heading text-2xl md:text-4xl lg:text-[2.9rem] font-black text-white leading-[1.08] tracking-tight line-clamp-3 drop-shadow-2xl hero-up"
-                  style={{ animationDelay: '.06s' }}>
-                  {active.title}
-                </h1>
-                <span className="inline-flex items-center gap-2 mt-4 text-white text-[12px] font-black uppercase tracking-wide group-hover:gap-3 transition-all hero-up"
-                  style={{ animationDelay: '.14s' }}>
-                  Haberin Devamı
-                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#FFD100] text-[#0f4a28]"><ArrowRight size={14} /></span>
-                </span>
-              </Link>
-            ) : (
-              <div className="max-w-2xl mb-6">
-                <h1 className="font-heading text-4xl md:text-6xl font-black text-white uppercase tracking-tight leading-[0.95] drop-shadow-2xl">{club.name}</h1>
               </div>
-            )}
 
-            {/* ── Haber akışı — film şeridi ──────────────────────────── */}
-            {n > 1 && (
-              <div className="relative">
-                <div className="flex gap-3 overflow-x-auto pb-1 scrollbar-none" style={{ scrollbarWidth: 'none' }}>
-                  {items.map((it, i) => {
-                    const on = i === idx
-                    return (
-                      <button key={i} onClick={() => go(i)}
-                        className={`group relative shrink-0 rounded-xl overflow-hidden text-left transition-all duration-300 ${
-                          on ? 'w-56 sm:w-64 ring-2 ring-[#FFD100]' : 'w-40 sm:w-48 opacity-70 hover:opacity-100'
-                        }`}
-                        style={{ height: 76 }}>
-                        {it.imageUrl
-                          ? <img src={it.imageUrl} alt="" className="absolute inset-0 w-full h-full object-cover" />
-                          : <span className="absolute inset-0 bg-gradient-to-br from-[#1A6B3C] to-[#0b3a20]" />}
-                        <span className="absolute inset-0 bg-gradient-to-t from-[#04130b]/90 via-[#04130b]/40 to-transparent" />
-                        <span className="absolute inset-x-0 bottom-0 p-2.5">
-                          {it.category && on && <span className="block text-[8px] font-black tracking-widest uppercase text-[#FFD100] mb-0.5">{it.category}</span>}
-                          <span className="block text-[11px] font-bold text-white leading-tight line-clamp-2">{it.title}</span>
-                        </span>
-                        {/* aktif ilerleme çubuğu */}
-                        {on && <span key={idx} className="absolute top-0 left-0 h-[3px] bg-[#FFD100]" style={{ animation: `heroProg ${INTERVAL}ms linear` }} />}
-                      </button>
-                    )
-                  })}
+              {/* Sağ: sayaç + oklar */}
+              {n > 1 && (
+                <div className="shrink-0 flex flex-col items-end gap-4 pb-1">
+                  <div className="font-heading font-black tabular-nums leading-none">
+                    <span className="text-4xl md:text-5xl text-white">{num(idx)}</span>
+                    <span className="text-lg md:text-xl text-white/40"> / {String(n).padStart(2, '0')}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button onClick={prev} aria-label="Önceki"
+                      className="h-10 w-10 flex items-center justify-center rounded-full border border-white/25 text-white hover:bg-[#FFD100] hover:text-[#0f4a28] hover:border-[#FFD100] transition-all">
+                      <ChevronLeft size={18} />
+                    </button>
+                    <button onClick={next} aria-label="Sonraki"
+                      className="h-10 w-10 flex items-center justify-center rounded-full border border-white/25 text-white hover:bg-[#FFD100] hover:text-[#0f4a28] hover:border-[#FFD100] transition-all">
+                      <ChevronRight size={18} />
+                    </button>
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
+
+          {/* İnce ilerleme çizgisi (en alt) */}
+          {n > 1 && (
+            <div className="h-[3px] bg-white/10">
+              <span key={idx} className="block h-full bg-[#FFD100]" style={{ animation: `heroProg ${INTERVAL}ms linear` }} />
+            </div>
+          )}
         </div>
       </div>
 
