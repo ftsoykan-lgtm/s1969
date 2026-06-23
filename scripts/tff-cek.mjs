@@ -438,8 +438,28 @@ async function cekKadro(page) {
   return { season: null, players: [] }
 }
 
+/** Arşivdeki sezon tamamlandı mı? (tüm maçlar oynanmış + complete bayrağı) */
+async function arsivdekiSezonTamamMi(season) {
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) return false
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/tff_seasons?season=eq.${encodeURIComponent(season)}&select=data`,
+      { headers: { apikey: SUPABASE_SERVICE_KEY, Authorization: `Bearer ${SUPABASE_SERVICE_KEY}` } },
+    )
+    if (!res.ok) return false
+    const rows = await res.json()
+    return rows?.[0]?.data?.complete === true
+  } catch { return false }
+}
+
 /* ─── ANA AKIŞ ─────────────────────────────────────────────── */
 async function main() {
+  // Tamamlanmış + arşivlenmiş sezonu yeniden çekme (FORCE_TFF=1 ile zorla)
+  if (!process.env.FORCE_TFF && await arsivdekiSezonTamamMi(SEASON)) {
+    console.log(`[TFF] ⏭  Sezon ${SEASON} zaten tamamlanmış ve arşivde — yeniden çekilmeyecek. (Zorlamak için FORCE_TFF=1)`)
+    return
+  }
+
   const browser = await chromium.launch({ headless: true })
   const context = await browser.newContext({
     ignoreHTTPSErrors: true,
@@ -466,16 +486,21 @@ async function main() {
     // Logoları standings satırlarına ekle
     standings.forEach((s) => { s.logo = logos[s.team] ?? null })
 
+    // Sezon tamam mı? Tüm maçlar oynanmış (skorlu) ise final veri kabul edilir.
+    const complete = fixtures.length > 0 && fixtures.every((f) => f.homeScore != null && f.awayScore != null)
+
     const data = {
       updatedAt: new Date().toISOString(),
       source: 'tff.org',
       league: 'TFF 2. Lig — Beyaz Grup',
       season: actualSeason,
+      complete,
       standings,
       logos,
       sanliurfasporFixtures: fixtures,
       squad: kadro,
     }
+    if (complete) log(`🏁 Sezon ${actualSeason} tamamlandı olarak işaretlendi (sonraki çalıştırmalarda atlanır)`)
 
     mkdirSync(dirname(OUT_FILE), { recursive: true })
     writeFileSync(OUT_FILE, JSON.stringify(data, null, 2), 'utf-8')
