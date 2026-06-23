@@ -61,35 +61,45 @@ export default function HeroVideo({ club, src, items = [] }: { club: ClubInfo; s
           <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 pb-10 md:pb-14">
             <div className="flex items-end justify-between gap-6">
 
-              {/* Sol: öne çıkan haber */}
-              <div className="min-w-0">
-                {active ? (
-                  <Link href={active.href} className="group block max-w-3xl" key={idx}>
-                    {active.category && (
-                      <span className="inline-flex items-center gap-2 mb-3 hero-up">
-                        <span className="w-7 h-0.5 bg-[#FFD100]" />
-                        <span className="text-[#FFD100] text-[11px] font-black tracking-[0.28em] uppercase">{active.category}</span>
-                      </span>
-                    )}
-                    <h1 className="font-heading text-2xl md:text-4xl lg:text-[3rem] font-black text-white leading-[1.05] tracking-tight line-clamp-3 drop-shadow-2xl hero-up"
-                      style={{ animationDelay: '.06s' }}>
-                      {active.title}
-                    </h1>
-                    {active.excerpt && (
-                      <p className="mt-3 text-white/65 text-sm md:text-base leading-relaxed line-clamp-2 max-w-xl hero-up" style={{ animationDelay: '.12s' }}>
-                        {active.excerpt}
-                      </p>
-                    )}
-                    <span className="inline-flex items-center gap-2 mt-5 text-[#0f4a28] bg-[#FFD100] text-[12px] font-black uppercase tracking-wide pl-4 pr-5 py-2.5 rounded-full group-hover:gap-3 transition-all shadow-lg shadow-[#FFD100]/20 hero-up"
-                      style={{ animationDelay: '.18s' }}>
-                      Haberin Devamı <ArrowRight size={15} />
-                    </span>
+              {/* Sol: öne çıkan haber — görsel + metin */}
+              <div className="min-w-0 flex items-end gap-5">
+                {active?.imageUrl && (
+                  <Link href={active.href} key={`img-${idx}`}
+                    className="hidden md:block relative shrink-0 w-44 lg:w-52 aspect-[4/3] rounded-2xl overflow-hidden ring-1 ring-white/20 shadow-2xl group hero-up">
+                    <img src={active.imageUrl} alt={active.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                    <span className="absolute inset-0 bg-gradient-to-t from-[#04130b]/50 to-transparent" />
                   </Link>
-                ) : (
-                  <div className="max-w-2xl">
-                    <h1 className="font-heading text-4xl md:text-6xl font-black text-white uppercase tracking-tight leading-[0.95] drop-shadow-2xl">{club.name}</h1>
-                  </div>
                 )}
+
+                <div className="min-w-0">
+                  {active ? (
+                    <Link href={active.href} className="group block max-w-2xl" key={idx}>
+                      {active.category && (
+                        <span className="inline-flex items-center gap-2 mb-3 hero-up">
+                          <span className="w-7 h-0.5 bg-[#FFD100]" />
+                          <span className="text-[#FFD100] text-[11px] font-black tracking-[0.28em] uppercase">{active.category}</span>
+                        </span>
+                      )}
+                      <h1 className="font-heading text-2xl md:text-4xl lg:text-[2.7rem] font-black text-white leading-[1.05] tracking-tight line-clamp-3 drop-shadow-2xl hero-up"
+                        style={{ animationDelay: '.06s' }}>
+                        {active.title}
+                      </h1>
+                      {active.excerpt && (
+                        <p className="mt-3 text-white/65 text-sm md:text-base leading-relaxed line-clamp-2 max-w-xl hero-up" style={{ animationDelay: '.12s' }}>
+                          {active.excerpt}
+                        </p>
+                      )}
+                      <span className="inline-flex items-center gap-2 mt-5 text-[#0f4a28] bg-[#FFD100] text-[12px] font-black uppercase tracking-wide pl-4 pr-5 py-2.5 rounded-full group-hover:gap-3 transition-all shadow-lg shadow-[#FFD100]/20 hero-up"
+                        style={{ animationDelay: '.18s' }}>
+                        Haberin Devamı <ArrowRight size={15} />
+                      </span>
+                    </Link>
+                  ) : (
+                    <div className="max-w-2xl">
+                      <h1 className="font-heading text-4xl md:text-6xl font-black text-white uppercase tracking-tight leading-[0.95] drop-shadow-2xl">{club.name}</h1>
+                    </div>
+                  )}
+                </div>
               </div>
 
               {/* Sağ: sayaç + oklar */}
