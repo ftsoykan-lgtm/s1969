@@ -1,9 +1,26 @@
 import Link from 'next/link'
+import { getSeasonPlayers, getProfileSeasonsServer } from '@/lib/supabase/player-profiles-server'
 import { getSitePlayers } from '@/lib/supabase/players-server'
+import type { CardPlayer } from '@/components/players/PlayerCard'
 import SquadMarquee from './SquadMarquee'
 
 export default async function SquadPreview() {
-  const { players, season } = await getSitePlayers()
+  // Önce sezon bazlı profiller; yoksa eski TFF canlı kadrosuna düş
+  const profileSeasons = await getProfileSeasonsServer()
+  let players: CardPlayer[] = []
+  let season: string | null = null
+
+  if (profileSeasons.length > 0) {
+    const res = await getSeasonPlayers(profileSeasons[0])
+    players = res.players.map((p) => ({
+      name: p.name, slug: p.slug, photoUrl: p.photoUrl, number: p.number, position: p.position, flagCode: p.flagCode,
+    }))
+    season = res.season
+  } else {
+    const res = await getSitePlayers()
+    players = res.players
+    season = res.season
+  }
 
   return (
     <section className="relative py-16 md:py-20 bg-[#f5f9f6] overflow-hidden">

@@ -1,14 +1,14 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { getPlayerProfile } from '@/lib/supabase/player-profiles-server'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, Cake, MapPin, Globe, Ruler, Dumbbell, Shirt, Calendar, ArrowLeftRight } from 'lucide-react'
 import type { Metadata } from 'next'
 
 const IgIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
 )
 const XIcon = () => (
-  <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
 )
 
 export const dynamic = 'force-dynamic'
@@ -21,7 +21,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return { title: player ? player.name : 'Oyuncu' }
 }
 
-/* Doğum tarihinden yaş (dd.mm.yyyy veya yyyy-mm-dd) */
 function ageFrom(birth?: string | null): number | null {
   if (!birth) return null
   let y: number, m: number, d: number
@@ -37,6 +36,8 @@ function ageFrom(birth?: string | null): number | null {
   return age >= 0 && age < 60 ? age : null
 }
 
+type Stat = { icon: React.ComponentType<{ size?: number; className?: string }>; label: string; value: string }
+
 export default async function OyuncuProfil({ params, searchParams }: Props) {
   const { slug } = await params
   const { sezon } = await searchParams
@@ -46,107 +47,106 @@ export default async function OyuncuProfil({ params, searchParams }: Props) {
   const age = ageFrom(player.birthDate)
   const initials = player.name.split(' ').filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toLocaleUpperCase('tr-TR')
 
-  const facts: [string, string | null][] = [
-    ['Forma No', player.number != null ? String(player.number) : null],
-    ['Mevki', player.position],
-    ['Doğum Tarihi', player.birthDate],
-    ['Doğum Yeri', player.birthPlace],
-    ['Yaş', age != null ? `${age}` : null],
-    ['Uyruk', player.nationality],
-    ['Boy', player.height],
-    ['Kilo', player.weight],
-    ['Geldiği Takım', player.prevTeam],
-    ['Lisans No', player.licenseNo],
-    ['Kulüp', player.club],
-  ]
+  const stats: Stat[] = ([
+    player.position ? { icon: Shirt, label: 'Mevki', value: player.position } : null,
+    age != null ? { icon: Calendar, label: 'Yaş', value: `${age}` } : null,
+    player.birthDate ? { icon: Cake, label: 'Doğum Tarihi', value: player.birthDate } : null,
+    player.birthPlace ? { icon: MapPin, label: 'Doğum Yeri', value: player.birthPlace } : null,
+    player.nationality ? { icon: Globe, label: 'Uyruk', value: player.nationality } : null,
+    player.height ? { icon: Ruler, label: 'Boy', value: player.height } : null,
+    player.weight ? { icon: Dumbbell, label: 'Kilo', value: player.weight } : null,
+    player.prevTeam ? { icon: ArrowLeftRight, label: 'Geldiği Takım', value: player.prevTeam } : null,
+  ].filter(Boolean)) as Stat[]
 
   return (
     <div className="min-h-screen bg-[#f5f9f6]">
-      {/* Hero */}
-      <div className="relative bg-gradient-to-b from-[#0c3a23] to-[#092d18] overflow-hidden">
-        <div className="pointer-events-none absolute -top-24 right-0 w-[420px] h-[420px] rounded-full bg-[#1A6B3C]/40 blur-3xl" />
+      {/* ════ PREMIUM HERO ════ */}
+      <div className="relative overflow-hidden bg-gradient-to-br from-[#0c3a23] via-[#0f4a28] to-[#092d18]">
+        <div className="pointer-events-none absolute -top-32 -left-20 w-[480px] h-[480px] rounded-full bg-[#1A6B3C]/40 blur-[120px]" />
+        <div className="pointer-events-none absolute top-10 right-10 w-[360px] h-[360px] rounded-full bg-[#FFD100]/[0.06] blur-[100px]" />
         {player.number != null && (
-          <div className="pointer-events-none absolute top-2 right-6 font-heading text-[16rem] font-black text-white/[0.03] leading-none select-none">{player.number}</div>
+          <div className="pointer-events-none absolute -bottom-16 right-2 sm:right-16 font-heading text-[20rem] md:text-[26rem] font-black text-white/[0.04] leading-none select-none">{player.number}</div>
         )}
-        <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-10">
-          <Link href="/kadro" className="inline-flex items-center gap-2 text-sm text-white/55 hover:text-white transition-colors mb-8">
+
+        <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 pt-8 pb-0">
+          <Link href="/kadro" className="inline-flex items-center gap-2 text-sm text-white/55 hover:text-white transition-colors mb-6">
             <ArrowLeft size={16} /> Kadroya Dön
           </Link>
 
-          <div className="flex flex-col sm:flex-row items-center sm:items-end gap-6">
-            {/* Foto */}
-            <div className="relative w-40 h-48 sm:w-44 sm:h-56 rounded-2xl overflow-hidden ring-2 ring-white/15 shadow-2xl shrink-0 bg-[#0b3a20]">
-              {player.photoUrl
-                ? <img src={player.photoUrl} alt={player.name} className="w-full h-full object-cover object-top" />
-                : <div className="w-full h-full flex items-center justify-center"><span className="text-5xl font-black text-white/15">{initials}</span></div>}
+          <div className="grid md:grid-cols-[300px_1fr] gap-8 items-end">
+            <div className="relative mx-auto md:mx-0">
+              <div className="absolute -inset-3 bg-[#FFD100]/10 blur-2xl rounded-3xl" />
+              <div className="relative w-56 h-72 md:w-[300px] md:h-[380px] rounded-t-3xl overflow-hidden bg-gradient-to-b from-[#1f7a45] to-[#0b3a20] ring-1 ring-white/10 shadow-2xl">
+                {player.photoUrl
+                  ? <img src={player.photoUrl} alt={player.name} className="w-full h-full object-cover object-top" />
+                  : <div className="w-full h-full flex items-center justify-center"><span className="text-7xl font-black text-white/15">{initials}</span></div>}
+                <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#092d18] to-transparent" />
+              </div>
             </div>
 
-            <div className="text-center sm:text-left">
-              <div className="flex items-center justify-center sm:justify-start gap-3 mb-2">
-                {player.number != null && <span className="font-heading text-3xl font-black text-[#FFD100]">#{player.number}</span>}
-                {player.position && <span className="text-[11px] font-black tracking-widest uppercase text-white/60 bg-white/10 rounded-full px-3 py-1">{player.position}</span>}
-                {!player.active && <span className="text-[11px] font-black uppercase text-white/50 bg-white/10 rounded-full px-3 py-1">Eski Kadro</span>}
+            <div className="pb-8 text-center md:text-left">
+              <div className="flex items-center justify-center md:justify-start gap-3 mb-3 flex-wrap">
+                {player.number != null && <span className="font-heading text-4xl font-black text-[#FFD100] leading-none">#{player.number}</span>}
+                {player.position && <span className="text-[11px] font-black tracking-widest uppercase text-[#0f4a28] bg-[#FFD100] rounded-full px-3 py-1">{player.position}</span>}
+                {player.flagCode && <img src={`https://flagcdn.com/h20/${player.flagCode}.png`} alt="" className="h-4 rounded-sm shadow" />}
+                {!player.active && <span className="text-[11px] font-black uppercase text-white/60 bg-white/10 rounded-full px-3 py-1">Eski Kadro</span>}
               </div>
-              <h1 className="font-heading text-3xl md:text-5xl font-black text-white tracking-tight uppercase leading-tight">{player.name}</h1>
-              <p className="mt-2 text-[11px] font-black tracking-[0.2em] uppercase text-[#FFD100]/60">Sezon {player.season}</p>
+              <h1 className="font-heading text-4xl md:text-6xl font-black text-white tracking-tight uppercase leading-[0.95] drop-shadow-2xl">{player.name}</h1>
+              <p className="mt-3 text-[11px] font-black tracking-[0.25em] uppercase text-[#FFD100]/60">Şanlıurfaspor · Sezon {player.season}</p>
 
               {(player.instagram || player.twitter) && (
-                <div className="flex items-center justify-center sm:justify-start gap-2 mt-4">
-                  {player.instagram && <a href={player.instagram} target="_blank" rel="noopener noreferrer" className="h-9 w-9 flex items-center justify-center rounded-full bg-white/10 text-white hover:bg-[#FFD100] hover:text-[#0f4a28] transition-colors"><IgIcon /></a>}
-                  {player.twitter && <a href={player.twitter} target="_blank" rel="noopener noreferrer" className="h-9 w-9 flex items-center justify-center rounded-full bg-white/10 text-white hover:bg-[#FFD100] hover:text-[#0f4a28] transition-colors"><XIcon /></a>}
+                <div className="flex items-center justify-center md:justify-start gap-2.5 mt-5">
+                  {player.instagram && <a href={player.instagram} target="_blank" rel="noopener noreferrer" className="h-10 w-10 flex items-center justify-center rounded-full bg-white/10 border border-white/15 text-white hover:bg-[#FFD100] hover:text-[#0f4a28] transition-colors"><IgIcon /></a>}
+                  {player.twitter && <a href={player.twitter} target="_blank" rel="noopener noreferrer" className="h-10 w-10 flex items-center justify-center rounded-full bg-white/10 border border-white/15 text-white hover:bg-[#FFD100] hover:text-[#0f4a28] transition-colors"><XIcon /></a>}
+                </div>
+              )}
+
+              {seasons.length > 1 && (
+                <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 mt-5">
+                  <span className="text-[10px] font-black tracking-widest uppercase text-white/40">Sezonlar:</span>
+                  {seasons.map((s) => (
+                    <Link key={s} href={`/oyuncu/${slug}?sezon=${s}`}
+                      className={`text-xs font-black px-3 py-1.5 rounded-full transition-all ${s === player.season ? 'bg-[#FFD100] text-[#0f4a28]' : 'bg-white/10 text-white/70 hover:bg-white/20'}`}>{s}</Link>
+                  ))}
                 </div>
               )}
             </div>
           </div>
-
-          {/* Sezon seçici */}
-          {seasons.length > 1 && (
-            <div className="flex flex-wrap items-center gap-2 mt-7">
-              <span className="text-[10px] font-black tracking-widest uppercase text-white/40">Sezonlar:</span>
-              {seasons.map((s) => (
-                <Link key={s} href={`/oyuncu/${slug}?sezon=${s}`}
-                  className={`text-xs font-black px-3 py-1.5 rounded-full transition-all ${s === player.season ? 'bg-[#FFD100] text-[#0f4a28]' : 'bg-white/10 text-white/70 hover:bg-white/20'}`}>
-                  {s}
-                </Link>
-              ))}
-            </div>
-          )}
         </div>
+
+        <div className="relative h-1 bg-gradient-to-r from-[#1A6B3C] via-[#FFD100] to-[#1A6B3C] mt-2" />
       </div>
 
-      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-10 pb-16 grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6">
-        {/* Biyografi / açıklama */}
-        <div className="space-y-6">
-          {(player.bio || player.description) ? (
-            <div className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm p-6 md:p-8">
-              <h2 className="text-xs font-black tracking-widest uppercase text-[#7aab8e] mb-4 flex items-center gap-2">
-                <span className="inline-block w-1 h-4 bg-[#FFD100] rounded-full" /> Biyografi
-              </h2>
-              <div className="space-y-4 text-[15px] text-[#3d4a44] leading-relaxed whitespace-pre-line">
-                {player.bio || player.description}
-              </div>
-            </div>
-          ) : (
-            <div className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm p-8 text-center">
-              <p className="text-sm font-bold text-[#092d18]">Biyografi yakında</p>
-              <p className="text-xs text-[#7aab8e] mt-1">Oyuncu biyografisi yönetim tarafından eklenecek.</p>
-            </div>
-          )}
-        </div>
-
-        {/* Künye */}
-        <div className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm p-6 h-fit">
-          <h2 className="text-xs font-black tracking-widest uppercase text-[#7aab8e] mb-4 flex items-center gap-2">
-            <span className="inline-block w-1 h-4 bg-[#FFD100] rounded-full" /> Künye
-          </h2>
-          <dl className="divide-y divide-[#edf7f2]">
-            {facts.filter(([, v]) => v).map(([k, v]) => (
-              <div key={k} className="flex items-center justify-between py-2.5">
-                <dt className="text-[13px] text-[#7aab8e] font-semibold">{k}</dt>
-                <dd className="text-sm font-bold text-[#092d18] text-right">{v}</dd>
+      {/* ════ İSTATİSTİK KARTLARI ════ */}
+      {stats.length > 0 && (
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 py-8">
+            {stats.map((s) => (
+              <div key={s.label} className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm p-4 flex items-center gap-3">
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#1A6B3C] to-[#0f4a28] text-[#FFD100] shrink-0">
+                  <s.icon size={17} />
+                </span>
+                <div className="min-w-0">
+                  <p className="text-[9px] font-black tracking-widest uppercase text-[#7aab8e]">{s.label}</p>
+                  <p className="text-sm font-black text-[#092d18] truncate">{s.value}</p>
+                </div>
               </div>
             ))}
-          </dl>
+          </div>
+        </div>
+      )}
+
+      {/* ════ BİYOGRAFİ ════ */}
+      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 pb-16">
+        <div className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm p-6 md:p-9">
+          <h2 className="text-xs font-black tracking-widest uppercase text-[#7aab8e] mb-5 flex items-center gap-2">
+            <span className="inline-block w-1 h-4 bg-[#FFD100] rounded-full" /> Biyografi
+          </h2>
+          {(player.bio || player.description) ? (
+            <div className="text-[15px] md:text-base text-[#3d4a44] leading-relaxed whitespace-pre-line">{player.bio || player.description}</div>
+          ) : (
+            <p className="text-sm text-[#7aab8e]">Oyuncu biyografisi yönetim tarafından eklendiğinde burada görünecek.</p>
+          )}
         </div>
       </div>
     </div>

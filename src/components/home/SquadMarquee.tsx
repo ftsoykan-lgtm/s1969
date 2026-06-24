@@ -2,8 +2,7 @@
 
 import { useRef, useState, useCallback } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import PlayerCard from '@/components/players/PlayerCard'
-import type { SitePlayer } from '@/lib/supabase/players-server'
+import PlayerCard, { type CardPlayer } from '@/components/players/PlayerCard'
 
 const CARD_W = 320 + 24 // w-80 (320px) + gap (24px)
 const SCROLL_STEP = CARD_W * 2 // 2 kart kaydır
@@ -26,7 +25,7 @@ function smoothScrollBy(el: HTMLElement, delta: number, duration: number) {
   requestAnimationFrame(step)
 }
 
-export default function SquadMarquee({ players }: { players: SitePlayer[] }) {
+export default function SquadMarquee({ players }: { players: CardPlayer[] }) {
   const ref = useRef<HTMLDivElement>(null)
   const [canLeft, setCanLeft] = useState(false)
   const [canRight, setCanRight] = useState(true)
