@@ -5,6 +5,11 @@ on:
   schedule:
     - cron: '0 6 * * *'
   workflow_dispatch:
+    inputs:
+      force:
+        description: 'Tamamlanmış sezonu da zorla yeniden çek (oyuncu profilleri için)'
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -31,6 +36,7 @@ jobs:
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          FORCE_TFF: ${{ inputs.force && '1' || '' }}
         run: npm run tff
 
       - name: Güncellenen JSON'u commit et (varsa)
