@@ -87,6 +87,18 @@ export async function getPlayerProfile(slug: string, season?: string): Promise<{
   }
 }
 
+/** Profil tablosundaki sezonlar (yeniden eskiye) */
+export async function getProfileSeasonsServer(): Promise<string[]> {
+  try {
+    const supabase = await createClient()
+    const { data, error } = await supabase.from('player_profiles').select('season')
+    if (error || !data) return []
+    return Array.from(new Set(data.map((r) => r.season as string))).sort().reverse()
+  } catch {
+    return []
+  }
+}
+
 /** Tüm profil slug'ları (statik üretim/sitemap için gerekirse) */
 export async function getAllProfileSlugs(): Promise<string[]> {
   try {

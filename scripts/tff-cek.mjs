@@ -37,6 +37,53 @@ if (existsSync(ENV_FILE)) {
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL
 const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_KEY
 
+function slugifyName(s) {
+  return (s || '').toLocaleLowerCase('tr-TR')
+    .replace(/ı/g, 'i').replace(/ş/g, 's').replace(/ğ/g, 'g').replace(/ü/g, 'u').replace(/ö/g, 'o').replace(/ç/g, 'c')
+    .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
+}
+
+/* Oyuncu profillerini OTOMATİK yaz (sezon bazlı).
+   Sadece TFF alanlarını upsert eder → admin'in girdiği foto/biyografi KORUNUR.
+   Bu sezonda olup kadrodan çıkanları pasifleştirir; eski sezonlara dokunmaz. */
+async function oyuncuProfilleriYaz(squad) {
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) return
+  const season = squad?.season
+  const players = (squad?.players || []).filter((p) => p.tffId)
+  if (!season || !players.length) { console.log('[TFF] (oyuncu profili: sezon/kadro yok, atlandı)'); return }
+  const now = new Date().toISOString()
+  const headers = { apikey: SUPABASE_SERVICE_KEY, Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`, 'Content-Type': 'application/json' }
+  const rows = players.map((p) => ({
+    season, tff_id: String(p.tffId), slug: slugifyName(p.name), name: p.name,
+    position: p.position ?? null, number: p.number ?? null,
+    birth_date: p.birthDate ?? null, birth_place: p.birthPlace ?? null,
+    nationality: p.nationality ?? null, flag_code: p.flagCode ?? null,
+    license_no: p.licenseNo ?? null, club: p.club ?? null, photo_tff: p.photo ?? null,
+    active: true, updated_at: now,
+  }))
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/player_profiles?on_conflict=season,tff_id`, {
+      method: 'POST',
+      headers: { ...headers, Prefer: 'resolution=merge-duplicates,return=minimal' },
+      body: JSON.stringify(rows),
+    })
+    if (!res.ok) {
+      console.warn(`[TFF] ⚠ player_profiles yazılamadı (HTTP ${res.status}) — 009 migration çalıştırıldı mı?`, await res.text())
+      return
+    }
+    console.log(`[TFF] 🟢 Oyuncu profilleri otomatik güncellendi (${rows.length} oyuncu, sezon ${season}) — admin alanları korundu`)
+    // Bu sezonda olup güncel kadroda olmayan (ayrılan) oyuncuları pasifleştir
+    const idList = rows.map((r) => `"${r.tff_id}"`).join(',')
+    await fetch(`${SUPABASE_URL}/rest/v1/player_profiles?season=eq.${encodeURIComponent(season)}&manual=eq.false&tff_id=not.is.null&tff_id=not.in.(${idList})`, {
+      method: 'PATCH',
+      headers: { ...headers, Prefer: 'return=minimal' },
+      body: JSON.stringify({ active: false, updated_at: now }),
+    }).catch(() => {})
+  } catch (e) {
+    console.warn('[TFF] ⚠ player_profiles hata:', e.message)
+  }
+}
+
 async function supabaseYaz(data) {
   if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
     console.log('[TFF] (Supabase env yok — sadece JSON yazıldı)')
@@ -443,8 +490,10 @@ async function cekOyuncuDetay(page, kisiId) {
 
 async function cekKadro(page) {
   log('Kadro çekiliyor → en güncel dolu sezon aranıyor...')
-  // En yeniden eskiye dene; ilk dolu sezonu kullan
-  const seasonlar = ['2026-2027', '2025-2026', '2024-2025']
+  // En yeniden eskiye dinamik liste (gelecekte de çalışır)
+  const nextSeason = (s) => { const [a, b] = s.split('-').map(Number); return `${a + 1}-${b + 1}` }
+  const seasonlar = [nextSeason(SEASON), SEASON, prevSeason(SEASON), prevSeason(prevSeason(SEASON))]
+    .filter((v, i, a) => a.indexOf(v) === i)
   for (const season of seasonlar) {
     try {
       await page.goto(FIXTURE_URL, { waitUntil: 'networkidle', timeout: 60000 })
@@ -580,6 +629,8 @@ async function main() {
 
     // Supabase'e canlı yaz (env varsa)
     await supabaseYaz(data)
+    // Oyuncu profillerini otomatik işle (sezon bazlı, admin verisi korunur)
+    await oyuncuProfilleriYaz(data.squad)
 
     const sfk = standings.find((s) => s.isSanliurfaspor)
     console.log('\n══════════════ PUAN DURUMU (Beyaz Grup) ══════════════')

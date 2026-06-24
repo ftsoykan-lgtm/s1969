@@ -1,5 +1,13 @@
 import Link from 'next/link'
-import type { SitePlayer } from '@/lib/supabase/players-server'
+
+export interface CardPlayer {
+  name: string
+  slug: string
+  photoUrl: string | null
+  number: number | null
+  position: string | null
+  flagCode: string | null
+}
 
 /** Ülke kodu → bayrak emoji (yedek, çoğu sistemde görsel kullanılır) */
 export function flagEmoji(code?: string | null): string {
@@ -10,7 +18,7 @@ export function flagEmoji(code?: string | null): string {
   return map[code.toLowerCase()] ?? '🌍'
 }
 
-export default function PlayerCard({ player }: { player: SitePlayer }) {
+export default function PlayerCard({ player }: { player: CardPlayer }) {
   const initials = player.name.split(' ').filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toLocaleUpperCase('tr-TR')
   const hasPhoto = !!player.photoUrl
   const code = player.flagCode?.toLowerCase()
