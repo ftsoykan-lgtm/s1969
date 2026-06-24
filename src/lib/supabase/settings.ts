@@ -448,3 +448,121 @@ export async function deletePage(slug: string): Promise<{ ok: boolean; error?: s
     return { ok: true }
   } catch (e) { return { ok: false, error: (e as Error).message } }
 }
+
+/* ─── OYUNCU PROFİLLERİ (sezon bazlı) ──────────────────────────── */
+export interface AdminPlayer {
+  id?: number
+  season: string
+  tff_id?: string | null
+  slug?: string
+  name: string
+  position?: string | null
+  number?: number | null
+  birth_date?: string | null
+  nationality?: string | null
+  flag_code?: string | null
+  license_no?: string | null
+  club?: string | null
+  photo_tff?: string | null
+  photo?: string | null
+  bio?: string | null
+  height?: string | null
+  weight?: string | null
+  prev_team?: string | null
+  description?: string | null
+  instagram?: string | null
+  twitter?: string | null
+  active?: boolean
+  sort_order?: number
+  manual?: boolean
+}
+
+function slugifyName(s: string): string {
+  return (s || '').toLocaleLowerCase('tr-TR')
+    .replace(/ı/g, 'i').replace(/ş/g, 's').replace(/ğ/g, 'g').replace(/ü/g, 'u').replace(/ö/g, 'o').replace(/ç/g, 'c')
+    .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
+}
+
+/** Bir sezonun tüm oyuncuları (admin — pasifler dahil) */
+export async function getPlayerProfilesAdmin(season: string): Promise<AdminPlayer[]> {
+  try {
+    const { data, error } = await client().from('player_profiles').select('*')
+      .eq('season', season).order('sort_order').order('number', { nullsFirst: false }).order('name')
+    if (error || !data) return []
+    return data as AdminPlayer[]
+  } catch { return [] }
+}
+
+/** Profil tablosundaki sezon listesi */
+export async function getProfileSeasons(): Promise<string[]> {
+  try {
+    const { data, error } = await client().from('player_profiles').select('season')
+    if (error || !data) return []
+    return Array.from(new Set(data.map((r) => r.season as string))).sort().reverse()
+  } catch { return [] }
+}
+
+export async function savePlayerProfile(p: AdminPlayer): Promise<{ ok: boolean; error?: string }> {
+  try {
+    const row = {
+      season: p.season, tff_id: p.tff_id ?? null, slug: p.slug || slugifyName(p.name),
+      name: p.name, position: p.position ?? null, number: p.number ?? null,
+      birth_date: p.birth_date ?? null, nationality: p.nationality ?? null, flag_code: p.flag_code ?? null,
+      license_no: p.license_no ?? null, club: p.club ?? null, photo_tff: p.photo_tff ?? null,
+      photo: p.photo ?? null, bio: p.bio ?? null, height: p.height ?? null, weight: p.weight ?? null,
+      prev_team: p.prev_team ?? null, description: p.description ?? null,
+      instagram: p.instagram ?? null, twitter: p.twitter ?? null,
+      active: p.active ?? true, sort_order: p.sort_order ?? 0, manual: p.manual ?? false,
+      updated_at: new Date().toISOString(),
+    }
+    const supabase = client()
+    const { error } = p.id
+      ? await supabase.from('player_profiles').update(row).eq('id', p.id)
+      : await supabase.from('player_profiles').insert(row)
+    if (error) return { ok: false, error: error.message }
+    return { ok: true }
+  } catch (e) { return { ok: false, error: (e as Error).message } }
+}
+
+export async function deletePlayerProfile(id: number): Promise<{ ok: boolean; error?: string }> {
+  try {
+    const { error } = await client().from('player_profiles').delete().eq('id', id)
+    if (error) return { ok: false, error: error.message }
+    return { ok: true }
+  } catch (e) { return { ok: false, error: (e as Error).message } }
+}
+
+/** TFF ile senkronize et — en güncel taranmış kadroyu profillere uygular.
+ *  Sadece TFF alanlarını günceller; admin alanları (foto/bio vs.) KORUNUR. */
+export async function syncPlayersFromTff(season?: string): Promise<{ ok: boolean; error?: string; count?: number; season?: string }> {
+  try {
+    const supabase = client()
+    const { data } = await supabase.from('tff_data').select('data').eq('id', 1).single()
+    const d = data?.data as { season?: string; squad?: { season?: string; players?: any[] } } | undefined
+    const squad = d?.squad
+    if (!squad?.players?.length) return { ok: false, error: 'TFF kadrosu bulunamadı (önce scraper çalışmalı)' }
+    const s = season || squad.season || d?.season || ''
+    if (!s) return { ok: false, error: 'Sezon belirlenemedi' }
+
+    const rows = squad.players.filter((p) => p.tffId).map((p) => ({
+      season: s, tff_id: String(p.tffId), slug: slugifyName(p.name),
+      name: p.name, position: p.position ?? null, number: p.number ?? null,
+      birth_date: p.birthDate ?? null, nationality: p.nationality ?? null, flag_code: p.flagCode ?? null,
+      license_no: p.licenseNo ?? null, club: p.club ?? null, photo_tff: p.photo ?? null,
+      active: true, updated_at: new Date().toISOString(),
+    }))
+    if (!rows.length) return { ok: false, error: 'Kadroda tff_id olan oyuncu yok' }
+
+    const { error } = await supabase.from('player_profiles').upsert(rows, { onConflict: 'season,tff_id' })
+    if (error) return { ok: false, error: error.message }
+
+    // Bu sezonda olup güncel kadroda olmayan TFF oyuncularını pasifleştir (ayrılanlar)
+    const ids = rows.map((r) => r.tff_id)
+    await supabase.from('player_profiles').update({ active: false })
+      .eq('season', s).eq('manual', false)
+      .not('tff_id', 'is', null)
+      .not('tff_id', 'in', `(${ids.map((i) => `"${i}"`).join(',')})`)
+
+    return { ok: true, count: rows.length, season: s }
+  } catch (e) { return { ok: false, error: (e as Error).message } }
+}

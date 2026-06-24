@@ -3,6 +3,7 @@ import { getLiveTff } from '@/lib/supabase/tff-server'
 
 export interface SitePlayer {
   name: string
+  slug: string
   tffId: string | null
   photoUrl: string | null
   number: number | null
@@ -12,6 +13,12 @@ export interface SitePlayer {
   active: boolean
   sortOrder: number
   manual: boolean
+}
+
+function slugifyName(s: string): string {
+  return (s || '').toLocaleLowerCase('tr-TR')
+    .replace(/ı/g, 'i').replace(/ş/g, 's').replace(/ğ/g, 'g').replace(/ü/g, 'u').replace(/ö/g, 'o').replace(/ç/g, 'c')
+    .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
 }
 
 type DetailRow = {
@@ -64,6 +71,7 @@ export async function getSitePlayers(): Promise<{ players: SitePlayer[]; season:
     const d = findDetail(p.tffId, p.name)
     map.set(p.name, {
       name: p.name,
+      slug: slugifyName(p.name),
       tffId: p.tffId,
       photoUrl: d?.photo_url ?? null,
       number: d?.number ?? null,
@@ -81,6 +89,7 @@ export async function getSitePlayers(): Promise<{ players: SitePlayer[]; season:
     if (d.manual && !map.has(d.name)) {
       map.set(d.name, {
         name: d.name,
+        slug: slugifyName(d.name),
         tffId: d.tff_id ?? null,
         photoUrl: d.photo_url ?? null,
         number: d.number ?? null,

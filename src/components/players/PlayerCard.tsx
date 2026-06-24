@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { SitePlayer } from '@/lib/supabase/players-server'
 
 /** Ülke kodu → bayrak emoji (yedek, çoğu sistemde görsel kullanılır) */
@@ -15,7 +16,8 @@ export default function PlayerCard({ player }: { player: SitePlayer }) {
   const code = player.flagCode?.toLowerCase()
 
   return (
-    <div className="group relative rounded-2xl overflow-hidden bg-gradient-to-b from-[#1A6B3C] to-[#0b3a20] shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 ring-1 ring-white/5">
+    <Link href={`/oyuncu/${player.slug}`}
+      className="group relative block rounded-2xl overflow-hidden bg-gradient-to-b from-[#1A6B3C] to-[#0b3a20] shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 ring-1 ring-white/5">
       <div className="relative aspect-[3/4] overflow-hidden">
         {hasPhoto ? (
           <img src={player.photoUrl!} alt={player.name}
@@ -47,6 +49,6 @@ export default function PlayerCard({ player }: { player: SitePlayer }) {
         <div className="mx-auto my-2.5 h-0.5 w-9 bg-[#FFD100] rounded-full group-hover:w-16 transition-all duration-300" />
         <p className="text-[#FFD100] text-xs font-bold uppercase tracking-[0.15em]">{player.position || 'Profesyonel'}</p>
       </div>
-    </div>
+    </Link>
   )
 }
