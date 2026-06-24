@@ -72,13 +72,21 @@ async function oyuncuProfilleriYaz(squad) {
       return
     }
     console.log(`[TFF] 🟢 Oyuncu profilleri otomatik güncellendi (${rows.length} oyuncu, sezon ${season}) — admin alanları korundu`)
-    // Bu sezonda olup güncel kadroda olmayan (ayrılan) oyuncuları pasifleştir
-    const idList = rows.map((r) => `"${r.tff_id}"`).join(',')
-    await fetch(`${SUPABASE_URL}/rest/v1/player_profiles?season=eq.${encodeURIComponent(season)}&manual=eq.false&tff_id=not.is.null&tff_id=not.in.(${idList})`, {
-      method: 'PATCH',
-      headers: { ...headers, Prefer: 'return=minimal' },
-      body: JSON.stringify({ active: false, updated_at: now }),
-    }).catch(() => {})
+    // Ayrılanları pasifleştir — GÜVENLİ id-bazlı (aktifleri yanlışlıkla kapatmaz)
+    try {
+      const cur = new Set(rows.map((r) => r.tff_id))
+      const exRes = await fetch(`${SUPABASE_URL}/rest/v1/player_profiles?season=eq.${encodeURIComponent(season)}&select=id,tff_id,manual,active`, { headers })
+      if (exRes.ok) {
+        const existing = await exRes.json()
+        const departed = (existing || []).filter((r) => r.active && !r.manual && r.tff_id && !cur.has(String(r.tff_id))).map((r) => r.id)
+        if (departed.length) {
+          await fetch(`${SUPABASE_URL}/rest/v1/player_profiles?id=in.(${departed.join(',')})`, {
+            method: 'PATCH', headers: { ...headers, Prefer: 'return=minimal' },
+            body: JSON.stringify({ active: false, updated_at: now }),
+          })
+        }
+      }
+    } catch {}
   } catch (e) {
     console.warn('[TFF] ⚠ player_profiles hata:', e.message)
   }

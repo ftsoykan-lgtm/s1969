@@ -559,12 +559,16 @@ export async function syncPlayersFromTff(season?: string): Promise<{ ok: boolean
     const { error } = await supabase.from('player_profiles').upsert(rows, { onConflict: 'season,tff_id' })
     if (error) return { ok: false, error: error.message }
 
-    // Bu sezonda olup güncel kadroda olmayan TFF oyuncularını pasifleştir (ayrılanlar)
-    const ids = rows.map((r) => r.tff_id)
-    await supabase.from('player_profiles').update({ active: false })
-      .eq('season', s).eq('manual', false)
-      .not('tff_id', 'is', null)
-      .not('tff_id', 'in', `(${ids.map((i) => `"${i}"`).join(',')})`)
+    // Ayrılanları pasifleştir — GÜVENLİ id-bazlı yöntem (aktifleri yanlışlıkla kapatmaz)
+    const currentIds = new Set(rows.map((r) => r.tff_id))
+    const { data: existing } = await supabase.from('player_profiles')
+      .select('id, tff_id, manual, active').eq('season', s)
+    const departedIds = (existing ?? [])
+      .filter((r) => r.active && !r.manual && r.tff_id && !currentIds.has(String(r.tff_id)))
+      .map((r) => r.id)
+    if (departedIds.length) {
+      await supabase.from('player_profiles').update({ active: false }).in('id', departedIds)
+    }
 
     return { ok: true, count: rows.length, season: s }
   } catch (e) { return { ok: false, error: (e as Error).message } }

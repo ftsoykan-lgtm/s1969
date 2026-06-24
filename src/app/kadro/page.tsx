@@ -59,7 +59,7 @@ export default async function KadroPage({ searchParams }: Props) {
           {players.length > 0 && <p className="mt-3 text-[11px] text-white/40">{players.length} oyuncu</p>}
 
           {/* Sezon seçici */}
-          {seasons.length > 1 && (
+          {seasons.length >= 1 && (
             <div className="flex flex-wrap items-center gap-2 mt-5">
               <span className="text-[10px] font-black tracking-widest uppercase text-white/40">Sezon:</span>
               {seasons.map((s) => (
