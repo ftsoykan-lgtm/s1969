@@ -47,14 +47,15 @@ export default function HeroVideo({ club, src, items = [] }: { club: ClubInfo; s
         {/* Arka plan video */}
         {src ? (
           <video ref={ref} className="absolute inset-0 w-full h-full object-cover"
-            src={src} autoPlay muted loop playsInline preload="auto" />
+            src={src} autoPlay muted loop playsInline preload="auto"
+            style={{ filter: 'saturate(1.08) contrast(1.04)' }} />
         ) : (
           <div className="absolute inset-0 bg-[radial-gradient(120%_100%_at_50%_-10%,#1A6B3C_0%,#092d18_60%)]" />
         )}
 
-        {/* Karartma */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#04130b] via-[#04130b]/25 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#04130b]/55 via-transparent to-transparent" />
+        {/* Karartma — okunabilirlik için sadece metnin olduğu alanlarda */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#04130b]/90 via-[#04130b]/10 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#04130b]/45 via-transparent to-transparent" />
 
         {/* Ön plan */}
         <div className="absolute inset-x-0 bottom-0">
