@@ -14,6 +14,7 @@ create table if not exists player_profiles (
   position    text,
   number      int,
   birth_date  text,
+  birth_place text,
   nationality text,
   flag_code   text,
   license_no  text,
@@ -36,6 +37,9 @@ create table if not exists player_profiles (
   unique (season, slug),
   unique (season, tff_id)
 );
+
+-- Tablo daha önce oluştuysa eksik kolonu ekle (idempotent)
+alter table player_profiles add column if not exists birth_place text;
 
 create index if not exists player_profiles_slug_idx on player_profiles (slug);
 create index if not exists player_profiles_season_idx on player_profiles (season);

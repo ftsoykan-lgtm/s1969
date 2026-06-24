@@ -50,6 +50,7 @@ export default async function OyuncuProfil({ params, searchParams }: Props) {
     ['Forma No', player.number != null ? String(player.number) : null],
     ['Mevki', player.position],
     ['Doğum Tarihi', player.birthDate],
+    ['Doğum Yeri', player.birthPlace],
     ['Yaş', age != null ? `${age}` : null],
     ['Uyruk', player.nationality],
     ['Boy', player.height],

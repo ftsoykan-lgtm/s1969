@@ -386,6 +386,61 @@ function titleCaseTr(s) {
     .map((w) => (w ? w.charAt(0).toLocaleUpperCase('tr-TR') + w.slice(1) : w)).join(' ').trim()
 }
 
+/* Türkçe tarih "1 Ocak 2004" → "01.01.2004" */
+const TR_AYLAR = { ocak: 1, şubat: 2, mart: 3, nisan: 4, mayıs: 5, haziran: 6, temmuz: 7, ağustos: 8, eylül: 9, ekim: 10, kasım: 11, aralık: 12 }
+function trTarihToISO(s) {
+  if (!s) return null
+  const m = s.trim().match(/^(\d{1,2})\s+([A-Za-zçğıöşüÇĞİÖŞÜ]+)\s+(\d{4})$/)
+  if (m) {
+    const ay = TR_AYLAR[m[2].toLocaleLowerCase('tr-TR')]
+    if (ay) return `${String(+m[1]).padStart(2, '0')}.${String(ay).padStart(2, '0')}.${m[3]}`
+  }
+  const dm = s.trim().match(/(\d{1,2})[.\/](\d{1,2})[.\/](\d{4})/)
+  if (dm) return `${dm[1].padStart(2, '0')}.${dm[2].padStart(2, '0')}.${dm[3]}`
+  return s.trim() || null
+}
+
+/* Uyruk metni → { label, code } */
+const UYRUK_MAP = {
+  tc: ['Türkiye', 'tr'], 'türkiye': ['Türkiye', 'tr'],
+  brezilya: ['Brezilya', 'br'], portekiz: ['Portekiz', 'pt'], senegal: ['Senegal', 'sn'],
+  'fildişi sahili': ['Fildişi Sahili', 'ci'], fransa: ['Fransa', 'fr'], nijerya: ['Nijerya', 'ng'],
+  kamerun: ['Kamerun', 'cm'], gambiya: ['Gambiya', 'gm'], sırbistan: ['Sırbistan', 'rs'],
+  romanya: ['Romanya', 'ro'], almanya: ['Almanya', 'de'], hollanda: ['Hollanda', 'nl'],
+  gana: ['Gana', 'gh'], mali: ['Mali', 'ml'],
+}
+function uyrukCoz(s) {
+  if (!s) return { label: null, code: null }
+  const k = s.trim().toLocaleLowerCase('tr-TR')
+  const hit = UYRUK_MAP[k]
+  if (hit) return { label: hit[0], code: hit[1] }
+  return { label: titleCaseTr(s), code: null }
+}
+
+/* TFF oyuncu profil sayfasından kişisel + lisans bilgilerini çek */
+async function cekOyuncuDetay(page, kisiId) {
+  await page.goto(`https://www.tff.org/Default.aspx?pageId=30&kisiId=${kisiId}`,
+    { waitUntil: 'domcontentloaded', timeout: 20000 })
+  await page.waitForTimeout(250)
+  return await page.evaluate(() => {
+    const t = (sel) => { const e = document.querySelector(sel); return e ? (e.textContent || '').replace(/\s+/g, ' ').trim() : '' }
+    let birthPlace = t('[id$="oyuncuBilgileri_Label1"]')
+    let birthDate = t('[id$="oyuncuBilgileri_Label2"]')
+    let nationality = t('[id$="oyuncuBilgileri_Label3"]')
+    const licenseNo = t('[id$="oyuncuLisansBilgileri_Label4"]')
+    const club = t('[id$="oyuncuLisansBilgileri_Label5"]')
+    // Yedek: innerText'te "etiket\ndeğer" sırası
+    if (!birthDate || !nationality || !birthPlace) {
+      const lines = document.body.innerText.split('\n').map((s) => s.trim())
+      const after = (label) => { const i = lines.findIndex((l) => l === label); return i >= 0 && lines[i + 1] ? lines[i + 1] : '' }
+      birthPlace = birthPlace || after('Doğum Yeri')
+      birthDate = birthDate || after('Doğum Tarihi')
+      nationality = nationality || after('Uyruk')
+    }
+    return { birthPlace, birthDate, nationality, licenseNo, club }
+  })
+}
+
 async function cekKadro(page) {
   log('Kadro çekiliyor → en güncel dolu sezon aranıyor...')
   // En yeniden eskiye dene; ilk dolu sezonu kullan
@@ -427,7 +482,25 @@ async function cekKadro(page) {
           const idm = p.href.match(/kisiId=(\d+)/i)
           return { name: titleCaseTr(p.name), tffId: idm ? idm[1] : null }
         })
-        log(`✓ Kadro: ${list.length} oyuncu (sezon: ${season})`)
+        log(`✓ Kadro: ${list.length} oyuncu (sezon: ${season}) — profil detayları çekiliyor...`)
+
+        // Her oyuncunun TFF profilini ziyaret et (doğum yeri/tarihi, uyruk, lisans, kulüp)
+        let detayli = 0
+        for (const p of list) {
+          if (!p.tffId) continue
+          try {
+            const det = await cekOyuncuDetay(page, p.tffId)
+            p.birthPlace = det.birthPlace ? titleCaseTr(det.birthPlace) : null
+            p.birthDate = trTarihToISO(det.birthDate)
+            const u = uyrukCoz(det.nationality)
+            p.nationality = u.label
+            p.flagCode = u.code
+            p.licenseNo = det.licenseNo || null
+            p.club = det.club ? titleCaseTr(det.club) : null
+            if (p.birthDate || p.nationality) detayli++
+          } catch {}
+        }
+        log(`✓ Oyuncu profil detayı: ${detayli}/${list.length}`)
         return { season, players: list }
       }
     } catch (e) {

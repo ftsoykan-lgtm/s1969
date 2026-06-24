@@ -459,6 +459,7 @@ export interface AdminPlayer {
   position?: string | null
   number?: number | null
   birth_date?: string | null
+  birth_place?: string | null
   nationality?: string | null
   flag_code?: string | null
   license_no?: string | null
@@ -507,7 +508,8 @@ export async function savePlayerProfile(p: AdminPlayer): Promise<{ ok: boolean; 
     const row = {
       season: p.season, tff_id: p.tff_id ?? null, slug: p.slug || slugifyName(p.name),
       name: p.name, position: p.position ?? null, number: p.number ?? null,
-      birth_date: p.birth_date ?? null, nationality: p.nationality ?? null, flag_code: p.flag_code ?? null,
+      birth_date: p.birth_date ?? null, birth_place: p.birth_place ?? null,
+      nationality: p.nationality ?? null, flag_code: p.flag_code ?? null,
       license_no: p.license_no ?? null, club: p.club ?? null, photo_tff: p.photo_tff ?? null,
       photo: p.photo ?? null, bio: p.bio ?? null, height: p.height ?? null, weight: p.weight ?? null,
       prev_team: p.prev_team ?? null, description: p.description ?? null,
@@ -547,7 +549,8 @@ export async function syncPlayersFromTff(season?: string): Promise<{ ok: boolean
     const rows = squad.players.filter((p) => p.tffId).map((p) => ({
       season: s, tff_id: String(p.tffId), slug: slugifyName(p.name),
       name: p.name, position: p.position ?? null, number: p.number ?? null,
-      birth_date: p.birthDate ?? null, nationality: p.nationality ?? null, flag_code: p.flagCode ?? null,
+      birth_date: p.birthDate ?? null, birth_place: p.birthPlace ?? null,
+      nationality: p.nationality ?? null, flag_code: p.flagCode ?? null,
       license_no: p.licenseNo ?? null, club: p.club ?? null, photo_tff: p.photo ?? null,
       active: true, updated_at: new Date().toISOString(),
     }))

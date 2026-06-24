@@ -10,6 +10,7 @@ export interface ProfilePlayer {
   position: string | null
   number: number | null
   birthDate: string | null
+  birthPlace: string | null
   nationality: string | null
   flagCode: string | null
   licenseNo: string | null
@@ -31,6 +32,7 @@ function map(r: any): ProfilePlayer {
   return {
     id: r.id, season: r.season, tffId: r.tff_id ?? null, slug: r.slug, name: r.name,
     position: r.position ?? null, number: r.number ?? null, birthDate: r.birth_date ?? null,
+    birthPlace: r.birth_place ?? null,
     nationality: r.nationality ?? null, flagCode: r.flag_code ?? null, licenseNo: r.license_no ?? null,
     club: r.club ?? null,
     photoUrl: r.photo || r.photo_tff || null,

@@ -168,6 +168,7 @@ export default function AdminKadroPage() {
                         <Field label="Forma No"><input type="number" value={p.number ?? ''} onChange={(e) => update(i, { number: e.target.value ? +e.target.value : null })} className={inp} /></Field>
                         <Field label="Mevki"><input value={p.position ?? ''} onChange={(e) => update(i, { position: e.target.value })} placeholder="Kaleci / Defans..." className={inp} /></Field>
                         <Field label="Doğum Tarihi"><input value={p.birth_date ?? ''} onChange={(e) => update(i, { birth_date: e.target.value })} placeholder="gg.aa.yyyy" className={inp} /></Field>
+                        <Field label="Doğum Yeri"><input value={p.birth_place ?? ''} onChange={(e) => update(i, { birth_place: e.target.value })} className={inp} /></Field>
                         <Field label="Uyruk">
                           <select value={p.flag_code ?? ''} onChange={(e) => { const f = FLAGS.find((x) => x.code === e.target.value); update(i, { flag_code: e.target.value, nationality: f && f.code ? f.label : p.nationality }) }} className={inp}>
                             {FLAGS.map((f) => <option key={f.code} value={f.code}>{f.label}</option>)}
