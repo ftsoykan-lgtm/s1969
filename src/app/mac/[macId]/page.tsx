@@ -3,11 +3,19 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { getLiveTff } from '@/lib/supabase/tff-server'
 import { getTeamLogoMap, applyLogosToMatches } from '@/lib/supabase/logos-server'
+import { getAllProfileSlugs } from '@/lib/supabase/player-profiles-server'
 import { formatDate } from '@/lib/utils'
 import { ArrowLeft, MapPin, Calendar, Clock, Flag, ExternalLink } from 'lucide-react'
 import type { Metadata } from 'next'
 import type { LineupPlayer, MatchEvent } from '@/types'
 import { canonicalCompetition } from '@/lib/tff'
+
+/* İsim → profil slug'ı (oyuncu profilleriyle aynı kural) */
+function slugifyName(s: string): string {
+  return (s || '').toLocaleLowerCase('tr-TR')
+    .replace(/ı/g, 'i').replace(/ş/g, 's').replace(/ğ/g, 'g').replace(/ü/g, 'u').replace(/ö/g, 'o').replace(/ç/g, 'c')
+    .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
+}
 
 export const dynamic = 'force-dynamic'
 
@@ -39,6 +47,8 @@ export default async function MacDetayPage({ params }: Props) {
   if (!match) notFound()
 
   const urfaIsHome = match.homeTeam === 'Şanlıurfaspor'
+  // Kadromuzdaki oyuncuların profil slug'ları (İlk 11'de tıklanabilir link için)
+  const profileSlugs = new Set(await getAllProfileSlugs())
   const referees = (match.referees ?? []).slice().sort(
     (a, b) => ROLE_ORDER.indexOf(a.role) - ROLE_ORDER.indexOf(b.role)
   )
@@ -170,8 +180,8 @@ export default async function MacDetayPage({ params }: Props) {
         {hasLineups ? (
           <Card title="İlk 11">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6">
-              <ElevenList team={match.homeTeam} logo={match.homeTeamLogo} players={lineups!.home.starters} coach={lineups!.home.coach} variant={urfaIsHome ? 'sfk' : 'opp'} />
-              <ElevenList team={match.awayTeam} logo={match.awayTeamLogo} players={lineups!.away.starters} coach={lineups!.away.coach} variant={urfaIsHome ? 'opp' : 'sfk'} />
+              <ElevenList team={match.homeTeam} logo={match.homeTeamLogo} players={lineups!.home.starters} coach={lineups!.home.coach} variant={urfaIsHome ? 'sfk' : 'opp'} profileSlugs={profileSlugs} />
+              <ElevenList team={match.awayTeam} logo={match.awayTeamLogo} players={lineups!.away.starters} coach={lineups!.away.coach} variant={urfaIsHome ? 'opp' : 'sfk'} profileSlugs={profileSlugs} />
             </div>
           </Card>
         ) : (
@@ -187,8 +197,8 @@ export default async function MacDetayPage({ params }: Props) {
         {hasLineups && (lineups!.home.subs.length > 0 || lineups!.away.subs.length > 0) && (
           <Card title="Yedekler">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6">
-              <ElevenList team={match.homeTeam} logo={match.homeTeamLogo} players={lineups!.home.subs} variant={urfaIsHome ? 'sfk' : 'opp'} muted />
-              <ElevenList team={match.awayTeam} logo={match.awayTeamLogo} players={lineups!.away.subs} variant={urfaIsHome ? 'opp' : 'sfk'} muted />
+              <ElevenList team={match.homeTeam} logo={match.homeTeamLogo} players={lineups!.home.subs} variant={urfaIsHome ? 'sfk' : 'opp'} muted profileSlugs={profileSlugs} />
+              <ElevenList team={match.awayTeam} logo={match.awayTeamLogo} players={lineups!.away.subs} variant={urfaIsHome ? 'opp' : 'sfk'} muted profileSlugs={profileSlugs} />
             </div>
           </Card>
         )}
@@ -272,7 +282,7 @@ function Milestone({ emoji, anim, label, score, tone }: { emoji: string; anim?: 
   )
 }
 
-function ElevenList({ team, logo, players, coach, variant = 'opp', muted = false }: { team: string; logo: string; players: LineupPlayer[]; coach?: string | null; variant?: 'sfk' | 'opp'; muted?: boolean }) {
+function ElevenList({ team, logo, players, coach, variant = 'opp', muted = false, profileSlugs }: { team: string; logo: string; players: LineupPlayer[]; coach?: string | null; variant?: 'sfk' | 'opp'; muted?: boolean; profileSlugs?: Set<string> }) {
   const isSfk = variant === 'sfk'
   const badge = muted
     ? (isSfk ? 'bg-[#e3f1e9] text-[#1A6B3C]' : 'bg-[#eef1f4] text-[#475569]')
@@ -287,12 +297,24 @@ function ElevenList({ team, logo, players, coach, variant = 'opp', muted = false
         {isSfk && !muted && <span className="ml-auto text-[9px] font-black tracking-widest uppercase text-[#1A6B3C] bg-[#e3f1e9] rounded-full px-2 py-0.5">Bizim Takım</span>}
       </div>
       <ul className="p-2 space-y-0.5">
-        {players.map((p, i) => (
-          <li key={i} className="flex items-center gap-3 rounded-lg px-2 py-1.5 hover:bg-[#f5f9f6] transition-colors">
-            <span className={`flex h-7 w-7 items-center justify-center rounded-md text-[11px] font-black tabular-nums shrink-0 shadow-sm ${badge}`}>{p.number ?? '-'}</span>
-            <span className="text-sm font-semibold text-[#092d18] truncate">{p.name}</span>
-          </li>
-        ))}
+        {players.map((p, i) => {
+          const slug = slugifyName(p.name)
+          // Sadece bizim takımda ve profili bulunan oyuncular tıklanabilir
+          const linkable = isSfk && profileSlugs?.has(slug)
+          const inner = (
+            <>
+              <span className={`flex h-7 w-7 items-center justify-center rounded-md text-[11px] font-black tabular-nums shrink-0 shadow-sm ${badge}`}>{p.number ?? '-'}</span>
+              <span className={`text-sm font-semibold truncate ${linkable ? 'text-[#0f4a28] group-hover/pl:text-[#1A6B3C] group-hover/pl:underline' : 'text-[#092d18]'}`}>{p.name}</span>
+            </>
+          )
+          return linkable ? (
+            <li key={i}>
+              <Link href={`/oyuncu/${slug}`} className="group/pl flex items-center gap-3 rounded-lg px-2 py-1.5 hover:bg-[#edf7f2] transition-colors">{inner}</Link>
+            </li>
+          ) : (
+            <li key={i} className="flex items-center gap-3 rounded-lg px-2 py-1.5 hover:bg-[#f5f9f6] transition-colors">{inner}</li>
+          )
+        })}
       </ul>
       {coach && <p className="px-4 pb-3 text-xs text-[#7aab8e]">Teknik Direktör: <span className="font-bold text-[#092d18]">{coach}</span></p>}
     </div>
