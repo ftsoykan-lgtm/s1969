@@ -55,7 +55,8 @@ export default function AdminAyarlarPage() {
     address: clubInfo.address, phone: clubInfo.phone, email: clubInfo.email,
     workHours: clubInfo.workHours, mapUrl: clubInfo.mapEmbedUrl,
   })
-  const [seo, setSeo] = useState({ metaTitle: 'Şanlıurfaspor FK — Resmi Web Sitesi', metaDesc: 'Şanlıurfaspor Futbol Kulübü resmi web sitesi. Son haberler, kadro, fikstür ve daha fazlası.', keywords: 'Şanlıurfaspor, futbol, süper lig, urfa' })
+  const [seo, setSeo] = useState({ metaTitle: clubInfo.seoTitle, metaDesc: clubInfo.seoDescription, keywords: clubInfo.seoKeywords })
+  const [footerText, setFooterText] = useState(clubInfo.footerText)
 
   // Supabase'den mevcut ayarları yükle
   useEffect(() => {
@@ -69,6 +70,8 @@ export default function AdminAyarlarPage() {
       setSocial({ ...s.social })
       setHashtag(s.hashtag ?? clubInfo.hashtag)
       setContact({ address: s.address, phone: s.phone, email: s.email, workHours: s.workHours, mapUrl: s.mapEmbedUrl })
+      setSeo({ metaTitle: s.seoTitle ?? clubInfo.seoTitle, metaDesc: s.seoDescription ?? clubInfo.seoDescription, keywords: s.seoKeywords ?? clubInfo.seoKeywords })
+      setFooterText(s.footerText ?? clubInfo.footerText)
       setLoading(false)
     })
   }, [])
@@ -86,6 +89,8 @@ export default function AdminAyarlarPage() {
       workHours: contact.workHours, mapEmbedUrl: contact.mapUrl,
       social: { ...social },
       hashtag,
+      seoTitle: seo.metaTitle, seoDescription: seo.metaDesc, seoKeywords: seo.keywords,
+      footerText,
     }
     const res = await saveSettings(payload)
     setSaving(false)
@@ -217,6 +222,12 @@ export default function AdminAyarlarPage() {
             <Field label="Anahtar Kelimeler" hint="Virgülle ayırın">
               <Input value={seo.keywords} onChange={e => setSeo(p => ({ ...p, keywords: e.target.value }))} />
             </Field>
+            <div className="pt-4 border-t border-[#edf7f2]">
+              <Field label="Footer Tanıtım Metni" hint="Footer'da logonun altında görünen kısa kulüp tanıtımı.">
+                <Textarea rows={3} value={footerText} onChange={e => setFooterText(e.target.value)} maxLength={240} />
+                <p className="text-[11px] text-[#7aab8e] mt-1 text-right">{footerText.length}/240</p>
+              </Field>
+            </div>
           </div>
         )}
       </div>

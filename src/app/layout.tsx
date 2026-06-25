@@ -21,18 +21,24 @@ const sora = Saira({
   display: 'swap',
 })
 
-export const metadata: Metadata = {
-  title: {
-    default: 'Şanlıurfaspor FK — Resmi Web Sitesi',
-    template: '%s | Şanlıurfaspor FK',
-  },
-  description: 'Şanlıurfaspor Futbol Kulübü resmi web sitesi. Son haberler, kadro, fikstür ve daha fazlası.',
-  keywords: ['Şanlıurfaspor', 'futbol', 'süper lig', 'urfa'],
-  openGraph: {
-    siteName: 'Şanlıurfaspor FK',
-    locale: 'tr_TR',
-    type: 'website',
-  },
+export async function generateMetadata(): Promise<Metadata> {
+  const club = await getClubInfo()
+  const title = club.seoTitle || `${club.name} — Resmi Web Sitesi`
+  const description = club.seoDescription || `${club.fullName} resmi web sitesi.`
+  const keywords = (club.seoKeywords || '').split(',').map((k) => k.trim()).filter(Boolean)
+  return {
+    title: { default: title, template: `%s | ${club.name}` },
+    description,
+    keywords,
+    openGraph: {
+      title,
+      description,
+      siteName: club.name,
+      images: club.logoUrl && !club.logoUrl.includes('placehold.co') ? [club.logoUrl] : undefined,
+      locale: 'tr_TR',
+      type: 'website',
+    },
+  }
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

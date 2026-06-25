@@ -103,7 +103,7 @@ export default function Footer({ club = defaultClub }: { club?: ClubInfo }) {
             </div>
           </Link>
           <p className="text-white/40 text-sm leading-relaxed max-w-xs mb-6">
-            Güneydoğu Anadolu&apos;nun köklü ve tutkulu kulübü. Sahada ve tribünde daima bir.
+            {club.footerText || "Güneydoğu Anadolu'nun köklü ve tutkulu kulübü. Sahada ve tribünde daima bir."}
           </p>
           {/* Sosyal — navbar pill diliyle */}
           <div className="flex flex-wrap gap-2.5">

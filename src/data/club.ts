@@ -53,6 +53,14 @@ export interface ClubInfo {
   // Görseller
   logoUrl: string
   heroVideo: string   // header (üst) alanı için arka plan videosu — boşsa haber slider gösterilir
+
+  // SEO (admin'den yönetilir)
+  seoTitle: string
+  seoDescription: string
+  seoKeywords: string
+
+  // Footer
+  footerText: string  // footer'daki tanıtım paragrafı
 }
 
 export const clubInfo: ClubInfo = {
@@ -91,4 +99,10 @@ export const clubInfo: ClubInfo = {
 
   logoUrl: 'https://placehold.co/96x96/1A6B3C/FFD100?text=%C5%9EFK',
   heroVideo: '',   // Admin → Site Ayarları'ndan eklenir (boşsa haber slider gösterilir)
+
+  seoTitle: 'Şanlıurfaspor FK — Resmi Web Sitesi',
+  seoDescription: 'Şanlıurfaspor Futbol Kulübü resmi web sitesi. Son haberler, kadro, fikstür ve daha fazlası.',
+  seoKeywords: 'Şanlıurfaspor, futbol, TFF 2. Lig, Ceylanlar, Urfa',
+
+  footerText: "1969 yılında kurulan Şanlıurfaspor, Güneydoğu Anadolu'nun köklü ve tutkulu futbol kulübüdür. Sahada ve tribünde bir.",
 }
