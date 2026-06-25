@@ -51,11 +51,11 @@ export default function SquadMarquee({ players }: { players: CardPlayer[] }) {
       <div
         ref={ref}
         onScroll={updateArrows}
-        className="flex overflow-x-auto scrollbar-none px-4 sm:px-14 gap-4 sm:gap-5 pb-2 snap-x snap-mandatory"
+        className="flex overflow-x-auto scrollbar-none scroll-smooth px-4 sm:px-14 gap-4 sm:gap-5 pb-2 snap-x snap-mandatory sm:snap-proximity"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}
       >
         {players.map((p, i) => (
-          <div key={i} data-card className="w-[80vw] max-w-[300px] sm:w-80 shrink-0 snap-center">
+          <div key={i} data-card className="w-[80vw] max-w-[300px] sm:w-72 lg:w-80 shrink-0 snap-center sm:snap-start">
             <PlayerCard player={p} />
           </div>
         ))}
