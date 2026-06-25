@@ -107,11 +107,11 @@ export default function SquadMarquee({ players }: { players: CardPlayer[] }) {
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}
         onTouchEnd={() => { drag.current.active = false }}
-        className="flex overflow-x-auto scrollbar-none cursor-grab active:cursor-grabbing select-none px-14 gap-5 pb-2"
+        className="flex overflow-x-auto scrollbar-none cursor-grab active:cursor-grabbing select-none px-4 sm:px-14 gap-4 sm:gap-5 pb-2 snap-x snap-mandatory"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         {players.map((p, i) => (
-          <div key={i} className="w-72 sm:w-80 shrink-0">
+          <div key={i} className="w-[78vw] max-w-[320px] sm:w-80 shrink-0 snap-center">
             <PlayerCard player={p} />
           </div>
         ))}
