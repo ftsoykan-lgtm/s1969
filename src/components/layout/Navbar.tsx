@@ -78,6 +78,12 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
 
   useEffect(() => { setMobileOpen(false); setMegaOpen(false); setMobileSubOpen(false) }, [pathname])
 
+  // Mobil menü açıkken arka plan kaymasını kilitle
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [mobileOpen])
+
   const openMega = () => { if (megaTimer.current) clearTimeout(megaTimer.current); setMegaOpen(true) }
   const closeMega = () => { megaTimer.current = setTimeout(() => setMegaOpen(false), 120) }
   const isActive = (href: string) =>
