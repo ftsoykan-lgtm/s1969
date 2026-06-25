@@ -100,7 +100,6 @@ export interface NewsRow {
   image_url?: string | null
   category: string
   featured?: boolean
-  story?: boolean
   published?: boolean
   published_at?: string | null
 }
@@ -128,7 +127,6 @@ export async function saveNews(n: NewsRow): Promise<{ ok: boolean; error?: strin
       image_url: n.image_url ?? null,
       category: n.category,
       featured: n.featured ?? false,
-      story: n.story ?? false,
       published: n.published ?? true,
       published_at: n.published_at || new Date().toISOString().slice(0, 10),
       updated_at: new Date().toISOString(),

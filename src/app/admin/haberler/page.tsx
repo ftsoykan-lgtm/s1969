@@ -98,8 +98,6 @@ export default function AdminHaberlerPage() {
           <div className="flex flex-wrap gap-3 pt-2">
             <Toggle on={!!editing.featured} onClick={() => setEditing({ ...editing, featured: !editing.featured })}
               label="Hero'da (slider) göster" icon={Star} />
-            <Toggle on={!!editing.story} onClick={() => setEditing({ ...editing, story: !editing.story })}
-              label="Story olarak göster (mobil)" icon={Star} />
             <Toggle on={editing.published ?? true} onClick={() => setEditing({ ...editing, published: !(editing.published ?? true) })}
               label="Yayında" icon={Eye} />
           </div>
