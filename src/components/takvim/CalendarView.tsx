@@ -1,8 +1,8 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import Link from 'next/link'
-import { ChevronLeft, ChevronRight, CalendarPlus, Download, Copy, Check } from 'lucide-react'
+import { ChevronLeft, ChevronRight, CalendarPlus, Download, Copy, Check, MapPin } from 'lucide-react'
 
 export interface CalMatch {
   date: string
@@ -24,46 +24,55 @@ const AYLAR = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz',
 const GUNLER = ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz']
 
 export default function CalendarView({ items, season, league }: { items: CalMatch[]; season?: string; league?: string }) {
-  // Maçları tarihe göre indeksle
-  const byDate = new Map<string, CalMatch[]>()
-  for (const m of items) {
-    const arr = byDate.get(m.date) ?? []
-    arr.push(m); byDate.set(m.date, arr)
-  }
+  const byDate = useMemo(() => {
+    const map = new Map<string, CalMatch[]>()
+    for (const m of items) {
+      const arr = map.get(m.date) ?? []
+      arr.push(m); map.set(m.date, arr)
+    }
+    return map
+  }, [items])
 
-  // Başlangıç ayı: ilk yaklaşan maçın ayı, yoksa bugün
+  // Veri sınırları: ilk ve son maç ayı
+  const { minK, maxK } = useMemo(() => {
+    const keys = items.map((m) => { const [y, mo] = m.date.split('-').map(Number); return y * 12 + (mo - 1) })
+    return keys.length ? { minK: Math.min(...keys), maxK: Math.max(...keys) } : { minK: 0, maxK: 0 }
+  }, [items])
+
   const today = new Date()
   const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`
-  const firstUpcoming = items.find((m) => m.date >= todayStr) ?? items[items.length - 1]
-  const init = firstUpcoming ? new Date(firstUpcoming.date) : today
-  const [cur, setCur] = useState({ y: init.getFullYear(), m: init.getMonth() })
 
-  const [webcal, setWebcal] = useState('')
+  // Başlangıç: yaklaşan ilk maçın ayı, sınırlar içinde
+  const initK = useMemo(() => {
+    const upcoming = items.filter((m) => m.date >= todayStr).sort((a, b) => a.date.localeCompare(b.date))[0]
+    const ref = upcoming ?? items[items.length - 1]
+    if (!ref) return today.getFullYear() * 12 + today.getMonth()
+    const [y, mo] = ref.date.split('-').map(Number)
+    return Math.min(Math.max(y * 12 + (mo - 1), minK), maxK)
+  }, [items, minK, maxK]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  const [curK, setCurK] = useState(initK)
+  useEffect(() => { setCurK(initK) }, [initK])
+  const cur = { y: Math.floor(curK / 12), m: curK % 12 }
+  const canPrev = curK > minK
+  const canNext = curK < maxK
+
   const [ics, setIcs] = useState('/takvim.ics')
+  const [webcal, setWebcal] = useState('')
   const [copied, setCopied] = useState(false)
   useEffect(() => {
-    const host = window.location.host
-    setWebcal(`webcal://${host}/takvim.ics`)
+    setWebcal(`webcal://${window.location.host}/takvim.ics`)
     setIcs(`${window.location.origin}/takvim.ics`)
   }, [])
 
-  // Ay grid (Pazartesi başlangıç)
   const firstDay = new Date(cur.y, cur.m, 1)
-  const startWd = (firstDay.getDay() + 6) % 7 // Pzt=0
+  const startWd = (firstDay.getDay() + 6) % 7
   const daysInMonth = new Date(cur.y, cur.m + 1, 0).getDate()
-  const cells: (number | null)[] = [
-    ...Array(startWd).fill(null),
-    ...Array.from({ length: daysInMonth }, (_, i) => i + 1),
-  ]
+  const cells: (number | null)[] = [...Array(startWd).fill(null), ...Array.from({ length: daysInMonth }, (_, i) => i + 1)]
   while (cells.length % 7 !== 0) cells.push(null)
 
   const dateStr = (d: number) => `${cur.y}-${String(cur.m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`
-  const prev = () => setCur(({ y, m }) => m === 0 ? { y: y - 1, m: 11 } : { y, m: m - 1 })
-  const next = () => setCur(({ y, m }) => m === 11 ? { y: y + 1, m: 0 } : { y, m: m + 1 })
-
-  const copyLink = async () => {
-    try { await navigator.clipboard.writeText(ics); setCopied(true); setTimeout(() => setCopied(false), 2000) } catch {}
-  }
+  const copyLink = async () => { try { await navigator.clipboard.writeText(ics); setCopied(true); setTimeout(() => setCopied(false), 2000) } catch {} }
   const googleUrl = webcal ? `https://calendar.google.com/calendar/r?cid=${encodeURIComponent(webcal)}` : '#'
 
   const result = (m: CalMatch) => {
@@ -73,63 +82,113 @@ export default function CalendarView({ items, season, league }: { items: CalMatc
     return us > them ? 'G' : us < them ? 'M' : 'B'
   }
 
+  // Bu ayın maçları (liste)
+  const monthMatches = items
+    .filter((m) => { const [y, mo] = m.date.split('-').map(Number); return y === cur.y && mo - 1 === cur.m })
+    .sort((a, b) => a.date.localeCompare(b.date))
+
   return (
-    <div className="space-y-8">
-      {/* Takvim kartı */}
-      <div className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm overflow-hidden">
+    <div className="space-y-7">
+      {/* ── Takvim kartı ─────────────────────────────────────────── */}
+      <div className="bg-white rounded-3xl border border-[#e3efe8] shadow-[0_8px_30px_-12px_rgba(15,74,40,0.15)] overflow-hidden">
         {/* Ay başlığı */}
-        <div className="flex items-center justify-between px-4 sm:px-6 py-4 border-b border-[#edf7f2]">
-          <button onClick={prev} aria-label="Önceki ay" className="h-10 w-10 flex items-center justify-center rounded-full text-[#0f4a28] hover:bg-[#f5f9f6] transition-colors"><ChevronLeft size={20} /></button>
-          <h2 className="font-heading text-xl md:text-2xl font-black text-[#092d18]">{AYLAR[cur.m]} {cur.y}</h2>
-          <button onClick={next} aria-label="Sonraki ay" className="h-10 w-10 flex items-center justify-center rounded-full text-[#0f4a28] hover:bg-[#f5f9f6] transition-colors"><ChevronRight size={20} /></button>
+        <div className="flex items-center justify-between px-5 sm:px-7 py-5 bg-gradient-to-r from-[#0f4a28] to-[#0c3f22]">
+          <button onClick={() => canPrev && setCurK((k) => k - 1)} disabled={!canPrev} aria-label="Önceki ay"
+            className="h-10 w-10 flex items-center justify-center rounded-full text-white bg-white/10 hover:bg-[#FFD100] hover:text-[#0f4a28] transition-all disabled:opacity-25 disabled:hover:bg-white/10 disabled:hover:text-white">
+            <ChevronLeft size={20} />
+          </button>
+          <div className="text-center">
+            <h2 className="font-heading text-2xl md:text-3xl font-black text-white leading-none">{AYLAR[cur.m]}</h2>
+            <p className="text-[#FFD100]/70 text-xs font-black tracking-[0.2em] mt-1">{cur.y}</p>
+          </div>
+          <button onClick={() => canNext && setCurK((k) => k + 1)} disabled={!canNext} aria-label="Sonraki ay"
+            className="h-10 w-10 flex items-center justify-center rounded-full text-white bg-white/10 hover:bg-[#FFD100] hover:text-[#0f4a28] transition-all disabled:opacity-25 disabled:hover:bg-white/10 disabled:hover:text-white">
+            <ChevronRight size={20} />
+          </button>
         </div>
 
         {/* Gün başlıkları */}
-        <div className="grid grid-cols-7 border-b border-[#edf7f2]">
-          {GUNLER.map((g) => (
-            <div key={g} className="py-2.5 text-center text-[10px] sm:text-xs font-black tracking-wide uppercase text-[#7aab8e]">{g}</div>
+        <div className="grid grid-cols-7 px-2 sm:px-3 pt-3">
+          {GUNLER.map((g, i) => (
+            <div key={g} className={`py-2 text-center text-[10px] sm:text-[11px] font-black tracking-wide uppercase ${i >= 5 ? 'text-[#FFD100] opacity-80' : 'text-[#7aab8e]'}`}>{g}</div>
           ))}
         </div>
 
         {/* Günler */}
-        <div className="grid grid-cols-7">
+        <div className="grid grid-cols-7 gap-1 sm:gap-1.5 px-2 sm:px-3 pb-3">
           {cells.map((d, i) => {
-            if (d === null) return <div key={i} className="aspect-square sm:aspect-[1.1] border-b border-r border-[#f1f7f3] bg-[#fafdfb]" />
+            if (d === null) return <div key={i} className="aspect-square sm:aspect-[1.05]" />
             const ds = dateStr(d)
             const dayMatches = byDate.get(ds) ?? []
             const isToday = ds === todayStr
             const m = dayMatches[0]
             const r = m ? result(m) : null
 
-            const inner = (
-              <div className={`relative h-full p-1.5 sm:p-2 flex flex-col ${m ? 'bg-[#f5fbf7] hover:bg-[#edf7f2] cursor-pointer' : ''} transition-colors`}>
-                <span className={`text-[11px] sm:text-xs font-bold ${isToday ? 'flex h-5 w-5 items-center justify-center rounded-full bg-[#FFD100] text-[#0f4a28]' : 'text-[#3d6b52]'}`}>{d}</span>
+            const cell = (
+              <div className={`relative h-full rounded-xl sm:rounded-2xl p-1.5 sm:p-2 flex flex-col transition-all ${
+                m
+                  ? 'bg-gradient-to-b from-[#f3fbf6] to-[#eaf6ef] ring-1 ring-[#1A6B3C]/15 hover:ring-[#1A6B3C]/40 hover:shadow-md hover:-translate-y-0.5 cursor-pointer'
+                  : 'hover:bg-[#f8faf9]'
+              }`}>
+                <span className={`text-[11px] sm:text-xs font-black self-start ${
+                  isToday ? 'flex h-5 w-5 items-center justify-center rounded-full bg-[#FFD100] text-[#0f4a28]' : m ? 'text-[#0f4a28]' : 'text-[#a9c4b5]'
+                }`}>{d}</span>
                 {m && (
                   <div className="flex-1 flex flex-col items-center justify-center gap-0.5 min-h-0">
-                    <div className="relative h-7 w-7 sm:h-9 sm:w-9">
+                    <div className="relative h-7 w-7 sm:h-9 sm:w-9 bg-white rounded-lg p-0.5 shadow-sm ring-1 ring-black/5">
                       <img src={m.opponentLogo} alt={m.opponent} className="w-full h-full object-contain" />
                     </div>
                     {m.isCompleted && m.homeScore != null ? (
-                      <span className={`text-[9px] sm:text-[10px] font-black tabular-nums ${r === 'G' ? 'text-[#1A6B3C]' : r === 'M' ? 'text-[#d01b2a]' : 'text-[#7aab8e]'}`}>{m.homeScore}-{m.awayScore}</span>
+                      <span className={`text-[9px] sm:text-[11px] font-black tabular-nums px-1 rounded ${r === 'G' ? 'text-[#1A6B3C]' : r === 'M' ? 'text-[#d01b2a]' : 'text-[#7aab8e]'}`}>{m.homeScore}-{m.awayScore}</span>
                     ) : (
-                      <span className="text-[8px] sm:text-[9px] font-black text-[#7aab8e] tabular-nums">{m.time || (m.isHome ? 'EV' : 'DEP')}</span>
+                      <span className="text-[8px] sm:text-[10px] font-black text-[#1A6B3C] tabular-nums">{m.time || (m.isHome ? 'EV' : 'DEP')}</span>
                     )}
-                    {dayMatches.length > 1 && <span className="text-[7px] text-[#7aab8e]">+{dayMatches.length - 1}</span>}
                   </div>
                 )}
+                {dayMatches.length > 1 && <span className="absolute top-1 right-1.5 text-[8px] font-black text-[#7aab8e]">+{dayMatches.length - 1}</span>}
               </div>
             )
             return (
-              <div key={i} className="aspect-square sm:aspect-[1.1] border-b border-r border-[#f1f7f3] overflow-hidden">
-                {m && m.macId ? <Link href={`/mac/${m.macId}`} className="block h-full">{inner}</Link> : inner}
+              <div key={i} className="aspect-square sm:aspect-[1.05]">
+                {m && m.macId ? <Link href={`/mac/${m.macId}`} className="block h-full">{cell}</Link> : cell}
               </div>
             )
           })}
         </div>
+
+        {/* Bu ayın maç listesi */}
+        {monthMatches.length > 0 && (
+          <div className="border-t border-[#edf7f2] px-3 sm:px-5 py-4 space-y-1.5">
+            <p className="text-[10px] font-black tracking-widest uppercase text-[#7aab8e] mb-2 px-1">Bu Ay {monthMatches.length} Maç</p>
+            {monthMatches.map((m, idx) => {
+              const r = result(m)
+              const [, , dd] = m.date.split('-')
+              const inner = (
+                <div className="flex items-center gap-3 px-2.5 py-2 rounded-xl hover:bg-[#f5f9f6] transition-colors">
+                  <div className="flex flex-col items-center w-9 shrink-0">
+                    <span className="text-base font-black text-[#0f4a28] tabular-nums leading-none">{Number(dd)}</span>
+                    <span className="text-[9px] font-bold text-[#7aab8e]">{m.time || '—'}</span>
+                  </div>
+                  <div className="relative h-7 w-7 shrink-0"><img src={m.opponentLogo} alt="" className="w-full h-full object-contain" /></div>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm font-black text-[#092d18] truncate">{m.isHome ? '🏠 ' : '✈️ '}{m.opponent}</p>
+                    <p className="text-[11px] text-[#7aab8e] truncate">{m.roundLabel ?? ''}{m.venue ? ` · ${m.venue}` : ''}</p>
+                  </div>
+                  {m.isCompleted && m.homeScore != null ? (
+                    <span className={`shrink-0 text-sm font-black tabular-nums px-2 py-0.5 rounded-lg ${r === 'G' ? 'bg-[#1A6B3C] text-white' : r === 'M' ? 'bg-[#d01b2a] text-white' : 'bg-[#FFD100] text-[#0f4a28]'}`}>{m.homeScore}-{m.awayScore}</span>
+                  ) : (
+                    <span className="shrink-0 text-[10px] font-black text-[#7aab8e] uppercase">{m.isHome ? 'Ev' : 'Dep'}</span>
+                  )}
+                </div>
+              )
+              return m.macId ? <Link key={idx} href={`/mac/${m.macId}`} className="block">{inner}</Link> : <div key={idx}>{inner}</div>
+            })}
+          </div>
+        )}
       </div>
 
-      {/* Senkronizasyon kartı */}
-      <div className="bg-gradient-to-br from-[#0f4a28] to-[#092d18] rounded-2xl p-6 md:p-8 text-white relative overflow-hidden">
+      {/* ── Senkronizasyon kartı ─────────────────────────────────── */}
+      <div className="bg-gradient-to-br from-[#0f4a28] to-[#092d18] rounded-3xl p-6 md:p-8 text-white relative overflow-hidden">
         <div className="pointer-events-none absolute -top-16 -right-16 w-64 h-64 rounded-full bg-[#FFD100]/10 blur-3xl" />
         <div className="relative">
           <div className="flex items-center gap-2 mb-2">
@@ -140,26 +199,20 @@ export default function CalendarView({ items, season, league }: { items: CalMatc
             Tüm maçları telefonunun takvimine ekle. TFF fikstürü değiştiğinde (saat/tarih/erteleme) telefonundaki takvim de <span className="text-[#FFD100]/80">otomatik güncellenir</span>.
           </p>
           <div className="flex flex-wrap gap-2.5">
-            <a href={webcal || '/takvim.ics'}
-              className="inline-flex items-center gap-2 bg-[#FFD100] text-[#0f4a28] font-black text-[13px] px-5 py-3 rounded-full hover:brightness-105 transition-all">
+            <a href={webcal || '/takvim.ics'} className="inline-flex items-center gap-2 bg-[#FFD100] text-[#0f4a28] font-black text-[13px] px-5 py-3 rounded-full hover:brightness-105 transition-all">
               <CalendarPlus size={16} /> iPhone / Apple Takvim
             </a>
-            <a href={googleUrl} target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-white/10 border border-white/15 text-white font-black text-[13px] px-5 py-3 rounded-full hover:bg-white/15 transition-all">
+            <a href={googleUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-white/10 border border-white/15 text-white font-black text-[13px] px-5 py-3 rounded-full hover:bg-white/15 transition-all">
               <CalendarPlus size={16} /> Google Takvim
             </a>
-            <a href="/takvim.ics" download
-              className="inline-flex items-center gap-2 bg-white/10 border border-white/15 text-white font-black text-[13px] px-5 py-3 rounded-full hover:bg-white/15 transition-all">
+            <a href="/takvim.ics" download className="inline-flex items-center gap-2 bg-white/10 border border-white/15 text-white font-black text-[13px] px-5 py-3 rounded-full hover:bg-white/15 transition-all">
               <Download size={16} /> .ics İndir
             </a>
-            <button onClick={copyLink}
-              className="inline-flex items-center gap-2 bg-white/10 border border-white/15 text-white font-black text-[13px] px-5 py-3 rounded-full hover:bg-white/15 transition-all">
+            <button onClick={copyLink} className="inline-flex items-center gap-2 bg-white/10 border border-white/15 text-white font-black text-[13px] px-5 py-3 rounded-full hover:bg-white/15 transition-all">
               {copied ? <Check size={16} className="text-[#FFD100]" /> : <Copy size={16} />} {copied ? 'Kopyalandı' : 'Linki Kopyala'}
             </button>
           </div>
-          <p className="text-white/35 text-[11px] mt-4">
-            {league}{season ? ` · ${season}` : ''} · Abonelik linki: <span className="text-white/50">{ics}</span>
-          </p>
+          <p className="text-white/35 text-[11px] mt-4 flex items-center gap-1.5"><MapPin size={11} /> {league}{season ? ` · ${season}` : ''}</p>
         </div>
       </div>
     </div>
