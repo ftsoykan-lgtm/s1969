@@ -86,11 +86,11 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
     <header className="sticky top-0 z-50 w-full">
 
       {/* ── İnce üst kimlik bandı ──────────────────────────────────────── */}
-      <div className="hidden lg:block bg-[#092d18]">
+      <div className="hidden lg:block bg-[#061d10] border-b border-white/[0.04]">
         <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 flex items-center justify-between h-9">
-          <div className="flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] uppercase">
+          <div className="flex items-center gap-2 text-[10px] font-bold tracking-[0.22em] uppercase">
             <span className="w-1.5 h-1.5 rounded-full bg-[#FFD100] animate-pulse" />
-            <span className="text-white/45">{club.nickname} · Est. {club.founded} · {club.league}</span>
+            <span className="text-white/40">{club.nickname} · Est. {club.founded} · {club.league}</span>
           </div>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-3.5">
@@ -108,7 +108,9 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
       </div>
 
       {/* ── Ana bar ────────────────────────────────────────────────────── */}
-      <div className="relative bg-[#0f4a28] shadow-lg shadow-black/10">
+      <div className="relative bg-gradient-to-b from-[#0f4a28] to-[#0c3f22] shadow-[0_10px_30px_-12px_rgba(0,0,0,0.5)]">
+        {/* alt altın saç çizgisi */}
+        <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#FFD100]/40 to-transparent" />
         <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
 
           {/* ── MOBİL BAR (menü · logo · dil) ───────────────────────── */}
@@ -137,67 +139,66 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
           {/* ── MASAÜSTÜ BAR ────────────────────────────────────────── */}
           <div className="hidden lg:flex items-center h-[70px]">
 
-            {/* ── SARI FLAMA: logo + wordmark ─────────────────────────── */}
-            <Link href="/" className="relative group flex items-center h-full shrink-0 pr-9" aria-label={club.name}>
-              {/* eğik sarı zemin */}
-              <span className="absolute inset-y-0 -left-4 sm:-left-6 lg:-left-8 right-0 bg-gradient-to-r from-[#FFD100] to-[#FFC400]"
-                style={{ clipPath: 'polygon(0 0, 100% 0, calc(100% - 22px) 100%, 0 100%)' }} />
-
-              <div className="relative flex items-center gap-3 pl-1">
+            {/* ── Logo + wordmark (rafine) ────────────────────────────── */}
+            <Link href="/" className="relative group flex items-center gap-3.5 h-full shrink-0" aria-label={club.name}>
+              <div className="relative shrink-0">
+                <div className="absolute -inset-1.5 rounded-full bg-[#FFD100]/0 group-hover:bg-[#FFD100]/25 blur-md transition-all duration-300" />
                 {hasLogo ? (
                   <img src={club.logoUrl} alt={club.name}
-                    className="h-12 w-12 rounded-full object-contain bg-white ring-2 ring-[#0f4a28]/10 shadow-md transition-transform duration-200 group-hover:scale-105" />
+                    className="relative h-12 w-12 rounded-full object-contain bg-white ring-1 ring-[#FFD100]/40 group-hover:ring-[#FFD100] shadow-md transition-all duration-200" />
                 ) : (
-                  <div className="h-12 w-12 rounded-full bg-[#0f4a28] flex items-center justify-center shadow-md ring-2 ring-white/40 transition-transform duration-200 group-hover:scale-105">
-                    <span className="font-heading font-black text-sm text-[#FFD100]">{club.shortCode}</span>
+                  <div className="relative h-12 w-12 rounded-full bg-gradient-to-br from-[#FFD100] to-[#e8b800] flex items-center justify-center shadow-md ring-1 ring-[#FFD100]/40 transition-all duration-200">
+                    <span className="font-heading font-black text-sm text-[#0f4a28]">{club.shortCode}</span>
                   </div>
                 )}
-                <div className="leading-none">
-                  <p className="font-heading font-black text-[19px] tracking-tight uppercase text-[#0f4a28]">{club.name}</p>
-                </div>
+              </div>
+              <div className="leading-none">
+                <p className="font-heading font-black text-[18px] tracking-tight uppercase text-white">{club.name}</p>
+                <p className="text-[8.5px] font-black tracking-[0.34em] uppercase text-[#FFD100]/70 mt-1">Est. {club.founded}</p>
               </div>
             </Link>
 
-            {/* ── Nav linkleri ────────────────────────────────────────── */}
-            <nav className="hidden lg:flex items-stretch h-full ml-2 flex-1">
+            {/* ── Nav linkleri (ortalı, zarif gösterge) ───────────────── */}
+            <nav className="hidden lg:flex items-stretch h-full flex-1 justify-center">
               {navLinks.map((link) =>
                 link.hasMega ? (
                   <div key={link.label} className="relative flex items-stretch"
                     onMouseEnter={openMega} onMouseLeave={closeMega}>
                     <button className={cn(
-                      'group relative flex items-center gap-1 h-full px-4 text-[12.5px] font-extrabold tracking-wide transition-colors',
-                      megaOpen ? 'text-[#FFD100]' : 'text-white/85 hover:text-white'
+                      'group relative flex items-center gap-1 h-full px-4 text-[12px] font-bold tracking-[0.06em] transition-colors',
+                      megaOpen ? 'text-[#FFD100]' : 'text-white/80 hover:text-white'
                     )}>
                       {link.label}
                       <ChevronDown size={11} className={cn('transition-transform duration-200', megaOpen && 'rotate-180')} />
-                      <span className={cn('absolute left-4 right-4 bottom-[15px] h-[2px] bg-[#FFD100] rounded-full transition-all duration-300 origin-left', megaOpen ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100')} />
+                      <span className={cn('absolute left-1/2 -translate-x-1/2 bottom-[16px] h-[2px] bg-[#FFD100] rounded-full shadow-[0_0_8px_rgba(255,209,0,0.6)] transition-all duration-300', megaOpen ? 'w-5' : 'w-0 group-hover:w-5')} />
                     </button>
                   </div>
                 ) : (
                   <Link key={link.href} href={link.href}
                     className={cn(
-                      'group relative flex items-center h-full px-4 text-[12.5px] font-extrabold tracking-wide transition-colors',
-                      isActive(link.href) ? 'text-[#FFD100]' : 'text-white/85 hover:text-white'
+                      'group relative flex items-center h-full px-4 text-[12px] font-bold tracking-[0.06em] transition-colors',
+                      isActive(link.href) ? 'text-[#FFD100]' : 'text-white/80 hover:text-white'
                     )}>
                     {link.label}
-                    <span className={cn('absolute left-4 right-4 bottom-[15px] h-[2px] bg-[#FFD100] rounded-full transition-all duration-300 origin-left', isActive(link.href) ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100')} />
+                    <span className={cn('absolute left-1/2 -translate-x-1/2 bottom-[16px] h-[2px] bg-[#FFD100] rounded-full shadow-[0_0_8px_rgba(255,209,0,0.6)] transition-all duration-300', isActive(link.href) ? 'w-5' : 'w-0 group-hover:w-5')} />
                   </Link>
                 )
               )}
             </nav>
 
             {/* ── Sağ aksiyonlar ──────────────────────────────────────── */}
-            <div className="flex items-center gap-2 ml-auto shrink-0">
+            <div className="flex items-center gap-2.5 ml-auto shrink-0">
               <button onClick={() => setSearchOpen(!searchOpen)} aria-label="Ara"
-                className="hidden lg:flex h-10 w-10 items-center justify-center text-white/70 hover:text-[#FFD100] transition-colors">
+                className="h-10 w-10 flex items-center justify-center rounded-full text-white/70 hover:text-[#FFD100] hover:bg-white/[0.06] transition-all">
                 <Search size={18} />
               </button>
               <Link href="/bilet"
-                className="group relative inline-flex items-center gap-2 text-[#0f4a28] font-black text-[12px] tracking-wide uppercase pl-4 pr-5 py-2.5 overflow-hidden
-                           bg-gradient-to-b from-[#FFE04D] to-[#FFD100] shadow-[0_3px_12px_rgba(255,209,0,0.3)] transition-all hover:brightness-105"
-                style={{ clipPath: 'polygon(10px 0, 100% 0, 100% 100%, 0 100%)' }}>
-                <Ticket size={15} />
-                Bilet Al
+                className="group relative inline-flex items-center gap-2 text-[#0f4a28] font-black text-[12px] tracking-wide uppercase pl-4 pr-5 py-2.5 rounded-full overflow-hidden
+                           bg-gradient-to-b from-[#FFE04D] to-[#FFD100] shadow-[0_4px_16px_-2px_rgba(255,209,0,0.45)] transition-all hover:scale-[1.03]">
+                {/* üst cila */}
+                <span className="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-white/30" />
+                <Ticket size={15} className="relative" />
+                <span className="relative">Bilet Al</span>
               </Link>
             </div>
           </div>
