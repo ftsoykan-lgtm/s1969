@@ -78,10 +78,26 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
 
   useEffect(() => { setMobileOpen(false); setMegaOpen(false); setMobileSubOpen(false) }, [pathname])
 
-  // Mobil menü açıkken arka plan kaymasını kilitle
+  // Mobil menü açıkken arka plan kaymasını tamamen kilitle (iOS dahil)
   useEffect(() => {
-    document.body.style.overflow = mobileOpen ? 'hidden' : ''
-    return () => { document.body.style.overflow = '' }
+    const body = document.body
+    if (mobileOpen) {
+      const scrollY = window.scrollY
+      body.dataset.scrollY = String(scrollY)
+      body.style.position = 'fixed'
+      body.style.top = `-${scrollY}px`
+      body.style.left = '0'
+      body.style.right = '0'
+      body.style.width = '100%'
+    } else {
+      const scrollY = body.dataset.scrollY
+      body.style.position = ''
+      body.style.top = ''
+      body.style.left = ''
+      body.style.right = ''
+      body.style.width = ''
+      if (scrollY) { window.scrollTo(0, parseInt(scrollY, 10)); delete body.dataset.scrollY }
+    }
   }, [mobileOpen])
 
   const openMega = () => { if (megaTimer.current) clearTimeout(megaTimer.current); setMegaOpen(true) }
@@ -267,7 +283,7 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
           </div>
 
           {/* İçerik (kaydırılabilir) */}
-          <div className="flex-1 overflow-y-auto px-4 py-5">
+          <div className="flex-1 overflow-y-auto overscroll-contain px-4 py-5">
             {navLinks.map((link) =>
               link.hasMega ? (
                 <div key={link.label} className="border-b border-white/[0.06]">
