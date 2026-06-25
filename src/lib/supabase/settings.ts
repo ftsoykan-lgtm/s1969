@@ -336,7 +336,11 @@ export async function uploadImage(
   try {
     const resized = await resizeImage(file, w, h, fit)
     console.log('🟡 [uploadImage] Boyutlandırıldı →', size + 'px,', Math.round(resized.size / 1024), 'KB')
-    const path = `${folder}/${Date.now()}-${slugify(file.name)}.png`
+    // Tahmin edilemez rastgele dosya adı (orijinal isim/zaman damgası sızmaz)
+    const rid = (typeof crypto !== 'undefined' && crypto.randomUUID)
+      ? crypto.randomUUID()
+      : `${Date.now()}-${Math.random().toString(36).slice(2)}`
+    const path = `${folder}/${rid}.png`
     console.log('🟡 [uploadImage] Storage\'a yükleniyor → media/' + path)
     const { error } = await client().storage.from('media').upload(path, resized, {
       contentType: 'image/png',
