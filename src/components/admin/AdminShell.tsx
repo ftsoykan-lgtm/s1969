@@ -3,7 +3,7 @@
 import { usePathname } from 'next/navigation'
 import AdminSidebar from './AdminSidebar'
 
-export default function AdminShell({ children }: { children: React.ReactNode }) {
+export default function AdminShell({ children, logoUrl }: { children: React.ReactNode; logoUrl?: string | null }) {
   const pathname = usePathname()
   const isLogin = pathname === '/admin/login'
 
@@ -17,7 +17,7 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
 
   return (
     <div className="min-h-screen bg-[#f5f9f6] flex">
-      <AdminSidebar />
+      <AdminSidebar logoUrl={logoUrl} />
       <div className="flex-1 min-w-0 flex flex-col">
         {/* Admin topbar */}
         <div className="h-14 bg-white border-b border-[#ddeae2] flex items-center px-6 shrink-0">

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import AdminShell from '@/components/admin/AdminShell'
+import { getClubInfo } from '@/lib/supabase/club-server'
 
 export const metadata: Metadata = {
   title: {
@@ -15,6 +16,8 @@ export const metadata: Metadata = {
   },
 }
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
-  return <AdminShell>{children}</AdminShell>
+export default async function AdminLayout({ children }: { children: React.ReactNode }) {
+  const club = await getClubInfo()
+  const logoUrl = club.logoUrl && !club.logoUrl.includes('placehold.co') ? club.logoUrl : null
+  return <AdminShell logoUrl={logoUrl}>{children}</AdminShell>
 }

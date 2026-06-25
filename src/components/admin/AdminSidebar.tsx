@@ -42,7 +42,7 @@ const navGroups = [
   },
 ]
 
-export default function AdminSidebar() {
+export default function AdminSidebar({ logoUrl }: { logoUrl?: string | null }) {
   const pathname = usePathname()
   const router = useRouter()
   const [loggingOut, setLoggingOut] = useState(false)
@@ -67,7 +67,11 @@ export default function AdminSidebar() {
       {/* Logo */}
       <div className="px-4 py-5 border-b border-white/8">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#FFD100] text-[#0f4a28] font-black text-base shadow-md shrink-0">Ş</div>
+          {logoUrl ? (
+            <img src={logoUrl} alt="" className="h-9 w-9 rounded-full object-contain bg-white ring-1 ring-[#FFD100]/30 shadow-md shrink-0" />
+          ) : (
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#FFD100] text-[#0f4a28] font-black text-base shadow-md shrink-0">Ş</div>
+          )}
           <div className="min-w-0">
             <p className="text-white font-black text-[13px] leading-tight truncate uppercase">Şanlıurfaspor</p>
             <p className="text-[#FFD100]/40 text-[9px] font-bold tracking-[0.15em] uppercase">Admin Panel</p>
