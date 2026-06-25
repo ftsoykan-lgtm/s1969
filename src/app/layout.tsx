@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
-import { Plus_Jakarta_Sans, Sora } from 'next/font/google'
+import { Plus_Jakarta_Sans, Saira } from 'next/font/google'
 import './globals.css'
 import SiteShell from '@/components/layout/SiteShell'
 import { getClubInfo } from '@/lib/supabase/club-server'
 import { getSponsors } from '@/lib/supabase/sponsors-server'
 
-// Gövde fontu — Plus Jakarta Sans (modern, premium)
+// Gövde fontu — Plus Jakarta Sans (modern, okunaklı)
 const inter = Plus_Jakarta_Sans({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700', '800'],
@@ -13,10 +13,10 @@ const inter = Plus_Jakarta_Sans({
   display: 'swap',
 })
 
-// Başlıklar için karakterli display fontu — Sora
-const sora = Sora({
+// Başlıklar için endüstriyel/DIN tarzı display fontu — Saira (URW DIN Black benzeri)
+const sora = Saira({
   subsets: ['latin'],
-  weight: ['600', '700', '800'],
+  weight: ['600', '700', '800', '900'],
   variable: '--font-display',
   display: 'swap',
 })
