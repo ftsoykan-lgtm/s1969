@@ -90,7 +90,7 @@ export default function CalendarView({ items, season, league }: { items: CalMatc
   return (
     <div className="space-y-7">
       {/* ── Takvim kartı ─────────────────────────────────────────── */}
-      <div className="bg-white rounded-3xl border border-[#e3efe8] shadow-[0_8px_30px_-12px_rgba(15,74,40,0.15)] overflow-hidden">
+      <div className="bg-white rounded-3xl border border-[#cbe0d4] shadow-[0_12px_45px_-15px_rgba(15,74,40,0.3)] overflow-hidden">
         {/* Ay başlığı */}
         <div className="flex items-center justify-between px-5 sm:px-7 py-5 bg-gradient-to-r from-[#0f4a28] to-[#0c3f22]">
           <button onClick={() => canPrev && setCurK((k) => k - 1)} disabled={!canPrev} aria-label="Önceki ay"
@@ -117,7 +117,7 @@ export default function CalendarView({ items, season, league }: { items: CalMatc
         {/* Günler */}
         <div className="grid grid-cols-7 gap-1 sm:gap-1.5 px-2 sm:px-3 pb-3">
           {cells.map((d, i) => {
-            if (d === null) return <div key={i} className="aspect-square sm:aspect-[1.05]" />
+            if (d === null) return <div key={i} className="aspect-square sm:aspect-[1.05] rounded-xl sm:rounded-2xl bg-[#f6faf8] border border-[#eef5f0]" />
             const ds = dateStr(d)
             const dayMatches = byDate.get(ds) ?? []
             const isToday = ds === todayStr
@@ -125,10 +125,10 @@ export default function CalendarView({ items, season, league }: { items: CalMatc
             const r = m ? result(m) : null
 
             const cell = (
-              <div className={`relative h-full rounded-xl sm:rounded-2xl p-1.5 sm:p-2 flex flex-col transition-all ${
+              <div className={`relative h-full rounded-xl sm:rounded-2xl p-1.5 sm:p-2 flex flex-col transition-all border ${
                 m
-                  ? 'bg-gradient-to-b from-[#f3fbf6] to-[#eaf6ef] ring-1 ring-[#1A6B3C]/15 hover:ring-[#1A6B3C]/40 hover:shadow-md hover:-translate-y-0.5 cursor-pointer'
-                  : 'hover:bg-[#f8faf9]'
+                  ? 'bg-gradient-to-b from-[#eef9f1] to-[#e2f3e8] border-[#1A6B3C]/25 hover:border-[#1A6B3C]/50 hover:shadow-md hover:-translate-y-0.5 cursor-pointer'
+                  : 'bg-[#fbfdfc] border-[#eef5f0] hover:bg-[#f5f9f6]'
               }`}>
                 <span className={`text-[11px] sm:text-xs font-black self-start ${
                   isToday ? 'flex h-5 w-5 items-center justify-center rounded-full bg-[#FFD100] text-[#0f4a28]' : m ? 'text-[#0f4a28]' : 'text-[#a9c4b5]'
