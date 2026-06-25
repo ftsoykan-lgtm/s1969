@@ -55,8 +55,8 @@ export default function AdminLoginPage() {
     <div className="min-h-screen bg-[#0f4a28] flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-[#FFD100] text-[#0f4a28] font-black text-lg shadow-xl mb-4">
-            ŞFK
+          <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-[#FFD100] text-[#0f4a28] font-black text-2xl shadow-xl mb-4">
+            Ş
           </div>
           <h1 className="text-2xl font-black text-white">Admin Panel</h1>
           <p className="text-white/50 text-sm mt-1">Şanlıurfaspor Yönetim Sistemi</p>
@@ -130,7 +130,7 @@ export default function AdminLoginPage() {
           <p>4. <span className="text-white/60">Settings → API → anon public</span> key'i kopyalayıp <span className="text-white/60">.env.local</span>'a yapıştırın</p>
         </div>
 
-        <p className="text-center text-white/20 text-xs mt-4">Şanlıurfaspor FK © 2026</p>
+        <p className="text-center text-white/20 text-xs mt-4">Şanlıurfaspor © 2026</p>
       </div>
     </div>
   )

@@ -20,15 +20,11 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
       <AdminSidebar />
       <div className="flex-1 min-w-0 flex flex-col">
         {/* Admin topbar */}
-        <div className="h-14 bg-white border-b border-[#ddeae2] flex items-center justify-between px-6 shrink-0">
+        <div className="h-14 bg-white border-b border-[#ddeae2] flex items-center px-6 shrink-0">
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-[#1A6B3C]" />
-            <span className="text-xs font-bold text-[#3d6b52]">Şanlıurfaspor FK — Yönetim Paneli</span>
+            <span className="text-xs font-bold text-[#3d6b52]">Şanlıurfaspor — Yönetim Paneli</span>
           </div>
-          <a href="/" target="_blank"
-            className="text-xs font-bold text-[#7aab8e] hover:text-[#1A6B3C] transition-colors">
-            Siteyi Görüntüle →
-          </a>
         </div>
         <main className="flex-1 p-6 lg:p-8 overflow-y-auto">
           {children}

@@ -5,7 +5,7 @@ export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'Tarihçe',
-  description: 'Şanlıurfaspor FK\'nın kuruluşundan günümüze uzanan köklü tarihi.',
+  description: 'Şanlıurfaspor\'un kuruluşundan günümüze uzanan köklü tarihi.',
 }
 
 export default async function TarihcePage() {

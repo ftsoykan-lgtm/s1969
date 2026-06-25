@@ -6,7 +6,7 @@ import MatchTabs from '@/components/macmerkezi/MatchTabs'
 
 export const metadata: Metadata = {
   title: 'Maç Merkezi',
-  description: 'Şanlıurfaspor FK son maçlar, yaklaşan maçlar ve puan durumu — TFF 2. Lig Beyaz Grup.',
+  description: 'Şanlıurfaspor son maçlar, yaklaşan maçlar ve puan durumu — TFF 2. Lig Beyaz Grup.',
 }
 
 export const dynamic = 'force-dynamic'

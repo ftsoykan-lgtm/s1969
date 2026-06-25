@@ -4,7 +4,7 @@ import NewsList from '@/components/news/NewsList'
 
 export const metadata: Metadata = {
   title: 'Haberler',
-  description: 'Şanlıurfaspor FK güncel haberleri, transferler, maç raporları.',
+  description: 'Şanlıurfaspor güncel haberleri, transferler, maç raporları.',
 }
 
 export const dynamic = 'force-dynamic'

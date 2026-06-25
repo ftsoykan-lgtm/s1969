@@ -7,7 +7,7 @@ import MatchTabs from '@/components/macmerkezi/MatchTabs'
 
 export const metadata: Metadata = {
   title: 'Tüm Maçlar — Maç Merkezi',
-  description: 'Şanlıurfaspor FK tüm maçlar, fikstür ve sonuçlar — sezon arşivi dahil.',
+  description: 'Şanlıurfaspor tüm maçlar, fikstür ve sonuçlar — sezon arşivi dahil.',
 }
 
 export const dynamic = 'force-dynamic'

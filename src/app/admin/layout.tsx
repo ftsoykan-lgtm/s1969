@@ -3,7 +3,7 @@ import AdminShell from '@/components/admin/AdminShell'
 
 export const metadata: Metadata = {
   title: {
-    default: 'Admin Panel — Şanlıurfaspor FK',
+    default: 'Admin Panel — Şanlıurfaspor',
     template: '%s | Admin',
   },
   // Arama motorları admin panelini indexlemesin

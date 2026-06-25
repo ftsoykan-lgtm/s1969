@@ -7,7 +7,7 @@ import { Loader2 } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Takım Kadrosu',
-  description: 'Şanlıurfaspor FK profesyonel takım kadrosu — sezonluk.',
+  description: 'Şanlıurfaspor profesyonel takım kadrosu — sezonluk.',
 }
 
 export const dynamic = 'force-dynamic'

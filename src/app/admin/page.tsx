@@ -59,7 +59,7 @@ export default async function AdminDashboard() {
 
       {/* Hızlı işlemler */}
       <div className="flex flex-wrap gap-3">
-        <Link href="/admin/haberler/yeni" className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-black bg-[#1A6B3C] text-white hover:bg-[#0f4a28] transition-colors">Yeni Haber Ekle <ArrowUpRight size={13} /></Link>
+        <Link href="/admin/haberler" className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-black bg-[#1A6B3C] text-white hover:bg-[#0f4a28] transition-colors">Yeni Haber Ekle <ArrowUpRight size={13} /></Link>
         <Link href="/admin/kadro" className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-black bg-[#FFD100] text-[#092d18] hover:brightness-105 transition-all">Kadroyu Güncelle <ArrowUpRight size={13} /></Link>
         <Link href="/admin/sayfalar" className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-black border border-[#ddeae2] text-[#092d18] hover:bg-[#f5f9f6] transition-colors">Sayfa Düzenle <ArrowUpRight size={13} /></Link>
       </div>
