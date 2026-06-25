@@ -71,11 +71,12 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
   ]
   const hasLogo = club.logoUrl && !club.logoUrl.includes('placehold.co')
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [mobileSubOpen, setMobileSubOpen] = useState(false)
   const [megaOpen, setMegaOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
   const megaTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  useEffect(() => { setMobileOpen(false); setMegaOpen(false) }, [pathname])
+  useEffect(() => { setMobileOpen(false); setMegaOpen(false); setMobileSubOpen(false) }, [pathname])
 
   const openMega = () => { if (megaTimer.current) clearTimeout(megaTimer.current); setMegaOpen(true) }
   const closeMega = () => { megaTimer.current = setTimeout(() => setMegaOpen(false), 120) }
@@ -238,36 +239,52 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
           </div>
         </div>
 
-        {/* ── Mobil menü ─────────────────────────────────────────────── */}
+        {/* ── Mobil menü (sade + akordeon) ───────────────────────────── */}
         <div className={cn('lg:hidden overflow-hidden transition-all duration-300 bg-[#092d18]',
-          mobileOpen ? 'max-h-[700px] opacity-100' : 'max-h-0 opacity-0')}>
-          <div className="px-4 py-4 space-y-1">
-            {navLinks.map((link) => (
-              <div key={link.label}>
-                <Link href={link.href === '#' ? '#' : link.href}
-                  className={cn('block px-4 py-3 text-sm font-extrabold tracking-wide rounded-xl transition-all',
-                    isActive(link.href) ? 'text-[#0f4a28] bg-[#FFD100]' : 'text-white hover:bg-white/[0.06]')}
-                  onClick={() => setMobileOpen(false)}>{link.label}</Link>
-                {link.hasMega && (
-                  <div className="ml-3 mt-1 mb-2 space-y-0.5">
-                    {kulupMenu.flatMap((col) => col.linkler).map((item) => (
-                      <Link key={item.label} href={item.href}
-                        className="block pl-5 py-2 text-xs text-white/40 hover:text-white/80 rounded-lg transition-colors"
-                        onClick={() => setMobileOpen(false)}>{item.label}</Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-            <div className="flex items-center justify-center gap-2.5 px-4 pt-4 pb-1 border-t border-white/10 mt-2">
+          mobileOpen ? 'max-h-[80vh] opacity-100 overflow-y-auto' : 'max-h-0 opacity-0')}>
+          <div className="px-3 py-3">
+            {navLinks.map((link) =>
+              link.hasMega ? (
+                <div key={link.label}>
+                  <button onClick={() => setMobileSubOpen((v) => !v)}
+                    className="w-full flex items-center justify-between px-4 py-3.5 text-[15px] font-bold text-white rounded-xl hover:bg-white/[0.05] transition-colors">
+                    {link.label}
+                    <ChevronDown size={16} className={cn('text-white/50 transition-transform', mobileSubOpen && 'rotate-180')} />
+                  </button>
+                  {mobileSubOpen && (
+                    <div className="mb-1 pl-2 space-y-3 pb-2">
+                      {kulupMenu.map((col) => (
+                        <div key={col.baslik}>
+                          <p className="px-4 pt-1 pb-1 text-[10px] font-black tracking-[0.2em] text-[#FFD100]/60">{col.baslik}</p>
+                          {col.linkler.map((item) => (
+                            <Link key={item.label} href={item.href} onClick={() => setMobileOpen(false)}
+                              className="block pl-4 pr-4 py-2 text-sm text-white/60 hover:text-white rounded-lg transition-colors">{item.label}</Link>
+                          ))}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <Link key={link.href} href={link.href === '#' ? '#' : link.href} onClick={() => setMobileOpen(false)}
+                  className={cn('block px-4 py-3.5 text-[15px] font-bold rounded-xl transition-colors',
+                    isActive(link.href) ? 'text-[#FFD100]' : 'text-white hover:bg-white/[0.05]')}>{link.label}</Link>
+              )
+            )}
+
+            {/* Bilet */}
+            <Link href="/bilet" onClick={() => setMobileOpen(false)}
+              className="block mt-3 py-3.5 text-center text-sm font-black tracking-widest text-[#0f4a28] bg-[#FFD100] rounded-xl uppercase">
+              Bilet Al
+            </Link>
+
+            {/* Sosyal */}
+            <div className="flex items-center justify-center gap-2.5 pt-5 pb-2">
               {socials.map(({ icon: Icon, href, label, cls }) => (
                 <a key={label} href={href} aria-label={label}
                   className={`flex h-9 w-9 items-center justify-center rounded-lg text-white shadow-sm ${cls}`}><Icon /></a>
               ))}
             </div>
-            <Link href="/bilet"
-              className="block py-3 text-center text-sm font-black tracking-widest text-[#0f4a28] bg-[#FFD100] rounded-xl uppercase mt-2"
-              onClick={() => setMobileOpen(false)}>Bilet Al</Link>
           </div>
         </div>
 
