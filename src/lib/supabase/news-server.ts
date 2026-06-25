@@ -12,13 +12,14 @@ export interface SiteNews {
   category: string
   date: string
   featured: boolean
+  story: boolean
 }
 
 export interface NewsCategory { name: string; slug: string }
 
 const FALLBACK: SiteNews[] = newsData.map((n) => ({
   id: n.id, title: n.title, slug: n.slug, excerpt: n.excerpt, content: n.content,
-  imageUrl: n.imageUrl, category: n.category, date: n.date, featured: n.featured,
+  imageUrl: n.imageUrl, category: n.category, date: n.date, featured: n.featured, story: false,
 }))
 
 /** Yayındaki haberleri Supabase'den çek (yoksa statik) */
@@ -82,7 +83,14 @@ function mapRow(r: Record<string, unknown>): SiteNews {
     category: (r.category as string) ?? 'haber',
     date: (r.published_at as string) ?? (r.created_at as string)?.slice(0, 10) ?? '',
     featured: Boolean(r.featured),
+    story: Boolean(r.story),
   }
+}
+
+/** Mobil story alanında gösterilecek haberler (story=true) */
+export async function getStories(): Promise<SiteNews[]> {
+  const all = await getNews()
+  return all.filter((n) => n.story).slice(0, 12)
 }
 
 // İsteğe bağlı: eski NewsItem'a köprü
