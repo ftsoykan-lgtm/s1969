@@ -33,14 +33,14 @@ export default function SquadMarquee({ players }: { players: CardPlayer[] }) {
     <div className="relative">
       {/* Sol ok */}
       <button onClick={() => scrollByCard(-1)} disabled={!canLeft} aria-label="Önceki"
-        className="hidden sm:flex absolute left-2 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white border border-[#ddeae2] text-[#0f4a28] items-center justify-center shadow-md transition-all duration-200 hover:bg-[#FFD100] hover:border-[#FFD100] disabled:opacity-0 disabled:pointer-events-none">
-        <ChevronLeft size={20} />
+        className="flex absolute left-1 sm:left-2 top-1/2 -translate-y-1/2 z-10 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white border border-[#ddeae2] text-[#0f4a28] items-center justify-center shadow-md transition-all duration-200 hover:bg-[#FFD100] hover:border-[#FFD100] disabled:opacity-0 disabled:pointer-events-none">
+        <ChevronLeft size={18} />
       </button>
 
       {/* Sağ ok */}
       <button onClick={() => scrollByCard(1)} disabled={!canRight} aria-label="Sonraki"
-        className="hidden sm:flex absolute right-2 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white border border-[#ddeae2] text-[#0f4a28] items-center justify-center shadow-md transition-all duration-200 hover:bg-[#FFD100] hover:border-[#FFD100] disabled:opacity-0 disabled:pointer-events-none">
-        <ChevronRight size={20} />
+        className="flex absolute right-1 sm:right-2 top-1/2 -translate-y-1/2 z-10 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white border border-[#ddeae2] text-[#0f4a28] items-center justify-center shadow-md transition-all duration-200 hover:bg-[#FFD100] hover:border-[#FFD100] disabled:opacity-0 disabled:pointer-events-none">
+        <ChevronRight size={18} />
       </button>
 
       {/* Kenar gradyanları (sadece masaüstü) */}
