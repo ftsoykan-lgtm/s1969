@@ -1,23 +1,40 @@
 import { createClient as createServerClient } from '@/lib/supabase/server'
-import { Newspaper, Users, FileText, Star, ArrowUpRight } from 'lucide-react'
+import { Newspaper, Users, FileText, Star, FolderOpen, Image as ImageIcon, Settings, ArrowUpRight, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 
-const stats = [
-  { label: 'Haberler', value: 'Yönet', icon: Newspaper, href: '/admin/haberler', color: 'bg-[#edf7f2] text-[#1A6B3C]' },
-  { label: 'Kadro', value: 'Yönet', icon: Users, href: '/admin/kadro', color: 'bg-[#FFD100]/15 text-[#d4ad00]' },
-  { label: 'Sayfalar', value: 'Yönet', icon: FileText, href: '/admin/sayfalar', color: 'bg-[#edf7f2] text-[#1A6B3C]' },
-  { label: 'Sponsorlar', value: 'Yönet', icon: Star, href: '/admin/sponsorlar', color: 'bg-[#FFD100]/15 text-[#d4ad00]' },
-]
-
-const quickLinks = [
-  { label: 'Yeni Haber Ekle', href: '/admin/haberler/yeni', color: 'bg-[#1A6B3C] text-white' },
-  { label: 'Sayfa Düzenle', href: '/admin/sayfalar', color: 'bg-[#FFD100] text-[#092d18]' },
-  { label: 'Oyuncu Güncelle', href: '/admin/kadro', color: 'border border-[#ddeae2] text-[#092d18]' },
-]
+async function count(table: string): Promise<number | null> {
+  try {
+    const supabase = await createServerClient()
+    const { count, error } = await supabase.from(table).select('*', { count: 'exact', head: true })
+    return error ? null : (count ?? 0)
+  } catch { return null }
+}
 
 export default async function AdminDashboard() {
   const supabase = await createServerClient()
   const { data: { user } } = await supabase.auth.getUser()
+
+  const [haberler, oyuncular, sayfalar, sponsorlar] = await Promise.all([
+    count('news'), count('player_profiles'), count('site_pages'), count('sponsors'),
+  ])
+  const fmt = (n: number | null) => (n === null ? '—' : String(n))
+
+  const stats = [
+    { label: 'Haberler', value: fmt(haberler), icon: Newspaper, href: '/admin/haberler', color: 'bg-[#edf7f2] text-[#1A6B3C]' },
+    { label: 'Oyuncular', value: fmt(oyuncular), icon: Users, href: '/admin/kadro', color: 'bg-[#FFD100]/15 text-[#d4ad00]' },
+    { label: 'Sayfalar', value: fmt(sayfalar), icon: FileText, href: '/admin/sayfalar', color: 'bg-[#edf7f2] text-[#1A6B3C]' },
+    { label: 'Sponsorlar', value: fmt(sponsorlar), icon: Star, href: '/admin/sponsorlar', color: 'bg-[#FFD100]/15 text-[#d4ad00]' },
+  ]
+
+  const sections = [
+    { label: 'Haberler', desc: 'Haber ekle, düzenle, story', href: '/admin/haberler', icon: Newspaper },
+    { label: 'Kategoriler', desc: 'Haber kategorileri', href: '/admin/kategoriler', icon: FolderOpen },
+    { label: 'Sayfalar', desc: 'Kulüp, tesisler, kurumsal sayfalar', href: '/admin/sayfalar', icon: FileText },
+    { label: 'Kadro & Oyuncular', desc: 'Oyuncu profilleri, sezon', href: '/admin/kadro', icon: Users },
+    { label: 'Sponsorlar', desc: 'Ana / resmi / destekçi', href: '/admin/sponsorlar', icon: Star },
+    { label: 'Takım Logoları', desc: 'Rakip + turnuva logoları', href: '/admin/logolar', icon: ImageIcon },
+    { label: 'Site Ayarları', desc: 'Kulüp bilgileri, SEO, video', href: '/admin/ayarlar', icon: Settings },
+  ]
 
   return (
     <div className="space-y-8">
@@ -26,7 +43,7 @@ export default async function AdminDashboard() {
         <p className="text-sm text-[#3d6b52] mt-1">Hoş geldiniz, <span className="font-bold">{user?.email}</span></p>
       </div>
 
-      {/* Stats */}
+      {/* Sayımlar */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {stats.map((s) => (
           <Link key={s.label} href={s.href}
@@ -34,30 +51,43 @@ export default async function AdminDashboard() {
             <div className={`inline-flex h-10 w-10 items-center justify-center rounded-xl mb-3 ${s.color}`}>
               <s.icon size={18} />
             </div>
-            <p className="text-2xl font-black text-[#092d18]">{s.value}</p>
+            <p className="text-2xl font-black text-[#092d18] tabular-nums">{s.value}</p>
             <p className="text-xs text-[#7aab8e] font-semibold mt-0.5">{s.label}</p>
           </Link>
         ))}
       </div>
 
-      {/* Quick actions */}
-      <div className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm p-6">
-        <h2 className="text-sm font-black text-[#092d18] mb-4 uppercase tracking-wide">Hızlı İşlemler</h2>
-        <div className="flex flex-wrap gap-3">
-          {quickLinks.map((q) => (
-            <Link key={q.label} href={q.href}
-              className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-black transition-all hover:scale-105 ${q.color}`}>
-              {q.label}
-              <ArrowUpRight size={13} />
+      {/* Hızlı işlemler */}
+      <div className="flex flex-wrap gap-3">
+        <Link href="/admin/haberler/yeni" className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-black bg-[#1A6B3C] text-white hover:bg-[#0f4a28] transition-colors">Yeni Haber Ekle <ArrowUpRight size={13} /></Link>
+        <Link href="/admin/kadro" className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-black bg-[#FFD100] text-[#092d18] hover:brightness-105 transition-all">Kadroyu Güncelle <ArrowUpRight size={13} /></Link>
+        <Link href="/admin/sayfalar" className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-black border border-[#ddeae2] text-[#092d18] hover:bg-[#f5f9f6] transition-colors">Sayfa Düzenle <ArrowUpRight size={13} /></Link>
+      </div>
+
+      {/* Yönetim bölümleri */}
+      <div>
+        <h2 className="text-xs font-black tracking-widest uppercase text-[#7aab8e] mb-3">Yönetim</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {sections.map((s) => (
+            <Link key={s.href} href={s.href}
+              className="group flex items-center gap-3.5 bg-white rounded-2xl border border-[#ddeae2] shadow-sm p-4 hover:shadow-md hover:border-[#1A6B3C]/30 transition-all">
+              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#edf7f2] text-[#1A6B3C] shrink-0">
+                <s.icon size={19} />
+              </span>
+              <div className="min-w-0 flex-1">
+                <p className="text-sm font-black text-[#092d18]">{s.label}</p>
+                <p className="text-[11px] text-[#7aab8e] truncate">{s.desc}</p>
+              </div>
+              <ArrowRight size={15} className="text-[#cfe3d8] group-hover:text-[#1A6B3C] transition-colors shrink-0" />
             </Link>
           ))}
         </div>
       </div>
 
-      {/* Info */}
+      {/* Otomatik içerik bilgisi */}
       <div className="bg-[#edf7f2] border border-[#1A6B3C]/20 rounded-2xl p-6">
-        <h2 className="text-sm font-black text-[#1A6B3C] mb-2">Maç Merkezi otomatik</h2>
-        <p className="text-sm text-[#3d6b52]">Fikstür, sonuçlar, puan durumu ve maç kadroları her gün TFF'den otomatik çekilir — elle girişe gerek yoktur. Diğer tüm içerik (haberler, kadro, sayfalar, sponsorlar, ayarlar) bu panelden yönetilir.</p>
+        <h2 className="text-sm font-black text-[#1A6B3C] mb-2">Maç Merkezi & Kadro otomatik</h2>
+        <p className="text-sm text-[#3d6b52]">Fikstür, sonuçlar, puan durumu, maç kadroları ve oyuncu profilleri her gün TFF'den otomatik çekilir. Manuel girdiğin bilgiler (foto, biyografi, açıklama) korunur. Diğer tüm içerik bu panelden yönetilir.</p>
       </div>
     </div>
   )

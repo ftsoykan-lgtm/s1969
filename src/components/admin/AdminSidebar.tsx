@@ -6,8 +6,8 @@ import { createBrowserClient } from '@supabase/ssr'
 import { useState } from 'react'
 import {
   LayoutDashboard, Newspaper, Users, Image,
-  LogOut, ChevronRight, Settings, Trophy, Star,
-  Tag, FolderOpen, SlidersHorizontal, BarChart3, FileText
+  LogOut, ChevronRight, Settings, Star,
+  FolderOpen, FileText
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -23,17 +23,13 @@ const navGroups = [
     items: [
       { label: 'Haberler', href: '/admin/haberler', icon: Newspaper },
       { label: 'Kategoriler', href: '/admin/kategoriler', icon: FolderOpen },
-      { label: 'Etiketler', href: '/admin/etiketler', icon: Tag },
-      { label: 'Ana Sayfa Slider', href: '/admin/slider', icon: SlidersHorizontal },
       { label: 'Sayfalar', href: '/admin/sayfalar', icon: FileText },
-      { label: 'Medya Kütüphanesi', href: '/admin/medya', icon: BarChart3 },
     ],
   },
   {
     label: 'KULÜP',
     items: [
-      { label: 'Kadro', href: '/admin/kadro', icon: Users },
-      { label: 'Yönetim Kurulu', href: '/admin/yonetim', icon: Trophy },
+      { label: 'Kadro & Oyuncular', href: '/admin/kadro', icon: Users },
       { label: 'Sponsorlar', href: '/admin/sponsorlar', icon: Star },
       { label: 'Takım Logoları', href: '/admin/logolar', icon: Image },
     ],
