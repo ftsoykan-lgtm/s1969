@@ -55,7 +55,7 @@ const navLinks: { label: string; href: string; hasMega?: boolean }[] = [
   { label: 'KULÜP', href: '#', hasMega: true },
   { label: 'KADRO', href: '/kadro' },
   { label: 'MAÇ MERKEZİ', href: '/mac-merkezi' },
-  { label: 'TARAFTAR', href: '/sayfa/taraftar' },
+  { label: 'TAKVİM', href: '/takvim' },
   { label: 'İLETİŞİM', href: '/iletisim' },
 ]
 
