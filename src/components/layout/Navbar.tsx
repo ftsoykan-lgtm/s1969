@@ -17,7 +17,7 @@ const SocialIcons = {
     <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
   ),
   YouTube: () => (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-1.96C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.4 19.54C5.12 20 12 20 12 20s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#FFD100"/></svg>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-1.96C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.4 19.54C5.12 20 12 20 12 20s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#FF0000"/></svg>
   ),
   Instagram: () => (
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
@@ -63,11 +63,11 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
   const pathname = usePathname()
 
   const socials = [
-    { icon: SocialIcons.Facebook, href: club.social.facebook, label: 'Facebook' },
-    { icon: SocialIcons.X, href: club.social.twitter, label: 'X (Twitter)' },
-    { icon: SocialIcons.YouTube, href: club.social.youtube, label: 'YouTube' },
-    { icon: SocialIcons.Instagram, href: club.social.instagram, label: 'Instagram' },
-    { icon: SocialIcons.TikTok, href: club.social.tiktok, label: 'TikTok' },
+    { icon: SocialIcons.Instagram, href: club.social.instagram, label: 'Instagram', cls: 'bg-gradient-to-br from-[#f09433] via-[#dc2743] to-[#bc1888]' },
+    { icon: SocialIcons.X, href: club.social.twitter, label: 'X (Twitter)', cls: 'bg-[#0a0a0a] ring-1 ring-white/15' },
+    { icon: SocialIcons.YouTube, href: club.social.youtube, label: 'YouTube', cls: 'bg-[#FF0000]' },
+    { icon: SocialIcons.Facebook, href: club.social.facebook, label: 'Facebook', cls: 'bg-[#1877F2]' },
+    { icon: SocialIcons.TikTok, href: club.social.tiktok, label: 'TikTok', cls: 'bg-[#010101] ring-1 ring-white/15' },
   ]
   const hasLogo = club.logoUrl && !club.logoUrl.includes('placehold.co')
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -84,25 +84,27 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
 
   return (
     <header className="sticky top-0 z-50 w-full">
+      {/* En üst sarı-yeşil aksan */}
+      <div className="h-1 bg-gradient-to-r from-[#FFD100] via-[#1A6B3C] to-[#FFD100]" />
 
       {/* ── İnce üst kimlik bandı ──────────────────────────────────────── */}
-      <div className="hidden lg:block bg-[#061d10] border-b border-white/[0.04]">
-        <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 flex items-center justify-between h-9">
+      <div className="hidden lg:block bg-[#061d10] border-b border-white/[0.05]">
+        <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 flex items-center justify-between h-10">
           <div className="flex items-center gap-2 text-[10px] font-bold tracking-[0.22em] uppercase">
             <span className="w-1.5 h-1.5 rounded-full bg-[#FFD100] animate-pulse" />
             <span className="text-white/40">{club.nickname} · Est. {club.founded} · {club.league}</span>
           </div>
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-3.5">
-              {socials.map(({ icon: Icon, href, label }) => (
+          <div className="flex items-center gap-3.5">
+            <div className="flex items-center gap-1.5">
+              {socials.map(({ icon: Icon, href, label, cls }) => (
                 <a key={label} href={href} aria-label={label} target="_blank" rel="noopener noreferrer"
-                  className="text-white/35 hover:text-[#FFD100] transition-colors">
+                  className={`flex h-6 w-6 items-center justify-center rounded-md text-white shadow-sm hover:scale-110 transition-transform ${cls}`}>
                   <Icon />
                 </a>
               ))}
             </div>
             <span className="w-px h-4 bg-white/15" />
-            <Link href="/magaza" className="text-[10px] font-black tracking-[0.2em] uppercase text-white/45 hover:text-white transition-colors">Mağaza</Link>
+            <Link href="/magaza" className="text-[10px] font-black tracking-[0.2em] uppercase text-white/45 hover:text-[#FFD100] transition-colors">Mağaza</Link>
           </div>
         </div>
       </div>
@@ -261,9 +263,10 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
                 )}
               </div>
             ))}
-            <div className="flex items-center justify-center gap-5 px-4 pt-4 pb-1 border-t border-white/10 mt-2">
-              {socials.map(({ icon: Icon, href, label }) => (
-                <a key={label} href={href} aria-label={label} className="text-white/40 hover:text-[#FFD100] transition-colors"><Icon /></a>
+            <div className="flex items-center justify-center gap-2.5 px-4 pt-4 pb-1 border-t border-white/10 mt-2">
+              {socials.map(({ icon: Icon, href, label, cls }) => (
+                <a key={label} href={href} aria-label={label}
+                  className={`flex h-9 w-9 items-center justify-center rounded-lg text-white shadow-sm ${cls}`}><Icon /></a>
               ))}
             </div>
             <Link href="/bilet"
