@@ -239,26 +239,45 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
           </div>
         </div>
 
-        {/* ── Mobil menü (sade + akordeon) ───────────────────────────── */}
-        <div className={cn('lg:hidden overflow-hidden transition-all duration-300 bg-[#092d18]',
-          mobileOpen ? 'max-h-[80vh] opacity-100 overflow-y-auto' : 'max-h-0 opacity-0')}>
-          <div className="px-3 py-3">
+        {/* ── Mobil menü — TAM EKRAN panel (sağdan kayar) ────────────── */}
+        <div className={cn(
+          'lg:hidden fixed inset-0 z-[60] bg-[#092d18] flex flex-col transition-transform duration-300 ease-out',
+          mobileOpen ? 'translate-x-0' : 'translate-x-full pointer-events-none'
+        )}>
+          {/* Panel başlığı */}
+          <div className="flex items-center justify-between h-16 px-4 border-b border-white/10 shrink-0">
+            <Link href="/" onClick={() => setMobileOpen(false)} className="flex items-center gap-2.5">
+              {hasLogo ? (
+                <img src={club.logoUrl} alt="" className="h-9 w-9 rounded-full object-contain bg-white ring-1 ring-white/20" />
+              ) : (
+                <div className="h-9 w-9 rounded-full bg-[#FFD100] flex items-center justify-center"><span className="font-heading font-black text-[10px] text-[#0f4a28]">{club.shortCode}</span></div>
+              )}
+              <span className="font-heading font-black text-base tracking-tight uppercase text-white">{club.name}</span>
+            </Link>
+            <button onClick={() => setMobileOpen(false)} aria-label="Kapat"
+              className="h-10 w-10 flex items-center justify-center rounded-full text-white bg-white/[0.06] hover:bg-white/10 transition-colors">
+              <X size={22} />
+            </button>
+          </div>
+
+          {/* İçerik (kaydırılabilir) */}
+          <div className="flex-1 overflow-y-auto px-4 py-5">
             {navLinks.map((link) =>
               link.hasMega ? (
-                <div key={link.label}>
+                <div key={link.label} className="border-b border-white/[0.06]">
                   <button onClick={() => setMobileSubOpen((v) => !v)}
-                    className="w-full flex items-center justify-between px-4 py-3.5 text-[15px] font-bold text-white rounded-xl hover:bg-white/[0.05] transition-colors">
+                    className="w-full flex items-center justify-between py-4 text-lg font-bold text-white">
                     {link.label}
-                    <ChevronDown size={16} className={cn('text-white/50 transition-transform', mobileSubOpen && 'rotate-180')} />
+                    <ChevronDown size={18} className={cn('text-white/50 transition-transform', mobileSubOpen && 'rotate-180')} />
                   </button>
                   {mobileSubOpen && (
-                    <div className="mb-1 pl-2 space-y-3 pb-2">
+                    <div className="pb-3 pl-1 space-y-3">
                       {kulupMenu.map((col) => (
                         <div key={col.baslik}>
-                          <p className="px-4 pt-1 pb-1 text-[10px] font-black tracking-[0.2em] text-[#FFD100]/60">{col.baslik}</p>
+                          <p className="pt-1 pb-1 text-[10px] font-black tracking-[0.2em] text-[#FFD100]/60">{col.baslik}</p>
                           {col.linkler.map((item) => (
                             <Link key={item.label} href={item.href} onClick={() => setMobileOpen(false)}
-                              className="block pl-4 pr-4 py-2 text-sm text-white/60 hover:text-white rounded-lg transition-colors">{item.label}</Link>
+                              className="block py-2 text-[15px] text-white/65 hover:text-white transition-colors">{item.label}</Link>
                           ))}
                         </div>
                       ))}
@@ -267,22 +286,20 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
                 </div>
               ) : (
                 <Link key={link.href} href={link.href === '#' ? '#' : link.href} onClick={() => setMobileOpen(false)}
-                  className={cn('block px-4 py-3.5 text-[15px] font-bold rounded-xl transition-colors',
-                    isActive(link.href) ? 'text-[#FFD100]' : 'text-white hover:bg-white/[0.05]')}>{link.label}</Link>
+                  className={cn('block py-4 text-lg font-bold border-b border-white/[0.06] transition-colors',
+                    isActive(link.href) ? 'text-[#FFD100]' : 'text-white')}>{link.label}</Link>
               )
             )}
 
-            {/* Bilet */}
             <Link href="/bilet" onClick={() => setMobileOpen(false)}
-              className="block mt-3 py-3.5 text-center text-sm font-black tracking-widest text-[#0f4a28] bg-[#FFD100] rounded-xl uppercase">
+              className="block mt-6 py-4 text-center text-sm font-black tracking-widest text-[#0f4a28] bg-[#FFD100] rounded-xl uppercase shadow-lg shadow-[#FFD100]/20">
               Bilet Al
             </Link>
 
-            {/* Sosyal */}
-            <div className="flex items-center justify-center gap-2.5 pt-5 pb-2">
+            <div className="flex items-center justify-center gap-3 pt-7">
               {socials.map(({ icon: Icon, href, label, cls }) => (
                 <a key={label} href={href} aria-label={label}
-                  className={`flex h-9 w-9 items-center justify-center rounded-lg text-white shadow-sm ${cls}`}><Icon /></a>
+                  className={`flex h-10 w-10 items-center justify-center rounded-xl text-white shadow-sm ${cls}`}><Icon /></a>
               ))}
             </div>
           </div>
