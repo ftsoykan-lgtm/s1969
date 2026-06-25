@@ -152,19 +152,46 @@ function prevSeason(s) {
   return `${a - 1}-${b - 1}`
 }
 const SEASON = currentSeason()    // Fikstür için aktif sezon (otomatik)
-const GRUP_ID = 2782              // 2. Lig Beyaz Grup (Şanlıurfaspor)
-const KULUP_ID = 31               // Şanlıurfaspor kulüp ID
+const GRUP_ID = process.env.TFF_GRUP_ID || 2782  // YEDEK grup (otomatik bulunamazsa)
+const KULUP_ID = 31               // Şanlıurfaspor kulüp ID (sezonlar arası sabit)
 const TEAM_KEY = 'URFASPOR'       // Takımı tanımak için (büyük harf)
 
-const STANDINGS_URL = `https://www.tff.org/default.aspx?pageID=976&grupID=${GRUP_ID}`
+const GROUPS_URL = 'https://www.tff.org/default.aspx?pageID=976'  // tüm gruplar (güncel sezon)
+const standingsUrl = (gid) => `https://www.tff.org/default.aspx?pageID=976&grupID=${gid}`
 const FIXTURE_URL = `https://www.tff.org/Default.aspx?pageID=28&kulupID=${KULUP_ID}`
 
 const log = (...a) => console.log('[TFF]', ...a)
 
+/* Şanlıurfaspor'un güncel grubunu (grupID) otomatik bul.
+   Sezon/grup/lig değişse bile çalışır → puan durumu hep doğru gruptan. */
+async function grupIdBul(page) {
+  try {
+    await page.goto(GROUPS_URL, { waitUntil: 'domcontentloaded', timeout: 60000 })
+    await page.waitForTimeout(800)
+    const grupIds = await page.$$eval('a[href*="grupID="]', (as) =>
+      Array.from(new Set(as.map((a) => {
+        const m = (a.getAttribute('href') || '').match(/grupID=(\d+)/)
+        return m ? m[1] : null
+      }).filter(Boolean))))
+    for (const gid of grupIds.slice(0, 20)) {
+      try {
+        await page.goto(standingsUrl(gid), { waitUntil: 'domcontentloaded', timeout: 40000 })
+        await page.waitForSelector('.standings table tr', { timeout: 15000 })
+        const has = await page.$$eval('.standings table td',
+          (tds) => tds.some((td) => (td.textContent || '').toUpperCase().includes('URFASPOR')))
+        if (has) { log(`✓ Grup otomatik bulundu: grupID=${gid}`); return gid }
+      } catch {}
+    }
+  } catch (e) { log('Grup tespiti hatası:', e.message) }
+  log(`⚠ Grup otomatik bulunamadı → yedek grupID=${GRUP_ID}`)
+  return String(GRUP_ID)
+}
+
 /* ─── 1) PUAN DURUMU ───────────────────────────────────────── */
 async function cekPuanDurumu(page) {
-  log('Puan durumu çekiliyor →', STANDINGS_URL)
-  await page.goto(STANDINGS_URL, { waitUntil: 'domcontentloaded', timeout: 60000 })
+  const gid = await grupIdBul(page)
+  log('Puan durumu çekiliyor →', standingsUrl(gid))
+  await page.goto(standingsUrl(gid), { waitUntil: 'domcontentloaded', timeout: 60000 })
   await page.waitForSelector('.standings table tr', { timeout: 30000 })
 
   // Her satırın hücrelerini + kulupID (logo için) yakala
