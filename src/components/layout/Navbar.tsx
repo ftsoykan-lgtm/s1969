@@ -89,11 +89,7 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
 
       {/* ── İnce üst kimlik bandı ──────────────────────────────────────── */}
       <div className="hidden lg:block bg-[#061d10] border-b border-white/[0.05]">
-        <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 flex items-center justify-between h-10">
-          <div className="flex items-center gap-2 text-[10px] font-bold tracking-[0.22em] uppercase">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FFD100] animate-pulse" />
-            <span className="text-white/40">{club.nickname} · Est. {club.founded} · {club.league}</span>
-          </div>
+        <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 flex items-center justify-end h-10">
           <div className="flex items-center gap-3.5">
             <div className="flex items-center gap-1.5">
               {socials.map(({ icon: Icon, href, label, cls }) => (
