@@ -105,10 +105,12 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
         </div>
       </div>
 
-      {/* ── Ana bar ────────────────────────────────────────────────────── */}
-      <div className="relative bg-gradient-to-b from-[#0f4a28] to-[#0c3f22] shadow-[0_10px_30px_-12px_rgba(0,0,0,0.5)]">
+      {/* ── Ana bar — sarı-yeşil çift tonlu geçiş ──────────────────────── */}
+      <div className="relative bg-gradient-to-r from-[#072414] via-[#0f4a28] to-[#1f5e2c] shadow-[0_10px_30px_-12px_rgba(0,0,0,0.5)]">
+        {/* sağda altın parıltı (sarı hissi) */}
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_90%_50%,rgba(255,209,0,0.16),transparent_45%)]" />
         {/* alt altın saç çizgisi */}
-        <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#FFD100]/40 to-transparent" />
+        <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#FFD100]/40 to-[#FFD100]/30" />
         <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
 
           {/* ── MOBİL BAR (menü · logo · dil) ───────────────────────── */}
