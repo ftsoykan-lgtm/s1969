@@ -102,6 +102,9 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
             </div>
           ))}
 
+          {/* Görselin tamamı habere tıklanabilir (içerik + nav daha üstte) */}
+          <Link href={active.href} aria-label={active.title} className="absolute inset-0 z-[15]" />
+
           <div className="absolute inset-x-0 bottom-0 z-20 p-5 sm:p-8 lg:p-10">
             <Link href={active.href} className="group block max-w-2xl" key={idx}>
               {active.category && (
