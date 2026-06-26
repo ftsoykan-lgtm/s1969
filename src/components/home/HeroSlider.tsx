@@ -105,9 +105,9 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
             <div className="flex items-center gap-2.5">
               {items.map((_, i) => (
                 i === idx ? (
-                  // Aktif: dolan ilerleme barı (dolunca sonraki habere geçer)
-                  <span key={i} className="relative h-2.5 w-12 rounded-full bg-white/20 overflow-hidden">
-                    <span key={idx} className="absolute inset-y-0 left-0 bg-[#FFD100] rounded-full"
+                  // Aktif: sarı-yeşil dolan ilerleme barı (dolunca sonraki habere geçer)
+                  <span key={i} className="relative h-2.5 w-14 rounded-full bg-[#0f4a28] ring-1 ring-[#FFD100]/40 overflow-hidden">
+                    <span key={idx} className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-[#FFD100] to-[#1A6B3C]"
                       style={{ animation: `hProg ${INTERVAL}ms linear both` }} />
                   </span>
                 ) : (
