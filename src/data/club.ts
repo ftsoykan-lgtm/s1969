@@ -61,6 +61,52 @@ export interface ClubInfo {
 
   // Footer
   footerText: string  // footer'daki tanıtım paragrafı
+  footer: FooterConfig // footer'daki tüm metinler (admin'den düzenlenir)
+}
+
+export interface FooterLink { label: string; href: string }
+export interface FooterColumn { title: string; links: FooterLink[] }
+export interface FooterConfig {
+  newsletterKicker: string       // "Haberdar Ol"
+  newsletterTitle: string        // "Ceylanlar'dan hiçbir an kaçmasın"
+  newsletterButton: string       // "Abone Ol"
+  newsletterPlaceholder: string  // "E-posta adresiniz"
+  columns: FooterColumn[]        // link kolonları
+  legalLinks: FooterLink[]       // alt bar yasal linkleri
+  copyright: string              // "© {year} {name}. Tüm hakları saklıdır." ({year}/{name} otomatik dolar)
+}
+
+export const defaultFooter: FooterConfig = {
+  newsletterKicker: 'Haberdar Ol',
+  newsletterTitle: "Ceylanlar'dan hiçbir an kaçmasın",
+  newsletterButton: 'Abone Ol',
+  newsletterPlaceholder: 'E-posta adresiniz',
+  columns: [
+    { title: 'Kulüp', links: [
+      { label: 'Tarihçe', href: '/kulup/tarihce' },
+      { label: 'Yönetim Kurulu', href: '/kulup/yonetim' },
+      { label: 'Tesisler', href: '/sayfa/gap-arena' },
+      { label: 'İletişim', href: '/iletisim' },
+    ]},
+    { title: 'Takım', links: [
+      { label: 'Kadro', href: '/kadro' },
+      { label: 'Maç Merkezi', href: '/mac-merkezi' },
+      { label: 'Haberler', href: '/haberler' },
+      { label: 'Taraftar', href: '/sayfa/taraftar' },
+    ]},
+    { title: 'Hizmetler', links: [
+      { label: 'Bilet Al', href: '/bilet' },
+      { label: 'Mağaza', href: '/magaza' },
+      { label: 'Üyelik', href: '/sayfa/uyelik' },
+      { label: 'Sponsorluk', href: '/sayfa/sponsorluk' },
+    ]},
+  ],
+  legalLinks: [
+    { label: 'Gizlilik', href: '/sayfa/gizlilik' },
+    { label: 'Kullanım Koşulları', href: '/sayfa/kullanim' },
+    { label: 'Çerezler', href: '/sayfa/cerez' },
+  ],
+  copyright: '© {year} {name}. Tüm hakları saklıdır.',
 }
 
 export const clubInfo: ClubInfo = {
@@ -105,4 +151,5 @@ export const clubInfo: ClubInfo = {
   seoKeywords: 'Şanlıurfaspor, futbol, TFF 2. Lig, Ceylanlar, Urfa',
 
   footerText: "1969 yılında kurulan Şanlıurfaspor, Güneydoğu Anadolu'nun köklü ve tutkulu futbol kulübüdür. Sahada ve tribünde bir.",
+  footer: defaultFooter,
 }

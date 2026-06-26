@@ -23,7 +23,9 @@ export async function getSettings(): Promise<ClubInfo> {
       .eq('id', 1)
       .single()
     if (error || !data?.data || Object.keys(data.data).length === 0) return defaultClub
-    return { ...defaultClub, ...(data.data as Partial<ClubInfo>) }
+    const saved = data.data as Partial<ClubInfo>
+    const footer = { ...defaultClub.footer, ...(saved.footer ?? {}) }
+    return { ...defaultClub, ...saved, footer }
   } catch {
     return defaultClub
   }

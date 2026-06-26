@@ -3,11 +3,11 @@
 import { useState, useEffect } from 'react'
 import { Save, Loader2, AlertCircle } from 'lucide-react'
 import { clubInfo } from '@/data/club'
-import type { ClubInfo } from '@/data/club'
+import type { ClubInfo, FooterConfig } from '@/data/club'
 import { getSettings, saveSettings } from '@/lib/supabase/settings'
 import LogoUpload from '@/components/admin/LogoUpload'
 
-const tabs = ['Kulüp Bilgileri', 'Sosyal Medya', 'İletişim', 'SEO'] as const
+const tabs = ['Kulüp Bilgileri', 'Sosyal Medya', 'İletişim', 'SEO', 'Footer'] as const
 type Tab = typeof tabs[number]
 
 const SocialIcon = ({ name }: { name: string }) => {
@@ -57,6 +57,7 @@ export default function AdminAyarlarPage() {
   })
   const [seo, setSeo] = useState({ metaTitle: clubInfo.seoTitle, metaDesc: clubInfo.seoDescription, keywords: clubInfo.seoKeywords })
   const [footerText, setFooterText] = useState(clubInfo.footerText)
+  const [footer, setFooter] = useState<FooterConfig>(clubInfo.footer)
 
   // Supabase'den mevcut ayarları yükle
   useEffect(() => {
@@ -72,6 +73,7 @@ export default function AdminAyarlarPage() {
       setContact({ address: s.address, phone: s.phone, email: s.email, workHours: s.workHours, mapUrl: s.mapEmbedUrl })
       setSeo({ metaTitle: s.seoTitle ?? clubInfo.seoTitle, metaDesc: s.seoDescription ?? clubInfo.seoDescription, keywords: s.seoKeywords ?? clubInfo.seoKeywords })
       setFooterText(s.footerText ?? clubInfo.footerText)
+      setFooter(s.footer ?? clubInfo.footer)
       setLoading(false)
     })
   }, [])
@@ -91,6 +93,7 @@ export default function AdminAyarlarPage() {
       hashtag,
       seoTitle: seo.metaTitle, seoDescription: seo.metaDesc, seoKeywords: seo.keywords,
       footerText,
+      footer,
     }
     const res = await saveSettings(payload)
     setSaving(false)
@@ -222,10 +225,78 @@ export default function AdminAyarlarPage() {
             <Field label="Anahtar Kelimeler" hint="Virgülle ayırın">
               <Input value={seo.keywords} onChange={e => setSeo(p => ({ ...p, keywords: e.target.value }))} />
             </Field>
-            <div className="pt-4 border-t border-[#edf7f2]">
-              <Field label="Footer Tanıtım Metni" hint="Footer'da logonun altında görünen kısa kulüp tanıtımı.">
-                <Textarea rows={3} value={footerText} onChange={e => setFooterText(e.target.value)} maxLength={240} />
-                <p className="text-[11px] text-[#7aab8e] mt-1 text-right">{footerText.length}/240</p>
+          </div>
+        )}
+
+        {tab === 'Footer' && (
+          <div className="space-y-6">
+            {/* Tanıtım metni */}
+            <Field label="Tanıtım Metni" hint="Footer'da logonun altında görünen kısa kulüp tanıtımı.">
+              <Textarea rows={3} value={footerText} onChange={e => setFooterText(e.target.value)} maxLength={240} />
+              <p className="text-[11px] text-[#7aab8e] mt-1 text-right">{footerText.length}/240</p>
+            </Field>
+
+            {/* Bülten */}
+            <div className="pt-4 border-t border-[#edf7f2] space-y-3">
+              <p className="text-xs font-black text-[#15532f] uppercase tracking-wide">Bülten Bloğu</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <Field label="Üst Etiket"><Input value={footer.newsletterKicker} onChange={e => setFooter(p => ({ ...p, newsletterKicker: e.target.value }))} /></Field>
+                <Field label="Başlık"><Input value={footer.newsletterTitle} onChange={e => setFooter(p => ({ ...p, newsletterTitle: e.target.value }))} /></Field>
+                <Field label="Buton Metni"><Input value={footer.newsletterButton} onChange={e => setFooter(p => ({ ...p, newsletterButton: e.target.value }))} /></Field>
+                <Field label="E-posta Placeholder"><Input value={footer.newsletterPlaceholder} onChange={e => setFooter(p => ({ ...p, newsletterPlaceholder: e.target.value }))} /></Field>
+              </div>
+            </div>
+
+            {/* Link Kolonları */}
+            <div className="pt-4 border-t border-[#edf7f2] space-y-4">
+              <div className="flex items-center justify-between">
+                <p className="text-xs font-black text-[#15532f] uppercase tracking-wide">Link Kolonları</p>
+                <button type="button" onClick={() => setFooter(p => ({ ...p, columns: [...p.columns, { title: 'Yeni Kolon', links: [] }] }))}
+                  className="text-[11px] font-black text-[#1A6B3C] hover:underline">+ Kolon Ekle</button>
+              </div>
+              {footer.columns.map((col, ci) => (
+                <div key={ci} className="bg-[#f5f9f6] border border-[#ddeae2] rounded-xl p-4 space-y-3">
+                  <div className="flex items-center gap-2">
+                    <Input value={col.title} placeholder="Kolon başlığı"
+                      onChange={e => setFooter(p => { const c = [...p.columns]; c[ci] = { ...c[ci], title: e.target.value }; return { ...p, columns: c } })} />
+                    <button type="button" onClick={() => setFooter(p => ({ ...p, columns: p.columns.filter((_, i) => i !== ci) }))}
+                      className="shrink-0 text-[11px] font-black text-red-600 hover:underline px-2">Sil</button>
+                  </div>
+                  {col.links.map((lnk, li) => (
+                    <div key={li} className="flex items-center gap-2 pl-3">
+                      <Input value={lnk.label} placeholder="Etiket"
+                        onChange={e => setFooter(p => { const c = [...p.columns]; const ls = [...c[ci].links]; ls[li] = { ...ls[li], label: e.target.value }; c[ci] = { ...c[ci], links: ls }; return { ...p, columns: c } })} />
+                      <Input value={lnk.href} placeholder="/link"
+                        onChange={e => setFooter(p => { const c = [...p.columns]; const ls = [...c[ci].links]; ls[li] = { ...ls[li], href: e.target.value }; c[ci] = { ...c[ci], links: ls }; return { ...p, columns: c } })} />
+                      <button type="button" onClick={() => setFooter(p => { const c = [...p.columns]; c[ci] = { ...c[ci], links: c[ci].links.filter((_, i) => i !== li) }; return { ...p, columns: c } })}
+                        className="shrink-0 text-[#7aab8e] hover:text-red-600 px-1 text-lg leading-none">×</button>
+                    </div>
+                  ))}
+                  <button type="button" onClick={() => setFooter(p => { const c = [...p.columns]; c[ci] = { ...c[ci], links: [...c[ci].links, { label: '', href: '' }] }; return { ...p, columns: c } })}
+                    className="ml-3 text-[11px] font-bold text-[#1A6B3C] hover:underline">+ Link ekle</button>
+                </div>
+              ))}
+            </div>
+
+            {/* Yasal Linkler + Telif */}
+            <div className="pt-4 border-t border-[#edf7f2] space-y-3">
+              <div className="flex items-center justify-between">
+                <p className="text-xs font-black text-[#15532f] uppercase tracking-wide">Alt Bar — Yasal Linkler</p>
+                <button type="button" onClick={() => setFooter(p => ({ ...p, legalLinks: [...p.legalLinks, { label: '', href: '' }] }))}
+                  className="text-[11px] font-black text-[#1A6B3C] hover:underline">+ Link Ekle</button>
+              </div>
+              {footer.legalLinks.map((lnk, i) => (
+                <div key={i} className="flex items-center gap-2">
+                  <Input value={lnk.label} placeholder="Etiket"
+                    onChange={e => setFooter(p => { const l = [...p.legalLinks]; l[i] = { ...l[i], label: e.target.value }; return { ...p, legalLinks: l } })} />
+                  <Input value={lnk.href} placeholder="/sayfa/gizlilik"
+                    onChange={e => setFooter(p => { const l = [...p.legalLinks]; l[i] = { ...l[i], href: e.target.value }; return { ...p, legalLinks: l } })} />
+                  <button type="button" onClick={() => setFooter(p => ({ ...p, legalLinks: p.legalLinks.filter((_, x) => x !== i) }))}
+                    className="shrink-0 text-[#7aab8e] hover:text-red-600 px-1 text-lg leading-none">×</button>
+                </div>
+              ))}
+              <Field label="Telif Metni" hint="{year} → yıl, {name} → kulüp adı otomatik dolar.">
+                <Input value={footer.copyright} onChange={e => setFooter(p => ({ ...p, copyright: e.target.value }))} />
               </Field>
             </div>
           </div>

@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { clubInfo as defaultClub } from '@/data/club'
+import { clubInfo as defaultClub, defaultFooter } from '@/data/club'
 import type { ClubInfo } from '@/data/club'
 
 /* ─── Sosyal medya SVG ikonları (Navbar ile aynı dil) ────────────────────── */
@@ -39,15 +39,13 @@ const SOCIALS = [
   { label: 'TikTok',    Icon: SocialIcons.TikTok,    get: (c: ClubInfo) => c.social.tiktok },
 ]
 
-const LINKS = [
-  { title: 'Kulüp',     items: [{ label: 'Tarihçe', href: '/kulup/tarihce' }, { label: 'Yönetim Kurulu', href: '/kulup/yonetim' }, { label: 'Tesisler', href: '/sayfa/gap-arena' }, { label: 'İletişim', href: '/iletisim' }] },
-  { title: 'Takım',     items: [{ label: 'Kadro', href: '/kadro' }, { label: 'Maç Merkezi', href: '/mac-merkezi' }, { label: 'Haberler', href: '/haberler' }, { label: 'Taraftar', href: '/sayfa/taraftar' }] },
-  { title: 'Hizmetler', items: [{ label: 'Bilet Al', href: '/bilet' }, { label: 'Mağaza', href: '/magaza' }, { label: 'Üyelik', href: '/sayfa/uyelik' }, { label: 'Sponsorluk', href: '/sayfa/sponsorluk' }] },
-]
-
 export default function Footer({ club = defaultClub }: { club?: ClubInfo }) {
   const socials = SOCIALS.map((s) => ({ ...s, href: s.get(club) })).filter((s) => s.href && s.href !== '#')
   const hasLogo = club.logoUrl && !club.logoUrl.includes('placehold.co')
+  const f = club.footer ?? defaultFooter
+  const copyright = (f.copyright || '© {year} {name}. Tüm hakları saklıdır.')
+    .replace('{year}', String(new Date().getFullYear()))
+    .replace('{name}', club.name)
 
   return (
     <footer className="relative bg-[#16532f] text-white overflow-hidden">
@@ -67,17 +65,15 @@ export default function Footer({ club = defaultClub }: { club?: ClubInfo }) {
       <div className="relative border-b border-white/[0.07]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <div>
-            <p className="text-[10px] font-black tracking-[0.3em] uppercase text-[#FFD100]/60 mb-1.5">Haberdar Ol</p>
-            <h3 className="font-heading text-2xl md:text-3xl font-extrabold text-white tracking-tight">
-              Ceylanlar&apos;dan <span className="text-[#FFD100]">hiçbir an</span> kaçmasın
-            </h3>
+            <p className="text-[10px] font-black tracking-[0.3em] uppercase text-[#FFD100]/60 mb-1.5">{f.newsletterKicker}</p>
+            <h3 className="font-heading text-2xl md:text-3xl font-extrabold text-white tracking-tight">{f.newsletterTitle}</h3>
           </div>
           <form className="flex w-full md:w-auto items-center gap-2 rounded-full bg-white/[0.05] border border-white/10 p-1.5 backdrop-blur-sm">
-            <input type="email" placeholder="E-posta adresiniz" aria-label="E-posta"
+            <input type="email" placeholder={f.newsletterPlaceholder} aria-label="E-posta"
               className="flex-1 md:w-64 bg-transparent px-4 py-2 text-sm text-white placeholder-white/35 focus:outline-none" />
             <button type="submit"
               className="shrink-0 inline-flex items-center gap-1.5 text-[#16532f] font-black text-[11px] tracking-wide uppercase px-5 py-2.5 rounded-full bg-gradient-to-b from-[#FFE04D] to-[#FFD100] shadow-[0_4px_14px_rgba(255,209,0,0.3)] hover:scale-[1.03] transition-transform">
-              Abone Ol
+              {f.newsletterButton}
             </button>
           </form>
         </div>
@@ -116,14 +112,14 @@ export default function Footer({ club = defaultClub }: { club?: ClubInfo }) {
         </div>
 
         {/* Link kolonları */}
-        {LINKS.map((col) => (
+        {f.columns.map((col) => (
           <div key={col.title}>
             <div className="flex items-center gap-2 mb-5">
               <span className="w-4 h-px bg-[#FFD100]/60" />
               <h3 className="text-[10px] font-black tracking-[0.25em] uppercase text-[#FFD100]">{col.title}</h3>
             </div>
             <ul className="space-y-2.5">
-              {col.items.map((link) => (
+              {col.links.map((link) => (
                 <li key={link.label}>
                   <Link href={link.href}
                     className="group inline-flex items-center gap-2 text-[15px] text-white/45 hover:text-white transition-colors">
@@ -168,15 +164,14 @@ export default function Footer({ club = defaultClub }: { club?: ClubInfo }) {
       {/* ── Alt bar ──────────────────────────────────────────────── */}
       <div className="relative border-t border-white/10 bg-[#15532f]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs text-white/25 order-2 sm:order-1">
-            © {new Date().getFullYear()} {club.name}. Tüm hakları saklıdır.
-          </p>
+          <p className="text-xs text-white/25 order-2 sm:order-1">{copyright}</p>
           <div className="flex items-center gap-5 text-xs text-white/25 order-1 sm:order-2">
-            <Link href="/sayfa/gizlilik" className="hover:text-white/55 transition-colors">Gizlilik</Link>
-            <span className="w-px h-3 bg-white/10" />
-            <Link href="/sayfa/kullanim" className="hover:text-white/55 transition-colors">Kullanım Koşulları</Link>
-            <span className="w-px h-3 bg-white/10" />
-            <Link href="/sayfa/cerez" className="hover:text-white/55 transition-colors">Çerezler</Link>
+            {f.legalLinks.map((l, i) => (
+              <span key={l.label} className="flex items-center gap-5">
+                {i > 0 && <span className="w-px h-3 bg-white/10" />}
+                <Link href={l.href} className="hover:text-white/55 transition-colors">{l.label}</Link>
+              </span>
+            ))}
           </div>
         </div>
       </div>

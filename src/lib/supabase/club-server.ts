@@ -21,7 +21,9 @@ export async function getClubInfo(): Promise<ClubInfo> {
     for (const [k, v] of Object.entries(saved.social ?? {})) {
       if (v && v !== '#') social[k as keyof typeof social] = v as string
     }
-    return { ...fallback, ...saved, social }
+    // Footer: eksik alanlar varsayılandan tamamlansın
+    const footer = { ...fallback.footer, ...(saved.footer ?? {}) }
+    return { ...fallback, ...saved, social, footer }
   } catch {
     return fallback
   }
