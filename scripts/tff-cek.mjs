@@ -355,7 +355,7 @@ async function cekFikstur(page, season = SEASON) {
 
   // Her maçın detayını çek (saat, stadyum, hakemler, kadrolar) — pageID=29&macID
   log('Maç detayları çekiliyor (saat, stadyum, hakem, kadro)...')
-  let saatli = 0, statli = 0, detayli = 0, kadrolu = 0
+  let saatli = 0, statli = 0, detayli = 0, kadrolu = 0, logolu2 = 0
   for (const f of fixtures) {
     if (!f.macId) continue
     try {
@@ -430,12 +430,30 @@ async function cekFikstur(page, season = SEASON) {
           ...readCards('grdTakim1', 'home'), ...readCards('grdTakim2', 'away'),
         ]
 
-        return { time, venue, referees, lineups: lineBlocks, events }
+        // Kulüp logoları (ev + deplasman) — grup dışı rakipler için de buradan gelir
+        const clubLogos = Array.from(document.querySelectorAll('img[src*="KulupLogolari"], img[src*="kuluplogolari"]'))
+          .map((i) => i.getAttribute('src')).filter(Boolean)
+
+        return { time, venue, referees, lineups: lineBlocks, events, clubLogos }
       }, { homeName: f.homeTeam, awayName: f.awayTeam })
 
       if (d.time) { f.time = d.time; saatli++ }
       if (d.venue) { f.venue = titleCaseTr(d.venue); statli++ }
       if (d.referees.length) detayli++
+
+      // Maç detayındaki iki kulüp logosu → ev/deplasman (sıra: ev, deplasman)
+      const fixUrl = (src) => {
+        if (!src) return null
+        let u = src.replace(/\\/g, '/')
+        if (u.startsWith('//')) u = 'https:' + u
+        else if (u.startsWith('/')) u = 'https://www.tff.org' + u
+        return u
+      }
+      if (Array.isArray(d.clubLogos) && d.clubLogos.length >= 2) {
+        f.homeTeamLogo = fixUrl(d.clubLogos[0])
+        f.awayTeamLogo = fixUrl(d.clubLogos[1])
+        logolu2++
+      }
 
       const tc = (arr) => arr.map((p) => ({ number: p.number, name: titleCaseTr(p.name) }))
       const homeStart = tc(d.lineups.home.starters), awayStart = tc(d.lineups.away.starters)
@@ -455,7 +473,7 @@ async function cekFikstur(page, season = SEASON) {
       if (hasLineup) kadrolu++
     } catch {}
   }
-  log(`✓ Saat: ${saatli}/${fixtures.length} · Stadyum: ${statli}/${fixtures.length} · Hakem: ${detayli}/${fixtures.length} · Kadro: ${kadrolu}/${fixtures.length}`)
+  log(`✓ Saat: ${saatli}/${fixtures.length} · Stadyum: ${statli}/${fixtures.length} · Hakem: ${detayli}/${fixtures.length} · Kadro: ${kadrolu}/${fixtures.length} · Logo: ${logolu2}/${fixtures.length}`)
 
   // macId'yi koru (detay sayfası linki için), geçici alan yok
   return fixtures
@@ -519,7 +537,13 @@ async function cekOyuncuDetay(page, kisiId) {
       birthDate = birthDate || after('Doğum Tarihi')
       nationality = nationality || after('Uyruk')
     }
-    return { birthPlace, birthDate, nationality, licenseNo, club }
+    // Oyuncu fotoğrafı — profil panelindeki resim (birkaç olası seçici)
+    let photo = null
+    const pImg = document.querySelector(
+      'img[id*="imgOyuncu"], img[id*="Oyuncu_img"], img[src*="OyuncuResim"], img[src*="/Oyuncular/"], img[src*="Oyuncular"]'
+    )
+    if (pImg) photo = pImg.getAttribute('src')
+    return { birthPlace, birthDate, nationality, licenseNo, club, photo }
   })
 }
 
@@ -555,16 +579,28 @@ async function cekKadro(page) {
       await page.waitForTimeout(2000)
 
       const players = await page.$$eval(
-        '[id*="grdKadro"] tr.GridRow_TFF_Contents a[id*="lnkOyuncu"], [id*="grdKadro"] tr.GridAltRow_TFF_Contents a[id*="lnkOyuncu"]',
-        (as) => as.map((a) => ({
-          name: a.textContent.replace(/\s+/g, ' ').trim(),
-          href: a.getAttribute('href') || '',
-        }))
+        '[id*="grdKadro"] tr.GridRow_TFF_Contents, [id*="grdKadro"] tr.GridAltRow_TFF_Contents',
+        (trs) => trs.map((tr) => {
+          const a = tr.querySelector('a[id*="lnkOyuncu"]')
+          if (!a) return null
+          const cells = Array.from(tr.querySelectorAll('td')).map((td) => td.textContent.replace(/\s+/g, ' ').trim())
+          return {
+            name: a.textContent.replace(/\s+/g, ' ').trim(),
+            href: a.getAttribute('href') || '',
+            cells,
+          }
+        }).filter(Boolean)
       )
       if (players.length > 0) {
+        const POS = ['kaleci', 'stoper', 'defans', 'bek', 'libero', 'orta saha', 'ortasaha', 'ön libero', 'forvet', 'kanat', 'santrfor', 'santrafor']
         const list = players.map((p) => {
           const idm = p.href.match(/kisiId=(\d+)/i)
-          return { name: titleCaseTr(p.name), tffId: idm ? idm[1] : null }
+          // Forma no: ilk salt-sayı hücre; Mevki: bilinen mevki anahtarı içeren hücre
+          let number = null
+          for (const c of p.cells) { const mm = c.match(/^(\d{1,2})$/); if (mm) { number = Number(mm[1]); break } }
+          let position = null
+          for (const c of p.cells) { if (c && POS.some((k) => c.toLocaleLowerCase('tr-TR').includes(k))) { position = c; break } }
+          return { name: titleCaseTr(p.name), tffId: idm ? idm[1] : null, number, position: position ? titleCaseTr(position) : null }
         })
         log(`✓ Kadro: ${list.length} oyuncu (sezon: ${season}) — profil detayları çekiliyor...`)
 
@@ -581,6 +617,13 @@ async function cekKadro(page) {
             p.flagCode = u.code
             p.licenseNo = det.licenseNo || null
             p.club = det.club ? titleCaseTr(det.club) : null
+            // Fotoğraf → mutlak URL (placeholder/boş hariç)
+            if (det.photo) {
+              let ph = det.photo.replace(/\\/g, '/')
+              if (ph.startsWith('//')) ph = 'https:' + ph
+              else if (ph.startsWith('/')) ph = 'https://www.tff.org' + ph
+              if (!/nophoto|no-photo|default|bos|blank/i.test(ph)) p.photo = ph
+            }
             if (p.birthDate || p.nationality) detayli++
           } catch {}
         }

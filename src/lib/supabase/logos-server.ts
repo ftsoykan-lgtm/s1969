@@ -1,5 +1,13 @@
 import { createClient } from '@/lib/supabase/server'
 import type { Match, StandingRow } from '@/types'
+import { normTeam } from '@/lib/tff'
+
+/** map → normalize anahtarlı yardımcı harita (isim varyasyonları için) */
+function normMapOf(map: Record<string, string>): Record<string, string> {
+  const out: Record<string, string> = {}
+  for (const [k, v] of Object.entries(map)) { if (v) out[normTeam(k)] = v }
+  return out
+}
 
 /**
  * Sunucu tarafında kayıtlı takım logolarını Supabase'den okur.
@@ -18,18 +26,23 @@ export async function getTeamLogoMap(): Promise<Record<string, string>> {
   }
 }
 
-/** Puan tablosu satırlarına kayıtlı logoları uygular */
+/** Puan tablosu satırlarına kayıtlı logoları uygular (normalize eşleşmeli) */
 export function applyLogosToStandings(rows: StandingRow[], map: Record<string, string>): StandingRow[] {
   if (!Object.keys(map).length) return rows
-  return rows.map((r) => (map[r.team] ? { ...r, teamLogo: map[r.team] } : r))
+  const nm = normMapOf(map)
+  return rows.map((r) => {
+    const hit = map[r.team] || nm[normTeam(r.team)]
+    return hit ? { ...r, teamLogo: hit } : r
+  })
 }
 
-/** Maçlara kayıtlı logoları uygular (ev + deplasman) */
+/** Maçlara kayıtlı logoları uygular (ev + deplasman, normalize eşleşmeli) */
 export function applyLogosToMatches(matches: Match[], map: Record<string, string>): Match[] {
   if (!Object.keys(map).length) return matches
+  const nm = normMapOf(map)
   return matches.map((m) => ({
     ...m,
-    homeTeamLogo: map[m.homeTeam] ?? m.homeTeamLogo,
-    awayTeamLogo: map[m.awayTeam] ?? m.awayTeamLogo,
+    homeTeamLogo: map[m.homeTeam] || nm[normTeam(m.homeTeam)] || m.homeTeamLogo,
+    awayTeamLogo: map[m.awayTeam] || nm[normTeam(m.awayTeam)] || m.awayTeamLogo,
   }))
 }

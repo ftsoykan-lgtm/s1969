@@ -35,6 +35,8 @@ export type TffFixture = {
   }
   homeTeam: string
   awayTeam: string
+  homeTeamLogo?: string | null
+  awayTeamLogo?: string | null
   homeScore: number | null
   awayScore: number | null
   date: string | null
@@ -45,7 +47,19 @@ export type TffFixture = {
   result: 'G' | 'M' | 'B'
 }
 
-export type TffSquadPlayer = { name: string; tffId: string | null }
+export type TffSquadPlayer = {
+  name: string
+  tffId: string | null
+  number?: number | null
+  position?: string | null
+  photo?: string | null
+  birthPlace?: string | null
+  birthDate?: string | null
+  nationality?: string | null
+  flagCode?: string | null
+  licenseNo?: string | null
+  club?: string | null
+}
 export type TffSquad = { season: string | null; players: TffSquadPlayer[] }
 
 export type TffRaw = {
@@ -103,10 +117,29 @@ export function temizTakimAdi(raw: string): string {
 
 /* ─── Ham veriden site tiplerine dönüştürücüler ────────────── */
 
+/** Takım adını eşleştirme için normalize eder (büyük/küçük, sponsor öneki, noktalama bağımsız) */
+export function normTeam(s: string): string {
+  return temizTakimAdi(s || '')
+    .toLocaleLowerCase('tr-TR')
+    .replace(/ı/g, 'i').replace(/ş/g, 's').replace(/ğ/g, 'g').replace(/ü/g, 'u').replace(/ö/g, 'o').replace(/ç/g, 'c')
+    .replace(/[^a-z0-9]+/g, '')
+}
+
+/** autoLogos haritasından normalize eşleşmeyle logo çözer (isim farklılıklarına dayanıklı) */
+function makeLogoResolver(autoLogos: Record<string, string>) {
+  const norm: Record<string, string> = {}
+  for (const [k, v] of Object.entries(autoLogos)) { if (v) norm[normTeam(k)] = v }
+  return (team: string, isSfk: boolean): string => {
+    if (autoLogos[team]) return autoLogos[team]          // tam eşleşme
+    const n = norm[normTeam(team)]                        // normalize eşleşme
+    if (n) return n
+    return isSfk ? SANLIURFA_LOGO : DEFAULT_LOGO
+  }
+}
+
 export function buildStandings(raw: TffRaw): StandingRow[] {
   const autoLogos = raw.logos ?? {}
-  const logoFor = (team: string, isSfk: boolean) =>
-    autoLogos[team] || (isSfk ? SANLIURFA_LOGO : DEFAULT_LOGO)
+  const logoFor = makeLogoResolver(autoLogos)
   return (raw.standings ?? []).map((s) => ({
     rank: s.rank,
     team: temizTakimAdi(s.team),
@@ -124,16 +157,16 @@ export function buildStandings(raw: TffRaw): StandingRow[] {
 
 export function buildMatches(raw: TffRaw): Match[] {
   const autoLogos = raw.logos ?? {}
-  const logoFor = (team: string, isSfk: boolean) =>
-    autoLogos[team] || (isSfk ? SANLIURFA_LOGO : DEFAULT_LOGO)
+  const logoFor = makeLogoResolver(autoLogos)
   const matches: Match[] = (raw.sanliurfasporFixtures ?? []).map((f, i) => {
     const homeIsSfk = f.homeTeam.toUpperCase().includes('URFASPOR')
     return {
       id: `tff-${i + 1}`,
       homeTeam: temizTakimAdi(f.homeTeam),
       awayTeam: temizTakimAdi(f.awayTeam),
-      homeTeamLogo: logoFor(f.homeTeam, homeIsSfk),
-      awayTeamLogo: logoFor(f.awayTeam, !homeIsSfk),
+      // Maça gömülü logo (detay sayfasından, grup dışı rakipler dahil) > normalize eşleşme
+      homeTeamLogo: f.homeTeamLogo || logoFor(f.homeTeam, homeIsSfk),
+      awayTeamLogo: f.awayTeamLogo || logoFor(f.awayTeam, !homeIsSfk),
       homeScore: f.homeScore,
       awayScore: f.awayScore,
       date: f.date ?? '',
