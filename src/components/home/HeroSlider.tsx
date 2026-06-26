@@ -107,8 +107,8 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
                 if (i === idx) {
                   // Aktif: yeşil zeminde sarı dolan ilerleme barı (dolunca sonraki habere geçer)
                   return (
-                    <span key={i} className="relative h-2.5 w-14 rounded-full bg-[#0f4a28] overflow-hidden">
-                      <span key={idx} className="absolute inset-y-0 left-0 rounded-full bg-[#FFD100]"
+                    <span key={i} className="relative h-2.5 w-14 rounded-full bg-[#FFD100] overflow-hidden">
+                      <span key={idx} className="absolute inset-y-0 left-0 rounded-full bg-[#1A6B3C]"
                         style={{ animation: `hProg ${INTERVAL}ms linear both` }} />
                     </span>
                   )
