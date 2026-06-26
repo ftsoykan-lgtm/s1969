@@ -34,10 +34,14 @@ function ProgressBar() {
     return () => cancelAnimationFrame(raf)
   }, [])
   return (
-    <span className="relative h-2.5 w-16 rounded-full overflow-hidden ring-1 ring-ugreen/30 shadow-inner"
-      style={{ backgroundColor: 'var(--c-ugold)' }}>
+    <span className="relative h-3 w-20 rounded-full overflow-hidden ring-1 ring-ugreen/40"
+      style={{ backgroundColor: 'var(--c-ugold)', boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.25)' }}>
       <span ref={ref} className="absolute inset-y-0 left-0 rounded-full"
-        style={{ width: '0%', backgroundColor: 'var(--c-ugreen)' }} />
+        style={{ width: '0%', backgroundColor: 'var(--c-ugreen)', boxShadow: '0 0 6px rgba(0,0,0,0.35)' }}>
+        {/* parlak hareketli uç — ilerlemeyi net gösterir */}
+        <span className="absolute right-0 top-0 bottom-0 w-[3px] rounded-full bg-white/85"
+          style={{ boxShadow: '0 0 6px 1px rgba(255,255,255,0.7)' }} />
+      </span>
     </span>
   )
 }
