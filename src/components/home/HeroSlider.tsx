@@ -94,28 +94,22 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
             </Link>
           </div>
 
-          {/* ── Yüzen CAM navigasyon (ultra premium · yeşil-altın) ─────── */}
+          {/* ── Yüzen CAM navigasyon (görsel üstünde, sağ-alt) ─────────── */}
           {n > 1 && (
-            <div className="absolute bottom-5 right-5 sm:bottom-6 sm:right-6 z-30 flex items-center gap-2 sm:gap-3 rounded-full px-3 py-2 bg-gradient-to-b from-ugreen/35 to-ugreendd/55 backdrop-blur-xl ring-1 ring-ugold/30 shadow-[0_14px_40px_-12px_rgba(0,0,0,0.7)] overflow-hidden">
-              {/* üst cam parlaması */}
-              <span className="pointer-events-none absolute top-0 inset-x-6 h-px bg-gradient-to-r from-transparent via-white/45 to-transparent" />
-              {/* alt altın yansıma */}
-              <span className="pointer-events-none absolute bottom-0 inset-x-10 h-px bg-gradient-to-r from-transparent via-ugold/30 to-transparent" />
-
+            <div className="absolute bottom-5 right-5 sm:bottom-6 sm:right-6 z-30 flex items-center gap-2 sm:gap-2.5 rounded-full bg-black/25 backdrop-blur-md border border-white/20 px-2.5 py-2 shadow-[0_8px_24px_-8px_rgba(0,0,0,0.6)]">
               <button onClick={prev} aria-label="Önceki"
-                className="relative h-8 w-8 flex items-center justify-center rounded-full text-ugold/90 hover:bg-ugold hover:text-ugreend transition-colors">
+                className="h-8 w-8 flex items-center justify-center rounded-full text-white hover:bg-ugold hover:text-ugreend transition-colors">
                 <ChevronLeft size={17} />
               </button>
-
-              <div className="relative flex items-center gap-2">
+              <div className="flex items-center gap-2">
                 {items.map((_, i) => {
                   if (i === idx) {
-                    // Aktif: yeşil cam zeminde sarı→yeşil dolan ilerleme barı
+                    // Aktif: cam üstünde sarı→yeşil dolan ilerleme barı
                     return (
-                      <span key={i} className="relative h-2 w-14 rounded-full bg-ugreendd/70 ring-1 ring-ugold/30 overflow-hidden">
+                      <span key={i} className="relative h-2 w-12 rounded-full bg-white/25 overflow-hidden">
                         <span key={idx} className="absolute inset-y-0 left-0 overflow-hidden rounded-full"
                           style={{ animation: `hProg ${INTERVAL}ms linear both` }}>
-                          <span className="block h-full w-14 rounded-full bg-gradient-to-r from-ugold via-ugoldl to-ugreen shadow-[0_0_8px_rgba(245,196,0,0.5)]" />
+                          <span className="block h-full w-12 rounded-full bg-gradient-to-r from-ugold to-ugreen" />
                         </span>
                       </span>
                     )
@@ -124,14 +118,13 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
                   return (
                     <button key={i} onClick={() => goTo(i)} aria-label={`Slayt ${i + 1}`}
                       className={`h-2 w-2 rounded-full transition-all ${
-                        past ? 'bg-ugold shadow-[0_0_6px_rgba(245,196,0,0.5)] hover:brightness-110' : 'bg-white/25 ring-1 ring-white/20 hover:bg-ugold/50'
+                        past ? 'bg-ugold hover:brightness-110' : 'bg-white/35 hover:bg-white/70'
                       }`} />
                   )
                 })}
               </div>
-
               <button onClick={next} aria-label="Sonraki"
-                className="relative h-8 w-8 flex items-center justify-center rounded-full bg-ugold text-ugreend shadow-[0_0_16px_-2px_rgba(245,196,0,0.6)] hover:brightness-105 transition-all">
+                className="h-8 w-8 flex items-center justify-center rounded-full bg-ugold text-ugreend hover:brightness-105 transition-all">
                 <ChevronRight size={17} />
               </button>
             </div>
