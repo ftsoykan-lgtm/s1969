@@ -60,7 +60,7 @@ export default function AdminSayfalarPage() {
 
   const handleHero = async (i: number, file: File) => {
     setBusy(rows[i]._orig ?? '__yeni__')
-    const res = await uploadImage(file, { folder: 'pages', width: 1200, height: 600, fit: 'cover' })
+    const res = await uploadImage(file, { folder: 'pages', width: 1920, height: 960, fit: 'cover', format: 'jpeg', quality: 0.9 })
     if (res.ok && res.url) update(i, { hero_image: res.url })
     setBusy(null)
   }

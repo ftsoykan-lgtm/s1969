@@ -76,7 +76,7 @@ export default function AdminKadroPage() {
 
   const handlePhoto = async (i: number, file: File) => {
     setBusy(rows[i].id ?? 'yeni')
-    const res = await uploadImage(file, { folder: 'players', width: 400, height: 500, fit: 'cover' })
+    const res = await uploadImage(file, { folder: 'players', width: 800, height: 1000, fit: 'cover', format: 'jpeg', quality: 0.9 })
     if (res.ok && res.url) update(i, { photo: res.url })
     setBusy(null)
   }

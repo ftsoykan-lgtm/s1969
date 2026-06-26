@@ -40,7 +40,7 @@ export default function AdminHaberlerPage() {
   const onPhoto = async (file: File) => {
     if (!editing) return
     setBusy(true)
-    const res = await uploadImage(file, { folder: 'news', width: 1000, height: 560, fit: 'cover' })
+    const res = await uploadImage(file, { folder: 'news', width: 1920, height: 1080, fit: 'cover', format: 'jpeg', quality: 0.9 })
     if (res.ok && res.url) setEditing({ ...editing, image_url: res.url })
     setBusy(false)
   }

@@ -326,24 +326,27 @@ export async function deletePlayerDetail(name: string): Promise<{ ok: boolean; e
  */
 export async function uploadImage(
   file: File,
-  opts: { folder?: string; size?: number; width?: number; height?: number; fit?: 'contain' | 'cover' } = {}
+  opts: { folder?: string; size?: number; width?: number; height?: number; fit?: 'contain' | 'cover'; format?: 'png' | 'jpeg'; quality?: number } = {}
 ): Promise<{ ok: boolean; url?: string; error?: string }> {
   const { folder = 'logos', size = 256 } = opts
   const w = opts.width ?? size
   const h = opts.height ?? size
   const fit = opts.fit ?? 'contain'
+  const format = opts.format ?? 'png'
+  const quality = opts.quality ?? 0.92
+  const ext = format === 'jpeg' ? 'jpg' : 'png'
   console.log('🔵 [uploadImage] Başladı —', file.name, '|', Math.round(file.size / 1024), 'KB')
   try {
-    const resized = await resizeImage(file, w, h, fit)
-    console.log('🟡 [uploadImage] Boyutlandırıldı →', size + 'px,', Math.round(resized.size / 1024), 'KB')
+    const resized = await resizeImage(file, w, h, fit, format, quality)
+    console.log('🟡 [uploadImage] Boyutlandırıldı →', `${w}x${h},`, Math.round(resized.size / 1024), 'KB')
     // Tahmin edilemez rastgele dosya adı (orijinal isim/zaman damgası sızmaz)
     const rid = (typeof crypto !== 'undefined' && crypto.randomUUID)
       ? crypto.randomUUID()
       : `${Date.now()}-${Math.random().toString(36).slice(2)}`
-    const path = `${folder}/${rid}.png`
+    const path = `${folder}/${rid}.${ext}`
     console.log('🟡 [uploadImage] Storage\'a yükleniyor → media/' + path)
     const { error } = await client().storage.from('media').upload(path, resized, {
-      contentType: 'image/png',
+      contentType: `image/${format}`,
       upsert: true,
     })
     if (error) {
@@ -363,30 +366,40 @@ function slugify(name: string): string {
   return name.replace(/\.[^.]+$/, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40) || 'img'
 }
 
-/** Görseli hedef boyuta ölçekler (contain = orantılı sığdır, cover = doldur+kırp) */
-function resizeImage(file: File, tw: number, th: number, fit: 'contain' | 'cover'): Promise<Blob> {
+/** Görseli hedef boyuta ölçekler (contain = orantılı sığdır, cover = doldur+kırp)
+   - Görseli asla BÜYÜTMEZ (orijinal küçükse hedef boyuta zorlamaz → bulanıklık önlenir)
+   - Yüksek kaliteli yumuşatma (imageSmoothingQuality: high)
+   - format/kalite ayarlanabilir (fotoğraflar için JPEG, logolar için şeffaf PNG) */
+function resizeImage(
+  file: File, tw: number, th: number, fit: 'contain' | 'cover',
+  format: 'png' | 'jpeg' = 'png', quality = 0.92,
+): Promise<Blob> {
   return new Promise((resolve, reject) => {
     const url = URL.createObjectURL(file)
     const img = new Image()
     img.onload = () => {
       URL.revokeObjectURL(url)
+      // Orijinalden büyütme yapma: hedef boyutu görselin gerçek boyutuyla sınırla
+      const cap = Math.min(1, fit === 'cover'
+        ? Math.max(tw / img.width, th / img.height)
+        : Math.min(tw / img.width, th / img.height))
+      const cw = Math.round(tw * cap)
+      const ch = Math.round(th * cap)
       const canvas = document.createElement('canvas')
-      canvas.width = tw
-      canvas.height = th
+      canvas.width = cw
+      canvas.height = ch
       const ctx = canvas.getContext('2d')
       if (!ctx) return reject(new Error('Canvas desteklenmiyor'))
-      if (fit === 'cover') {
-        const scale = Math.max(tw / img.width, th / img.height)
-        const w = img.width * scale
-        const h = img.height * scale
-        ctx.drawImage(img, (tw - w) / 2, (th - h) / 2, w, h)
-      } else {
-        const scale = Math.min(tw / img.width, th / img.height)
-        const w = img.width * scale
-        const h = img.height * scale
-        ctx.drawImage(img, (tw - w) / 2, (th - h) / 2, w, h)
-      }
-      canvas.toBlob((blob) => (blob ? resolve(blob) : reject(new Error('Görsel oluşturulamadı'))), 'image/png', 0.92)
+      ctx.imageSmoothingEnabled = true
+      ctx.imageSmoothingQuality = 'high'
+      if (format === 'jpeg') { ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, cw, ch) }
+      const scale = fit === 'cover'
+        ? Math.max(cw / img.width, ch / img.height)
+        : Math.min(cw / img.width, ch / img.height)
+      const w = img.width * scale
+      const h = img.height * scale
+      ctx.drawImage(img, (cw - w) / 2, (ch - h) / 2, w, h)
+      canvas.toBlob((blob) => (blob ? resolve(blob) : reject(new Error('Görsel oluşturulamadı'))), `image/${format}`, quality)
     }
     img.onerror = () => {
       URL.revokeObjectURL(url)
