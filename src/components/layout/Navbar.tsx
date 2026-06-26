@@ -107,8 +107,8 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
 
   return (
     <header className="sticky top-0 z-50 w-full">
-      {/* En üst sarı-yeşil aksan */}
-      <div className="h-1 bg-gradient-to-r from-[#FFD100] via-[#1A6B3C] to-[#FFD100]" />
+      {/* En üst ince altın aksan (düz) */}
+      <div className="h-[3px] bg-[#FFD100]" />
 
       {/* ── İnce üst kimlik bandı ──────────────────────────────────────── */}
       <div className="hidden lg:block bg-[#061d10] border-b border-white/[0.05]">
@@ -129,9 +129,9 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
       </div>
 
       {/* ── Ana bar ────────────────────────────────────────────────────── */}
-      <div className="relative bg-gradient-to-b from-[#0f4a28] to-[#0c3f22] shadow-[0_10px_30px_-12px_rgba(0,0,0,0.5)]">
+      <div className="relative bg-[#0f4a28] shadow-[0_10px_30px_-14px_rgba(0,0,0,0.5)]">
         {/* alt altın saç çizgisi */}
-        <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#FFD100]/40 to-transparent" />
+        <div className="absolute bottom-0 inset-x-0 h-px bg-[#FFD100]/25" />
         <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
 
           {/* ── MOBİL BAR (menü · logo · dil) ───────────────────────── */}
@@ -210,16 +210,13 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
             {/* ── Sağ aksiyonlar ──────────────────────────────────────── */}
             <div className="flex items-center gap-2.5 ml-auto shrink-0">
               <button onClick={() => setSearchOpen(!searchOpen)} aria-label="Ara"
-                className="h-10 w-10 flex items-center justify-center rounded-full text-white/70 hover:text-[#FFD100] hover:bg-white/[0.06] transition-all">
+                className="h-10 w-10 flex items-center justify-center text-white/70 hover:text-[#FFD100] hover:bg-white/[0.06] transition-all">
                 <Search size={18} />
               </button>
               <Link href="/bilet"
-                className="group relative inline-flex items-center gap-2 text-[#0f4a28] font-black text-[12px] tracking-wide uppercase pl-4 pr-5 py-2.5 rounded-full overflow-hidden
-                           bg-gradient-to-b from-[#FFE04D] to-[#FFD100] shadow-[0_4px_16px_-2px_rgba(255,209,0,0.45)] transition-all hover:scale-[1.03]">
-                {/* üst cila */}
-                <span className="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-white/30" />
-                <Ticket size={15} className="relative" />
-                <span className="relative">Bilet Al</span>
+                className="inline-flex items-center gap-2 text-[#0f4a28] font-bold text-[12px] tracking-wide uppercase px-5 py-2.5 bg-[#FFD100] hover:bg-[#e8c000] transition-colors">
+                <Ticket size={15} />
+                <span>Bilet Al</span>
               </Link>
             </div>
           </div>
@@ -231,8 +228,8 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
             megaOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none')}
           onMouseEnter={openMega} onMouseLeave={closeMega}>
           <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 pt-2">
-            <div className="rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)] bg-[#092d18]/97 backdrop-blur-xl ring-1 ring-white/10">
-              <div className="h-1 bg-gradient-to-r from-[#1A6B3C] via-[#FFD100] to-[#1A6B3C]" />
+            <div className="rounded-md overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)] bg-[#092d18]/97 backdrop-blur-xl ring-1 ring-white/10">
+              <div className="h-[3px] bg-[#FFD100]" />
               <div className="p-8 grid grid-cols-[1fr_1fr_1fr_1.1fr] gap-10">
                 {kulupMenu.map((col) => (
                   <div key={col.baslik}>
@@ -241,8 +238,8 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
                       {col.linkler.map((item) => (
                         <li key={item.label}>
                           <Link href={item.href}
-                            className="flex items-center gap-2.5 text-sm text-white/55 hover:text-white hover:bg-white/[0.05] rounded-xl px-3 py-2 -mx-3 transition-all group">
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#FFD100]/30 group-hover:bg-[#FFD100] transition-colors shrink-0" />
+                            className="flex items-center gap-2.5 text-sm text-white/55 hover:text-white hover:bg-white/[0.05] rounded-md px-3 py-2 -mx-3 transition-all group">
+                            <span className="w-1.5 h-1.5 bg-[#FFD100]/30 group-hover:bg-[#FFD100] transition-colors shrink-0" />
                             {item.label}
                           </Link>
                         </li>
@@ -250,11 +247,11 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
                     </ul>
                   </div>
                 ))}
-                <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-[#1A6B3C] to-[#0a3320] ring-1 ring-white/10 p-5 flex flex-col justify-end">
-                  <div className="absolute top-3 right-3 font-heading text-[5rem] font-black text-white/[0.04] leading-none">{club.shortCode}</div>
-                  <p className="relative text-[10px] font-black tracking-[0.25em] uppercase text-[#FFD100]/70 mb-1">{club.nickname}</p>
-                  <p className="relative text-white font-black text-lg leading-tight mb-3">Tribünde yerini al</p>
-                  <Link href="/bilet" className="relative inline-flex items-center justify-center gap-2 bg-[#FFD100] text-[#0a3320] font-black text-[11px] tracking-wide uppercase px-4 py-2.5 rounded-full hover:bg-[#e8c000] transition-colors">Bilet Al →</Link>
+                <div className="relative rounded-md overflow-hidden bg-[#1A6B3C] ring-1 ring-white/10 p-5 flex flex-col justify-end">
+                  <div className="absolute top-3 right-3 font-heading text-[5rem] font-extrabold text-white/[0.05] leading-none">{club.shortCode}</div>
+                  <p className="relative text-[10px] font-bold tracking-[0.25em] uppercase text-[#FFD100]/70 mb-1">{club.nickname}</p>
+                  <p className="relative text-white font-bold text-lg leading-tight mb-3">Tribünde yerini al</p>
+                  <Link href="/bilet" className="relative inline-flex items-center justify-center gap-2 bg-[#FFD100] text-[#0a3320] font-bold text-[11px] tracking-wide uppercase px-4 py-2.5 hover:bg-[#e8c000] transition-colors">Bilet Al →</Link>
                 </div>
               </div>
             </div>
