@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 export interface HeroItem {
   title: string
@@ -91,10 +91,6 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
                 style={{ animation: 'hUp .6s ease-out .16s both' }}>
                 {active.excerpt}
               </p>
-              <span className="inline-flex items-center gap-2 mt-5 text-[#0f4a28] bg-[#FFD100] text-[12px] font-bold uppercase tracking-wide px-5 py-2.5 group-hover:gap-3 transition-all"
-                style={{ animation: 'hUp .6s ease-out .24s both' }}>
-                Devamını Oku <ArrowRight size={15} />
-              </span>
             </Link>
           </div>
         </div>
@@ -106,11 +102,18 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
               className="h-9 w-9 flex items-center justify-center rounded-full border border-[#FFD100] text-[#FFD100] hover:bg-[#FFD100] hover:text-[#0f4a28] transition-colors">
               <ChevronLeft size={18} />
             </button>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2.5">
               {items.map((_, i) => (
-                <button key={i} onClick={() => goTo(i)} aria-label={`Slayt ${i + 1}`}
-                  className="h-2.5 rounded-full transition-all duration-300"
-                  style={{ width: i === idx ? '26px' : '10px', backgroundColor: i === idx ? '#FFD100' : 'rgba(255,255,255,0.35)' }} />
+                i === idx ? (
+                  // Aktif: dolan ilerleme barı (dolunca sonraki habere geçer)
+                  <span key={i} className="relative h-2.5 w-12 rounded-full bg-white/20 overflow-hidden">
+                    <span key={idx} className="absolute inset-y-0 left-0 bg-[#FFD100] rounded-full"
+                      style={{ animation: `hProg ${INTERVAL}ms linear both` }} />
+                  </span>
+                ) : (
+                  <button key={i} onClick={() => goTo(i)} aria-label={`Slayt ${i + 1}`}
+                    className="h-2.5 w-2.5 rounded-full border border-[#FFD100]/60 hover:border-[#FFD100] hover:bg-[#FFD100]/30 transition-colors" />
+                )
               ))}
             </div>
             <button onClick={next} aria-label="Sonraki"
@@ -124,6 +127,7 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
       <div className="h-[3px] bg-[#FFD100]" />
 
       <style jsx global>{`
+        @keyframes hProg { from { width: 0% } to { width: 100% } }
         @keyframes hUp { from { opacity: 0; transform: translateY(14px) } to { opacity: 1; transform: translateY(0) } }
         @keyframes hKenBurns { from { transform: scale(1.05) } to { transform: scale(1.12) } }
         .hero-kb { animation: hKenBurns 7s ease-out both; }
