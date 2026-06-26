@@ -99,7 +99,6 @@ export default function Footer({ club = defaultClub }: { club?: ClubInfo }) {
             )}
             <div className="leading-tight">
               <p className="font-heading text-white font-extrabold text-lg tracking-wide uppercase">{club.name}</p>
-              <p className="text-[#FFD100]/55 text-[9px] font-bold tracking-[0.3em] uppercase mt-0.5">Est. {club.founded} · {club.nickname}</p>
             </div>
           </Link>
           <p className="text-white/40 text-sm leading-relaxed max-w-xs mb-6">
