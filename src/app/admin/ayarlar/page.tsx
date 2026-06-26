@@ -161,16 +161,6 @@ export default function AdminAyarlarPage() {
                 folder="club"
               />
             </div>
-            <div className="pt-2 border-t border-[#edf7f2]">
-              <Field label="Header Videosu (URL)" hint="MP4 video linki. Boş bırakılırsa üst alanda haber slider gösterilir.">
-                <Input value={club.heroVideo} onChange={e => setClub(p => ({ ...p, heroVideo: e.target.value }))}
-                  placeholder="https://.../header-video.mp4" />
-              </Field>
-              {club.heroVideo && (
-                <video src={club.heroVideo} muted loop autoPlay playsInline
-                  className="mt-3 w-full max-w-md rounded-xl border border-[#ddeae2] aspect-video object-cover" />
-              )}
-            </div>
           </>
         )}
 
