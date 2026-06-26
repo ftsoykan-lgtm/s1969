@@ -72,7 +72,7 @@ function MatchCard({ match }: { match: Match }) {
 }
 
 /* ─── Mini puan durumu ──────────────────────────────────────── */
-function MiniStandings({ standings }: { standings: StandingRow[] }) {
+function MiniStandings({ standings, season }: { standings: StandingRow[]; season?: string }) {
   const ourIdx = standings.findIndex((s) => s.isCurrentTeam)
   // Bizi içerecek şekilde ~6 satır göster
   let shown = standings.slice(0, 6)
@@ -80,6 +80,11 @@ function MiniStandings({ standings }: { standings: StandingRow[] }) {
 
   return (
     <div className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm overflow-hidden">
+      {/* Başlık: Lig Tablosu + sezon */}
+      <div className="flex items-center justify-between gap-2 px-5 py-4 bg-[#0f4a28]">
+        <h3 className="text-sm font-black tracking-wide uppercase text-white">Lig Tablosu</h3>
+        {season && <span className="text-[11px] font-bold tracking-wide text-[#FFD100]">Sezon {season}</span>}
+      </div>
       <div className="grid grid-cols-[1fr_56px_48px] gap-2 px-5 py-4 border-b border-[#edf7f2]">
         <span className="text-sm font-black text-[#092d18]">Takım</span>
         <span className="text-[12px] font-bold text-[#7aab8e] text-center">Averaj</span>
@@ -157,7 +162,7 @@ export default async function FixturePreview() {
           </div>
 
           {/* Sağ: puan durumu */}
-          <MiniStandings standings={standings} />
+          <MiniStandings standings={standings} season={meta.season} />
         </div>
 
         {/* Orta buton */}
