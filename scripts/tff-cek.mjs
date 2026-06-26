@@ -638,7 +638,9 @@ async function cekKadro(page) {
   return { season: null, players: [] }
 }
 
-/** Arşivdeki sezon tamamlandı mı? (tüm maçlar oynanmış + complete bayrağı) */
+/** Arşivdeki sezon tamamlandı mı? (tüm maçlar oynanmış + complete + ŞEMA güncel)
+   Not: Kayıtlı veride maç-logoları eksikse "tamam" sayma → şema güncellemesi için
+   bir kez yeniden çek (logo düzeltmesi otomatik uygulansın, elle force gerekmesin). */
 async function arsivdekiSezonTamamMi(season) {
   if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) return false
   try {
@@ -648,7 +650,13 @@ async function arsivdekiSezonTamamMi(season) {
     )
     if (!res.ok) return false
     const rows = await res.json()
-    return rows?.[0]?.data?.complete === true
+    const data = rows?.[0]?.data
+    if (data?.complete !== true) return false
+    // Şema kontrolü: tüm maçlarda ev+deplasman logosu var mı? Yoksa yeniden çek.
+    const fx = data?.sanliurfasporFixtures || []
+    const logolu = fx.length > 0 && fx.every((f) => f.homeTeamLogo && f.awayTeamLogo)
+    if (!logolu) { log('↻ Arşiv tamam ama maç logoları eksik → şema güncellemesi için yeniden çekilecek'); return false }
+    return true
   } catch { return false }
 }
 
