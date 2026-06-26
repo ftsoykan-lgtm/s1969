@@ -280,6 +280,19 @@ img {
 /* ─── Hero slider (HeroSlider.tsx) animasyonları ─── */
 @keyframes hProg { from { width: 0% } to { width: 100% } }
 @keyframes hgrow { from { transform: scaleX(0) } to { transform: scaleX(1) } }
+/* Kademeli "loader" dolum (codepen artboardartisan/VLzKVN tarzı) — duraklamalı, gerçek yükleniyor hissi */
+@keyframes hloader {
+  0%   { width: 0% }
+  18%  { width: 12% }
+  28%  { width: 26% }
+  44%  { width: 38% }
+  56%  { width: 54% }
+  66%  { width: 58% }
+  72%  { width: 67% }
+  82%  { width: 80% }
+  94%  { width: 92% }
+  100% { width: 100% }
+}
 @keyframes hUp { from { opacity: 0; transform: translateY(14px) } to { opacity: 1; transform: translateY(0) } }
 @keyframes hKenBurns { from { transform: scale(1.05) } to { transform: scale(1.12) } }
 .hero-kb { animation: hKenBurns 7s ease-out both; }

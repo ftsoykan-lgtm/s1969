@@ -117,11 +117,11 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
             <div className="flex items-center gap-2.5">
               {items.map((_, i) => {
                 if (i === idx) {
-                  // Aktif: SARI zemin + YEŞİL dolum — slayt süresince (6sn) dolar, dolunca sonraki habere geçer
+                  // Aktif: SARI zemin + YEŞİL kademeli "loader" dolum — slayt süresince (6sn), dolunca sonraki habere geçer
                   return (
                     <span key={i} className="relative h-2.5 w-16 rounded-full bg-ugold overflow-hidden ring-1 ring-ugreen/30 shadow-inner">
-                      <span key={idx} className="absolute inset-0 rounded-full bg-ugreen origin-left"
-                        style={{ animation: `hgrow ${INTERVAL}ms linear both` }} />
+                      <span key={idx} className="absolute inset-y-0 left-0 w-0 rounded-full bg-ugreen"
+                        style={{ animation: `hloader ${INTERVAL}ms ease both` }} />
                     </span>
                   )
                 }
