@@ -120,8 +120,8 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
                   // Aktif: SARI zemin + YEŞİL dolum — slayt süresince (6sn) dolar, dolunca sonraki habere geçer
                   return (
                     <span key={i} className="relative h-2.5 w-16 rounded-full bg-ugold overflow-hidden ring-1 ring-ugreen/30 shadow-inner">
-                      <span key={idx} className="absolute inset-y-0 left-0 rounded-full bg-ugreen"
-                        style={{ animation: `hProg ${INTERVAL}ms linear both` }} />
+                      <span key={idx} className="absolute inset-0 rounded-full bg-ugreen origin-left"
+                        style={{ animation: `hgrow ${INTERVAL}ms linear both` }} />
                     </span>
                   )
                 }
@@ -143,12 +143,6 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
         </div>
       )}
 
-      <style jsx global>{`
-        @keyframes hProg { from { width: 0% } to { width: 100% } }
-        @keyframes hUp { from { opacity: 0; transform: translateY(14px) } to { opacity: 1; transform: translateY(0) } }
-        @keyframes hKenBurns { from { transform: scale(1.05) } to { transform: scale(1.12) } }
-        .hero-kb { animation: hKenBurns 7s ease-out both; }
-      `}</style>
     </section>
   )
 }
