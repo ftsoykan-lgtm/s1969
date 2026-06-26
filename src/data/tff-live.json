@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-26T10:17:21.000Z",
+  "updatedAt": "2026-06-26T13:38:15.341Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2025-2026",
@@ -10854,13 +10854,7 @@
         "name": "Anıl Gözütok",
         "tffId": "2560738",
         "number": null,
-        "position": null,
-        "birthPlace": "Almanya",
-        "birthDate": "27.10.2000",
-        "nationality": "Türkiye",
-        "flagCode": "tr",
-        "licenseNo": "18742",
-        "club": "Kızılkaya Tarım Şanlıurfaspor"
+        "position": null
       },
       {
         "name": "Berk Yıldız",
@@ -10938,31 +10932,25 @@
         "name": "Emircan Altıntaş",
         "tffId": "966501",
         "number": null,
-        "position": null,
-        "birthPlace": "Maçka",
-        "birthDate": "15.07.1995",
-        "nationality": "Türkiye",
-        "flagCode": "tr",
-        "licenseNo": "961589",
-        "club": "Güzide Gebze Spor Kulübü"
+        "position": null
       },
       {
         "name": "Erhan Çelenk",
         "tffId": "231495",
         "number": null,
-        "position": null
+        "position": null,
+        "birthPlace": "Akçaabat",
+        "birthDate": "16.03.1989",
+        "nationality": "Türkiye",
+        "flagCode": "tr",
+        "licenseNo": "340428",
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "Eyüpcan Delibalta",
         "tffId": "1369129",
         "number": null,
-        "position": null,
-        "birthPlace": "Seyhan",
-        "birthDate": "11.11.1996",
-        "nationality": "Türkiye",
-        "flagCode": "tr",
-        "licenseNo": "1457494",
-        "club": "Kızılkaya Tarım Şanlıurfaspor"
+        "position": null
       },
       {
         "name": "Güney Tutcuoğlu",
@@ -11040,7 +11028,13 @@
         "name": "Onur Karakabak",
         "tffId": "894942",
         "number": null,
-        "position": null
+        "position": null,
+        "birthPlace": "Zonguldak",
+        "birthDate": "08.04.1992",
+        "nationality": "Türkiye",
+        "flagCode": "tr",
+        "licenseNo": "797450",
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "Orhan Nahırcı",
@@ -11070,7 +11064,13 @@
         "name": "Sadık Çiftpınar",
         "tffId": "827547",
         "number": null,
-        "position": null
+        "position": null,
+        "birthPlace": "Seyhan",
+        "birthDate": "01.01.1993",
+        "nationality": "Türkiye",
+        "flagCode": "tr",
+        "licenseNo": "1413632",
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "Sadık Arda Yılmaztürk",
