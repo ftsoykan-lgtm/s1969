@@ -103,18 +103,24 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
               <ChevronLeft size={18} />
             </button>
             <div className="flex items-center gap-2.5">
-              {items.map((_, i) => (
-                i === idx ? (
-                  // Aktif: sarı-yeşil dolan ilerleme barı (dolunca sonraki habere geçer)
-                  <span key={i} className="relative h-2.5 w-14 rounded-full bg-[#0f4a28] ring-1 ring-[#FFD100]/40 overflow-hidden">
-                    <span key={idx} className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-[#FFD100] to-[#1A6B3C]"
-                      style={{ animation: `hProg ${INTERVAL}ms linear both` }} />
-                  </span>
-                ) : (
+              {items.map((_, i) => {
+                if (i === idx) {
+                  // Aktif: yeşil zeminde sarı dolan ilerleme barı (dolunca sonraki habere geçer)
+                  return (
+                    <span key={i} className="relative h-2.5 w-14 rounded-full bg-[#0f4a28] overflow-hidden">
+                      <span key={idx} className="absolute inset-y-0 left-0 rounded-full bg-[#FFD100]"
+                        style={{ animation: `hProg ${INTERVAL}ms linear both` }} />
+                    </span>
+                  )
+                }
+                const past = i < idx
+                return (
                   <button key={i} onClick={() => goTo(i)} aria-label={`Slayt ${i + 1}`}
-                    className="h-2.5 w-2.5 rounded-full border border-[#FFD100]/60 hover:border-[#FFD100] hover:bg-[#FFD100]/30 transition-colors" />
+                    className={`h-2.5 w-2.5 rounded-full transition-colors ${
+                      past ? 'bg-[#FFD100] hover:brightness-110' : 'border border-[#FFD100]/60 hover:border-[#FFD100] hover:bg-[#FFD100]/30'
+                    }`} />
                 )
-              ))}
+              })}
             </div>
             <button onClick={next} aria-label="Sonraki"
               className="h-9 w-9 flex items-center justify-center rounded-full bg-[#FFD100] text-[#0f4a28] hover:brightness-105 transition-all">
