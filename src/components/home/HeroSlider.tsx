@@ -38,7 +38,7 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
 
   return (
     <section className="relative bg-[#081f12] overflow-hidden">
-      <div className="relative h-[440px] sm:h-[560px] lg:h-[620px]">
+      <div className="relative h-[440px] sm:h-[560px] lg:h-[calc(100vh-110px)] lg:min-h-[640px] lg:max-h-[940px]">
 
         {/* ── SOL komşu (kenardan sızar) ───────────────────────────── */}
         {n > 1 && (
