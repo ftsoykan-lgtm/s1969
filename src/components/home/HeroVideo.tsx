@@ -42,7 +42,7 @@ export default function HeroVideo({ club, src, items = [] }: { club: ClubInfo; s
   const num = (i: number) => String(i + 1).padStart(2, '0')
 
   return (
-    <section className="relative bg-[#092d18] overflow-hidden">
+    <section className="relative bg-[#15532f] overflow-hidden">
       <div className="relative h-[64vh] min-h-[460px] md:h-[84vh] md:max-h-[860px]">
         {/* Arka plan video */}
         {src ? (
@@ -50,7 +50,7 @@ export default function HeroVideo({ club, src, items = [] }: { club: ClubInfo; s
             src={src} autoPlay muted loop playsInline preload="auto"
             style={{ filter: 'saturate(1.08) contrast(1.04)' }} />
         ) : (
-          <div className="absolute inset-0 bg-[radial-gradient(120%_100%_at_50%_-10%,#1A6B3C_0%,#092d18_60%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(120%_100%_at_50%_-10%,#1A6B3C_0%,#15532f_60%)]" />
         )}
 
         {/* Karartma — okunabilirlik için sadece metnin olduğu alanlarda */}

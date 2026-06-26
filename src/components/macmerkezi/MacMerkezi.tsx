@@ -64,7 +64,7 @@ export function MatchCard({ match, logos }: { match: Match; logos: Record<string
             <div className="relative w-12 h-12 shrink-0">
               <Image src={match.homeTeamLogo} alt={match.homeTeam} fill className="object-contain" />
             </div>
-            <span className={`text-[11px] font-bold text-center w-full truncate ${urfaIsHome ? 'text-[#1A6B3C]' : 'text-[#092d18]'}`}>{match.homeTeam}</span>
+            <span className={`text-[11px] font-bold text-center w-full truncate ${urfaIsHome ? 'text-[#1A6B3C]' : 'text-[#15532f]'}`}>{match.homeTeam}</span>
           </div>
 
           <div className="flex items-center gap-1 px-1 shrink-0">
@@ -82,7 +82,7 @@ export function MatchCard({ match, logos }: { match: Match; logos: Record<string
             <div className="relative w-12 h-12 shrink-0">
               <Image src={match.awayTeamLogo} alt={match.awayTeam} fill className="object-contain" />
             </div>
-            <span className={`text-[11px] font-bold text-center w-full truncate ${!urfaIsHome ? 'text-[#1A6B3C]' : 'text-[#092d18]'}`}>{match.awayTeam}</span>
+            <span className={`text-[11px] font-bold text-center w-full truncate ${!urfaIsHome ? 'text-[#1A6B3C]' : 'text-[#15532f]'}`}>{match.awayTeam}</span>
           </div>
         </div>
 
@@ -132,14 +132,14 @@ export default function MacMerkezi({
           <label className="block text-[10px] font-black tracking-widest uppercase text-[#7aab8e] mb-1.5">Sezon</label>
           <div className="flex items-center gap-2 bg-white border border-[#ddeae2] rounded-xl px-4 py-2.5 shadow-sm">
             <span className="w-2 h-2 rounded-full bg-[#1A6B3C]" />
-            <span className="text-sm font-bold text-[#092d18]">{season ?? '2025-2026'}</span>
+            <span className="text-sm font-bold text-[#15532f]">{season ?? '2025-2026'}</span>
           </div>
         </div>
         {tournaments.length > 1 && (
           <div>
             <label className="block text-[10px] font-black tracking-widest uppercase text-[#7aab8e] mb-1.5">Turnuva</label>
             <select value={tournament} onChange={(e) => setTournament(e.target.value)}
-              className="bg-white border border-[#ddeae2] rounded-xl px-4 py-2.5 text-sm font-bold text-[#092d18] shadow-sm focus:outline-none focus:border-[#1A6B3C] transition-colors min-w-[190px]">
+              className="bg-white border border-[#ddeae2] rounded-xl px-4 py-2.5 text-sm font-bold text-[#15532f] shadow-sm focus:outline-none focus:border-[#1A6B3C] transition-colors min-w-[190px]">
               <option value="hepsi">Tüm Turnuvalar</option>
               {tournaments.map((t) => <option key={t} value={t}>{t}</option>)}
             </select>
@@ -156,7 +156,7 @@ export default function MacMerkezi({
             </div>
           ) : (
             <div className="bg-white rounded-2xl border border-[#ddeae2] p-10 text-center">
-              <p className="text-sm font-bold text-[#092d18]">Maç bulunmuyor</p>
+              <p className="text-sm font-bold text-[#15532f]">Maç bulunmuyor</p>
             </div>
           )}
         </div>

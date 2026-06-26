@@ -17,11 +17,11 @@ const Field = ({ label, children }: { label: string; children: React.ReactNode }
 )
 
 const Input = (props: React.InputHTMLAttributes<HTMLInputElement>) => (
-  <input {...props} className="w-full bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-4 py-2.5 text-sm text-[#092d18] placeholder-[#7aab8e] focus:outline-none focus:border-[#1A6B3C] transition-colors" />
+  <input {...props} className="w-full bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-4 py-2.5 text-sm text-[#15532f] placeholder-[#7aab8e] focus:outline-none focus:border-[#1A6B3C] transition-colors" />
 )
 
 const Select = (props: React.SelectHTMLAttributes<HTMLSelectElement> & { children: React.ReactNode }) => (
-  <select {...props} className="w-full bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-4 py-2.5 text-sm text-[#092d18] focus:outline-none focus:border-[#1A6B3C] transition-colors">
+  <select {...props} className="w-full bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-4 py-2.5 text-sm text-[#15532f] focus:outline-none focus:border-[#1A6B3C] transition-colors">
     {props.children}
   </select>
 )
@@ -51,7 +51,7 @@ export default function YeniOyuncuPage() {
         <Link href="/admin/kadro" className="p-2 text-[#7aab8e] hover:text-[#1A6B3C] hover:bg-[#edf7f2] rounded-xl transition-all">
           <ArrowLeft size={18} />
         </Link>
-        <h1 className="text-2xl font-black text-[#092d18]">Yeni Oyuncu</h1>
+        <h1 className="text-2xl font-black text-[#15532f]">Yeni Oyuncu</h1>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">

@@ -83,7 +83,7 @@ export default function AdminLoginPage() {
                 placeholder="admin@sanliurfask.org.tr"
                 required
                 autoComplete="email"
-                className="w-full pl-10 pr-4 py-3 bg-[#f5f9f6] border border-[#ddeae2] rounded-xl text-sm text-[#092d18] placeholder-[#7aab8e] focus:outline-none focus:border-[#1A6B3C] transition-colors"
+                className="w-full pl-10 pr-4 py-3 bg-[#f5f9f6] border border-[#ddeae2] rounded-xl text-sm text-[#15532f] placeholder-[#7aab8e] focus:outline-none focus:border-[#1A6B3C] transition-colors"
               />
             </div>
           </div>
@@ -101,7 +101,7 @@ export default function AdminLoginPage() {
                 placeholder="••••••••"
                 required
                 autoComplete="current-password"
-                className="w-full pl-10 pr-10 py-3 bg-[#f5f9f6] border border-[#ddeae2] rounded-xl text-sm text-[#092d18] placeholder-[#7aab8e] focus:outline-none focus:border-[#1A6B3C] transition-colors"
+                className="w-full pl-10 pr-10 py-3 bg-[#f5f9f6] border border-[#ddeae2] rounded-xl text-sm text-[#15532f] placeholder-[#7aab8e] focus:outline-none focus:border-[#1A6B3C] transition-colors"
               />
               <button
                 type="button"

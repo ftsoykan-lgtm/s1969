@@ -21,7 +21,7 @@ const SocialIcons = {
   ),
   YouTube: () => (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-1.96C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.4 19.54C5.12 20 12 20 12 20s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#0a3320"/>
+      <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-1.96C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.4 19.54C5.12 20 12 20 12 20s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#16532f"/>
     </svg>
   ),
   TikTok: () => (
@@ -50,7 +50,7 @@ export default function Footer({ club = defaultClub }: { club?: ClubInfo }) {
   const hasLogo = club.logoUrl && !club.logoUrl.includes('placehold.co')
 
   return (
-    <footer className="relative bg-[#0a3320] text-white overflow-hidden">
+    <footer className="relative bg-[#16532f] text-white overflow-hidden">
       {/* Arka plan parıltıları + watermark */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -top-32 -left-24 w-[480px] h-[480px] rounded-full bg-[#1A6B3C]/30 blur-[130px]" />
@@ -76,7 +76,7 @@ export default function Footer({ club = defaultClub }: { club?: ClubInfo }) {
             <input type="email" placeholder="E-posta adresiniz" aria-label="E-posta"
               className="flex-1 md:w-64 bg-transparent px-4 py-2 text-sm text-white placeholder-white/35 focus:outline-none" />
             <button type="submit"
-              className="shrink-0 inline-flex items-center gap-1.5 text-[#0a3320] font-black text-[11px] tracking-wide uppercase px-5 py-2.5 rounded-full bg-gradient-to-b from-[#FFE04D] to-[#FFD100] shadow-[0_4px_14px_rgba(255,209,0,0.3)] hover:scale-[1.03] transition-transform">
+              className="shrink-0 inline-flex items-center gap-1.5 text-[#16532f] font-black text-[11px] tracking-wide uppercase px-5 py-2.5 rounded-full bg-gradient-to-b from-[#FFE04D] to-[#FFD100] shadow-[0_4px_14px_rgba(255,209,0,0.3)] hover:scale-[1.03] transition-transform">
               Abone Ol
             </button>
           </form>
@@ -93,7 +93,7 @@ export default function Footer({ club = defaultClub }: { club?: ClubInfo }) {
               <img src={club.logoUrl} alt={club.name}
                 className="h-14 w-14 rounded-2xl object-contain bg-white/5 ring-1 ring-white/15 shrink-0" />
             ) : (
-              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-[#FFD100] to-[#d4ad00] text-[#0a3320] font-black text-base shadow-lg">
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-[#FFD100] to-[#d4ad00] text-[#16532f] font-black text-base shadow-lg">
                 {club.shortCode}
               </div>
             )}
@@ -109,7 +109,7 @@ export default function Footer({ club = defaultClub }: { club?: ClubInfo }) {
           <div className="flex flex-wrap gap-2.5">
             {socials.map(({ href, label, Icon }) => (
               <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
-                className="h-11 w-11 flex items-center justify-center rounded-full bg-white/[0.05] border border-white/10 text-white/60 hover:text-[#0a3320] hover:bg-[#FFD100] hover:border-[#FFD100] hover:scale-110 transition-all duration-300">
+                className="h-11 w-11 flex items-center justify-center rounded-full bg-white/[0.05] border border-white/10 text-white/60 hover:text-[#16532f] hover:bg-[#FFD100] hover:border-[#FFD100] hover:scale-110 transition-all duration-300">
                 <Icon />
               </a>
             ))}
@@ -167,7 +167,7 @@ export default function Footer({ club = defaultClub }: { club?: ClubInfo }) {
       </div>
 
       {/* ── Alt bar ──────────────────────────────────────────────── */}
-      <div className="relative border-t border-white/10 bg-[#061d10]">
+      <div className="relative border-t border-white/10 bg-[#15532f]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-white/25 order-2 sm:order-1">
             © {new Date().getFullYear()} {club.name}. Tüm hakları saklıdır.

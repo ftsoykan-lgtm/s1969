@@ -165,7 +165,7 @@ export default function CalendarView({ items, season, league }: { items: CalMatc
                   </div>
                   <div className="relative h-8 w-8 shrink-0"><img src={m.opponentLogo} alt="" className="w-full h-full object-contain" /></div>
                   <div className="min-w-0 flex-1">
-                    <p className="text-sm font-black text-[#092d18] truncate">{m.isHome ? '🏠 ' : '✈️ '}{m.opponent}</p>
+                    <p className="text-sm font-black text-[#15532f] truncate">{m.isHome ? '🏠 ' : '✈️ '}{m.opponent}</p>
                     <p className="text-[11px] text-[#7aab8e] truncate">{m.roundLabel ?? ''}{m.venue ? ` · ${m.venue}` : ''}</p>
                   </div>
                   {m.isCompleted && m.homeScore != null ? (
@@ -182,7 +182,7 @@ export default function CalendarView({ items, season, league }: { items: CalMatc
       </div>
 
       {/* ── Senkronizasyon kartı (bilgilendirici · özel) ─────────── */}
-      <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-[#0f4a28] via-[#15592f] to-[#0c3f22] text-white shadow-[0_20px_50px_-22px_rgba(9,45,24,0.6)]">
+      <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-[#0f4a28] via-[#15592f] to-[#176437] text-white shadow-[0_20px_50px_-22px_rgba(9,45,24,0.6)]">
         {/* dekor */}
         <div className="pointer-events-none absolute -top-20 -right-16 w-72 h-72 rounded-full bg-[#FFD100]/10 blur-[90px]" />
         <div className="pointer-events-none absolute top-6 right-6 font-heading text-[7rem] font-black text-white/[0.03] leading-none select-none hidden sm:block">ŞFK</div>

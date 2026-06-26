@@ -61,7 +61,7 @@ export default async function OyuncuProfil({ params, searchParams }: Props) {
   return (
     <div className="min-h-screen bg-[#f5f9f6]">
       {/* ════ PREMIUM HERO ════ */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-[#0c3a23] via-[#0f4a28] to-[#092d18]">
+      <div className="relative overflow-hidden bg-gradient-to-br from-[#0c3a23] via-[#0f4a28] to-[#15532f]">
         <div className="pointer-events-none absolute -top-32 -left-20 w-[480px] h-[480px] rounded-full bg-[#1A6B3C]/40 blur-[120px]" />
         <div className="pointer-events-none absolute top-10 right-10 w-[360px] h-[360px] rounded-full bg-[#FFD100]/[0.06] blur-[100px]" />
         {player.number != null && (
@@ -80,7 +80,7 @@ export default async function OyuncuProfil({ params, searchParams }: Props) {
                 {player.photoUrl
                   ? <img src={player.photoUrl} alt={player.name} className="w-full h-full object-cover object-top" />
                   : <div className="w-full h-full flex items-center justify-center"><span className="text-7xl font-black text-white/15">{initials}</span></div>}
-                <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#092d18] to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#15532f] to-transparent" />
               </div>
             </div>
 
@@ -128,7 +128,7 @@ export default async function OyuncuProfil({ params, searchParams }: Props) {
                 </span>
                 <div className="min-w-0">
                   <p className="text-[9px] font-black tracking-widest uppercase text-[#7aab8e]">{s.label}</p>
-                  <p className="text-sm font-black text-[#092d18] truncate">{s.value}</p>
+                  <p className="text-sm font-black text-[#15532f] truncate">{s.value}</p>
                 </div>
               </div>
             ))}

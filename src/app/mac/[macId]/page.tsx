@@ -79,7 +79,7 @@ export default async function MacDetayPage({ params }: Props) {
     <div className="min-h-screen bg-[#f5f9f6]">
 
       {/* ════ PREMIUM SKOR BAŞLIĞI ════ */}
-      <div className="relative bg-gradient-to-b from-[#0c3a23] to-[#092d18] overflow-hidden">
+      <div className="relative bg-gradient-to-b from-[#0c3a23] to-[#15532f] overflow-hidden">
         <div className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 w-[700px] h-[400px] rounded-full bg-[#1A6B3C]/40 blur-[120px]" />
         <div className="pointer-events-none absolute top-0 right-8 font-heading text-[14rem] font-black leading-none text-white/[0.02] select-none">VS</div>
 
@@ -158,7 +158,7 @@ export default async function MacDetayPage({ params }: Props) {
                   return (
                     <div key={i} className="relative grid grid-cols-[1fr_auto_1fr] items-center gap-3">
                       <div className={`flex items-center gap-2 ${isHome ? 'justify-end text-right' : 'opacity-0 pointer-events-none'}`}>
-                        <span className="text-sm font-bold text-[#092d18]">{e.player}{e.detail ? <span className="text-[#7aab8e] font-normal"> · {e.detail}</span> : null}</span>
+                        <span className="text-sm font-bold text-[#15532f]">{e.player}{e.detail ? <span className="text-[#7aab8e] font-normal"> · {e.detail}</span> : null}</span>
                         <EventIcon type={e.type} />
                       </div>
                       <span className="relative z-10 flex h-8 min-w-8 px-2 items-center justify-center rounded-full bg-[#0f4a28] text-[11px] font-black text-white tabular-nums shadow">
@@ -166,7 +166,7 @@ export default async function MacDetayPage({ params }: Props) {
                       </span>
                       <div className={`flex items-center gap-2 ${!isHome ? 'justify-start text-left' : 'opacity-0 pointer-events-none'}`}>
                         <EventIcon type={e.type} />
-                        <span className="text-sm font-bold text-[#092d18]">{e.player}{e.detail ? <span className="text-[#7aab8e] font-normal"> · {e.detail}</span> : null}</span>
+                        <span className="text-sm font-bold text-[#15532f]">{e.player}{e.detail ? <span className="text-[#7aab8e] font-normal"> · {e.detail}</span> : null}</span>
                       </div>
                     </div>
                   )
@@ -187,7 +187,7 @@ export default async function MacDetayPage({ params }: Props) {
         ) : (
           <Card title="İlk 11">
             <div className="py-8 text-center">
-              <p className="text-sm font-bold text-[#092d18]">Kadrolar henüz açıklanmadı</p>
+              <p className="text-sm font-bold text-[#15532f]">Kadrolar henüz açıklanmadı</p>
               <p className="text-xs text-[#7aab8e] mt-1">İlk 11 ve yedekler maç günü açıklandığında burada görünecek.</p>
             </div>
           </Card>
@@ -216,7 +216,7 @@ export default async function MacDetayPage({ params }: Props) {
                       <Flag size={15} />
                     </span>
                     <div className="min-w-0">
-                      <p className={`text-sm font-black truncate ${main ? 'text-white' : 'text-[#092d18]'}`}>{r.name}</p>
+                      <p className={`text-sm font-black truncate ${main ? 'text-white' : 'text-[#15532f]'}`}>{r.name}</p>
                       <p className={`text-[10px] font-bold tracking-wide uppercase ${main ? 'text-[#FFD100]/80' : 'text-[#7aab8e]'}`}>{r.role}</p>
                     </div>
                   </div>
@@ -238,7 +238,7 @@ export default async function MacDetayPage({ params }: Props) {
         {match.macId && (
           <a href={`https://www.tff.org/Default.aspx?pageID=29&macID=${match.macId}`}
             target="_blank" rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 bg-white border border-[#ddeae2] hover:border-[#1A6B3C]/40 text-[#092d18] font-bold text-sm px-6 py-3.5 rounded-2xl transition-all">
+            className="flex items-center justify-center gap-2 bg-white border border-[#ddeae2] hover:border-[#1A6B3C]/40 text-[#15532f] font-bold text-sm px-6 py-3.5 rounded-2xl transition-all">
             TFF'de Resmi Maç Sayfası
             <ExternalLink size={15} className="text-[#1A6B3C]" />
           </a>
@@ -293,7 +293,7 @@ function ElevenList({ team, logo, players, coach, variant = 'opp', muted = false
       <span className={`absolute left-0 top-0 bottom-0 w-1 ${stripe}`} />
       <div className="flex items-center gap-2.5 px-4 py-3 bg-[#f8faf9] border-b border-[#edf7f2]">
         <div className="relative w-7 h-7 shrink-0"><Image src={logo} alt="" fill className="object-contain" /></div>
-        <span className="text-sm font-black text-[#092d18]">{team}</span>
+        <span className="text-sm font-black text-[#15532f]">{team}</span>
         {isSfk && !muted && <span className="ml-auto text-[9px] font-black tracking-widest uppercase text-[#1A6B3C] bg-[#e3f1e9] rounded-full px-2 py-0.5">Bizim Takım</span>}
       </div>
       <ul className="p-2 space-y-0.5">
@@ -304,7 +304,7 @@ function ElevenList({ team, logo, players, coach, variant = 'opp', muted = false
           const inner = (
             <>
               <span className={`flex h-7 w-7 items-center justify-center rounded-md text-[11px] font-black tabular-nums shrink-0 shadow-sm ${badge}`}>{p.number ?? '-'}</span>
-              <span className={`text-sm font-semibold truncate ${linkable ? 'text-[#0f4a28] group-hover/pl:text-[#1A6B3C] group-hover/pl:underline' : 'text-[#092d18]'}`}>{p.name}</span>
+              <span className={`text-sm font-semibold truncate ${linkable ? 'text-[#0f4a28] group-hover/pl:text-[#1A6B3C] group-hover/pl:underline' : 'text-[#15532f]'}`}>{p.name}</span>
             </>
           )
           return linkable ? (
@@ -316,7 +316,7 @@ function ElevenList({ team, logo, players, coach, variant = 'opp', muted = false
           )
         })}
       </ul>
-      {coach && <p className="px-4 pb-3 text-xs text-[#7aab8e]">Teknik Direktör: <span className="font-bold text-[#092d18]">{coach}</span></p>}
+      {coach && <p className="px-4 pb-3 text-xs text-[#7aab8e]">Teknik Direktör: <span className="font-bold text-[#15532f]">{coach}</span></p>}
     </div>
   )
 }
@@ -329,7 +329,7 @@ function Info({ icon: Icon, label, value }: { icon: React.ComponentType<{ size?:
       </div>
       <div className="min-w-0">
         <p className="text-[10px] font-black tracking-widest uppercase text-[#7aab8e]">{label}</p>
-        <p className="text-sm font-bold text-[#092d18] truncate">{value}</p>
+        <p className="text-sm font-bold text-[#15532f] truncate">{value}</p>
       </div>
     </div>
   )

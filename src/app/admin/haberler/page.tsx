@@ -53,7 +53,7 @@ export default function AdminHaberlerPage() {
       <div className="space-y-6 max-w-3xl">
         <div className="flex items-center gap-3">
           <button onClick={() => setEditing(null)} className="p-2 text-[#7aab8e] hover:text-[#1A6B3C] hover:bg-[#edf7f2] rounded-xl transition-all"><X size={18} /></button>
-          <h1 className="text-2xl font-black text-[#092d18]">{editing.id ? 'Haberi Düzenle' : 'Yeni Haber'}</h1>
+          <h1 className="text-2xl font-black text-[#15532f]">{editing.id ? 'Haberi Düzenle' : 'Yeni Haber'}</h1>
         </div>
 
         {err && <div className="flex items-center gap-2 bg-red-50 border border-red-200 text-red-700 rounded-xl px-4 py-3 text-sm"><AlertCircle size={15} /> {err}</div>}
@@ -119,7 +119,7 @@ export default function AdminHaberlerPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-black text-[#092d18]">Haberler</h1>
+          <h1 className="text-2xl font-black text-[#15532f]">Haberler</h1>
           <p className="text-sm text-[#3d6b52] mt-1">{rows.length} haber</p>
         </div>
         <div className="flex gap-2">
@@ -135,7 +135,7 @@ export default function AdminHaberlerPage() {
         <div className="flex items-center gap-2 text-sm text-[#7aab8e]"><Loader2 size={14} className="animate-spin" /> Yükleniyor...</div>
       ) : rows.length === 0 ? (
         <div className="bg-white rounded-2xl border border-[#ddeae2] p-10 text-center">
-          <p className="text-sm font-bold text-[#092d18]">Henüz haber yok</p>
+          <p className="text-sm font-bold text-[#15532f]">Henüz haber yok</p>
           <p className="text-xs text-[#7aab8e] mt-1">"Yeni Haber" ile başlayın. (Boşken site örnek haberleri gösterir.)</p>
         </div>
       ) : (
@@ -146,7 +146,7 @@ export default function AdminHaberlerPage() {
                 {n.image_url ? <img src={n.image_url} alt="" className="w-full h-full object-cover" /> : null}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-bold text-[#092d18] truncate">{n.title}</p>
+                <p className="text-sm font-bold text-[#15532f] truncate">{n.title}</p>
                 <div className="flex items-center gap-2 mt-0.5">
                   <span className="text-[10px] font-black text-[#1A6B3C] bg-[#edf7f2] px-2 py-0.5 rounded-full">{catName(n.category)}</span>
                   {n.featured && <span className="text-[10px] font-black text-[#d4ad00] bg-[#FFD100]/15 px-2 py-0.5 rounded-full flex items-center gap-1"><Star size={9} /> Hero</span>}
@@ -165,7 +165,7 @@ export default function AdminHaberlerPage() {
   )
 }
 
-const inp = 'w-full bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-4 py-2.5 text-sm text-[#092d18] placeholder-[#7aab8e] focus:outline-none focus:border-[#1A6B3C] transition-colors'
+const inp = 'w-full bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-4 py-2.5 text-sm text-[#15532f] placeholder-[#7aab8e] focus:outline-none focus:border-[#1A6B3C] transition-colors'
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return <div><label className="block text-xs font-black text-[#3d6b52] mb-1.5 uppercase tracking-wide">{label}</label>{children}</div>

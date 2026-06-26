@@ -26,10 +26,10 @@ const Field = ({ label, hint, children }: { label: string; hint?: string; childr
 )
 
 const Input = (p: React.InputHTMLAttributes<HTMLInputElement>) => (
-  <input {...p} className="w-full bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-4 py-2.5 text-sm text-[#092d18] placeholder-[#7aab8e] focus:outline-none focus:border-[#1A6B3C] transition-colors" />
+  <input {...p} className="w-full bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-4 py-2.5 text-sm text-[#15532f] placeholder-[#7aab8e] focus:outline-none focus:border-[#1A6B3C] transition-colors" />
 )
 const Textarea = (p: React.TextareaHTMLAttributes<HTMLTextAreaElement>) => (
-  <textarea {...p} className="w-full bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-4 py-2.5 text-sm text-[#092d18] placeholder-[#7aab8e] focus:outline-none focus:border-[#1A6B3C] transition-colors resize-none" />
+  <textarea {...p} className="w-full bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-4 py-2.5 text-sm text-[#15532f] placeholder-[#7aab8e] focus:outline-none focus:border-[#1A6B3C] transition-colors resize-none" />
 )
 
 export default function AdminAyarlarPage() {
@@ -105,7 +105,7 @@ export default function AdminAyarlarPage() {
   return (
     <div className="space-y-6 max-w-3xl">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-black text-[#092d18]">Site Ayarları</h1>
+        <h1 className="text-2xl font-black text-[#15532f]">Site Ayarları</h1>
         <button onClick={handleSave} disabled={saving || loading}
           className={`inline-flex items-center gap-2 font-black px-5 py-2.5 rounded-xl text-sm transition-all shadow-sm disabled:opacity-60 ${saved ? 'bg-[#edf7f2] text-[#1A6B3C]' : 'bg-[#1A6B3C] hover:bg-[#0f4a28] text-white'}`}>
           {saving ? <Loader2 size={15} className="animate-spin" /> : <Save size={15} />}
@@ -128,7 +128,7 @@ export default function AdminAyarlarPage() {
       <div className="flex gap-1 bg-[#f5f9f6] p-1 rounded-xl border border-[#ddeae2]">
         {tabs.map(t => (
           <button key={t} onClick={() => setTab(t)}
-            className={`flex-1 py-2 px-3 text-xs font-black rounded-lg transition-all ${tab === t ? 'bg-white text-[#092d18] shadow-sm' : 'text-[#7aab8e] hover:text-[#3d6b52]'}`}>
+            className={`flex-1 py-2 px-3 text-xs font-black rounded-lg transition-all ${tab === t ? 'bg-white text-[#15532f] shadow-sm' : 'text-[#7aab8e] hover:text-[#3d6b52]'}`}>
             {t}
           </button>
         ))}

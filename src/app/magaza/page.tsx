@@ -16,7 +16,7 @@ const products = [
 export default function MagazaPage() {
   return (
     <div className="min-h-screen bg-[#f5f9f6]">
-      <div className="bg-[#0f4a28] py-14">
+      <div className="bg-[#1A6B3C] py-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-3">
             <span className="block w-8 h-0.5 bg-[#FFD100]" />
@@ -35,7 +35,7 @@ export default function MagazaPage() {
               <div className="relative h-52 overflow-hidden bg-[#edf7f2]">
                 <Image src={p.image} alt={p.name} fill sizes="25vw" className="object-cover group-hover:scale-105 transition-transform duration-500" />
                 {p.isNew && (
-                  <span className="absolute top-3 left-3 bg-[#FFD100] text-[#092d18] text-[10px] font-black px-2 py-0.5 rounded-full">YENİ</span>
+                  <span className="absolute top-3 left-3 bg-[#FFD100] text-[#15532f] text-[10px] font-black px-2 py-0.5 rounded-full">YENİ</span>
                 )}
                 {p.oldPrice && (
                   <span className="absolute top-3 right-3 bg-red-500 text-white text-[10px] font-black px-2 py-0.5 rounded-full">
@@ -45,14 +45,14 @@ export default function MagazaPage() {
               </div>
               <div className="p-4">
                 <p className="text-[10px] text-[#7aab8e] font-black uppercase tracking-wide mb-1">{p.category}</p>
-                <p className="text-sm font-bold text-[#092d18] leading-tight mb-2">{p.name}</p>
+                <p className="text-sm font-bold text-[#15532f] leading-tight mb-2">{p.name}</p>
                 <div className="flex items-center gap-1 mb-3">
                   <Star size={10} fill="#FFD100" className="text-[#FFD100]" />
                   <span className="text-[11px] text-[#3d6b52]">{p.rating}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
-                    <span className="text-lg font-black text-[#092d18]">₺{p.price}</span>
+                    <span className="text-lg font-black text-[#15532f]">₺{p.price}</span>
                     {p.oldPrice && <span className="text-xs text-[#7aab8e] line-through ml-1">₺{p.oldPrice}</span>}
                   </div>
                   <button className="flex items-center gap-1.5 bg-[#1A6B3C] hover:bg-[#0f4a28] text-white text-[11px] font-black px-3 py-2 rounded-xl transition-colors">

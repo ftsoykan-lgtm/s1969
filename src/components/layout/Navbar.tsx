@@ -111,7 +111,7 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
       <div className="h-1 bg-gradient-to-r from-[#FFD100] via-[#1A6B3C] to-[#FFD100]" />
 
       {/* ── İnce üst kimlik bandı ──────────────────────────────────────── */}
-      <div className="hidden lg:block bg-[#061d10] border-b border-white/[0.05]">
+      <div className="hidden lg:block bg-[#15532f] border-b border-white/[0.05]">
         <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 flex items-center justify-end h-10">
           <div className="flex items-center gap-3.5">
             <div className="flex items-center gap-1.5">
@@ -129,7 +129,7 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
       </div>
 
       {/* ── Ana bar ────────────────────────────────────────────────────── */}
-      <div className="relative bg-gradient-to-b from-[#0f4a28] to-[#0c3f22] shadow-[0_10px_30px_-12px_rgba(0,0,0,0.5)]">
+      <div className="relative bg-gradient-to-b from-[#176437] to-[#1A6B3C] shadow-[0_10px_30px_-14px_rgba(0,0,0,0.4)]">
         {/* alt altın saç çizgisi */}
         <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#FFD100]/40 to-transparent" />
         <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
@@ -231,7 +231,7 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
             megaOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none')}
           onMouseEnter={openMega} onMouseLeave={closeMega}>
           <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 pt-2">
-            <div className="rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)] bg-[#092d18]/97 backdrop-blur-xl ring-1 ring-white/10">
+            <div className="rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)] bg-[#15532f]/97 backdrop-blur-xl ring-1 ring-white/10">
               <div className="h-1 bg-gradient-to-r from-[#1A6B3C] via-[#FFD100] to-[#1A6B3C]" />
               <div className="p-8 grid grid-cols-[1fr_1fr_1fr_1.1fr] gap-10">
                 {kulupMenu.map((col) => (
@@ -250,11 +250,11 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
                     </ul>
                   </div>
                 ))}
-                <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-[#1A6B3C] to-[#0a3320] ring-1 ring-white/10 p-5 flex flex-col justify-end">
+                <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-[#1A6B3C] to-[#16532f] ring-1 ring-white/10 p-5 flex flex-col justify-end">
                   <div className="absolute top-3 right-3 font-heading text-[5rem] font-black text-white/[0.04] leading-none">{club.shortCode}</div>
                   <p className="relative text-[10px] font-black tracking-[0.25em] uppercase text-[#FFD100]/70 mb-1">{club.nickname}</p>
                   <p className="relative text-white font-black text-lg leading-tight mb-3">Tribünde yerini al</p>
-                  <Link href="/bilet" className="relative inline-flex items-center justify-center gap-2 bg-[#FFD100] text-[#0a3320] font-black text-[11px] tracking-wide uppercase px-4 py-2.5 rounded-full hover:bg-[#e8c000] transition-colors">Bilet Al →</Link>
+                  <Link href="/bilet" className="relative inline-flex items-center justify-center gap-2 bg-[#FFD100] text-[#16532f] font-black text-[11px] tracking-wide uppercase px-4 py-2.5 rounded-full hover:bg-[#e8c000] transition-colors">Bilet Al →</Link>
                 </div>
               </div>
             </div>
@@ -263,7 +263,7 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
 
         {/* ── Mobil menü — TAM EKRAN panel (sağdan kayar) ────────────── */}
         <div className={cn(
-          'lg:hidden fixed inset-0 z-[60] bg-[#092d18] flex flex-col transition-transform duration-300 ease-out',
+          'lg:hidden fixed inset-0 z-[60] bg-[#15532f] flex flex-col transition-transform duration-300 ease-out',
           mobileOpen ? 'translate-x-0' : 'translate-x-full pointer-events-none'
         )}>
           {/* Panel başlığı */}
@@ -329,7 +329,7 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
 
         {/* ── Arama ────────────────────────────────────────────────── */}
         {searchOpen && (
-          <div className="absolute left-0 right-0 top-full bg-[#092d18]/97 backdrop-blur-xl border-b border-white/10 px-4 py-3 z-40">
+          <div className="absolute left-0 right-0 top-full bg-[#15532f]/97 backdrop-blur-xl border-b border-white/10 px-4 py-3 z-40">
             <div className="mx-auto max-w-[1280px]">
               <div className="relative">
                 <Search size={15} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" />

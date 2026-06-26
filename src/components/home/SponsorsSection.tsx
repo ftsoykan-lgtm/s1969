@@ -18,7 +18,7 @@ export default function SponsorsSection({ sponsors = sponsorsData }: { sponsors?
             <p className="text-xs font-black tracking-widest uppercase text-[#1A6B3C]">Güç Birliği</p>
             <span className="block w-8 h-0.5 bg-[#1A6B3C]" />
           </div>
-          <h2 className="font-heading text-3xl md:text-4xl font-black text-[#092d18] tracking-tight">Sponsorlarımız</h2>
+          <h2 className="font-heading text-3xl md:text-4xl font-black text-[#15532f] tracking-tight">Sponsorlarımız</h2>
         </div>
 
         {ana.length > 0 && (

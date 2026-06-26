@@ -59,7 +59,7 @@ export default function LogoUpload({ value, onChange, size = 256, folder = 'logo
               value={value}
               onChange={(e) => onChange(e.target.value)}
               placeholder="https://..."
-              className="w-full bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-3 py-2.5 text-sm text-[#092d18] placeholder-[#7aab8e] focus:outline-none focus:border-[#1A6B3C] transition-colors"
+              className="w-full bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-3 py-2.5 text-sm text-[#15532f] placeholder-[#7aab8e] focus:outline-none focus:border-[#1A6B3C] transition-colors"
             />
           ) : (
             <>

@@ -71,7 +71,7 @@ export default function AdminSayfalarPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-black text-[#092d18]">Sayfalar</h1>
+          <h1 className="text-2xl font-black text-[#15532f]">Sayfalar</h1>
           <p className="text-sm text-[#3d6b52] mt-1">{rows.length} sayfa · Tarihçe hariç tüm bilgi sayfaları buradan yönetilir</p>
         </div>
         <button onClick={addNew}
@@ -99,7 +99,7 @@ export default function AdminSayfalarPage() {
                       <button onClick={() => setOpen(isOpen ? null : id)}
                         className="w-full flex items-center gap-3 px-4 py-3.5 text-left hover:bg-[#f8faf9] transition-colors">
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-black text-[#092d18] truncate">{r.title}</p>
+                          <p className="text-sm font-black text-[#15532f] truncate">{r.title}</p>
                           <p className="text-[11px] text-[#7aab8e] truncate">/sayfa/{r.slug || slugify(r.title)}</p>
                         </div>
                         {!r.published && <span className="text-[10px] font-black uppercase text-[#7aab8e] bg-[#f5f9f6] rounded px-2 py-0.5">Taslak</span>}
@@ -162,7 +162,7 @@ export default function AdminSayfalarPage() {
   )
 }
 
-const inputCls = 'w-full bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-3 py-2 text-sm text-[#092d18] placeholder-[#7aab8e] focus:outline-none focus:border-[#1A6B3C] transition-colors'
+const inputCls = 'w-full bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-3 py-2 text-sm text-[#15532f] placeholder-[#7aab8e] focus:outline-none focus:border-[#1A6B3C] transition-colors'
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (

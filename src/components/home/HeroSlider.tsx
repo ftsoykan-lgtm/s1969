@@ -35,7 +35,7 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
   const num = (i: number) => String(i + 1).padStart(2, '0')
 
   return (
-    <section className="relative bg-[#092d18] overflow-hidden">
+    <section className="relative bg-[#15532f] overflow-hidden">
       <div className="relative h-[520px] md:h-[640px] lg:h-[700px]">
 
         {/* ── Slaytlar (crossfade + ken-burns) ───────────────────────── */}

@@ -33,7 +33,7 @@ export default function AdminKategorilerPage() {
     <div className="space-y-6 max-w-2xl">
       <div className="flex items-center gap-3">
         <Link href="/admin/haberler" className="p-2 text-[#7aab8e] hover:text-[#1A6B3C] hover:bg-[#edf7f2] rounded-xl transition-all"><ArrowLeft size={18} /></Link>
-        <h1 className="text-2xl font-black text-[#092d18]">Haber Kategorileri</h1>
+        <h1 className="text-2xl font-black text-[#15532f]">Haber Kategorileri</h1>
       </div>
 
       {err && <div className="flex items-center gap-2 bg-red-50 border border-red-200 text-red-700 rounded-xl px-4 py-3 text-sm"><AlertCircle size={15} /> {err}</div>}
@@ -41,7 +41,7 @@ export default function AdminKategorilerPage() {
       <div className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm p-6">
         <div className="flex gap-2 mb-6">
           <input value={yeni} onChange={(e) => setYeni(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && ekle()}
-            placeholder="Yeni kategori adı..." className="flex-1 bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-4 py-2.5 text-sm text-[#092d18] placeholder-[#7aab8e] focus:outline-none focus:border-[#1A6B3C]" />
+            placeholder="Yeni kategori adı..." className="flex-1 bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-4 py-2.5 text-sm text-[#15532f] placeholder-[#7aab8e] focus:outline-none focus:border-[#1A6B3C]" />
           <button onClick={ekle} disabled={busy || !yeni.trim()}
             className="inline-flex items-center gap-2 bg-[#1A6B3C] hover:bg-[#0f4a28] disabled:opacity-60 text-white font-black px-4 py-2.5 rounded-xl text-sm transition-colors">
             {busy ? <Loader2 size={15} className="animate-spin" /> : <Plus size={15} />} Ekle
@@ -57,7 +57,7 @@ export default function AdminKategorilerPage() {
             {rows.map((c) => (
               <div key={c.id} className="flex items-center gap-3 bg-[#f5f9f6] rounded-xl px-4 py-3">
                 <Check size={14} className="text-[#1A6B3C]" />
-                <span className="flex-1 text-sm font-bold text-[#092d18]">{c.name}</span>
+                <span className="flex-1 text-sm font-bold text-[#15532f]">{c.name}</span>
                 <span className="text-[11px] text-[#7aab8e] font-mono">{c.slug}</span>
                 <button onClick={() => sil(c)} className="p-1.5 text-[#7aab8e] hover:text-red-500 hover:bg-red-50 rounded-lg transition-all"><Trash2 size={13} /></button>
               </div>

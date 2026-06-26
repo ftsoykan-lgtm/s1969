@@ -51,7 +51,7 @@ export default function SocialSection({ club }: { club: ClubInfo }) {
           <p className="text-[11px] font-black tracking-[0.25em] uppercase text-[#1A6B3C]">Bizi Takip Et</p>
           <span className="block w-8 h-0.5 bg-[#FFD100]" />
         </div>
-        <h2 className="font-heading text-3xl md:text-4xl font-black text-[#092d18] tracking-tight mb-12">Sosyal Medya Hesaplarımız</h2>
+        <h2 className="font-heading text-3xl md:text-4xl font-black text-[#15532f] tracking-tight mb-12">Sosyal Medya Hesaplarımız</h2>
 
         <div className="flex flex-wrap items-stretch justify-center gap-4">
           {cards.map((c) => (

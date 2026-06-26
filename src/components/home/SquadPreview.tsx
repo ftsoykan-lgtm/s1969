@@ -37,7 +37,7 @@ export default async function SquadPreview() {
               <p className="text-[11px] font-black tracking-[0.2em] uppercase text-[#1A6B3C] mb-1">
                 Profesyonel Takım{season ? ` · ${season}` : ''}
               </p>
-              <h2 className="font-heading text-3xl md:text-5xl font-black text-[#092d18] tracking-tight">
+              <h2 className="font-heading text-3xl md:text-5xl font-black text-[#15532f] tracking-tight">
                 Takım <span className="text-[#1A6B3C]">Kadrosu</span>
               </h2>
             </div>
@@ -52,7 +52,7 @@ export default async function SquadPreview() {
       {players.length === 0 ? (
         <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <div className="bg-white border border-[#ddeae2] rounded-2xl p-10 text-center shadow-sm">
-            <p className="text-[#092d18] font-bold">Kadro Güncelleniyor...</p>
+            <p className="text-[#15532f] font-bold">Kadro Güncelleniyor...</p>
             <p className="text-[#7aab8e] text-sm mt-1">Güncel sezon kadrosu yakında yayınlanacak.</p>
           </div>
         </div>

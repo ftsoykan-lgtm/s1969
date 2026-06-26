@@ -17,7 +17,7 @@ function MainCard({ item, label }: { item: SiteNews; label: string }) {
     <Link href={`/haberler/${item.slug}`}
       className="group relative block rounded-2xl overflow-hidden h-[420px] md:h-full shadow-xl shadow-black/10">
       <Image src={item.imageUrl} alt={item.title} fill priority sizes="(max-width: 768px) 100vw, 55vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#092d18]/97 via-[#0f4a28]/45 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#15532f]/97 via-[#0f4a28]/45 to-transparent" />
       <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-[#FFD100] transition-colors duration-300 pointer-events-none" />
       <div className="absolute bottom-0 left-0 right-0 p-7">
         <Badge label={label} />
@@ -34,7 +34,7 @@ function SideCard({ item, label }: { item: SiteNews; label: string }) {
     <Link href={`/haberler/${item.slug}`}
       className="group relative block rounded-xl overflow-hidden flex-1 min-h-[130px] shadow-md shadow-black/10">
       <Image src={item.imageUrl} alt={item.title} fill sizes="(max-width: 768px) 100vw, 45vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#092d18]/97 via-[#0f4a28]/55 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#15532f]/97 via-[#0f4a28]/55 to-transparent" />
       <div className="absolute inset-0 rounded-xl border-2 border-transparent group-hover:border-[#1A6B3C] transition-colors duration-300 pointer-events-none" />
       <div className="absolute bottom-0 left-0 right-0 p-4">
         <Badge label={label} />
@@ -54,7 +54,7 @@ function GridCard({ item, label }: { item: SiteNews; label: string }) {
         <div className="absolute top-3 left-3"><Badge label={label} /></div>
       </div>
       <div className="p-4">
-        <h3 className="text-base font-black text-[#092d18] leading-snug line-clamp-2 group-hover:text-[#1A6B3C] transition-colors">{item.title}</h3>
+        <h3 className="text-base font-black text-[#15532f] leading-snug line-clamp-2 group-hover:text-[#1A6B3C] transition-colors">{item.title}</h3>
         <p className="mt-2 text-xs text-[#7aab8e] font-medium">{formatDate(item.date)}</p>
       </div>
     </Link>
@@ -75,7 +75,7 @@ export default function NewsHeroGrid({ news, catName }: { news: SiteNews[]; catN
             <span className="block w-1.5 h-10 bg-[#FFD100] rounded-full" />
             <div>
               <p className="text-[11px] font-black tracking-[0.2em] uppercase text-[#1A6B3C]/70 mb-0.5">Son Dakika</p>
-              <h2 className="text-3xl md:text-5xl font-black text-[#092d18] tracking-tight">
+              <h2 className="text-3xl md:text-5xl font-black text-[#15532f] tracking-tight">
                 Kulüp <span className="text-[#1A6B3C]">Haberleri</span>
               </h2>
             </div>

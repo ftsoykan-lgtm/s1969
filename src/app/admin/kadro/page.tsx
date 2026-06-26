@@ -99,12 +99,12 @@ export default function AdminKadroPage() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-black text-[#092d18]">Kadro / Oyuncu Profilleri</h1>
+          <h1 className="text-2xl font-black text-[#15532f]">Kadro / Oyuncu Profilleri</h1>
           <p className="text-sm text-[#3d6b52] mt-1">{rows.length} oyuncu · {activeCount} aktif · Sezon {season}</p>
         </div>
         <div className="flex items-center gap-2">
           <select value={season} onChange={(e) => { setSeason(e.target.value); load(e.target.value) }}
-            className="bg-white border border-[#ddeae2] rounded-xl px-3 py-2.5 text-sm font-bold text-[#092d18] focus:outline-none focus:border-[#1A6B3C]">
+            className="bg-white border border-[#ddeae2] rounded-xl px-3 py-2.5 text-sm font-bold text-[#15532f] focus:outline-none focus:border-[#1A6B3C]">
             {seasons.map((s) => <option key={s} value={s}>{s}</option>)}
           </select>
           <button onClick={handleSync} disabled={syncing}
@@ -128,7 +128,7 @@ export default function AdminKadroPage() {
         <div className="flex items-center gap-2 text-sm text-[#7aab8e]"><Loader2 size={14} className="animate-spin" /> Yükleniyor...</div>
       ) : rows.length === 0 ? (
         <div className="bg-white rounded-2xl border border-[#ddeae2] p-10 text-center">
-          <p className="text-sm font-bold text-[#092d18]">Bu sezon için oyuncu yok</p>
+          <p className="text-sm font-bold text-[#15532f]">Bu sezon için oyuncu yok</p>
           <p className="text-xs text-[#7aab8e] mt-1">&quot;TFF ile Senkronize Et&quot; ile kadroyu çekin veya elle &quot;Oyuncu Ekle&quot;.</p>
         </div>
       ) : (
@@ -143,7 +143,7 @@ export default function AdminKadroPage() {
                     {(p.photo || p.photo_tff) ? <img src={p.photo || p.photo_tff!} alt="" className="w-full h-full object-cover" /> : <span className="text-[10px] text-[#7aab8e]">{p.number ?? '?'}</span>}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-black text-[#092d18] truncate">{p.number != null ? `${p.number} · ` : ''}{p.name}</p>
+                    <p className="text-sm font-black text-[#15532f] truncate">{p.number != null ? `${p.number} · ` : ''}{p.name}</p>
                     <p className="text-[11px] text-[#7aab8e] truncate">{p.position || 'Mevki yok'}{p.manual ? ' · Elle eklendi' : p.tff_id ? ' · TFF' : ''}</p>
                   </div>
                   {!p.active && <span className="inline-flex items-center gap-1 text-[10px] font-black uppercase text-[#7aab8e] bg-[#f5f9f6] rounded px-2 py-0.5"><EyeOff size={11} /> Pasif</span>}
@@ -212,7 +212,7 @@ export default function AdminKadroPage() {
   )
 }
 
-const inp = 'w-full bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-3 py-2 text-sm text-[#092d18] placeholder-[#7aab8e] focus:outline-none focus:border-[#1A6B3C] transition-colors'
+const inp = 'w-full bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-3 py-2 text-sm text-[#15532f] placeholder-[#7aab8e] focus:outline-none focus:border-[#1A6B3C] transition-colors'
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (

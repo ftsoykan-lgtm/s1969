@@ -45,7 +45,7 @@ export default async function KadroPage({ searchParams }: Props) {
 
   return (
     <div className="min-h-screen bg-[#f5f9f6]">
-      <div className="bg-[#0f4a28] py-14">
+      <div className="bg-[#1A6B3C] py-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-3">
             <span className="block w-8 h-0.5 bg-[#FFD100]" />
@@ -79,7 +79,7 @@ export default async function KadroPage({ searchParams }: Props) {
             <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-[#edf7f2] mb-5">
               <Loader2 size={28} className="text-[#1A6B3C] animate-spin" />
             </div>
-            <h2 className="text-xl font-black text-[#092d18] mb-2">Kadro Güncelleniyor...</h2>
+            <h2 className="text-xl font-black text-[#15532f] mb-2">Kadro Güncelleniyor...</h2>
             <p className="text-sm text-[#3d6b52] leading-relaxed">
               Güncel sezon kadrosu TFF sisteminde henüz yayınlanmadı. Kadro açıklandığında otomatik görünecek.
             </p>

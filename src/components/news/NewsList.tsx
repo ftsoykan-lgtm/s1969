@@ -25,7 +25,7 @@ export default function NewsList({ news, categories }: { news: SiteNews[]; categ
 
       {filtered.length === 0 ? (
         <div className="bg-white rounded-2xl border border-[#ddeae2] p-12 text-center">
-          <p className="text-sm font-bold text-[#092d18]">Bu kategoride haber bulunmuyor</p>
+          <p className="text-sm font-bold text-[#15532f]">Bu kategoride haber bulunmuyor</p>
         </div>
       ) : (
         <>
@@ -34,7 +34,7 @@ export default function NewsList({ news, categories }: { news: SiteNews[]; categ
             <Link href={`/haberler/${featured.slug}`}
               className="group relative block rounded-2xl overflow-hidden h-[340px] md:h-[420px] mb-6 shadow-xl shadow-black/10">
               <Image src={featured.imageUrl} alt={featured.title} fill priority sizes="100vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#092d18]/97 via-[#0f4a28]/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#15532f]/97 via-[#0f4a28]/40 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-7 md:p-9 max-w-3xl">
                 <span className="inline-block px-3 py-1 rounded-full text-[11px] font-black tracking-widest uppercase bg-[#FFD100] text-[#0f4a28]">{catName(featured.category)}</span>
                 <h2 className="mt-3 text-white text-2xl md:text-4xl font-black leading-snug tracking-tight line-clamp-3">{featured.title}</h2>
@@ -56,7 +56,7 @@ export default function NewsList({ news, categories }: { news: SiteNews[]; categ
                   </div>
                 </div>
                 <div className="p-5">
-                  <h3 className="text-base font-black text-[#092d18] leading-snug line-clamp-2 group-hover:text-[#1A6B3C] transition-colors">{n.title}</h3>
+                  <h3 className="text-base font-black text-[#15532f] leading-snug line-clamp-2 group-hover:text-[#1A6B3C] transition-colors">{n.title}</h3>
                   <p className="mt-2 text-sm text-[#3d6b52] line-clamp-2">{n.excerpt}</p>
                   <p className="mt-3 text-xs text-[#7aab8e] font-medium">{formatDate(n.date)}</p>
                 </div>

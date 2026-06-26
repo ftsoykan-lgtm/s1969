@@ -26,7 +26,7 @@ export default async function OyuncuDetayPage({ params }: Props) {
 
   const FLAG: Record<string, string> = { tr: '🇹🇷', br: '🇧🇷', pt: '🇵🇹', sn: '🇸🇳', it: '🇮🇹' }
   const stats = [
-    { label: 'Maç', value: player.stats.matches, color: 'text-[#092d18]' },
+    { label: 'Maç', value: player.stats.matches, color: 'text-[#15532f]' },
     { label: 'Gol', value: player.stats.goals, color: 'text-[#1A6B3C]' },
     { label: 'Asist', value: player.stats.assists, color: 'text-[#d4ad00]' },
     { label: 'Sarı Kart', value: player.stats.yellowCards, color: 'text-yellow-500' },
@@ -36,7 +36,7 @@ export default async function OyuncuDetayPage({ params }: Props) {
   return (
     <div className="min-h-screen bg-[#f5f9f6]">
       {/* Hero banner */}
-      <div className="bg-[#0f4a28] py-14">
+      <div className="bg-[#1A6B3C] py-14">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <Link href="/kadro" className="inline-flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors mb-6">
             <ArrowLeft size={16} /> Kadroya Dön
@@ -73,7 +73,7 @@ export default async function OyuncuDetayPage({ params }: Props) {
                 ].map(({ label, value }) => (
                   <div key={label} className="flex justify-between items-center py-2 border-b border-[#edf7f2] last:border-0">
                     <dt className="text-sm text-[#3d6b52]">{label}</dt>
-                    <dd className="text-sm font-black text-[#092d18]">{value}</dd>
+                    <dd className="text-sm font-black text-[#15532f]">{value}</dd>
                   </div>
                 ))}
               </dl>

@@ -54,9 +54,9 @@ function MatchCard({ match }: { match: Match }) {
 
       {/* Takım isimleri — ayrı satır, sabit yükseklik */}
       <div className="grid grid-cols-[1fr_auto_1fr] gap-2 mt-2.5">
-        <span className={`text-[11px] font-bold text-center leading-tight line-clamp-2 min-h-[30px] ${urfaIsHome ? 'text-[#1A6B3C]' : 'text-[#092d18]'}`}>{match.homeTeam}</span>
+        <span className={`text-[11px] font-bold text-center leading-tight line-clamp-2 min-h-[30px] ${urfaIsHome ? 'text-[#1A6B3C]' : 'text-[#15532f]'}`}>{match.homeTeam}</span>
         <span className="w-[88px]" />
-        <span className={`text-[11px] font-bold text-center leading-tight line-clamp-2 min-h-[30px] ${!urfaIsHome ? 'text-[#1A6B3C]' : 'text-[#092d18]'}`}>{match.awayTeam}</span>
+        <span className={`text-[11px] font-bold text-center leading-tight line-clamp-2 min-h-[30px] ${!urfaIsHome ? 'text-[#1A6B3C]' : 'text-[#15532f]'}`}>{match.awayTeam}</span>
       </div>
 
       {/* Stat — alta sabit */}
@@ -97,7 +97,7 @@ export default async function FixturePreview() {
           <div className="flex items-center gap-4">
             <span className="block w-1.5 h-11 bg-[#FFD100] rounded-full" />
             <div>
-              <h2 className="font-heading text-4xl md:text-5xl font-black text-[#092d18] tracking-tight">Maç Merkezi</h2>
+              <h2 className="font-heading text-4xl md:text-5xl font-black text-[#15532f] tracking-tight">Maç Merkezi</h2>
               <p className="text-xs font-bold text-[#7aab8e] mt-1">{meta.league} · {meta.season}</p>
             </div>
           </div>
@@ -127,7 +127,7 @@ export default async function FixturePreview() {
         {/* Orta buton */}
         <div className="flex justify-center mt-10">
           <Link href="/mac-merkezi"
-            className="inline-flex items-center gap-2 bg-white border border-[#ddeae2] hover:border-[#1A6B3C]/40 hover:shadow-md text-[#092d18] font-bold text-[15px] px-7 py-4 rounded-2xl transition-all">
+            className="inline-flex items-center gap-2 bg-white border border-[#ddeae2] hover:border-[#1A6B3C]/40 hover:shadow-md text-[#15532f] font-bold text-[15px] px-7 py-4 rounded-2xl transition-all">
             Maç Merkezine Git
             <ArrowUpRight size={17} className="text-[#1A6B3C]" />
           </Link>

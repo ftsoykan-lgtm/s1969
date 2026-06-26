@@ -39,7 +39,7 @@ export default async function AdminDashboard() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-black text-[#092d18]">Dashboard</h1>
+        <h1 className="text-2xl font-black text-[#15532f]">Dashboard</h1>
         <p className="text-sm text-[#3d6b52] mt-1">Hoş geldiniz, <span className="font-bold">{user?.email}</span></p>
       </div>
 
@@ -51,7 +51,7 @@ export default async function AdminDashboard() {
             <div className={`inline-flex h-10 w-10 items-center justify-center rounded-xl mb-3 ${s.color}`}>
               <s.icon size={18} />
             </div>
-            <p className="text-2xl font-black text-[#092d18] tabular-nums">{s.value}</p>
+            <p className="text-2xl font-black text-[#15532f] tabular-nums">{s.value}</p>
             <p className="text-xs text-[#7aab8e] font-semibold mt-0.5">{s.label}</p>
           </Link>
         ))}
@@ -60,8 +60,8 @@ export default async function AdminDashboard() {
       {/* Hızlı işlemler */}
       <div className="flex flex-wrap gap-3">
         <Link href="/admin/haberler" className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-black bg-[#1A6B3C] text-white hover:bg-[#0f4a28] transition-colors">Yeni Haber Ekle <ArrowUpRight size={13} /></Link>
-        <Link href="/admin/kadro" className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-black bg-[#FFD100] text-[#092d18] hover:brightness-105 transition-all">Kadroyu Güncelle <ArrowUpRight size={13} /></Link>
-        <Link href="/admin/sayfalar" className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-black border border-[#ddeae2] text-[#092d18] hover:bg-[#f5f9f6] transition-colors">Sayfa Düzenle <ArrowUpRight size={13} /></Link>
+        <Link href="/admin/kadro" className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-black bg-[#FFD100] text-[#15532f] hover:brightness-105 transition-all">Kadroyu Güncelle <ArrowUpRight size={13} /></Link>
+        <Link href="/admin/sayfalar" className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-black border border-[#ddeae2] text-[#15532f] hover:bg-[#f5f9f6] transition-colors">Sayfa Düzenle <ArrowUpRight size={13} /></Link>
       </div>
 
       {/* Yönetim bölümleri */}
@@ -75,7 +75,7 @@ export default async function AdminDashboard() {
                 <s.icon size={19} />
               </span>
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-black text-[#092d18]">{s.label}</p>
+                <p className="text-sm font-black text-[#15532f]">{s.label}</p>
                 <p className="text-[11px] text-[#7aab8e] truncate">{s.desc}</p>
               </div>
               <ArrowRight size={15} className="text-[#cfe3d8] group-hover:text-[#1A6B3C] transition-colors shrink-0" />

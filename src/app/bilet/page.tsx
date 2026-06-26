@@ -12,7 +12,7 @@ const matches = [
 export default function BiletPage() {
   return (
     <div className="min-h-screen bg-[#f5f9f6]">
-      <div className="bg-[#0f4a28] py-14">
+      <div className="bg-[#1A6B3C] py-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-3">
             <span className="block w-8 h-0.5 bg-[#FFD100]" />
@@ -27,7 +27,7 @@ export default function BiletPage() {
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-12 pb-20 space-y-6">
         <div className="flex items-start gap-3 bg-[#FFD100]/10 border border-[#FFD100]/30 rounded-xl p-4">
           <Info size={16} className="text-[#d4ad00] mt-0.5 shrink-0" />
-          <p className="text-sm text-[#092d18]">Biletler çevrimiçi satın alınabilir veya GAP Arena gişesinden temin edilebilir. Üye indirimi için giriş yapın.</p>
+          <p className="text-sm text-[#15532f]">Biletler çevrimiçi satın alınabilir veya GAP Arena gişesinden temin edilebilir. Üye indirimi için giriş yapın.</p>
         </div>
 
         {matches.map((m) => (
@@ -46,11 +46,11 @@ export default function BiletPage() {
               {[
                 { tier: 'Uçurtma Tribün', price: m.prices.ucurtma, color: 'border-[#ddeae2]', badge: 'bg-[#edf7f2] text-[#1A6B3C]' },
                 { tier: 'Orta Tribün', price: m.prices.orta, color: 'border-[#1A6B3C]/40', badge: 'bg-[#1A6B3C] text-white' },
-                { tier: 'VIP Tribün', price: m.prices.vip, color: 'border-[#FFD100]/60', badge: 'bg-[#FFD100] text-[#092d18]' },
+                { tier: 'VIP Tribün', price: m.prices.vip, color: 'border-[#FFD100]/60', badge: 'bg-[#FFD100] text-[#15532f]' },
               ].map(({ tier, price, color, badge }) => (
                 <div key={tier} className={`rounded-xl border-2 ${color} p-4 flex flex-col gap-3`}>
                   <span className={`inline-block self-start px-2.5 py-1 rounded-full text-[11px] font-black ${badge}`}>{tier}</span>
-                  <p className="text-2xl font-black text-[#092d18]">₺{price}</p>
+                  <p className="text-2xl font-black text-[#15532f]">₺{price}</p>
                   <button className="w-full bg-[#1A6B3C] hover:bg-[#0f4a28] text-white text-sm font-black py-2.5 rounded-xl transition-colors flex items-center justify-center gap-2">
                     <Ticket size={14} /> Satın Al
                   </button>

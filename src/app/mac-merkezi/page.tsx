@@ -15,7 +15,7 @@ function SectionTitle({ children, note }: { children: React.ReactNode; note?: st
   return (
     <div className="flex items-center gap-3 mb-5">
       <span className="block w-1.5 h-7 bg-[#FFD100] rounded-full" />
-      <h2 className="font-heading text-2xl font-black text-[#092d18] tracking-tight">{children}</h2>
+      <h2 className="font-heading text-2xl font-black text-[#15532f] tracking-tight">{children}</h2>
       {note && <span className="ml-auto text-xs font-bold text-[#7aab8e]">{note}</span>}
     </div>
   )
@@ -38,7 +38,7 @@ export default async function MacMerkeziPage() {
   return (
     <div className="min-h-screen bg-[#f5f9f6]">
       {/* Başlık */}
-      <div className="bg-[#0f4a28] py-14">
+      <div className="bg-[#1A6B3C] py-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-3">
             <span className="block w-8 h-0.5 bg-[#FFD100]" />

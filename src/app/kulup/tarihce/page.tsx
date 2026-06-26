@@ -17,9 +17,9 @@ export default async function TarihcePage() {
 
   return (
     <div className="min-h-screen bg-[#f5f9f6]">
-      <div className="relative bg-gradient-to-b from-[#0c3a23] to-[#092d18] overflow-hidden">
+      <div className="relative bg-gradient-to-b from-[#0c3a23] to-[#15532f] overflow-hidden">
         {page?.heroImage && (
-          <div className="absolute inset-0"><img src={page.heroImage} alt="" className="w-full h-full object-cover opacity-25" /><div className="absolute inset-0 bg-gradient-to-b from-[#0c3a23]/70 to-[#092d18]" /></div>
+          <div className="absolute inset-0"><img src={page.heroImage} alt="" className="w-full h-full object-cover opacity-25" /><div className="absolute inset-0 bg-gradient-to-b from-[#0c3a23]/70 to-[#15532f]" /></div>
         )}
         <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-16">
           <div className="flex items-center gap-3 mb-3"><span className="block w-8 h-0.5 bg-[#FFD100]" /><p className="text-xs font-black tracking-widest uppercase text-[#FFD100]/60">Kulüp</p></div>

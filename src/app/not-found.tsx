@@ -10,7 +10,7 @@ export default function NotFound() {
           <span className="block w-8 h-8 rounded-sm bg-white border border-[#ddeae2]" />
         </div>
         <h1 className="text-8xl font-black text-[#0f4a28] leading-none mb-4">404</h1>
-        <p className="text-xl font-black text-[#092d18] mb-2">Sayfa Bulunamadı</p>
+        <p className="text-xl font-black text-[#15532f] mb-2">Sayfa Bulunamadı</p>
         <p className="text-sm text-[#3d6b52] mb-8">Aradığınız sayfa mevcut değil veya taşınmış olabilir.</p>
         <Link href="/"
           className="inline-flex items-center gap-2 bg-[#1A6B3C] hover:bg-[#0f4a28] text-white font-black px-6 py-3 rounded-xl transition-colors text-sm">

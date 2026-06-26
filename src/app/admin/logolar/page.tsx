@@ -55,11 +55,11 @@ export default function AdminLogolarPage() {
         {logos[name] ? <img src={logos[name]} alt={name} className="w-full h-full object-contain" /> : <span className="text-[9px] text-[#7aab8e]">logo</span>}
       </div>
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-bold text-[#092d18] truncate mb-1.5">{name}</p>
+        <p className="text-sm font-bold text-[#15532f] truncate mb-1.5">{name}</p>
         <div className="flex items-center gap-1.5">
           <input value={logos[name] ?? ''} onChange={(e) => setLogo(name, e.target.value)} onBlur={() => handleSaveUrl(name)}
             placeholder="Logo URL..."
-            className="flex-1 min-w-0 bg-[#f5f9f6] border border-[#ddeae2] rounded-lg px-2.5 py-1.5 text-xs text-[#092d18] placeholder-[#7aab8e] focus:outline-none focus:border-[#1A6B3C]" />
+            className="flex-1 min-w-0 bg-[#f5f9f6] border border-[#ddeae2] rounded-lg px-2.5 py-1.5 text-xs text-[#15532f] placeholder-[#7aab8e] focus:outline-none focus:border-[#1A6B3C]" />
           <label className="shrink-0 cursor-pointer p-1.5 text-[#7aab8e] hover:text-[#1A6B3C] hover:bg-[#edf7f2] rounded-lg transition-all">
             {busy === name ? <Loader2 size={14} className="animate-spin" /> : okKey === name ? <Check size={14} className="text-[#1A6B3C]" /> : <Upload size={14} />}
             <input type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handleUpload(name, f) }} />
@@ -72,7 +72,7 @@ export default function AdminLogolarPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-black text-[#092d18]">Logolar</h1>
+        <h1 className="text-2xl font-black text-[#15532f]">Logolar</h1>
         <p className="text-sm text-[#3d6b52] mt-1">Takım ve turnuva logoları. Yükleyin veya URL girin.</p>
       </div>
 
@@ -108,7 +108,7 @@ export default function AdminLogolarPage() {
         </>
       )}
 
-      <div className="flex items-start gap-2.5 bg-[#FFD100]/10 border border-[#FFD100]/30 rounded-xl p-4 text-sm text-[#092d18]">
+      <div className="flex items-start gap-2.5 bg-[#FFD100]/10 border border-[#FFD100]/30 rounded-xl p-4 text-sm text-[#15532f]">
         <LinkIcon size={15} className="text-[#d4ad00] mt-0.5 shrink-0" />
         <span>Logolar otomatik 128×128px'e ölçeklenir ve Supabase Storage'a yüklenir. URL alanından çıkınca otomatik kaydedilir. Takım logoları TFF'den otomatik gelir; turnuva logolarını siz eklersiniz.</span>
       </div>

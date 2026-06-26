@@ -55,7 +55,7 @@ export default function AdminSponsorlarPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-black text-[#092d18]">Sponsorlar</h1>
+          <h1 className="text-2xl font-black text-[#15532f]">Sponsorlar</h1>
           <p className="text-sm text-[#3d6b52] mt-1">{rows.length} sponsor · Ana / Resmi / Destekçi</p>
         </div>
         <button onClick={addNew}
@@ -74,7 +74,7 @@ export default function AdminSponsorlarPage() {
         <div className="flex items-center gap-2 text-sm text-[#7aab8e]"><Loader2 size={14} className="animate-spin" /> Yükleniyor...</div>
       ) : rows.length === 0 ? (
         <div className="bg-white rounded-2xl border border-[#ddeae2] p-10 text-center">
-          <p className="text-sm font-bold text-[#092d18]">Henüz sponsor yok</p>
+          <p className="text-sm font-bold text-[#15532f]">Henüz sponsor yok</p>
           <p className="text-xs text-[#7aab8e] mt-1">"Sponsor Ekle" ile başlayın.</p>
         </div>
       ) : (
@@ -129,7 +129,7 @@ export default function AdminSponsorlarPage() {
   )
 }
 
-const inputCls = 'w-full bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-3 py-2 text-sm text-[#092d18] placeholder-[#7aab8e] focus:outline-none focus:border-[#1A6B3C] transition-colors'
+const inputCls = 'w-full bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-3 py-2 text-sm text-[#15532f] placeholder-[#7aab8e] focus:outline-none focus:border-[#1A6B3C] transition-colors'
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (

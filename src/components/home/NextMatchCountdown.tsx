@@ -29,7 +29,7 @@ export default function NextMatchCountdown({ target }: { target: string | null }
     return (
       <div className="flex items-center gap-2.5">
         <span className="text-[11px] font-black tracking-[0.2em] uppercase text-[#7aab8e]">Sıradaki Maç</span>
-        <span className="text-sm font-bold text-[#092d18] bg-[#f5f9f6] border border-[#ddeae2] rounded-lg px-3 py-1.5">
+        <span className="text-sm font-bold text-[#15532f] bg-[#f5f9f6] border border-[#ddeae2] rounded-lg px-3 py-1.5">
           Maç bulunmuyor
         </span>
       </div>
