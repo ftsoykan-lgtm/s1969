@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-24T11:57:04.037Z",
+  "updatedAt": "2026-06-26T10:17:21.000Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2025-2026",
@@ -328,6 +328,8 @@
       "opponent": "BEYKOZ ANADOLU SPOR A.Ş.",
       "result": "G",
       "venue": "11 Nisan Stadyumu",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/014782_120x120.jpg",
       "detail": {
         "referees": [
           {
@@ -572,6 +574,8 @@
       "opponent": "BUCASPOR 1928",
       "result": "G",
       "venue": "Yeni Buca Stadı",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/010675_120x120.jpg",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
       "detail": {
         "referees": [
           {
@@ -842,6 +846,8 @@
       "opponent": "KURTALAN SPOR",
       "result": "G",
       "venue": "Kurtalan İlçe Stadı",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015821_120x120.jpg",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
       "detail": {
         "referees": [
           {
@@ -1112,6 +1118,8 @@
       "opponent": "KEPEZ SPOR FUTBOL A.Ş.",
       "result": "G",
       "venue": "11 Nisan Stadyumu",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/013708_120x120.jpg",
       "detail": {
         "referees": [
           {
@@ -1364,6 +1372,8 @@
       "opponent": "SULTAN SU İNEGÖLSPOR",
       "result": "G",
       "venue": "İnegöl İlçe Stadı",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000133_120x120.jpg",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
       "detail": {
         "referees": [
           {
@@ -1628,6 +1638,8 @@
       "opponent": "DERSİM SPOR",
       "result": "M",
       "venue": "Tunceli Atatürk",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/016058_120x120.jpg",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
       "detail": {
         "referees": [
           {
@@ -1872,6 +1884,8 @@
       "opponent": "MERKÜR JET ERBAASPOR",
       "result": "B",
       "venue": "11 Nisan Stadyumu",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000203_120x120.jpg",
       "detail": {
         "referees": [
           {
@@ -2137,6 +2151,8 @@
       "opponent": "İSKENDERUNSPOR A.Ş.",
       "result": "G",
       "venue": "Kırıkhan İlçe",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/010647_120x120.jpg",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
       "detail": {
         "referees": [
           {
@@ -2389,6 +2405,8 @@
       "opponent": "ANAGOLD 24ERZİNCANSPOR",
       "result": "G",
       "venue": "11 Nisan Stadyumu",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/013940_120x120.jpg",
       "detail": {
         "referees": [
           {
@@ -2654,6 +2672,8 @@
       "opponent": "ADANA 01 FUTBOL KULÜBÜ SK",
       "result": "G",
       "venue": "Ali Hoşfikirer Stadı",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/017582_120x120.jpg",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
       "detail": {
         "referees": [
           {
@@ -2914,6 +2934,8 @@
       "opponent": "SEZA ÇİMENTO ELAZIĞSPOR",
       "result": "M",
       "venue": "11 Nisan Stadyumu",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000036_120x120.png",
       "detail": {
         "referees": [
           {
@@ -3202,6 +3224,8 @@
       "opponent": "MKE ANKARAGÜCÜ",
       "result": "M",
       "venue": "Eryaman Stadyumu",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000153_120x120.png",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
       "detail": {
         "referees": [
           {
@@ -3474,6 +3498,8 @@
       "opponent": "BEYOĞLU YENİ ÇARŞI SPOR FAALİYETLERİ A.Ş.",
       "result": "G",
       "venue": "11 Nisan Stadyumu",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015177_120x120.jpg",
       "detail": {
         "referees": [
           {
@@ -3763,6 +3789,8 @@
       "opponent": "ALTINORDU",
       "result": "G",
       "venue": "Metin Oktay Yerleşkesi Serpil Hamdi Tüzün Sahası -",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000103_120x120.png",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
       "detail": {
         "referees": [
           {
@@ -4034,6 +4062,8 @@
       "opponent": "BATMAN PETROL SPOR A.Ş.",
       "result": "M",
       "venue": "11 Nisan Stadyumu",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000033_120x120.jpg",
       "detail": {
         "referees": [
           {
@@ -4282,6 +4312,8 @@
       "opponent": "KARACABEY BELEDİYE SPOR A.Ş.",
       "result": "G",
       "venue": "Karacabey M.fehmi Gerçeker Stadı",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015376_120x120.jpg",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
       "detail": {
         "referees": [
           {
@@ -4539,6 +4571,8 @@
       "opponent": "KARAMAN FUTBOL KULÜBÜ",
       "result": "G",
       "venue": "11 Nisan Stadyumu",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/011747_120x120.jpg",
       "detail": {
         "referees": [
           {
@@ -4781,6 +4815,8 @@
       "opponent": "GMG KASTAMONUSPOR",
       "result": "G",
       "venue": "Gazi Stadı",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/010766_120x120.jpg",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
       "detail": {
         "referees": [
           {
@@ -5056,6 +5092,8 @@
       "opponent": "MUĞLASPOR KULÜBÜ",
       "result": "B",
       "venue": "11 Nisan Stadyumu",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000081_120x120.jpg",
       "detail": {
         "referees": [
           {
@@ -5296,6 +5334,8 @@
       "opponent": "SİNCAN BELEDİYESİ ANKARASPOR",
       "result": "M",
       "venue": "Sincan 15 Temmuz Milli Birlik Stadı",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/010779_120x120.jpg",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
       "detail": {
         "referees": [
           {
@@ -5540,6 +5580,8 @@
       "opponent": "BEYKOZ ANADOLU SPOR A.Ş.",
       "result": "G",
       "venue": "Maltepe Hasan Polat",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/014782_120x120.jpg",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
       "detail": {
         "referees": [
           {
@@ -5794,6 +5836,8 @@
       "opponent": "BUCASPOR 1928",
       "result": "G",
       "venue": "11 Nisan Stadyumu",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/010675_120x120.jpg",
       "detail": {
         "referees": [
           {
@@ -6046,6 +6090,8 @@
       "opponent": "SULTAN SU İNEGÖLSPOR",
       "result": "B",
       "venue": "11 Nisan Stadyumu",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000133_120x120.jpg",
       "detail": {
         "referees": [
           {
@@ -6276,6 +6322,8 @@
       "opponent": "MERKÜR JET ERBAASPOR",
       "result": "B",
       "venue": "Erbaa İlçe",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000203_120x120.jpg",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
       "detail": {
         "referees": [
           {
@@ -6506,6 +6554,8 @@
       "opponent": "İSKENDERUNSPOR A.Ş.",
       "result": "G",
       "venue": "11 Nisan Stadyumu",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/010647_120x120.jpg",
       "detail": {
         "referees": [
           {
@@ -6759,6 +6809,8 @@
       "opponent": "ANAGOLD 24ERZİNCANSPOR",
       "result": "M",
       "venue": "Erzincan 13 Şubat Şehir Stadı",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/013940_120x120.jpg",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
       "detail": {
         "referees": [
           {
@@ -7029,6 +7081,8 @@
       "opponent": "KEPEZ SPOR FUTBOL A.Ş.",
       "result": "G",
       "venue": "Kepez Hasan Doğan Stadı",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/013708_120x120.jpg",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
       "detail": {
         "referees": [
           {
@@ -7310,6 +7364,8 @@
       "opponent": "ADANA 01 FUTBOL KULÜBÜ SK",
       "result": "M",
       "venue": "11 Nisan Stadyumu",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/017582_120x120.jpg",
       "detail": {
         "referees": [
           {
@@ -7604,6 +7660,8 @@
       "opponent": "SEZA ÇİMENTO ELAZIĞSPOR",
       "result": "M",
       "venue": "Elazığ Stadyumu",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000036_120x120.png",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
       "detail": {
         "referees": [
           {
@@ -7862,6 +7920,8 @@
       "opponent": "MKE ANKARAGÜCÜ",
       "result": "B",
       "venue": "11 Nisan Stadyumu",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000153_120x120.png",
       "detail": {
         "referees": [
           {
@@ -8132,6 +8192,8 @@
       "opponent": "BEYOĞLU YENİ ÇARŞI SPOR FAALİYETLERİ A.Ş.",
       "result": "M",
       "venue": "Bayrampaşa Çetin Emeç",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015177_120x120.jpg",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
       "detail": {
         "referees": [
           {
@@ -8399,6 +8461,8 @@
       "opponent": "ALTINORDU",
       "result": "B",
       "venue": "11 Nisan Stadyumu",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000103_120x120.png",
       "detail": {
         "referees": [
           {
@@ -8639,6 +8703,8 @@
       "opponent": "BATMAN PETROL SPOR A.Ş.",
       "result": "M",
       "venue": "Batman Stadyumu",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000033_120x120.jpg",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
       "detail": {
         "referees": [
           {
@@ -8902,6 +8968,8 @@
       "opponent": "KARACABEY BELEDİYE SPOR A.Ş.",
       "result": "B",
       "venue": "11 Nisan Stadyumu",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015376_120x120.jpg",
       "detail": {
         "referees": [
           {
@@ -9170,6 +9238,8 @@
       "opponent": "KARAMAN FUTBOL KULÜBÜ",
       "result": "G",
       "venue": "Yeni Karaman Stadyumu",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/011747_120x120.jpg",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
       "detail": {
         "referees": [
           {
@@ -9428,6 +9498,8 @@
       "opponent": "GMG KASTAMONUSPOR",
       "result": "G",
       "venue": "11 Nisan Stadyumu",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/010766_120x120.jpg",
       "detail": {
         "referees": [
           {
@@ -9715,6 +9787,8 @@
       "opponent": "MUĞLASPOR KULÜBÜ",
       "result": "B",
       "venue": "Muğla Atatürk Stadyumu",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000081_120x120.jpg",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
       "detail": {
         "referees": [
           {
@@ -9957,6 +10031,8 @@
       "opponent": "SİNCAN BELEDİYESİ ANKARASPOR",
       "result": "G",
       "venue": "11 Nisan Stadyumu",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/010779_120x120.jpg",
       "detail": {
         "referees": [
           {
@@ -10205,6 +10281,8 @@
       "opponent": "MUĞLASPOR KULÜBÜ",
       "result": "M",
       "venue": "11 Nisan Stadyumu",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000081_120x120.jpg",
       "detail": {
         "referees": [
           {
@@ -10457,6 +10535,8 @@
       "opponent": "MUĞLASPOR KULÜBÜ",
       "result": "B",
       "venue": "Muğla Atatürk Stadyumu",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000081_120x120.jpg",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
       "detail": {
         "referees": [
           {
@@ -10737,6 +10817,8 @@
       {
         "name": "Abdulkadir Sünger",
         "tffId": "1474032",
+        "number": null,
+        "position": null,
         "birthPlace": "Denizli",
         "birthDate": "24.05.2000",
         "nationality": "Türkiye",
@@ -10747,6 +10829,8 @@
       {
         "name": "Ahmet Güneş",
         "tffId": "2088408",
+        "number": null,
+        "position": null,
         "birthPlace": "Şanlıurfa",
         "birthDate": "16.01.2006",
         "nationality": "Türkiye",
@@ -10757,6 +10841,8 @@
       {
         "name": "Ali Sühan Demirel",
         "tffId": "2151894",
+        "number": null,
+        "position": null,
         "birthPlace": "Lunen",
         "birthDate": "02.01.2003",
         "nationality": "Türkiye",
@@ -10766,11 +10852,21 @@
       },
       {
         "name": "Anıl Gözütok",
-        "tffId": "2560738"
+        "tffId": "2560738",
+        "number": null,
+        "position": null,
+        "birthPlace": "Almanya",
+        "birthDate": "27.10.2000",
+        "nationality": "Türkiye",
+        "flagCode": "tr",
+        "licenseNo": "18742",
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "Berk Yıldız",
         "tffId": "1024258",
+        "number": null,
+        "position": null,
         "birthPlace": "Konak",
         "birthDate": "09.01.1996",
         "nationality": "Türkiye",
@@ -10781,6 +10877,8 @@
       {
         "name": "Berk İsmail Ünsal",
         "tffId": "1023707",
+        "number": null,
+        "position": null,
         "birthPlace": "Gaziosmanpaşa",
         "birthDate": "06.08.1994",
         "nationality": "Türkiye",
@@ -10790,11 +10888,21 @@
       },
       {
         "name": "Berke Kılıç",
-        "tffId": "1847146"
+        "tffId": "1847146",
+        "number": null,
+        "position": null,
+        "birthPlace": "Bakırköy",
+        "birthDate": "24.08.2004",
+        "nationality": "Türkiye",
+        "flagCode": "tr",
+        "licenseNo": "2625166",
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "Burak Öğür",
         "tffId": "784599",
+        "number": null,
+        "position": null,
         "birthPlace": "İstanbul",
         "birthDate": "18.09.1989",
         "nationality": "Türkiye",
@@ -10805,6 +10913,8 @@
       {
         "name": "Burak Can Çamoğlu",
         "tffId": "1553173",
+        "number": null,
+        "position": null,
         "birthPlace": "Kamen",
         "birthDate": "05.10.1996",
         "nationality": "Türkiye",
@@ -10815,6 +10925,8 @@
       {
         "name": "Çınar Tarhan",
         "tffId": "1051697",
+        "number": null,
+        "position": null,
         "birthPlace": "Beykoz",
         "birthDate": "20.05.1997",
         "nationality": "Türkiye",
@@ -10825,6 +10937,8 @@
       {
         "name": "Emircan Altıntaş",
         "tffId": "966501",
+        "number": null,
+        "position": null,
         "birthPlace": "Maçka",
         "birthDate": "15.07.1995",
         "nationality": "Türkiye",
@@ -10835,16 +10949,14 @@
       {
         "name": "Erhan Çelenk",
         "tffId": "231495",
-        "birthPlace": "Akçaabat",
-        "birthDate": "16.03.1989",
-        "nationality": "Türkiye",
-        "flagCode": "tr",
-        "licenseNo": "340428",
-        "club": "Kızılkaya Tarım Şanlıurfaspor"
+        "number": null,
+        "position": null
       },
       {
         "name": "Eyüpcan Delibalta",
         "tffId": "1369129",
+        "number": null,
+        "position": null,
         "birthPlace": "Seyhan",
         "birthDate": "11.11.1996",
         "nationality": "Türkiye",
@@ -10855,6 +10967,8 @@
       {
         "name": "Güney Tutcuoğlu",
         "tffId": "782816",
+        "number": null,
+        "position": null,
         "birthPlace": "Fatih",
         "birthDate": "23.05.1992",
         "nationality": "Türkiye",
@@ -10865,6 +10979,8 @@
       {
         "name": "Hasan Hüseyin Acar",
         "tffId": "1051415",
+        "number": null,
+        "position": null,
         "birthPlace": "Eskişehir",
         "birthDate": "16.12.1994",
         "nationality": "Türkiye",
@@ -10875,6 +10991,8 @@
       {
         "name": "Levent Gülen",
         "tffId": "1671625",
+        "number": null,
+        "position": null,
         "birthPlace": "Aarau İsviçre",
         "birthDate": "24.02.1994",
         "nationality": "Türkiye",
@@ -10885,6 +11003,8 @@
       {
         "name": "Mahmut Küçük",
         "tffId": "2022359",
+        "number": null,
+        "position": null,
         "birthPlace": "Şanlıurfa",
         "birthDate": "19.05.2005",
         "nationality": "Türkiye",
@@ -10894,25 +11014,39 @@
       },
       {
         "name": "Mazlum Demir",
-        "tffId": "877034"
+        "tffId": "877034",
+        "number": null,
+        "position": null,
+        "birthPlace": "Mazgirt",
+        "birthDate": "01.04.1991",
+        "nationality": "Türkiye",
+        "flagCode": "tr",
+        "licenseNo": "1810021",
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "Mert Çölgeçen",
-        "tffId": "1526664"
+        "tffId": "1526664",
+        "number": null,
+        "position": null,
+        "birthPlace": "Edremit/balıkesir",
+        "birthDate": "07.02.2001",
+        "nationality": "Türkiye",
+        "flagCode": "tr",
+        "licenseNo": "1679316",
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "Onur Karakabak",
         "tffId": "894942",
-        "birthPlace": "Zonguldak",
-        "birthDate": "08.04.1992",
-        "nationality": "Türkiye",
-        "flagCode": "tr",
-        "licenseNo": "797450",
-        "club": "Kızılkaya Tarım Şanlıurfaspor"
+        "number": null,
+        "position": null
       },
       {
         "name": "Orhan Nahırcı",
         "tffId": "1499627",
+        "number": null,
+        "position": null,
         "birthPlace": "Edremit",
         "birthDate": "11.01.2000",
         "nationality": "Türkiye",
@@ -10923,6 +11057,8 @@
       {
         "name": "Recep Yemişci",
         "tffId": "1349471",
+        "number": null,
+        "position": null,
         "birthPlace": "Konak",
         "birthDate": "01.01.1999",
         "nationality": "Türkiye",
@@ -10933,16 +11069,14 @@
       {
         "name": "Sadık Çiftpınar",
         "tffId": "827547",
-        "birthPlace": "Seyhan",
-        "birthDate": "01.01.1993",
-        "nationality": "Türkiye",
-        "flagCode": "tr",
-        "licenseNo": "1413632",
-        "club": "Kızılkaya Tarım Şanlıurfaspor"
+        "number": null,
+        "position": null
       },
       {
         "name": "Sadık Arda Yılmaztürk",
         "tffId": "1024824",
+        "number": null,
+        "position": null,
         "birthPlace": "Avcılar",
         "birthDate": "24.12.1997",
         "nationality": "Türkiye",
@@ -10953,6 +11087,8 @@
       {
         "name": "Safa Kınalı",
         "tffId": "1498833",
+        "number": null,
+        "position": null,
         "birthPlace": "Trabzon",
         "birthDate": "23.04.1999",
         "nationality": "Türkiye",
@@ -10963,6 +11099,8 @@
       {
         "name": "Salih Şen",
         "tffId": "2687348",
+        "number": null,
+        "position": null,
         "birthPlace": "Almanya",
         "birthDate": "10.01.2005",
         "nationality": "Türkiye",
@@ -10973,6 +11111,8 @@
       {
         "name": "Sinan Kurumuş",
         "tffId": "950263",
+        "number": null,
+        "position": null,
         "birthPlace": "İnegöl",
         "birthDate": "02.08.1994",
         "nationality": "Türkiye",
@@ -10983,6 +11123,8 @@
       {
         "name": "Turan Çalhanoğlu",
         "tffId": "2824658",
+        "number": null,
+        "position": null,
         "birthPlace": "Mannheım",
         "birthDate": "26.09.2003",
         "nationality": "Türkiye",
@@ -10993,6 +11135,8 @@
       {
         "name": "Vedat Bora",
         "tffId": "1153697",
+        "number": null,
+        "position": null,
         "birthPlace": "Gebze",
         "birthDate": "27.01.1995",
         "nationality": "Türkiye",
@@ -11003,6 +11147,8 @@
       {
         "name": "Yılmaz Ceylan",
         "tffId": "1586388",
+        "number": null,
+        "position": null,
         "birthPlace": "Karşıyaka",
         "birthDate": "30.09.2000",
         "nationality": "Türkiye",
