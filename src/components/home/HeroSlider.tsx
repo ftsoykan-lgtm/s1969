@@ -15,6 +15,33 @@ export interface HeroItem {
 
 const INTERVAL = 6000
 
+/* Aktif slaytın ilerleme barı — TAMAMEN JS sürücülü (keyframe/Tailwind animasyonu YOK).
+   Sarı zemin + yeşil dolum. Mount olunca 0→100 genişlik transition'ı ile slayt süresince dolar. */
+function ProgressBar() {
+  const ref = useRef<HTMLSpanElement | null>(null)
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    let raf = 0
+    let start: number | null = null
+    const tick = (now: number) => {
+      if (start === null) start = now
+      const p = Math.min(1, (now - start) / INTERVAL)
+      el.style.width = `${p * 100}%`
+      if (p < 1) raf = requestAnimationFrame(tick)
+    }
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [])
+  return (
+    <span className="relative h-2.5 w-16 rounded-full overflow-hidden ring-1 ring-ugreen/30 shadow-inner"
+      style={{ backgroundColor: 'var(--c-ugold)' }}>
+      <span ref={ref} className="absolute inset-y-0 left-0 rounded-full"
+        style={{ width: '0%', backgroundColor: 'var(--c-ugreen)' }} />
+    </span>
+  )
+}
+
 export default function HeroSlider({ items }: { items: HeroItem[] }) {
   const n = items.length
   const [idx, setIdx] = useState(0)
@@ -117,13 +144,8 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
             <div className="flex items-center gap-2.5">
               {items.map((_, i) => {
                 if (i === idx) {
-                  // Aktif: SARI zemin + YEŞİL kademeli "loader" dolum — slayt süresince (6sn), dolunca sonraki habere geçer
-                  return (
-                    <span key={i} className="relative h-2.5 w-16 rounded-full bg-ugold overflow-hidden ring-1 ring-ugreen/30 shadow-inner">
-                      <span key={idx} className="absolute inset-y-0 left-0 w-0 rounded-full bg-ugreen"
-                        style={{ animation: `hloader ${INTERVAL}ms ease both` }} />
-                    </span>
-                  )
+                  // Aktif: SARI zemin + YEŞİL dolum (JS sürücülü) — slayt süresince dolar, dolunca geçer
+                  return <ProgressBar key={idx} />
                 }
                 const past = i < idx
                 return (
