@@ -96,8 +96,7 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
 
           {/* ── Yüzen CAM navigasyon (görsel üstünde, sağ-alt) ─────────── */}
           {n > 1 && (
-            <div className="absolute bottom-5 right-5 sm:bottom-6 sm:right-6 z-30 flex items-center gap-2 sm:gap-2.5
-                            rounded-full bg-black/25 backdrop-blur-md border border-white/20 px-2.5 py-2 shadow-[0_8px_24px_-8px_rgba(0,0,0,0.6)]">
+            <div className="absolute bottom-5 right-5 sm:bottom-6 sm:right-6 z-30 flex items-center gap-2 sm:gap-2.5 rounded-full bg-black/25 backdrop-blur-md border border-white/20 px-2.5 py-2 shadow-[0_8px_24px_-8px_rgba(0,0,0,0.6)]">
               <button onClick={prev} aria-label="Önceki"
                 className="h-8 w-8 flex items-center justify-center rounded-full text-white hover:bg-ugold hover:text-ugreend transition-colors">
                 <ChevronLeft size={17} />
