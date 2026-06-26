@@ -46,28 +46,73 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* ═══ Marka renk token'ları — admin'den tema değişimi için ═══
+     Utility'ler: bg-ugreen, text-ugold, bg-ugreen/30 (opaklık da çalışır).
+     Değerler aşağıdaki --c-u* değişkenlerinden gelir; [data-theme] ile değişir. */
+  --color-ugreen:   var(--c-ugreen);
+  --color-ugreend:  var(--c-ugreend);
+  --color-ugreenm:  var(--c-ugreenm);
+  --color-ugreens:  var(--c-ugreens);
+  --color-ugreendd: var(--c-ugreendd);
+  --color-ugreenb:  var(--c-ugreenb);
+  --color-utxt2:    var(--c-utxt2);
+  --color-ugold:    var(--c-ugold);
+  --color-ugoldl:   var(--c-ugoldl);
+  --color-ugoldd:   var(--c-ugoldd);
+  --color-ugoldh:   var(--c-ugoldh);
+}
+
+/* ═══ TEMA: Zümrüt (varsayılan / mevcut) ═══ */
+:root {
+  --c-ugreen:   #1b5e44;
+  --c-ugreend:  #103f2e;
+  --c-ugreenm:  #154836;
+  --c-ugreens:  #1a5740;
+  --c-ugreendd: #0c2e22;
+  --c-ugreenb:  #0e3a2a;
+  --c-utxt2:    #356152;
+  --c-ugold:    #f5c400;
+  --c-ugoldl:   #f7d24a;
+  --c-ugoldd:   #c9a200;
+  --c-ugoldh:   #d9b400;
+}
+
+/* ═══ TEMA: Klasik (önceki — canlı yeşil + neon sarı) ═══ */
+[data-theme="classic"] {
+  --c-ugreen:   #1A6B3C;
+  --c-ugreend:  #0f4a28;
+  --c-ugreenm:  #15532f;
+  --c-ugreens:  #176437;
+  --c-ugreendd: #092d18;
+  --c-ugreenb:  #0f4226;
+  --c-utxt2:    #3d6b52;
+  --c-ugold:    #FFD100;
+  --c-ugoldl:   #FFE04D;
+  --c-ugoldd:   #d4ad00;
+  --c-ugoldh:   #e8c000;
 }
 
 :root {
   /* ═══ Şanlıurfaspor Design Tokens — Sarı | Yeşil | Beyaz ═══ */
 
-  /* Yeşil skalası */
+  /* Yeşil skalası — tema değişkenlerinden beslenir (admin'den değişir) */
   --c-green-50:   #edf7f2;
   --c-green-100:  #d0ead9;
-  --c-green-500:  #1b5e44;   /* ana marka yeşili */
-  --c-green-700:  #103f2e;   /* navbar / footer */
-  --c-green-900:  #0c2e22;   /* hero / en koyu */
+  --c-green-500:  var(--c-ugreen);    /* ana marka yeşili */
+  --c-green-700:  var(--c-ugreend);   /* navbar / footer */
+  --c-green-900:  var(--c-ugreendd);  /* hero / en koyu */
 
   /* Sarı skalası */
-  --c-yellow:     #f5c400;
-  --c-yellow-600: #c9a200;
+  --c-yellow:     var(--c-ugold);
+  --c-yellow-600: var(--c-ugoldd);
 
   /* Nötr (yeşil tonlu gri) */
   --c-surface:    #f5f9f6;   /* sayfa arka planı */
   --c-card:       #ffffff;
   --c-border:     #ddeae2;
-  --c-text:       #0c2e22;   /* ana metin — koyu yeşil */
-  --c-text-2:     #356152;   /* ikincil metin */
+  --c-text:       var(--c-ugreendd);  /* ana metin — koyu yeşil */
+  --c-text-2:     var(--c-utxt2);     /* ikincil metin */
   --c-text-3:     #7aab8e;   /* üçüncil / placeholder */
 
   --background: oklch(1 0 0);
@@ -76,18 +121,18 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: #00875A;
+  --primary: var(--c-ugreen);
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
-  --accent: #f5c400;
+  --accent: var(--c-ugold);
   --accent-foreground: oklch(0.145 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
-  --ring: #00875A;
+  --ring: var(--c-ugreen);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);

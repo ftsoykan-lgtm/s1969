@@ -62,6 +62,9 @@ export interface ClubInfo {
   // Footer
   footerText: string  // footer'daki tanıtım paragrafı
   footer: FooterConfig // footer'daki tüm metinler (admin'den düzenlenir)
+
+  // Tema (renk paleti) — admin'den seçilir
+  theme: 'emerald' | 'classic'  // emerald = zümrüt (mevcut), classic = canlı yeşil + neon sarı (önceki)
 }
 
 export interface FooterLink { label: string; href: string }
@@ -152,4 +155,5 @@ export const clubInfo: ClubInfo = {
 
   footerText: "1969 yılında kurulan Şanlıurfaspor, Güneydoğu Anadolu'nun köklü ve tutkulu futbol kulübüdür. Sahada ve tribünde bir.",
   footer: defaultFooter,
+  theme: 'emerald',
 }

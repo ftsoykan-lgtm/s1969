@@ -14,8 +14,8 @@ export const dynamic = 'force-dynamic'
 function SectionTitle({ children, note }: { children: React.ReactNode; note?: string }) {
   return (
     <div className="flex items-center gap-3 mb-5">
-      <span className="block w-1.5 h-7 bg-[#f5c400] rounded-full" />
-      <h2 className="font-heading text-2xl font-black text-[#154836] tracking-tight">{children}</h2>
+      <span className="block w-1.5 h-7 bg-ugold rounded-full" />
+      <h2 className="font-heading text-2xl font-black text-ugreenm tracking-tight">{children}</h2>
       {note && <span className="ml-auto text-xs font-bold text-[#7aab8e]">{note}</span>}
     </div>
   )
@@ -38,14 +38,14 @@ export default async function MacMerkeziPage() {
   return (
     <div className="min-h-screen bg-[#f5f9f6]">
       {/* Başlık */}
-      <div className="bg-[#1b5e44] py-14">
+      <div className="bg-ugreen py-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-3">
-            <span className="block w-8 h-0.5 bg-[#f5c400]" />
-            <p className="text-xs font-black tracking-widest uppercase text-[#f5c400]/60">{meta.league} · {meta.season}</p>
+            <span className="block w-8 h-0.5 bg-ugold" />
+            <p className="text-xs font-black tracking-widest uppercase text-ugold/60">{meta.league} · {meta.season}</p>
           </div>
           <h1 className="font-heading text-4xl md:text-5xl font-black text-white tracking-tight">
-            Maç <span className="text-[#f5c400]">Merkezi</span>
+            Maç <span className="text-ugold">Merkezi</span>
           </h1>
 
           {/* Özet kutuları */}
@@ -102,7 +102,7 @@ function Stat({ label, value, highlight }: { label: string; value: string | numb
   return (
     <div className="rounded-2xl bg-white/[0.07] border border-white/10 px-4 py-3">
       <p className="text-[10px] font-black tracking-widest uppercase text-white/40 mb-1">{label}</p>
-      <p className={`text-2xl font-black tabular-nums ${highlight ? 'text-[#f5c400]' : 'text-white'}`}>{value}</p>
+      <p className={`text-2xl font-black tabular-nums ${highlight ? 'text-ugold' : 'text-white'}`}>{value}</p>
     </div>
   )
 }

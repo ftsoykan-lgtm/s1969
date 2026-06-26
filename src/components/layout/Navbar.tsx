@@ -108,10 +108,10 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
   return (
     <header className="sticky top-0 z-50 w-full">
       {/* En üst sarı-yeşil aksan */}
-      <div className="h-1 bg-gradient-to-r from-[#f5c400] via-[#1b5e44] to-[#f5c400]" />
+      <div className="h-1 bg-gradient-to-r from-ugold via-ugreen to-ugold" />
 
       {/* ── İnce üst kimlik bandı ──────────────────────────────────────── */}
-      <div className="hidden lg:block bg-[#154836] border-b border-white/[0.05]">
+      <div className="hidden lg:block bg-ugreenm border-b border-white/[0.05]">
         <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 flex items-center justify-end h-10">
           <div className="flex items-center gap-3.5">
             <div className="flex items-center gap-1.5">
@@ -123,15 +123,15 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
               ))}
             </div>
             <span className="w-px h-4 bg-white/15" />
-            <Link href="/magaza" className="text-[10px] font-black tracking-[0.2em] uppercase text-white/45 hover:text-[#f5c400] transition-colors">Mağaza</Link>
+            <Link href="/magaza" className="text-[10px] font-black tracking-[0.2em] uppercase text-white/45 hover:text-ugold transition-colors">Mağaza</Link>
           </div>
         </div>
       </div>
 
       {/* ── Ana bar ────────────────────────────────────────────────────── */}
-      <div className="relative bg-gradient-to-b from-[#1a5740] to-[#1b5e44] shadow-[0_10px_30px_-14px_rgba(0,0,0,0.4)]">
+      <div className="relative bg-gradient-to-b from-ugreens to-ugreen shadow-[0_10px_30px_-14px_rgba(0,0,0,0.4)]">
         {/* alt altın saç çizgisi */}
-        <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#f5c400]/40 to-transparent" />
+        <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-ugold/40 to-transparent" />
         <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
 
           {/* ── MOBİL BAR (menü · logo · dil) ───────────────────────── */}
@@ -145,14 +145,14 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
               {hasLogo ? (
                 <img src={club.logoUrl} alt="" className="h-9 w-9 rounded-full object-contain bg-white ring-1 ring-white/20 shrink-0" />
               ) : (
-                <div className="h-9 w-9 rounded-full bg-[#f5c400] flex items-center justify-center shrink-0">
-                  <span className="font-heading font-black text-[10px] text-[#103f2e]">{club.shortCode}</span>
+                <div className="h-9 w-9 rounded-full bg-ugold flex items-center justify-center shrink-0">
+                  <span className="font-heading font-black text-[10px] text-ugreend">{club.shortCode}</span>
                 </div>
               )}
               <span className="font-heading font-black text-[15px] tracking-tight uppercase text-white truncate">{club.name}</span>
             </Link>
 
-            <button aria-label="Dil" className="justify-self-end h-10 w-10 flex items-center justify-center text-white/80 hover:text-[#f5c400] transition-colors -mr-1">
+            <button aria-label="Dil" className="justify-self-end h-10 w-10 flex items-center justify-center text-white/80 hover:text-ugold transition-colors -mr-1">
               <Globe size={22} />
             </button>
           </div>
@@ -163,13 +163,13 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
             {/* ── Logo + wordmark (rafine) ────────────────────────────── */}
             <Link href="/" className="relative group flex items-center gap-3.5 h-full shrink-0" aria-label={club.name}>
               <div className="relative shrink-0">
-                <div className="absolute -inset-1.5 rounded-full bg-[#f5c400]/0 group-hover:bg-[#f5c400]/25 blur-md transition-all duration-300" />
+                <div className="absolute -inset-1.5 rounded-full bg-ugold/0 group-hover:bg-ugold/25 blur-md transition-all duration-300" />
                 {hasLogo ? (
                   <img src={club.logoUrl} alt={club.name}
-                    className="relative h-12 w-12 rounded-full object-contain bg-white ring-1 ring-[#f5c400]/40 group-hover:ring-[#f5c400] shadow-md transition-all duration-200" />
+                    className="relative h-12 w-12 rounded-full object-contain bg-white ring-1 ring-ugold/40 group-hover:ring-ugold shadow-md transition-all duration-200" />
                 ) : (
-                  <div className="relative h-12 w-12 rounded-full bg-gradient-to-br from-[#f5c400] to-[#e8b800] flex items-center justify-center shadow-md ring-1 ring-[#f5c400]/40 transition-all duration-200">
-                    <span className="font-heading font-black text-sm text-[#103f2e]">{club.shortCode}</span>
+                  <div className="relative h-12 w-12 rounded-full bg-gradient-to-br from-ugold to-[#e8b800] flex items-center justify-center shadow-md ring-1 ring-ugold/40 transition-all duration-200">
+                    <span className="font-heading font-black text-sm text-ugreend">{club.shortCode}</span>
                   </div>
                 )}
               </div>
@@ -186,21 +186,21 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
                     onMouseEnter={openMega} onMouseLeave={closeMega}>
                     <button className={cn(
                       'group relative flex items-center gap-1 h-full px-4 text-[12px] font-bold tracking-[0.06em] transition-colors',
-                      megaOpen ? 'text-[#f5c400]' : 'text-white/80 hover:text-white'
+                      megaOpen ? 'text-ugold' : 'text-white/80 hover:text-white'
                     )}>
                       {link.label}
                       <ChevronDown size={11} className={cn('transition-transform duration-200', megaOpen && 'rotate-180')} />
-                      <span className={cn('absolute left-1/2 -translate-x-1/2 bottom-[16px] h-[2px] bg-[#f5c400] rounded-full shadow-[0_0_8px_rgba(255,209,0,0.6)] transition-all duration-300', megaOpen ? 'w-5' : 'w-0 group-hover:w-5')} />
+                      <span className={cn('absolute left-1/2 -translate-x-1/2 bottom-[16px] h-[2px] bg-ugold rounded-full shadow-[0_0_8px_rgba(255,209,0,0.6)] transition-all duration-300', megaOpen ? 'w-5' : 'w-0 group-hover:w-5')} />
                     </button>
                   </div>
                 ) : (
                   <Link key={link.href} href={link.href}
                     className={cn(
                       'group relative flex items-center h-full px-4 text-[12px] font-bold tracking-[0.06em] transition-colors',
-                      isActive(link.href) ? 'text-[#f5c400]' : 'text-white/80 hover:text-white'
+                      isActive(link.href) ? 'text-ugold' : 'text-white/80 hover:text-white'
                     )}>
                     {link.label}
-                    <span className={cn('absolute left-1/2 -translate-x-1/2 bottom-[16px] h-[2px] bg-[#f5c400] rounded-full shadow-[0_0_8px_rgba(255,209,0,0.6)] transition-all duration-300', isActive(link.href) ? 'w-5' : 'w-0 group-hover:w-5')} />
+                    <span className={cn('absolute left-1/2 -translate-x-1/2 bottom-[16px] h-[2px] bg-ugold rounded-full shadow-[0_0_8px_rgba(255,209,0,0.6)] transition-all duration-300', isActive(link.href) ? 'w-5' : 'w-0 group-hover:w-5')} />
                   </Link>
                 )
               )}
@@ -209,12 +209,12 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
             {/* ── Sağ aksiyonlar ──────────────────────────────────────── */}
             <div className="flex items-center gap-2.5 ml-auto shrink-0">
               <button onClick={() => setSearchOpen(!searchOpen)} aria-label="Ara"
-                className="h-10 w-10 flex items-center justify-center rounded-full text-white/70 hover:text-[#f5c400] hover:bg-white/[0.06] transition-all">
+                className="h-10 w-10 flex items-center justify-center rounded-full text-white/70 hover:text-ugold hover:bg-white/[0.06] transition-all">
                 <Search size={18} />
               </button>
               <Link href="/bilet"
-                className="group relative inline-flex items-center gap-2 text-[#103f2e] font-black text-[12px] tracking-wide uppercase pl-4 pr-5 py-2.5 rounded-full overflow-hidden
-                           bg-gradient-to-b from-[#f7d24a] to-[#f5c400] shadow-[0_4px_16px_-2px_rgba(255,209,0,0.45)] transition-all hover:scale-[1.03]">
+                className="group relative inline-flex items-center gap-2 text-ugreend font-black text-[12px] tracking-wide uppercase pl-4 pr-5 py-2.5 rounded-full overflow-hidden
+                           bg-gradient-to-b from-ugoldl to-ugold shadow-[0_4px_16px_-2px_rgba(255,209,0,0.45)] transition-all hover:scale-[1.03]">
                 {/* üst cila */}
                 <span className="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-white/30" />
                 <Ticket size={15} className="relative" />
@@ -230,18 +230,18 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
             megaOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none')}
           onMouseEnter={openMega} onMouseLeave={closeMega}>
           <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 pt-2">
-            <div className="rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)] bg-[#154836]/97 backdrop-blur-xl ring-1 ring-white/10">
-              <div className="h-1 bg-gradient-to-r from-[#1b5e44] via-[#f5c400] to-[#1b5e44]" />
+            <div className="rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)] bg-ugreenm/97 backdrop-blur-xl ring-1 ring-white/10">
+              <div className="h-1 bg-gradient-to-r from-ugreen via-ugold to-ugreen" />
               <div className="p-8 grid grid-cols-[1fr_1fr_1fr_1.1fr] gap-10">
                 {kulupMenu.map((col) => (
                   <div key={col.baslik}>
-                    <p className="text-[#f5c400] text-[10px] font-black tracking-[0.25em] mb-4 pb-3 border-b border-white/10">{col.baslik}</p>
+                    <p className="text-ugold text-[10px] font-black tracking-[0.25em] mb-4 pb-3 border-b border-white/10">{col.baslik}</p>
                     <ul className="space-y-0.5">
                       {col.linkler.map((item) => (
                         <li key={item.label}>
                           <Link href={item.href}
                             className="flex items-center gap-2.5 text-sm text-white/55 hover:text-white hover:bg-white/[0.05] rounded-xl px-3 py-2 -mx-3 transition-all group">
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#f5c400]/30 group-hover:bg-[#f5c400] transition-colors shrink-0" />
+                            <span className="w-1.5 h-1.5 rounded-full bg-ugold/30 group-hover:bg-ugold transition-colors shrink-0" />
                             {item.label}
                           </Link>
                         </li>
@@ -249,11 +249,11 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
                     </ul>
                   </div>
                 ))}
-                <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-[#1b5e44] to-[#154836] ring-1 ring-white/10 p-5 flex flex-col justify-end">
+                <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-ugreen to-ugreenm ring-1 ring-white/10 p-5 flex flex-col justify-end">
                   <div className="absolute top-3 right-3 font-heading text-[5rem] font-black text-white/[0.04] leading-none">{club.shortCode}</div>
-                  <p className="relative text-[10px] font-black tracking-[0.25em] uppercase text-[#f5c400]/70 mb-1">{club.nickname}</p>
+                  <p className="relative text-[10px] font-black tracking-[0.25em] uppercase text-ugold/70 mb-1">{club.nickname}</p>
                   <p className="relative text-white font-black text-lg leading-tight mb-3">Tribünde yerini al</p>
-                  <Link href="/bilet" className="relative inline-flex items-center justify-center gap-2 bg-[#f5c400] text-[#154836] font-black text-[11px] tracking-wide uppercase px-4 py-2.5 rounded-full hover:bg-[#d9b400] transition-colors">Bilet Al →</Link>
+                  <Link href="/bilet" className="relative inline-flex items-center justify-center gap-2 bg-ugold text-ugreenm font-black text-[11px] tracking-wide uppercase px-4 py-2.5 rounded-full hover:bg-ugoldh transition-colors">Bilet Al →</Link>
                 </div>
               </div>
             </div>
@@ -262,7 +262,7 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
 
         {/* ── Mobil menü — TAM EKRAN panel (sağdan kayar) ────────────── */}
         <div className={cn(
-          'lg:hidden fixed inset-0 z-[60] bg-[#154836] flex flex-col transition-transform duration-300 ease-out',
+          'lg:hidden fixed inset-0 z-[60] bg-ugreenm flex flex-col transition-transform duration-300 ease-out',
           mobileOpen ? 'translate-x-0' : 'translate-x-full pointer-events-none'
         )}>
           {/* Panel başlığı */}
@@ -271,7 +271,7 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
               {hasLogo ? (
                 <img src={club.logoUrl} alt="" className="h-9 w-9 rounded-full object-contain bg-white ring-1 ring-white/20" />
               ) : (
-                <div className="h-9 w-9 rounded-full bg-[#f5c400] flex items-center justify-center"><span className="font-heading font-black text-[10px] text-[#103f2e]">{club.shortCode}</span></div>
+                <div className="h-9 w-9 rounded-full bg-ugold flex items-center justify-center"><span className="font-heading font-black text-[10px] text-ugreend">{club.shortCode}</span></div>
               )}
               <span className="font-heading font-black text-base tracking-tight uppercase text-white">{club.name}</span>
             </Link>
@@ -295,7 +295,7 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
                     <div className="pb-3 pl-1 space-y-3">
                       {kulupMenu.map((col) => (
                         <div key={col.baslik}>
-                          <p className="pt-1 pb-1 text-[10px] font-black tracking-[0.2em] text-[#f5c400]/60">{col.baslik}</p>
+                          <p className="pt-1 pb-1 text-[10px] font-black tracking-[0.2em] text-ugold/60">{col.baslik}</p>
                           {col.linkler.map((item) => (
                             <Link key={item.label} href={item.href} onClick={() => setMobileOpen(false)}
                               className="block py-2 text-[15px] text-white/65 hover:text-white transition-colors">{item.label}</Link>
@@ -308,12 +308,12 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
               ) : (
                 <Link key={link.href} href={link.href === '#' ? '#' : link.href} onClick={() => setMobileOpen(false)}
                   className={cn('block py-4 text-lg font-bold border-b border-white/[0.06] transition-colors',
-                    isActive(link.href) ? 'text-[#f5c400]' : 'text-white')}>{link.label}</Link>
+                    isActive(link.href) ? 'text-ugold' : 'text-white')}>{link.label}</Link>
               )
             )}
 
             <Link href="/bilet" onClick={() => setMobileOpen(false)}
-              className="block mt-6 py-4 text-center text-sm font-black tracking-widest text-[#103f2e] bg-[#f5c400] rounded-xl uppercase shadow-lg shadow-[#f5c400]/20">
+              className="block mt-6 py-4 text-center text-sm font-black tracking-widest text-ugreend bg-ugold rounded-xl uppercase shadow-lg shadow-ugold/20">
               Bilet Al
             </Link>
 
@@ -328,12 +328,12 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
 
         {/* ── Arama ────────────────────────────────────────────────── */}
         {searchOpen && (
-          <div className="absolute left-0 right-0 top-full bg-[#154836]/97 backdrop-blur-xl border-b border-white/10 px-4 py-3 z-40">
+          <div className="absolute left-0 right-0 top-full bg-ugreenm/97 backdrop-blur-xl border-b border-white/10 px-4 py-3 z-40">
             <div className="mx-auto max-w-[1280px]">
               <div className="relative">
                 <Search size={15} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" />
                 <input autoFocus type="search" placeholder="Haber, oyuncu, maç ara..."
-                  className="w-full bg-white/[0.06] border border-white/10 rounded-full pl-11 pr-4 py-3 text-sm text-white placeholder-white/30 focus:outline-none focus:border-[#f5c400]/40 transition-colors"
+                  className="w-full bg-white/[0.06] border border-white/10 rounded-full pl-11 pr-4 py-3 text-sm text-white placeholder-white/30 focus:outline-none focus:border-ugold/40 transition-colors"
                   onBlur={() => setSearchOpen(false)} />
               </div>
             </div>

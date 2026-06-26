@@ -55,13 +55,13 @@ export default function AdminLogolarPage() {
         {logos[name] ? <img src={logos[name]} alt={name} className="w-full h-full object-contain" /> : <span className="text-[9px] text-[#7aab8e]">logo</span>}
       </div>
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-bold text-[#154836] truncate mb-1.5">{name}</p>
+        <p className="text-sm font-bold text-ugreenm truncate mb-1.5">{name}</p>
         <div className="flex items-center gap-1.5">
           <input value={logos[name] ?? ''} onChange={(e) => setLogo(name, e.target.value)} onBlur={() => handleSaveUrl(name)}
             placeholder="Logo URL..."
-            className="flex-1 min-w-0 bg-[#f5f9f6] border border-[#ddeae2] rounded-lg px-2.5 py-1.5 text-xs text-[#154836] placeholder-[#7aab8e] focus:outline-none focus:border-[#1b5e44]" />
-          <label className="shrink-0 cursor-pointer p-1.5 text-[#7aab8e] hover:text-[#1b5e44] hover:bg-[#edf7f2] rounded-lg transition-all">
-            {busy === name ? <Loader2 size={14} className="animate-spin" /> : okKey === name ? <Check size={14} className="text-[#1b5e44]" /> : <Upload size={14} />}
+            className="flex-1 min-w-0 bg-[#f5f9f6] border border-[#ddeae2] rounded-lg px-2.5 py-1.5 text-xs text-ugreenm placeholder-[#7aab8e] focus:outline-none focus:border-ugreen" />
+          <label className="shrink-0 cursor-pointer p-1.5 text-[#7aab8e] hover:text-ugreen hover:bg-[#edf7f2] rounded-lg transition-all">
+            {busy === name ? <Loader2 size={14} className="animate-spin" /> : okKey === name ? <Check size={14} className="text-ugreen" /> : <Upload size={14} />}
             <input type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handleUpload(name, f) }} />
           </label>
         </div>
@@ -72,8 +72,8 @@ export default function AdminLogolarPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-black text-[#154836]">Logolar</h1>
-        <p className="text-sm text-[#356152] mt-1">Takım ve turnuva logoları. Yükleyin veya URL girin.</p>
+        <h1 className="text-2xl font-black text-ugreenm">Logolar</h1>
+        <p className="text-sm text-utxt2 mt-1">Takım ve turnuva logoları. Yükleyin veya URL girin.</p>
       </div>
 
       {loading ? (
@@ -82,8 +82,8 @@ export default function AdminLogolarPage() {
         <>
           {/* Turnuva logoları */}
           <div>
-            <p className="text-xs font-black tracking-widest uppercase text-[#1b5e44] mb-3 flex items-center gap-2">
-              <span className="w-4 h-0.5 bg-[#f5c400] inline-block" /> Turnuva Logoları
+            <p className="text-xs font-black tracking-widest uppercase text-ugreen mb-3 flex items-center gap-2">
+              <span className="w-4 h-0.5 bg-ugold inline-block" /> Turnuva Logoları
             </p>
             {competitions.length === 0 ? (
               <div className="bg-white rounded-2xl border border-[#ddeae2] p-5 text-sm text-[#7aab8e]">
@@ -98,8 +98,8 @@ export default function AdminLogolarPage() {
 
           {/* Takım logoları */}
           <div>
-            <p className="text-xs font-black tracking-widest uppercase text-[#1b5e44] mb-3 flex items-center gap-2">
-              <span className="w-4 h-0.5 bg-[#f5c400] inline-block" /> Takım Logoları
+            <p className="text-xs font-black tracking-widest uppercase text-ugreen mb-3 flex items-center gap-2">
+              <span className="w-4 h-0.5 bg-ugold inline-block" /> Takım Logoları
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {teams.map((t) => <LogoRow key={t} name={t} />)}
@@ -108,8 +108,8 @@ export default function AdminLogolarPage() {
         </>
       )}
 
-      <div className="flex items-start gap-2.5 bg-[#f5c400]/10 border border-[#f5c400]/30 rounded-xl p-4 text-sm text-[#154836]">
-        <LinkIcon size={15} className="text-[#c9a200] mt-0.5 shrink-0" />
+      <div className="flex items-start gap-2.5 bg-ugold/10 border border-ugold/30 rounded-xl p-4 text-sm text-ugreenm">
+        <LinkIcon size={15} className="text-ugoldd mt-0.5 shrink-0" />
         <span>Logolar otomatik 128×128px'e ölçeklenir ve Supabase Storage'a yüklenir. URL alanından çıkınca otomatik kaydedilir. Takım logoları TFF'den otomatik gelir; turnuva logolarını siz eklersiniz.</span>
       </div>
     </div>

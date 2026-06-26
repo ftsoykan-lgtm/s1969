@@ -55,11 +55,11 @@ export default function AdminSponsorlarPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-black text-[#154836]">Sponsorlar</h1>
-          <p className="text-sm text-[#356152] mt-1">{rows.length} sponsor · Ana / Resmi / Destekçi</p>
+          <h1 className="text-2xl font-black text-ugreenm">Sponsorlar</h1>
+          <p className="text-sm text-utxt2 mt-1">{rows.length} sponsor · Ana / Resmi / Destekçi</p>
         </div>
         <button onClick={addNew}
-          className="inline-flex items-center gap-2 bg-[#1b5e44] hover:bg-[#103f2e] text-white font-black px-4 py-2.5 rounded-xl text-sm transition-colors shadow-sm">
+          className="inline-flex items-center gap-2 bg-ugreen hover:bg-ugreend text-white font-black px-4 py-2.5 rounded-xl text-sm transition-colors shadow-sm">
           <Plus size={15} /> Sponsor Ekle
         </button>
       </div>
@@ -74,7 +74,7 @@ export default function AdminSponsorlarPage() {
         <div className="flex items-center gap-2 text-sm text-[#7aab8e]"><Loader2 size={14} className="animate-spin" /> Yükleniyor...</div>
       ) : rows.length === 0 ? (
         <div className="bg-white rounded-2xl border border-[#ddeae2] p-10 text-center">
-          <p className="text-sm font-bold text-[#154836]">Henüz sponsor yok</p>
+          <p className="text-sm font-bold text-ugreenm">Henüz sponsor yok</p>
           <p className="text-xs text-[#7aab8e] mt-1">"Sponsor Ekle" ile başlayın.</p>
         </div>
       ) : (
@@ -102,7 +102,7 @@ export default function AdminSponsorlarPage() {
                   <Field label="Logo">
                     <div className="flex items-center gap-1.5">
                       <input value={s.logo_url ?? ''} onChange={(e) => update(i, { logo_url: e.target.value })} placeholder="URL veya yükle" className={inputCls} />
-                      <label className="shrink-0 cursor-pointer p-2 text-[#7aab8e] hover:text-[#1b5e44] hover:bg-[#edf7f2] rounded-lg transition-all">
+                      <label className="shrink-0 cursor-pointer p-2 text-[#7aab8e] hover:text-ugreen hover:bg-[#edf7f2] rounded-lg transition-all">
                         <Upload size={15} />
                         <input type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handlePhoto(i, f) }} />
                       </label>
@@ -112,7 +112,7 @@ export default function AdminSponsorlarPage() {
 
                 <div className="flex flex-col gap-1.5 shrink-0">
                   <button onClick={() => handleSave(i)} disabled={busy !== null}
-                    className="inline-flex items-center gap-1.5 bg-[#1b5e44] hover:bg-[#103f2e] disabled:opacity-60 text-white text-xs font-black px-3 py-2 rounded-lg transition-colors">
+                    className="inline-flex items-center gap-1.5 bg-ugreen hover:bg-ugreend disabled:opacity-60 text-white text-xs font-black px-3 py-2 rounded-lg transition-colors">
                     {busy === (s.id ?? 'yeni') ? <Loader2 size={13} className="animate-spin" /> : <Check size={13} />} Kaydet
                   </button>
                   <button onClick={() => handleDelete(s, i)}
@@ -129,12 +129,12 @@ export default function AdminSponsorlarPage() {
   )
 }
 
-const inputCls = 'w-full bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-3 py-2 text-sm text-[#154836] placeholder-[#7aab8e] focus:outline-none focus:border-[#1b5e44] transition-colors'
+const inputCls = 'w-full bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-3 py-2 text-sm text-ugreenm placeholder-[#7aab8e] focus:outline-none focus:border-ugreen transition-colors'
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <label className="block text-[10px] font-black text-[#356152] mb-1 uppercase tracking-wide">{label}</label>
+      <label className="block text-[10px] font-black text-utxt2 mb-1 uppercase tracking-wide">{label}</label>
       {children}
     </div>
   )

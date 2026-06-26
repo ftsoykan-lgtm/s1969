@@ -42,7 +42,7 @@ export default function HeroVideo({ club, src, items = [] }: { club: ClubInfo; s
   const num = (i: number) => String(i + 1).padStart(2, '0')
 
   return (
-    <section className="relative bg-[#154836] overflow-hidden">
+    <section className="relative bg-ugreenm overflow-hidden">
       <div className="relative h-[64vh] min-h-[460px] md:h-[84vh] md:max-h-[860px]">
         {/* Arka plan video */}
         {src ? (
@@ -77,8 +77,8 @@ export default function HeroVideo({ club, src, items = [] }: { club: ClubInfo; s
                     <Link href={active.href} className="group block max-w-2xl" key={idx}>
                       {active.category && (
                         <span className="inline-flex items-center gap-2 mb-3 hero-up">
-                          <span className="w-7 h-0.5 bg-[#f5c400]" />
-                          <span className="text-[#f5c400] text-[11px] font-black tracking-[0.28em] uppercase">{active.category}</span>
+                          <span className="w-7 h-0.5 bg-ugold" />
+                          <span className="text-ugold text-[11px] font-black tracking-[0.28em] uppercase">{active.category}</span>
                         </span>
                       )}
                       <h1 className="font-heading text-2xl md:text-4xl lg:text-[2.7rem] font-black text-white leading-[1.05] tracking-tight line-clamp-3 drop-shadow-2xl hero-up"
@@ -90,7 +90,7 @@ export default function HeroVideo({ club, src, items = [] }: { club: ClubInfo; s
                           {active.excerpt}
                         </p>
                       )}
-                      <span className="inline-flex items-center gap-2 mt-5 text-[#103f2e] bg-[#f5c400] text-[12px] font-black uppercase tracking-wide pl-4 pr-5 py-2.5 rounded-full group-hover:gap-3 transition-all shadow-lg shadow-[#f5c400]/20 hero-up"
+                      <span className="inline-flex items-center gap-2 mt-5 text-ugreend bg-ugold text-[12px] font-black uppercase tracking-wide pl-4 pr-5 py-2.5 rounded-full group-hover:gap-3 transition-all shadow-lg shadow-ugold/20 hero-up"
                         style={{ animationDelay: '.18s' }}>
                         Haberin Devamı <ArrowRight size={15} />
                       </span>
@@ -112,11 +112,11 @@ export default function HeroVideo({ club, src, items = [] }: { club: ClubInfo; s
                   </div>
                   <div className="flex items-center gap-2">
                     <button onClick={prev} aria-label="Önceki"
-                      className="h-10 w-10 flex items-center justify-center rounded-full border border-white/25 text-white hover:bg-[#f5c400] hover:text-[#103f2e] hover:border-[#f5c400] transition-all">
+                      className="h-10 w-10 flex items-center justify-center rounded-full border border-white/25 text-white hover:bg-ugold hover:text-ugreend hover:border-ugold transition-all">
                       <ChevronLeft size={18} />
                     </button>
                     <button onClick={next} aria-label="Sonraki"
-                      className="h-10 w-10 flex items-center justify-center rounded-full border border-white/25 text-white hover:bg-[#f5c400] hover:text-[#103f2e] hover:border-[#f5c400] transition-all">
+                      className="h-10 w-10 flex items-center justify-center rounded-full border border-white/25 text-white hover:bg-ugold hover:text-ugreend hover:border-ugold transition-all">
                       <ChevronRight size={18} />
                     </button>
                   </div>
@@ -128,14 +128,14 @@ export default function HeroVideo({ club, src, items = [] }: { club: ClubInfo; s
           {/* İnce ilerleme çizgisi (en alt) */}
           {n > 1 && (
             <div className="h-[3px] bg-white/10">
-              <span key={idx} className="block h-full bg-[#f5c400]" style={{ animation: `heroProg ${INTERVAL}ms linear` }} />
+              <span key={idx} className="block h-full bg-ugold" style={{ animation: `heroProg ${INTERVAL}ms linear` }} />
             </div>
           )}
         </div>
       </div>
 
       {/* Alt altın hat */}
-      <div className="h-1 bg-gradient-to-r from-[#1b5e44] via-[#f5c400] to-[#1b5e44]" />
+      <div className="h-1 bg-gradient-to-r from-ugreen via-ugold to-ugreen" />
 
       <style jsx global>{`
         @keyframes heroProg { from { width: 0% } to { width: 100% } }

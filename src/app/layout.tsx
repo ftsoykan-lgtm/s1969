@@ -44,7 +44,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const [club, sponsors] = await Promise.all([getClubInfo(), getSponsors()])
   return (
-    <html lang="tr" className={`${inter.variable} ${sora.variable} h-full`}>
+    <html lang="tr" data-theme={club.theme === 'classic' ? 'classic' : 'emerald'} className={`${inter.variable} ${sora.variable} h-full`}>
       <body className="min-h-full flex flex-col bg-[#f8faf9] antialiased">
         <SiteShell club={club} sponsors={sponsors}>{children}</SiteShell>
       </body>

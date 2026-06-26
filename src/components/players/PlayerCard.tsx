@@ -25,7 +25,7 @@ export default function PlayerCard({ player }: { player: CardPlayer }) {
 
   return (
     <Link href={`/oyuncu/${player.slug}`}
-      className="group relative block rounded-2xl overflow-hidden bg-gradient-to-b from-[#1b5e44] to-[#0b3a20] shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 ring-1 ring-white/5">
+      className="group relative block rounded-2xl overflow-hidden bg-gradient-to-b from-ugreen to-[#0b3a20] shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 ring-1 ring-white/5">
       <div className="relative aspect-[3/4] overflow-hidden">
         {hasPhoto ? (
           <img src={player.photoUrl!} alt={player.name}
@@ -54,8 +54,8 @@ export default function PlayerCard({ player }: { player: CardPlayer }) {
 
       <div className="absolute inset-x-0 bottom-0 p-5 text-center">
         <p className="text-white font-black text-lg uppercase leading-tight tracking-wide line-clamp-1">{player.name}</p>
-        <div className="mx-auto my-2.5 h-0.5 w-9 bg-[#f5c400] rounded-full group-hover:w-16 transition-all duration-300" />
-        <p className="text-[#f5c400] text-xs font-bold uppercase tracking-[0.15em]">{player.position || 'Profesyonel'}</p>
+        <div className="mx-auto my-2.5 h-0.5 w-9 bg-ugold rounded-full group-hover:w-16 transition-all duration-300" />
+        <p className="text-ugold text-xs font-bold uppercase tracking-[0.15em]">{player.position || 'Profesyonel'}</p>
       </div>
     </Link>
   )

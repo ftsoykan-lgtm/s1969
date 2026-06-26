@@ -99,27 +99,27 @@ export default function AdminKadroPage() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-black text-[#154836]">Kadro / Oyuncu Profilleri</h1>
-          <p className="text-sm text-[#356152] mt-1">{rows.length} oyuncu · {activeCount} aktif · Sezon {season}</p>
+          <h1 className="text-2xl font-black text-ugreenm">Kadro / Oyuncu Profilleri</h1>
+          <p className="text-sm text-utxt2 mt-1">{rows.length} oyuncu · {activeCount} aktif · Sezon {season}</p>
         </div>
         <div className="flex items-center gap-2">
           <select value={season} onChange={(e) => { setSeason(e.target.value); load(e.target.value) }}
-            className="bg-white border border-[#ddeae2] rounded-xl px-3 py-2.5 text-sm font-bold text-[#154836] focus:outline-none focus:border-[#1b5e44]">
+            className="bg-white border border-[#ddeae2] rounded-xl px-3 py-2.5 text-sm font-bold text-ugreenm focus:outline-none focus:border-ugreen">
             {seasons.map((s) => <option key={s} value={s}>{s}</option>)}
           </select>
           <button onClick={handleSync} disabled={syncing}
-            className="inline-flex items-center gap-2 bg-[#103f2e] hover:bg-[#1b5e44] disabled:opacity-60 text-white font-black px-4 py-2.5 rounded-xl text-sm transition-colors shadow-sm">
+            className="inline-flex items-center gap-2 bg-ugreend hover:bg-ugreen disabled:opacity-60 text-white font-black px-4 py-2.5 rounded-xl text-sm transition-colors shadow-sm">
             {syncing ? <Loader2 size={15} className="animate-spin" /> : <RefreshCw size={15} />} TFF ile Senkronize Et
           </button>
           <button onClick={addNew}
-            className="inline-flex items-center gap-2 bg-[#1b5e44] hover:bg-[#103f2e] text-white font-black px-4 py-2.5 rounded-xl text-sm transition-colors shadow-sm">
+            className="inline-flex items-center gap-2 bg-ugreen hover:bg-ugreend text-white font-black px-4 py-2.5 rounded-xl text-sm transition-colors shadow-sm">
             <Plus size={15} /> Oyuncu Ekle
           </button>
         </div>
       </div>
 
       {msg && (
-        <div className={`flex items-center gap-2.5 border rounded-xl px-4 py-3 text-sm ${msg.t === 'err' ? 'bg-red-50 border-red-200 text-red-700' : 'bg-[#edf7f2] border-[#1b5e44]/20 text-[#1b5e44]'}`}>
+        <div className={`flex items-center gap-2.5 border rounded-xl px-4 py-3 text-sm ${msg.t === 'err' ? 'bg-red-50 border-red-200 text-red-700' : 'bg-[#edf7f2] border-ugreen/20 text-ugreen'}`}>
           {msg.t === 'err' ? <AlertCircle size={15} /> : <Check size={15} />} {msg.m}
         </div>
       )}
@@ -128,7 +128,7 @@ export default function AdminKadroPage() {
         <div className="flex items-center gap-2 text-sm text-[#7aab8e]"><Loader2 size={14} className="animate-spin" /> Yükleniyor...</div>
       ) : rows.length === 0 ? (
         <div className="bg-white rounded-2xl border border-[#ddeae2] p-10 text-center">
-          <p className="text-sm font-bold text-[#154836]">Bu sezon için oyuncu yok</p>
+          <p className="text-sm font-bold text-ugreenm">Bu sezon için oyuncu yok</p>
           <p className="text-xs text-[#7aab8e] mt-1">&quot;TFF ile Senkronize Et&quot; ile kadroyu çekin veya elle &quot;Oyuncu Ekle&quot;.</p>
         </div>
       ) : (
@@ -143,11 +143,11 @@ export default function AdminKadroPage() {
                     {(p.photo || p.photo_tff) ? <img src={p.photo || p.photo_tff!} alt="" className="w-full h-full object-cover" /> : <span className="text-[10px] text-[#7aab8e]">{p.number ?? '?'}</span>}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-black text-[#154836] truncate">{p.number != null ? `${p.number} · ` : ''}{p.name}</p>
+                    <p className="text-sm font-black text-ugreenm truncate">{p.number != null ? `${p.number} · ` : ''}{p.name}</p>
                     <p className="text-[11px] text-[#7aab8e] truncate">{p.position || 'Mevki yok'}{p.manual ? ' · Elle eklendi' : p.tff_id ? ' · TFF' : ''}</p>
                   </div>
                   {!p.active && <span className="inline-flex items-center gap-1 text-[10px] font-black uppercase text-[#7aab8e] bg-[#f5f9f6] rounded px-2 py-0.5"><EyeOff size={11} /> Pasif</span>}
-                  {p.id && p.slug && <Link href={`/oyuncu/${p.slug}`} target="_blank" onClick={(e) => e.stopPropagation()} className="text-[#7aab8e] hover:text-[#1b5e44] p-1"><ExternalLink size={14} /></Link>}
+                  {p.id && p.slug && <Link href={`/oyuncu/${p.slug}`} target="_blank" onClick={(e) => e.stopPropagation()} className="text-[#7aab8e] hover:text-ugreen p-1"><ExternalLink size={14} /></Link>}
                   <ChevronDown size={16} className={`text-[#7aab8e] transition-transform ${isOpen ? 'rotate-180' : ''}`} />
                 </button>
 
@@ -158,7 +158,7 @@ export default function AdminKadroPage() {
                         <div className="w-24 rounded-xl bg-[#f5f9f6] border border-[#ddeae2] overflow-hidden flex items-center justify-center" style={{ height: 120 }}>
                           {(p.photo || p.photo_tff) ? <img src={p.photo || p.photo_tff!} alt="" className="w-full h-full object-cover" /> : <span className="text-xs text-[#7aab8e]">foto</span>}
                         </div>
-                        <label className="mt-2 flex items-center justify-center gap-1.5 cursor-pointer text-[11px] font-bold text-[#1b5e44] bg-[#edf7f2] hover:bg-[#d0ead9] rounded-lg py-1.5 transition-colors">
+                        <label className="mt-2 flex items-center justify-center gap-1.5 cursor-pointer text-[11px] font-bold text-ugreen bg-[#edf7f2] hover:bg-[#d0ead9] rounded-lg py-1.5 transition-colors">
                           <Upload size={12} /> Foto Yükle
                           <input type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handlePhoto(i, f) }} />
                         </label>
@@ -191,11 +191,11 @@ export default function AdminKadroPage() {
 
                     <div className="flex items-center gap-3 pt-1">
                       <button onClick={() => handleSave(i)} disabled={busy !== null}
-                        className="inline-flex items-center gap-1.5 bg-[#1b5e44] hover:bg-[#103f2e] disabled:opacity-60 text-white text-xs font-black px-4 py-2.5 rounded-lg transition-colors">
+                        className="inline-flex items-center gap-1.5 bg-ugreen hover:bg-ugreend disabled:opacity-60 text-white text-xs font-black px-4 py-2.5 rounded-lg transition-colors">
                         {busy === id ? <Loader2 size={13} className="animate-spin" /> : <Check size={13} />} Kaydet
                       </button>
-                      <label className="flex items-center gap-2 text-sm font-bold text-[#356152]">
-                        <input type="checkbox" checked={p.active ?? true} onChange={(e) => update(i, { active: e.target.checked })} className="w-4 h-4 accent-[#1b5e44]" /> Aktif kadroda
+                      <label className="flex items-center gap-2 text-sm font-bold text-utxt2">
+                        <input type="checkbox" checked={p.active ?? true} onChange={(e) => update(i, { active: e.target.checked })} className="w-4 h-4 accent-ugreen" /> Aktif kadroda
                       </label>
                       <button onClick={() => handleDelete(p, i)} className="ml-auto inline-flex items-center gap-1.5 text-[#7aab8e] hover:text-red-500 hover:bg-red-50 text-xs font-bold px-3 py-2.5 rounded-lg transition-all">
                         <Trash2 size={13} /> Sil
@@ -212,12 +212,12 @@ export default function AdminKadroPage() {
   )
 }
 
-const inp = 'w-full bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-3 py-2 text-sm text-[#154836] placeholder-[#7aab8e] focus:outline-none focus:border-[#1b5e44] transition-colors'
+const inp = 'w-full bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-3 py-2 text-sm text-ugreenm placeholder-[#7aab8e] focus:outline-none focus:border-ugreen transition-colors'
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <label className="block text-[10px] font-black text-[#356152] mb-1 uppercase tracking-wide">{label}</label>
+      <label className="block text-[10px] font-black text-utxt2 mb-1 uppercase tracking-wide">{label}</label>
       {children}
     </div>
   )

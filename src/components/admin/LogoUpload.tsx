@@ -35,9 +35,9 @@ export default function LogoUpload({ value, onChange, size = 256, folder = 'logo
   return (
     <div>
       <div className="flex items-center gap-2 mb-1.5">
-        <label className="text-xs font-black text-[#356152] uppercase tracking-wide">{label}</label>
+        <label className="text-xs font-black text-utxt2 uppercase tracking-wide">{label}</label>
         <button type="button" onClick={() => setManual(!manual)}
-          className="text-[10px] font-bold text-[#7aab8e] hover:text-[#1b5e44] flex items-center gap-1">
+          className="text-[10px] font-bold text-[#7aab8e] hover:text-ugreen flex items-center gap-1">
           <LinkIcon size={10} /> {manual ? 'Yükle' : 'URL gir'}
         </button>
       </div>
@@ -59,7 +59,7 @@ export default function LogoUpload({ value, onChange, size = 256, folder = 'logo
               value={value}
               onChange={(e) => onChange(e.target.value)}
               placeholder="https://..."
-              className="w-full bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-3 py-2.5 text-sm text-[#154836] placeholder-[#7aab8e] focus:outline-none focus:border-[#1b5e44] transition-colors"
+              className="w-full bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-3 py-2.5 text-sm text-ugreenm placeholder-[#7aab8e] focus:outline-none focus:border-ugreen transition-colors"
             />
           ) : (
             <>
@@ -74,7 +74,7 @@ export default function LogoUpload({ value, onChange, size = 256, folder = 'logo
                 type="button"
                 onClick={() => inputRef.current?.click()}
                 disabled={state === 'uploading'}
-                className="inline-flex items-center gap-2 bg-[#1b5e44] hover:bg-[#103f2e] disabled:opacity-60 text-white text-sm font-bold px-4 py-2.5 rounded-xl transition-colors"
+                className="inline-flex items-center gap-2 bg-ugreen hover:bg-ugreend disabled:opacity-60 text-white text-sm font-bold px-4 py-2.5 rounded-xl transition-colors"
               >
                 {state === 'uploading' ? <Loader2 size={14} className="animate-spin" />
                   : state === 'ok' ? <Check size={14} />

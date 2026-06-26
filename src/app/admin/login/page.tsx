@@ -52,10 +52,10 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#103f2e] flex items-center justify-center px-4">
+    <div className="min-h-screen bg-ugreend flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-[#f5c400] text-[#103f2e] font-black text-2xl shadow-xl mb-4">
+          <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-ugold text-ugreend font-black text-2xl shadow-xl mb-4">
             Ş
           </div>
           <h1 className="text-2xl font-black text-white">Admin Panel</h1>
@@ -71,7 +71,7 @@ export default function AdminLoginPage() {
           )}
 
           <div>
-            <label className="block text-xs font-black text-[#356152] mb-1.5 uppercase tracking-wide">
+            <label className="block text-xs font-black text-utxt2 mb-1.5 uppercase tracking-wide">
               E-posta
             </label>
             <div className="relative">
@@ -83,13 +83,13 @@ export default function AdminLoginPage() {
                 placeholder="admin@sanliurfask.org.tr"
                 required
                 autoComplete="email"
-                className="w-full pl-10 pr-4 py-3 bg-[#f5f9f6] border border-[#ddeae2] rounded-xl text-sm text-[#154836] placeholder-[#7aab8e] focus:outline-none focus:border-[#1b5e44] transition-colors"
+                className="w-full pl-10 pr-4 py-3 bg-[#f5f9f6] border border-[#ddeae2] rounded-xl text-sm text-ugreenm placeholder-[#7aab8e] focus:outline-none focus:border-ugreen transition-colors"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-black text-[#356152] mb-1.5 uppercase tracking-wide">
+            <label className="block text-xs font-black text-utxt2 mb-1.5 uppercase tracking-wide">
               Şifre
             </label>
             <div className="relative">
@@ -101,12 +101,12 @@ export default function AdminLoginPage() {
                 placeholder="••••••••"
                 required
                 autoComplete="current-password"
-                className="w-full pl-10 pr-10 py-3 bg-[#f5f9f6] border border-[#ddeae2] rounded-xl text-sm text-[#154836] placeholder-[#7aab8e] focus:outline-none focus:border-[#1b5e44] transition-colors"
+                className="w-full pl-10 pr-10 py-3 bg-[#f5f9f6] border border-[#ddeae2] rounded-xl text-sm text-ugreenm placeholder-[#7aab8e] focus:outline-none focus:border-ugreen transition-colors"
               />
               <button
                 type="button"
                 onClick={() => setShowPw(!showPw)}
-                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#7aab8e] hover:text-[#1b5e44] transition-colors"
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#7aab8e] hover:text-ugreen transition-colors"
               >
                 {showPw ? <EyeOff size={15} /> : <Eye size={15} />}
               </button>
@@ -116,7 +116,7 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-[#1b5e44] hover:bg-[#103f2e] disabled:opacity-60 text-white font-black py-3 rounded-xl transition-colors text-sm shadow-sm"
+            className="w-full bg-ugreen hover:bg-ugreend disabled:opacity-60 text-white font-black py-3 rounded-xl transition-colors text-sm shadow-sm"
           >
             {loading ? 'Giriş yapılıyor...' : 'Giriş Yap'}
           </button>

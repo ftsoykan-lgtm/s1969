@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Save, Loader2, AlertCircle } from 'lucide-react'
+import { Save, Loader2, AlertCircle, Check } from 'lucide-react'
 import { clubInfo } from '@/data/club'
 import type { ClubInfo, FooterConfig } from '@/data/club'
 import { getSettings, saveSettings } from '@/lib/supabase/settings'
@@ -14,22 +14,22 @@ const SocialIcon = ({ name }: { name: string }) => {
   const icons: Record<string, string> = {
     Facebook: 'f', X: 'X', Instagram: 'ig', YouTube: '▶', TikTok: '♪'
   }
-  return <span className="w-7 h-7 rounded-lg bg-[#103f2e] text-[#f5c400] text-[11px] font-black flex items-center justify-center shrink-0">{icons[name] ?? name[0]}</span>
+  return <span className="w-7 h-7 rounded-lg bg-ugreend text-ugold text-[11px] font-black flex items-center justify-center shrink-0">{icons[name] ?? name[0]}</span>
 }
 
 const Field = ({ label, hint, children }: { label: string; hint?: string; children: React.ReactNode }) => (
   <div>
-    <label className="block text-xs font-black text-[#356152] mb-1.5 uppercase tracking-wide">{label}</label>
+    <label className="block text-xs font-black text-utxt2 mb-1.5 uppercase tracking-wide">{label}</label>
     {children}
     {hint && <p className="text-[11px] text-[#7aab8e] mt-1">{hint}</p>}
   </div>
 )
 
 const Input = (p: React.InputHTMLAttributes<HTMLInputElement>) => (
-  <input {...p} className="w-full bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-4 py-2.5 text-sm text-[#154836] placeholder-[#7aab8e] focus:outline-none focus:border-[#1b5e44] transition-colors" />
+  <input {...p} className="w-full bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-4 py-2.5 text-sm text-ugreenm placeholder-[#7aab8e] focus:outline-none focus:border-ugreen transition-colors" />
 )
 const Textarea = (p: React.TextareaHTMLAttributes<HTMLTextAreaElement>) => (
-  <textarea {...p} className="w-full bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-4 py-2.5 text-sm text-[#154836] placeholder-[#7aab8e] focus:outline-none focus:border-[#1b5e44] transition-colors resize-none" />
+  <textarea {...p} className="w-full bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-4 py-2.5 text-sm text-ugreenm placeholder-[#7aab8e] focus:outline-none focus:border-ugreen transition-colors resize-none" />
 )
 
 export default function AdminAyarlarPage() {
@@ -58,6 +58,7 @@ export default function AdminAyarlarPage() {
   const [seo, setSeo] = useState({ metaTitle: clubInfo.seoTitle, metaDesc: clubInfo.seoDescription, keywords: clubInfo.seoKeywords })
   const [footerText, setFooterText] = useState(clubInfo.footerText)
   const [footer, setFooter] = useState<FooterConfig>(clubInfo.footer)
+  const [theme, setTheme] = useState<'emerald' | 'classic'>(clubInfo.theme)
 
   // Supabase'den mevcut ayarları yükle
   useEffect(() => {
@@ -74,6 +75,7 @@ export default function AdminAyarlarPage() {
       setSeo({ metaTitle: s.seoTitle ?? clubInfo.seoTitle, metaDesc: s.seoDescription ?? clubInfo.seoDescription, keywords: s.seoKeywords ?? clubInfo.seoKeywords })
       setFooterText(s.footerText ?? clubInfo.footerText)
       setFooter(s.footer ?? clubInfo.footer)
+      setTheme(s.theme === 'classic' ? 'classic' : 'emerald')
       setLoading(false)
     })
   }, [])
@@ -94,6 +96,7 @@ export default function AdminAyarlarPage() {
       seoTitle: seo.metaTitle, seoDescription: seo.metaDesc, seoKeywords: seo.keywords,
       footerText,
       footer,
+      theme,
     }
     const res = await saveSettings(payload)
     setSaving(false)
@@ -108,9 +111,9 @@ export default function AdminAyarlarPage() {
   return (
     <div className="space-y-6 max-w-3xl">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-black text-[#154836]">Site Ayarları</h1>
+        <h1 className="text-2xl font-black text-ugreenm">Site Ayarları</h1>
         <button onClick={handleSave} disabled={saving || loading}
-          className={`inline-flex items-center gap-2 font-black px-5 py-2.5 rounded-xl text-sm transition-all shadow-sm disabled:opacity-60 ${saved ? 'bg-[#edf7f2] text-[#1b5e44]' : 'bg-[#1b5e44] hover:bg-[#103f2e] text-white'}`}>
+          className={`inline-flex items-center gap-2 font-black px-5 py-2.5 rounded-xl text-sm transition-all shadow-sm disabled:opacity-60 ${saved ? 'bg-[#edf7f2] text-ugreen' : 'bg-ugreen hover:bg-ugreend text-white'}`}>
           {saving ? <Loader2 size={15} className="animate-spin" /> : <Save size={15} />}
           {saving ? 'Kaydediliyor...' : saved ? 'Kaydedildi ✓' : 'Kaydet'}
         </button>
@@ -131,7 +134,7 @@ export default function AdminAyarlarPage() {
       <div className="flex gap-1 bg-[#f5f9f6] p-1 rounded-xl border border-[#ddeae2]">
         {tabs.map(t => (
           <button key={t} onClick={() => setTab(t)}
-            className={`flex-1 py-2 px-3 text-xs font-black rounded-lg transition-all ${tab === t ? 'bg-white text-[#154836] shadow-sm' : 'text-[#7aab8e] hover:text-[#356152]'}`}>
+            className={`flex-1 py-2 px-3 text-xs font-black rounded-lg transition-all ${tab === t ? 'bg-white text-ugreenm shadow-sm' : 'text-[#7aab8e] hover:text-utxt2'}`}>
             {t}
           </button>
         ))}
@@ -140,6 +143,29 @@ export default function AdminAyarlarPage() {
       <div className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm p-6 space-y-4">
         {tab === 'Kulüp Bilgileri' && (
           <>
+            {/* Renk teması seçimi */}
+            <div className="pb-4 border-b border-[#edf7f2]">
+              <label className="block text-xs font-black text-[#356152] mb-2 uppercase tracking-wide">Renk Teması</label>
+              <div className="grid grid-cols-2 gap-3">
+                {([
+                  { key: 'emerald', label: 'Zümrüt (Mevcut)', g: '#1b5e44', gd: '#103f2e', y: '#f5c400' },
+                  { key: 'classic', label: 'Klasik (Önceki)', g: '#1A6B3C', gd: '#0f4a28', y: '#FFD100' },
+                ] as const).map((t) => (
+                  <button key={t.key} type="button" onClick={() => setTheme(t.key)}
+                    className={`relative text-left rounded-xl border-2 p-3 transition-all ${theme === t.key ? 'border-[#1b5e44] ring-2 ring-[#1b5e44]/20' : 'border-[#ddeae2] hover:border-[#1b5e44]/40'}`}>
+                    <div className="flex items-center gap-1.5 mb-2">
+                      <span className="w-7 h-7 rounded-md" style={{ background: t.g }} />
+                      <span className="w-7 h-7 rounded-md" style={{ background: t.gd }} />
+                      <span className="w-7 h-7 rounded-md" style={{ background: t.y }} />
+                    </div>
+                    <p className="text-[13px] font-black text-[#154836]">{t.label}</p>
+                    {theme === t.key && <span className="absolute top-2 right-2 text-[#1b5e44]"><Check size={16} /></span>}
+                  </button>
+                ))}
+              </div>
+              <p className="text-[11px] text-[#7aab8e] mt-2">Kaydedince tüm site seçilen renk paletine geçer.</p>
+            </div>
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Field label="Kısa Ad"><Input value={club.name} onChange={e => setClub(p => ({ ...p, name: e.target.value }))} /></Field>
               <Field label="Tam Ad"><Input value={club.fullName} onChange={e => setClub(p => ({ ...p, fullName: e.target.value }))} /></Field>
@@ -228,7 +254,7 @@ export default function AdminAyarlarPage() {
 
             {/* Bülten */}
             <div className="pt-4 border-t border-[#edf7f2] space-y-3">
-              <p className="text-xs font-black text-[#154836] uppercase tracking-wide">Bülten Bloğu</p>
+              <p className="text-xs font-black text-ugreenm uppercase tracking-wide">Bülten Bloğu</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Field label="Üst Etiket"><Input value={footer.newsletterKicker} onChange={e => setFooter(p => ({ ...p, newsletterKicker: e.target.value }))} /></Field>
                 <Field label="Başlık"><Input value={footer.newsletterTitle} onChange={e => setFooter(p => ({ ...p, newsletterTitle: e.target.value }))} /></Field>
@@ -240,9 +266,9 @@ export default function AdminAyarlarPage() {
             {/* Link Kolonları */}
             <div className="pt-4 border-t border-[#edf7f2] space-y-4">
               <div className="flex items-center justify-between">
-                <p className="text-xs font-black text-[#154836] uppercase tracking-wide">Link Kolonları</p>
+                <p className="text-xs font-black text-ugreenm uppercase tracking-wide">Link Kolonları</p>
                 <button type="button" onClick={() => setFooter(p => ({ ...p, columns: [...p.columns, { title: 'Yeni Kolon', links: [] }] }))}
-                  className="text-[11px] font-black text-[#1b5e44] hover:underline">+ Kolon Ekle</button>
+                  className="text-[11px] font-black text-ugreen hover:underline">+ Kolon Ekle</button>
               </div>
               {footer.columns.map((col, ci) => (
                 <div key={ci} className="bg-[#f5f9f6] border border-[#ddeae2] rounded-xl p-4 space-y-3">
@@ -263,7 +289,7 @@ export default function AdminAyarlarPage() {
                     </div>
                   ))}
                   <button type="button" onClick={() => setFooter(p => { const c = [...p.columns]; c[ci] = { ...c[ci], links: [...c[ci].links, { label: '', href: '' }] }; return { ...p, columns: c } })}
-                    className="ml-3 text-[11px] font-bold text-[#1b5e44] hover:underline">+ Link ekle</button>
+                    className="ml-3 text-[11px] font-bold text-ugreen hover:underline">+ Link ekle</button>
                 </div>
               ))}
             </div>
@@ -271,9 +297,9 @@ export default function AdminAyarlarPage() {
             {/* Yasal Linkler + Telif */}
             <div className="pt-4 border-t border-[#edf7f2] space-y-3">
               <div className="flex items-center justify-between">
-                <p className="text-xs font-black text-[#154836] uppercase tracking-wide">Alt Bar — Yasal Linkler</p>
+                <p className="text-xs font-black text-ugreenm uppercase tracking-wide">Alt Bar — Yasal Linkler</p>
                 <button type="button" onClick={() => setFooter(p => ({ ...p, legalLinks: [...p.legalLinks, { label: '', href: '' }] }))}
-                  className="text-[11px] font-black text-[#1b5e44] hover:underline">+ Link Ekle</button>
+                  className="text-[11px] font-black text-ugreen hover:underline">+ Link Ekle</button>
               </div>
               {footer.legalLinks.map((lnk, i) => (
                 <div key={i} className="flex items-center gap-2">
