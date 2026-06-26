@@ -1,11 +1,12 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { formatDate } from '@/lib/utils'
-import { Match, StandingRow } from '@/types'
+import { Match } from '@/types'
 import { MapPin, ArrowUpRight } from 'lucide-react'
 import { getTeamLogoMap, applyLogosToMatches, applyLogosToStandings } from '@/lib/supabase/logos-server'
 import { getLiveTff } from '@/lib/supabase/tff-server'
 import NextMatchCountdown from './NextMatchCountdown'
+import StandingsTable from '@/components/standings/StandingsTable'
 
 /* ─── Tek maç kartı ─────────────────────────────────────────── */
 function MatchCard({ match }: { match: Match }) {
@@ -71,68 +72,6 @@ function MatchCard({ match }: { match: Match }) {
     : Inner
 }
 
-/* ─── Mini puan durumu ──────────────────────────────────────── */
-function MiniStandings({ standings, season }: { standings: StandingRow[]; season?: string }) {
-  const ourIdx = standings.findIndex((s) => s.isCurrentTeam)
-  const total = standings.length
-  // Bizi içerecek şekilde ~8 satır göster
-  let shown = standings.slice(0, 8)
-  if (ourIdx >= 8) shown = [...standings.slice(0, 7), standings[ourIdx]]
-
-  // Sıra renk barı: 1 şampiyonluk · 2–5 play-off · son 3 küme düşme
-  const barColor = (rank: number) => {
-    if (rank === 1) return 'bg-[#1A6B3C]'
-    if (rank >= 2 && rank <= 5) return 'bg-[#FFD100]'
-    if (total > 0 && rank > total - 3) return 'bg-[#d01b2a]'
-    return 'bg-transparent'
-  }
-
-  const cols = 'grid-cols-[26px_1fr_22px_22px_22px_22px_30px_26px]'
-
-  return (
-    <div>
-      {/* Başlık — referans tarzı: eyebrow sezon + büyük Lig Tablosu */}
-      <div className="mb-4">
-        <p className="text-[11px] font-black tracking-[0.15em] uppercase text-[#092d18]">
-          Sezon {season ? <span className="text-[#d01b2a]">{season}</span> : ''}
-        </p>
-        <h3 className="font-heading text-3xl md:text-4xl font-black text-[#092d18] tracking-tight leading-none mt-1">LİG TABLOSU</h3>
-      </div>
-
-      <div className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm overflow-hidden">
-        {/* Kırmızı başlık şeridi */}
-        <div className={`grid ${cols} gap-1 items-center px-3 py-3 bg-[#d01b2a]`}>
-          <span />
-          <span className="text-[11px] font-black tracking-wide uppercase text-white pl-1">Kulüpler</span>
-          {['O', 'G', 'B', 'M', 'AV', 'P'].map((c) => (
-            <span key={c} className="text-[11px] font-black text-white/90 text-center">{c}</span>
-          ))}
-        </div>
-
-        {shown.map((row, i) => {
-          const av = row.goalsFor - row.goalsAgainst
-          return (
-            <div key={row.rank}
-              className={`relative grid ${cols} gap-1 items-center px-3 py-2.5 ${
-                row.isCurrentTeam ? 'bg-[#092d18]' : i % 2 === 1 ? 'bg-[#f5f9f6]' : 'bg-white'
-              }`}>
-              {/* sol sıra renk barı */}
-              <span className={`absolute left-0 top-0 bottom-0 w-1 ${barColor(row.rank)}`} />
-              <span className={`text-xs font-black text-center tabular-nums ${row.isCurrentTeam ? 'text-[#FFD100]' : 'text-[#092d18]'}`}>{row.rank}</span>
-              <span className={`text-[12px] font-bold truncate pl-1 uppercase ${row.isCurrentTeam ? 'text-white' : 'text-[#092d18]'}`}>{row.team}</span>
-              <span className={`text-[11px] text-center tabular-nums ${row.isCurrentTeam ? 'text-white/70' : 'text-[#3d6b52]'}`}>{row.played}</span>
-              <span className={`text-[11px] text-center tabular-nums ${row.isCurrentTeam ? 'text-white/70' : 'text-[#3d6b52]'}`}>{row.won}</span>
-              <span className={`text-[11px] text-center tabular-nums ${row.isCurrentTeam ? 'text-white/70' : 'text-[#3d6b52]'}`}>{row.drawn}</span>
-              <span className={`text-[11px] text-center tabular-nums ${row.isCurrentTeam ? 'text-white/70' : 'text-[#3d6b52]'}`}>{row.lost}</span>
-              <span className={`text-[11px] text-center tabular-nums ${row.isCurrentTeam ? 'text-white/80' : 'text-[#3d6b52]'}`}>{av > 0 ? `+${av}` : av}</span>
-              <span className={`text-[13px] font-black text-center tabular-nums ${row.isCurrentTeam ? 'text-[#FFD100]' : 'text-[#092d18]'}`}>{row.points}</span>
-            </div>
-          )
-        })}
-      </div>
-    </div>
-  )
-}
 
 /* ─── Bölüm ─────────────────────────────────────────────────── */
 export default async function FixturePreview() {
@@ -182,7 +121,7 @@ export default async function FixturePreview() {
           </div>
 
           {/* Sağ: puan durumu */}
-          <MiniStandings standings={standings} season={meta.season} />
+          <StandingsTable standings={standings} season={meta.season} title limit={8} />
         </div>
 
         {/* Orta buton */}

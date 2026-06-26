@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { MapPin, Calendar } from 'lucide-react'
 import type { Match, StandingRow } from '@/types'
 import { competitionLogo } from '@/lib/tff'
+import StandingsTable from '@/components/standings/StandingsTable'
 
 /* Tarih + saat → "24.08.2025 19:00" */
 function tarihSaat(dateISO: string, time?: string): string {
@@ -96,43 +97,8 @@ export function MatchCard({ match, logos }: { match: Match; logos: Record<string
   )
 }
 
-/* ─── Puan tablosu ──────────────────────────────────────────── */
-export function StandingsTable({ standings }: { standings: StandingRow[] }) {
-  return (
-    <div className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm overflow-hidden">
-      <div className="grid grid-cols-[28px_1fr_30px_30px_30px_30px_44px_40px] gap-1.5 px-4 py-3.5 bg-[#0f4a28] text-[11px] font-black tracking-wide uppercase text-white/60">
-        <span>#</span><span>Takım</span>
-        <span className="text-center">O</span><span className="text-center">G</span>
-        <span className="text-center">B</span><span className="text-center">M</span>
-        <span className="text-center">Av</span>
-        <span className="text-center text-[#FFD100]">P</span>
-      </div>
-      {standings.map((row) => {
-        const av = row.goalsFor - row.goalsAgainst
-        return (
-          <div key={row.rank}
-            className={`grid grid-cols-[28px_1fr_30px_30px_30px_30px_44px_40px] gap-1.5 items-center px-4 py-3 border-b border-l-4 border-[#edf7f2] last:border-b-0 ${
-              row.isCurrentTeam ? 'bg-[#edf7f2] border-l-[#1A6B3C]' : 'border-l-transparent hover:bg-[#f5f9f6]'
-            }`}>
-            <span className={`text-sm font-black ${row.rank <= 3 ? 'text-[#1A6B3C]' : 'text-[#7aab8e]'}`}>{row.rank}</span>
-            <div className="flex items-center gap-2 min-w-0">
-              <div className="relative w-5 h-5 shrink-0">
-                <Image src={row.teamLogo} alt={row.team} fill className="object-contain" />
-              </div>
-              <span className={`text-sm font-bold truncate ${row.isCurrentTeam ? 'text-[#1A6B3C]' : 'text-[#092d18]'}`}>{row.team}</span>
-            </div>
-            <span className="text-sm text-[#3d6b52] text-center tabular-nums">{row.played}</span>
-            <span className="text-sm text-[#3d6b52] text-center tabular-nums">{row.won}</span>
-            <span className="text-sm text-[#3d6b52] text-center tabular-nums">{row.drawn}</span>
-            <span className="text-sm text-[#3d6b52] text-center tabular-nums">{row.lost}</span>
-            <span className="text-sm text-[#3d6b52] text-center tabular-nums">{av > 0 ? `+${av}` : av}</span>
-            <span className={`text-base font-black text-center tabular-nums ${row.isCurrentTeam ? 'text-[#1A6B3C]' : 'text-[#092d18]'}`}>{row.points}</span>
-          </div>
-        )
-      })}
-    </div>
-  )
-}
+/* ─── Puan tablosu — tek paylaşılan bileşen (site geneli aynı tasarım) ─── */
+export { StandingsTable }
 
 /* ─── Maç Merkezi ───────────────────────────────────────────── */
 export default function MacMerkezi({
