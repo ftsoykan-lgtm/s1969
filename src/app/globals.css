@@ -54,20 +54,20 @@
   /* Yeşil skalası */
   --c-green-50:   #edf7f2;
   --c-green-100:  #d0ead9;
-  --c-green-500:  #1A6B3C;   /* ana marka yeşili */
-  --c-green-700:  #0f4a28;   /* navbar / footer */
-  --c-green-900:  #092d18;   /* hero / en koyu */
+  --c-green-500:  #1b5e44;   /* ana marka yeşili */
+  --c-green-700:  #103f2e;   /* navbar / footer */
+  --c-green-900:  #0c2e22;   /* hero / en koyu */
 
   /* Sarı skalası */
-  --c-yellow:     #FFD100;
-  --c-yellow-600: #d4ad00;
+  --c-yellow:     #f5c400;
+  --c-yellow-600: #c9a200;
 
   /* Nötr (yeşil tonlu gri) */
   --c-surface:    #f5f9f6;   /* sayfa arka planı */
   --c-card:       #ffffff;
   --c-border:     #ddeae2;
-  --c-text:       #092d18;   /* ana metin — koyu yeşil */
-  --c-text-2:     #3d6b52;   /* ikincil metin */
+  --c-text:       #0c2e22;   /* ana metin — koyu yeşil */
+  --c-text-2:     #356152;   /* ikincil metin */
   --c-text-3:     #7aab8e;   /* üçüncil / placeholder */
 
   --background: oklch(1 0 0);
@@ -82,7 +82,7 @@
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
-  --accent: #FFD100;
+  --accent: #f5c400;
   --accent-foreground: oklch(0.145 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);

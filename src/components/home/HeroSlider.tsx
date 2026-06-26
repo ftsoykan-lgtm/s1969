@@ -78,7 +78,7 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
           <div className="absolute inset-x-0 bottom-0 z-20 p-5 sm:p-8 lg:p-10 pb-16 sm:pb-20">
             <Link href={active.href} className="group block max-w-2xl" key={idx}>
               {active.category && (
-                <span className="inline-block bg-[#FFD100] text-[#0f4a28] text-[10px] font-bold tracking-[0.18em] uppercase px-3 py-1 mb-3"
+                <span className="inline-block bg-[#f5c400] text-[#103f2e] text-[10px] font-bold tracking-[0.18em] uppercase px-3 py-1 mb-3"
                   style={{ animation: 'hUp .5s ease-out both' }}>
                   {active.category}
                 </span>
@@ -99,7 +99,7 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
         {n > 1 && (
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 flex items-center gap-3">
             <button onClick={prev} aria-label="Önceki"
-              className="h-9 w-9 flex items-center justify-center rounded-full border border-[#FFD100] text-[#FFD100] hover:bg-[#FFD100] hover:text-[#0f4a28] transition-colors">
+              className="h-9 w-9 flex items-center justify-center rounded-full border border-[#f5c400] text-[#f5c400] hover:bg-[#f5c400] hover:text-[#103f2e] transition-colors">
               <ChevronLeft size={18} />
             </button>
             <div className="flex items-center gap-2.5">
@@ -107,8 +107,8 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
                 if (i === idx) {
                   // Aktif: yeşil zeminde sarı dolan ilerleme barı (dolunca sonraki habere geçer)
                   return (
-                    <span key={i} className="relative h-2.5 w-14 rounded-full bg-[#FFD100] overflow-hidden">
-                      <span key={idx} className="absolute inset-y-0 left-0 rounded-full bg-[#1A6B3C]"
+                    <span key={i} className="relative h-2.5 w-14 rounded-full bg-[#f5c400] overflow-hidden">
+                      <span key={idx} className="absolute inset-y-0 left-0 rounded-full bg-[#1b5e44]"
                         style={{ animation: `hProg ${INTERVAL}ms linear both` }} />
                     </span>
                   )
@@ -117,20 +117,20 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
                 return (
                   <button key={i} onClick={() => goTo(i)} aria-label={`Slayt ${i + 1}`}
                     className={`h-2.5 w-2.5 rounded-full transition-colors ${
-                      past ? 'bg-[#FFD100] hover:brightness-110' : 'border border-[#FFD100]/60 hover:border-[#FFD100] hover:bg-[#FFD100]/30'
+                      past ? 'bg-[#f5c400] hover:brightness-110' : 'border border-[#f5c400]/60 hover:border-[#f5c400] hover:bg-[#f5c400]/30'
                     }`} />
                 )
               })}
             </div>
             <button onClick={next} aria-label="Sonraki"
-              className="h-9 w-9 flex items-center justify-center rounded-full bg-[#FFD100] text-[#0f4a28] hover:brightness-105 transition-all">
+              className="h-9 w-9 flex items-center justify-center rounded-full bg-[#f5c400] text-[#103f2e] hover:brightness-105 transition-all">
               <ChevronRight size={18} />
             </button>
           </div>
         )}
       </div>
 
-      <div className="h-[3px] bg-[#FFD100]" />
+      <div className="h-[3px] bg-[#f5c400]" />
 
       <style jsx global>{`
         @keyframes hProg { from { width: 0% } to { width: 100% } }

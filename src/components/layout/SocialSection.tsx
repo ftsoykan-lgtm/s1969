@@ -47,11 +47,11 @@ export default function SocialSection({ club }: { club: ClubInfo }) {
     <section className="relative bg-[#f5f9f6] border-t border-[#ddeae2] py-16 md:py-20 overflow-hidden">
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 text-center">
         <div className="inline-flex items-center gap-3 mb-3">
-          <span className="block w-8 h-0.5 bg-[#FFD100]" />
-          <p className="text-[11px] font-black tracking-[0.25em] uppercase text-[#1A6B3C]">Bizi Takip Et</p>
-          <span className="block w-8 h-0.5 bg-[#FFD100]" />
+          <span className="block w-8 h-0.5 bg-[#f5c400]" />
+          <p className="text-[11px] font-black tracking-[0.25em] uppercase text-[#1b5e44]">Bizi Takip Et</p>
+          <span className="block w-8 h-0.5 bg-[#f5c400]" />
         </div>
-        <h2 className="font-heading text-3xl md:text-4xl font-black text-[#15532f] tracking-tight mb-12">Sosyal Medya Hesaplarımız</h2>
+        <h2 className="font-heading text-3xl md:text-4xl font-black text-[#154836] tracking-tight mb-12">Sosyal Medya Hesaplarımız</h2>
 
         <div className="flex flex-wrap items-stretch justify-center gap-4">
           {cards.map((c) => (
@@ -73,7 +73,7 @@ export default function SocialSection({ club }: { club: ClubInfo }) {
         </div>
 
         {club.hashtag && (
-          <p className="mt-10 text-2xl md:text-3xl font-black tracking-tight text-[#1A6B3C]">
+          <p className="mt-10 text-2xl md:text-3xl font-black tracking-tight text-[#1b5e44]">
             {club.hashtag.startsWith('#') ? club.hashtag : `#${club.hashtag}`}
           </p>
         )}

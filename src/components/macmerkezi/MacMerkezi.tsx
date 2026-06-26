@@ -31,7 +31,7 @@ export function MatchCard({ match, logos }: { match: Match; logos: Record<string
 
   return (
     <Wrapper>
-    <div className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm hover:shadow-md hover:border-[#1A6B3C]/30 transition-all overflow-hidden cursor-pointer">
+    <div className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm hover:shadow-md hover:border-[#1b5e44]/30 transition-all overflow-hidden cursor-pointer">
       {/* Üst şerit: turnuva logosu + hafta */}
       <div className="flex items-center justify-between px-4 py-2.5 bg-[#f5f9f6] border-b border-[#edf7f2]">
         <div className="flex items-center gap-2 min-w-0">
@@ -40,20 +40,20 @@ export function MatchCard({ match, logos }: { match: Match; logos: Record<string
               <Image src={tournamentLogo} alt={match.competition} fill className="object-contain" />
             </div>
           )}
-          <span className="text-[10px] font-black tracking-widest uppercase text-[#1A6B3C] truncate">
+          <span className="text-[10px] font-black tracking-widest uppercase text-[#1b5e44] truncate">
             {match.roundLabel ?? (match.week ? `${match.week}. Hafta` : match.competition)}
           </span>
         </div>
         {result && (
           <span className={`flex h-6 w-6 items-center justify-center rounded-md text-[12px] font-black shrink-0 shadow-sm ${
-            result === 'G' ? 'bg-[#1A6B3C] text-white' : result === 'M' ? 'bg-[#d01b2a] text-white' : 'bg-[#FFD100] text-[#0f4a28]'
+            result === 'G' ? 'bg-[#1b5e44] text-white' : result === 'M' ? 'bg-[#d01b2a] text-white' : 'bg-[#f5c400] text-[#103f2e]'
           }`} title={result === 'G' ? 'Galibiyet' : result === 'M' ? 'Mağlubiyet' : 'Beraberlik'}>{result}</span>
         )}
       </div>
 
       <div className="p-4">
         {/* Tarih + saat */}
-        <div className="flex items-center justify-center gap-1.5 text-[11px] text-[#3d6b52] font-semibold mb-4">
+        <div className="flex items-center justify-center gap-1.5 text-[11px] text-[#356152] font-semibold mb-4">
           <Calendar size={11} className="text-[#7aab8e]" />
           <span className="tabular-nums">{tarihSaat(match.date, match.time)}</span>
         </div>
@@ -64,14 +64,14 @@ export function MatchCard({ match, logos }: { match: Match; logos: Record<string
             <div className="relative w-12 h-12 shrink-0">
               <Image src={match.homeTeamLogo} alt={match.homeTeam} fill className="object-contain" />
             </div>
-            <span className={`text-[11px] font-bold text-center w-full truncate ${urfaIsHome ? 'text-[#1A6B3C]' : 'text-[#15532f]'}`}>{match.homeTeam}</span>
+            <span className={`text-[11px] font-bold text-center w-full truncate ${urfaIsHome ? 'text-[#1b5e44]' : 'text-[#154836]'}`}>{match.homeTeam}</span>
           </div>
 
           <div className="flex items-center gap-1 px-1 shrink-0">
             {match.isCompleted ? (
               <>
-                <span className="w-8 h-9 flex items-center justify-center rounded-lg bg-[#0f4a28] text-lg font-black text-white tabular-nums">{match.homeScore}</span>
-                <span className="w-8 h-9 flex items-center justify-center rounded-lg bg-[#0f4a28] text-lg font-black text-white tabular-nums">{match.awayScore}</span>
+                <span className="w-8 h-9 flex items-center justify-center rounded-lg bg-[#103f2e] text-lg font-black text-white tabular-nums">{match.homeScore}</span>
+                <span className="w-8 h-9 flex items-center justify-center rounded-lg bg-[#103f2e] text-lg font-black text-white tabular-nums">{match.awayScore}</span>
               </>
             ) : (
               <span className="text-sm font-black text-[#7aab8e]">vs</span>
@@ -82,13 +82,13 @@ export function MatchCard({ match, logos }: { match: Match; logos: Record<string
             <div className="relative w-12 h-12 shrink-0">
               <Image src={match.awayTeamLogo} alt={match.awayTeam} fill className="object-contain" />
             </div>
-            <span className={`text-[11px] font-bold text-center w-full truncate ${!urfaIsHome ? 'text-[#1A6B3C]' : 'text-[#15532f]'}`}>{match.awayTeam}</span>
+            <span className={`text-[11px] font-bold text-center w-full truncate ${!urfaIsHome ? 'text-[#1b5e44]' : 'text-[#154836]'}`}>{match.awayTeam}</span>
           </div>
         </div>
 
         {/* Stat */}
         <div className="mt-4 pt-3 border-t border-[#edf7f2] flex items-center justify-center gap-1.5 text-[11px] text-[#7aab8e]">
-          <MapPin size={11} className="text-[#1A6B3C] shrink-0" />
+          <MapPin size={11} className="text-[#1b5e44] shrink-0" />
           <span className="truncate">{match.venue}</span>
         </div>
       </div>
@@ -131,15 +131,15 @@ export default function MacMerkezi({
         <div>
           <label className="block text-[10px] font-black tracking-widest uppercase text-[#7aab8e] mb-1.5">Sezon</label>
           <div className="flex items-center gap-2 bg-white border border-[#ddeae2] rounded-xl px-4 py-2.5 shadow-sm">
-            <span className="w-2 h-2 rounded-full bg-[#1A6B3C]" />
-            <span className="text-sm font-bold text-[#15532f]">{season ?? '2025-2026'}</span>
+            <span className="w-2 h-2 rounded-full bg-[#1b5e44]" />
+            <span className="text-sm font-bold text-[#154836]">{season ?? '2025-2026'}</span>
           </div>
         </div>
         {tournaments.length > 1 && (
           <div>
             <label className="block text-[10px] font-black tracking-widest uppercase text-[#7aab8e] mb-1.5">Turnuva</label>
             <select value={tournament} onChange={(e) => setTournament(e.target.value)}
-              className="bg-white border border-[#ddeae2] rounded-xl px-4 py-2.5 text-sm font-bold text-[#15532f] shadow-sm focus:outline-none focus:border-[#1A6B3C] transition-colors min-w-[190px]">
+              className="bg-white border border-[#ddeae2] rounded-xl px-4 py-2.5 text-sm font-bold text-[#154836] shadow-sm focus:outline-none focus:border-[#1b5e44] transition-colors min-w-[190px]">
               <option value="hepsi">Tüm Turnuvalar</option>
               {tournaments.map((t) => <option key={t} value={t}>{t}</option>)}
             </select>
@@ -156,7 +156,7 @@ export default function MacMerkezi({
             </div>
           ) : (
             <div className="bg-white rounded-2xl border border-[#ddeae2] p-10 text-center">
-              <p className="text-sm font-bold text-[#15532f]">Maç bulunmuyor</p>
+              <p className="text-sm font-bold text-[#154836]">Maç bulunmuyor</p>
             </div>
           )}
         </div>

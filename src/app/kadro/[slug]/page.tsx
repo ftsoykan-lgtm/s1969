@@ -26,9 +26,9 @@ export default async function OyuncuDetayPage({ params }: Props) {
 
   const FLAG: Record<string, string> = { tr: '🇹🇷', br: '🇧🇷', pt: '🇵🇹', sn: '🇸🇳', it: '🇮🇹' }
   const stats = [
-    { label: 'Maç', value: player.stats.matches, color: 'text-[#15532f]' },
-    { label: 'Gol', value: player.stats.goals, color: 'text-[#1A6B3C]' },
-    { label: 'Asist', value: player.stats.assists, color: 'text-[#d4ad00]' },
+    { label: 'Maç', value: player.stats.matches, color: 'text-[#154836]' },
+    { label: 'Gol', value: player.stats.goals, color: 'text-[#1b5e44]' },
+    { label: 'Asist', value: player.stats.assists, color: 'text-[#c9a200]' },
     { label: 'Sarı Kart', value: player.stats.yellowCards, color: 'text-yellow-500' },
     { label: 'Kırmızı', value: player.stats.redCards, color: 'text-red-500' },
   ]
@@ -36,17 +36,17 @@ export default async function OyuncuDetayPage({ params }: Props) {
   return (
     <div className="min-h-screen bg-[#f5f9f6]">
       {/* Hero banner */}
-      <div className="bg-[#1A6B3C] py-14">
+      <div className="bg-[#1b5e44] py-14">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <Link href="/kadro" className="inline-flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors mb-6">
             <ArrowLeft size={16} /> Kadroya Dön
           </Link>
           <div className="flex items-center gap-4">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#FFD100] text-[#0f4a28] font-black text-2xl shadow-lg">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#f5c400] text-[#103f2e] font-black text-2xl shadow-lg">
               {player.number}
             </div>
             <div>
-              <p className="text-[#FFD100] text-xs font-black tracking-widest uppercase">{player.position}</p>
+              <p className="text-[#f5c400] text-xs font-black tracking-widest uppercase">{player.position}</p>
               <h1 className="text-3xl md:text-4xl font-black text-white">{player.name}</h1>
             </div>
           </div>
@@ -72,8 +72,8 @@ export default async function OyuncuDetayPage({ params }: Props) {
                   { label: 'Mevki', value: player.position },
                 ].map(({ label, value }) => (
                   <div key={label} className="flex justify-between items-center py-2 border-b border-[#edf7f2] last:border-0">
-                    <dt className="text-sm text-[#3d6b52]">{label}</dt>
-                    <dd className="text-sm font-black text-[#15532f]">{value}</dd>
+                    <dt className="text-sm text-[#356152]">{label}</dt>
+                    <dd className="text-sm font-black text-[#154836]">{value}</dd>
                   </div>
                 ))}
               </dl>

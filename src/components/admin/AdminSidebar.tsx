@@ -63,18 +63,18 @@ export default function AdminSidebar({ logoUrl }: { logoUrl?: string | null }) {
     item.exact ? pathname === item.href : pathname === item.href || pathname.startsWith(item.href + '/')
 
   return (
-    <aside className="w-56 shrink-0 bg-[#0f4a28] min-h-screen flex flex-col">
+    <aside className="w-56 shrink-0 bg-[#103f2e] min-h-screen flex flex-col">
       {/* Logo */}
       <div className="px-4 py-5 border-b border-white/8">
         <div className="flex items-center gap-2.5">
           {logoUrl ? (
-            <img src={logoUrl} alt="" className="h-9 w-9 rounded-full object-contain bg-white ring-1 ring-[#FFD100]/30 shadow-md shrink-0" />
+            <img src={logoUrl} alt="" className="h-9 w-9 rounded-full object-contain bg-white ring-1 ring-[#f5c400]/30 shadow-md shrink-0" />
           ) : (
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#FFD100] text-[#0f4a28] font-black text-base shadow-md shrink-0">Ş</div>
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#f5c400] text-[#103f2e] font-black text-base shadow-md shrink-0">Ş</div>
           )}
           <div className="min-w-0">
             <p className="text-white font-black text-[13px] leading-tight truncate uppercase">Şanlıurfaspor</p>
-            <p className="text-[#FFD100]/40 text-[9px] font-bold tracking-[0.15em] uppercase">Admin Panel</p>
+            <p className="text-[#f5c400]/40 text-[9px] font-bold tracking-[0.15em] uppercase">Admin Panel</p>
           </div>
         </div>
       </div>
@@ -91,9 +91,9 @@ export default function AdminSidebar({ logoUrl }: { logoUrl?: string | null }) {
                   <Link key={item.href} href={item.href}
                     className={cn(
                       'flex items-center gap-2 px-2.5 py-2 rounded-xl text-[12px] font-bold transition-all duration-150 group',
-                      active ? 'bg-[#FFD100] text-[#0f4a28]' : 'text-white/55 hover:text-white hover:bg-white/8'
+                      active ? 'bg-[#f5c400] text-[#103f2e]' : 'text-white/55 hover:text-white hover:bg-white/8'
                     )}>
-                    <item.icon size={14} className={active ? 'text-[#0f4a28]' : 'opacity-60 group-hover:opacity-100'} />
+                    <item.icon size={14} className={active ? 'text-[#103f2e]' : 'opacity-60 group-hover:opacity-100'} />
                     <span className="flex-1 truncate">{item.label}</span>
                     {active && <ChevronRight size={11} className="opacity-50 shrink-0" />}
                   </Link>

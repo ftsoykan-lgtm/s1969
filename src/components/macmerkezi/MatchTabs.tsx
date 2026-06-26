@@ -17,7 +17,7 @@ export default function MatchTabs() {
         return (
           <Link key={t.href} href={t.href}
             className={`px-5 py-2.5 rounded-full text-[13px] font-black tracking-wide transition-all ${
-              active ? 'bg-[#0f4a28] text-white shadow' : 'text-[#3d6b52] hover:bg-[#f5f9f6]'
+              active ? 'bg-[#103f2e] text-white shadow' : 'text-[#356152] hover:bg-[#f5f9f6]'
             }`}>
             {t.label}
           </Link>

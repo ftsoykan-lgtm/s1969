@@ -11,17 +11,17 @@ const flagCodes: Record<string, string> = { 'Türkiye': 'tr', 'Brezilya': 'br', 
 
 const Field = ({ label, children }: { label: string; children: React.ReactNode }) => (
   <div>
-    <label className="block text-xs font-black text-[#3d6b52] mb-1.5 uppercase tracking-wide">{label}</label>
+    <label className="block text-xs font-black text-[#356152] mb-1.5 uppercase tracking-wide">{label}</label>
     {children}
   </div>
 )
 
 const Input = (props: React.InputHTMLAttributes<HTMLInputElement>) => (
-  <input {...props} className="w-full bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-4 py-2.5 text-sm text-[#15532f] placeholder-[#7aab8e] focus:outline-none focus:border-[#1A6B3C] transition-colors" />
+  <input {...props} className="w-full bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-4 py-2.5 text-sm text-[#154836] placeholder-[#7aab8e] focus:outline-none focus:border-[#1b5e44] transition-colors" />
 )
 
 const Select = (props: React.SelectHTMLAttributes<HTMLSelectElement> & { children: React.ReactNode }) => (
-  <select {...props} className="w-full bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-4 py-2.5 text-sm text-[#15532f] focus:outline-none focus:border-[#1A6B3C] transition-colors">
+  <select {...props} className="w-full bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-4 py-2.5 text-sm text-[#154836] focus:outline-none focus:border-[#1b5e44] transition-colors">
     {props.children}
   </select>
 )
@@ -48,10 +48,10 @@ export default function YeniOyuncuPage() {
   return (
     <div className="space-y-6 max-w-3xl">
       <div className="flex items-center gap-3">
-        <Link href="/admin/kadro" className="p-2 text-[#7aab8e] hover:text-[#1A6B3C] hover:bg-[#edf7f2] rounded-xl transition-all">
+        <Link href="/admin/kadro" className="p-2 text-[#7aab8e] hover:text-[#1b5e44] hover:bg-[#edf7f2] rounded-xl transition-all">
           <ArrowLeft size={18} />
         </Link>
-        <h1 className="text-2xl font-black text-[#15532f]">Yeni Oyuncu</h1>
+        <h1 className="text-2xl font-black text-[#154836]">Yeni Oyuncu</h1>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -101,9 +101,9 @@ export default function YeniOyuncuPage() {
         </div>
 
         <div className="flex gap-3">
-          <Link href="/admin/kadro" className="px-5 py-2.5 border border-[#ddeae2] text-[#3d6b52] font-bold text-sm rounded-xl hover:bg-[#f5f9f6] transition-colors">İptal</Link>
+          <Link href="/admin/kadro" className="px-5 py-2.5 border border-[#ddeae2] text-[#356152] font-bold text-sm rounded-xl hover:bg-[#f5f9f6] transition-colors">İptal</Link>
           <button type="submit" disabled={loading}
-            className="inline-flex items-center gap-2 bg-[#1A6B3C] hover:bg-[#0f4a28] disabled:opacity-60 text-white font-black px-5 py-2.5 rounded-xl text-sm transition-colors shadow-sm">
+            className="inline-flex items-center gap-2 bg-[#1b5e44] hover:bg-[#103f2e] disabled:opacity-60 text-white font-black px-5 py-2.5 rounded-xl text-sm transition-colors shadow-sm">
             <Save size={15} />
             {loading ? 'Kaydediliyor...' : 'Oyuncu Ekle'}
           </button>

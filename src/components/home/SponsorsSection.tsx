@@ -14,11 +14,11 @@ export default function SponsorsSection({ sponsors = sponsorsData }: { sponsors?
 
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-3 mb-2.5">
-            <span className="block w-8 h-0.5 bg-[#1A6B3C]" />
-            <p className="text-xs font-black tracking-widest uppercase text-[#1A6B3C]">Güç Birliği</p>
-            <span className="block w-8 h-0.5 bg-[#1A6B3C]" />
+            <span className="block w-8 h-0.5 bg-[#1b5e44]" />
+            <p className="text-xs font-black tracking-widest uppercase text-[#1b5e44]">Güç Birliği</p>
+            <span className="block w-8 h-0.5 bg-[#1b5e44]" />
           </div>
-          <h2 className="font-heading text-3xl md:text-4xl font-black text-[#15532f] tracking-tight">Sponsorlarımız</h2>
+          <h2 className="font-heading text-3xl md:text-4xl font-black text-[#154836] tracking-tight">Sponsorlarımız</h2>
         </div>
 
         {ana.length > 0 && (
@@ -27,7 +27,7 @@ export default function SponsorsSection({ sponsors = sponsorsData }: { sponsors?
             <div className="flex flex-wrap justify-center gap-4">
               {ana.map((s) => (
                 <a key={s.id} href={s.website} target="_blank" rel="noopener noreferrer" title={s.name}
-                  className="flex items-center justify-center h-28 px-14 rounded-2xl border-2 border-[#FFD100]/40 bg-[#FFD100]/5 hover:border-[#FFD100] hover:bg-[#FFD100]/10 transition-all shadow-sm">
+                  className="flex items-center justify-center h-28 px-14 rounded-2xl border-2 border-[#f5c400]/40 bg-[#f5c400]/5 hover:border-[#f5c400] hover:bg-[#f5c400]/10 transition-all shadow-sm">
                   <img src={s.logoUrl} alt={s.name} className="object-contain max-h-20 w-auto opacity-90 hover:opacity-100 transition-opacity" />
                 </a>
               ))}
@@ -41,7 +41,7 @@ export default function SponsorsSection({ sponsors = sponsorsData }: { sponsors?
             <div className="flex flex-wrap justify-center gap-3">
               {resmi.map((s) => (
                 <a key={s.id} href={s.website} target="_blank" rel="noopener noreferrer" title={s.name}
-                  className="flex items-center justify-center h-20 px-10 rounded-xl border border-[#1A6B3C]/20 bg-[#1A6B3C]/5 hover:border-[#1A6B3C]/50 hover:bg-[#1A6B3C]/10 transition-all">
+                  className="flex items-center justify-center h-20 px-10 rounded-xl border border-[#1b5e44]/20 bg-[#1b5e44]/5 hover:border-[#1b5e44]/50 hover:bg-[#1b5e44]/10 transition-all">
                   <img src={s.logoUrl} alt={s.name} className="object-contain max-h-14 w-auto opacity-80 hover:opacity-100 transition-opacity" />
                 </a>
               ))}

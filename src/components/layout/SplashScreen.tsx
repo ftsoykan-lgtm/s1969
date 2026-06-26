@@ -24,14 +24,14 @@ export default function SplashScreen({ club }: { club: ClubInfo }) {
 
   return (
     <div
-      className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#0f4a28] transition-opacity duration-500 ${
+      className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#103f2e] transition-opacity duration-500 ${
         fade ? 'opacity-0' : 'opacity-100'
       }`}
     >
       {/* Üst 3 renk şeridi */}
       <div className="absolute top-0 left-0 right-0 flex h-1.5">
-        <span className="flex-1 bg-[#1A6B3C]" />
-        <span className="flex-1 bg-[#FFD100]" />
+        <span className="flex-1 bg-[#1b5e44]" />
+        <span className="flex-1 bg-[#f5c400]" />
         <span className="flex-1 bg-white/80" />
       </div>
 
@@ -40,7 +40,7 @@ export default function SplashScreen({ club }: { club: ClubInfo }) {
           <img src={club.logoUrl} alt={club.name}
             className="h-28 w-28 object-contain drop-shadow-2xl" />
         ) : (
-          <div className="flex h-28 w-28 items-center justify-center rounded-full bg-[#FFD100] text-[#0f4a28] font-black text-3xl shadow-2xl">
+          <div className="flex h-28 w-28 items-center justify-center rounded-full bg-[#f5c400] text-[#103f2e] font-black text-3xl shadow-2xl">
             {club.shortCode}
           </div>
         )}
@@ -50,7 +50,7 @@ export default function SplashScreen({ club }: { club: ClubInfo }) {
 
         {/* Yükleniyor çubuğu */}
         <div className="w-32 h-1 rounded-full bg-white/15 overflow-hidden mt-2">
-          <div className="h-full bg-[#FFD100] animate-[sfkload_1.3s_ease-in-out]" />
+          <div className="h-full bg-[#f5c400] animate-[sfkload_1.3s_ease-in-out]" />
         </div>
       </div>
 

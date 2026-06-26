@@ -5,7 +5,7 @@ import type { SiteNews } from '@/lib/supabase/news-server'
 
 function Badge({ label }: { label: string }) {
   return (
-    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-black tracking-widest uppercase bg-[#FFD100] text-[#0f4a28]">
+    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-black tracking-widest uppercase bg-[#f5c400] text-[#103f2e]">
       <span className="w-1.5 h-1.5 rounded-full bg-current opacity-70" />
       {label}
     </span>
@@ -17,13 +17,13 @@ function MainCard({ item, label }: { item: SiteNews; label: string }) {
     <Link href={`/haberler/${item.slug}`}
       className="group relative block rounded-2xl overflow-hidden h-[420px] md:h-full shadow-xl shadow-black/10">
       <Image src={item.imageUrl} alt={item.title} fill priority sizes="(max-width: 768px) 100vw, 55vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#15532f]/97 via-[#0f4a28]/45 to-transparent" />
-      <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-[#FFD100] transition-colors duration-300 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#154836]/97 via-[#103f2e]/45 to-transparent" />
+      <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-[#f5c400] transition-colors duration-300 pointer-events-none" />
       <div className="absolute bottom-0 left-0 right-0 p-7">
         <Badge label={label} />
         <h2 className="mt-3 text-white text-2xl md:text-3xl font-black leading-snug tracking-tight line-clamp-3">{item.title}</h2>
         <p className="mt-2 text-white/55 text-base line-clamp-2">{item.excerpt}</p>
-        <p className="mt-3 text-[12px] text-[#FFD100]/70 font-medium">{formatDate(item.date)}</p>
+        <p className="mt-3 text-[12px] text-[#f5c400]/70 font-medium">{formatDate(item.date)}</p>
       </div>
     </Link>
   )
@@ -34,8 +34,8 @@ function SideCard({ item, label }: { item: SiteNews; label: string }) {
     <Link href={`/haberler/${item.slug}`}
       className="group relative block rounded-xl overflow-hidden flex-1 min-h-[130px] shadow-md shadow-black/10">
       <Image src={item.imageUrl} alt={item.title} fill sizes="(max-width: 768px) 100vw, 45vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#15532f]/97 via-[#0f4a28]/55 to-transparent" />
-      <div className="absolute inset-0 rounded-xl border-2 border-transparent group-hover:border-[#1A6B3C] transition-colors duration-300 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#154836]/97 via-[#103f2e]/55 to-transparent" />
+      <div className="absolute inset-0 rounded-xl border-2 border-transparent group-hover:border-[#1b5e44] transition-colors duration-300 pointer-events-none" />
       <div className="absolute bottom-0 left-0 right-0 p-4">
         <Badge label={label} />
         <h3 className="mt-1.5 text-white text-sm font-bold leading-snug line-clamp-2">{item.title}</h3>
@@ -48,13 +48,13 @@ function SideCard({ item, label }: { item: SiteNews; label: string }) {
 function GridCard({ item, label }: { item: SiteNews; label: string }) {
   return (
     <Link href={`/haberler/${item.slug}`}
-      className="group block rounded-xl overflow-hidden bg-white border border-[#ddeae2] shadow-sm hover:shadow-lg hover:border-[#1A6B3C]/30 transition-all hover:-translate-y-1 duration-300">
+      className="group block rounded-xl overflow-hidden bg-white border border-[#ddeae2] shadow-sm hover:shadow-lg hover:border-[#1b5e44]/30 transition-all hover:-translate-y-1 duration-300">
       <div className="relative h-44 overflow-hidden bg-[#edf7f2]">
         <Image src={item.imageUrl} alt={item.title} fill sizes="25vw" className="object-cover group-hover:scale-105 transition-transform duration-500" />
         <div className="absolute top-3 left-3"><Badge label={label} /></div>
       </div>
       <div className="p-4">
-        <h3 className="text-base font-black text-[#15532f] leading-snug line-clamp-2 group-hover:text-[#1A6B3C] transition-colors">{item.title}</h3>
+        <h3 className="text-base font-black text-[#154836] leading-snug line-clamp-2 group-hover:text-[#1b5e44] transition-colors">{item.title}</h3>
         <p className="mt-2 text-xs text-[#7aab8e] font-medium">{formatDate(item.date)}</p>
       </div>
     </Link>
@@ -72,16 +72,16 @@ export default function NewsHeroGrid({ news, catName }: { news: SiteNews[]; catN
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between mb-9">
           <div className="flex items-center gap-4">
-            <span className="block w-1.5 h-10 bg-[#FFD100] rounded-full" />
+            <span className="block w-1.5 h-10 bg-[#f5c400] rounded-full" />
             <div>
-              <p className="text-[11px] font-black tracking-[0.2em] uppercase text-[#1A6B3C]/70 mb-0.5">Son Dakika</p>
-              <h2 className="text-3xl md:text-5xl font-black text-[#15532f] tracking-tight">
-                Kulüp <span className="text-[#1A6B3C]">Haberleri</span>
+              <p className="text-[11px] font-black tracking-[0.2em] uppercase text-[#1b5e44]/70 mb-0.5">Son Dakika</p>
+              <h2 className="text-3xl md:text-5xl font-black text-[#154836] tracking-tight">
+                Kulüp <span className="text-[#1b5e44]">Haberleri</span>
               </h2>
             </div>
           </div>
           <Link href="/haberler"
-            className="hidden sm:inline-flex items-center gap-2 text-sm font-bold text-[#1A6B3C] border-2 border-[#1A6B3C]/30 rounded-xl px-5 py-2.5 hover:bg-[#1A6B3C] hover:text-white hover:border-[#1A6B3C] transition-all">
+            className="hidden sm:inline-flex items-center gap-2 text-sm font-bold text-[#1b5e44] border-2 border-[#1b5e44]/30 rounded-xl px-5 py-2.5 hover:bg-[#1b5e44] hover:text-white hover:border-[#1b5e44] transition-all">
             Tümünü Gör →
           </Link>
         </div>

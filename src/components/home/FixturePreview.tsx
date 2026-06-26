@@ -18,15 +18,15 @@ function MatchCard({ match }: { match: Match }) {
     : null
 
   const Inner = (
-    <div className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm p-5 hover:shadow-md hover:border-[#1A6B3C]/30 transition-all h-full flex flex-col">
+    <div className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm p-5 hover:shadow-md hover:border-[#1b5e44]/30 transition-all h-full flex flex-col">
       {/* Üst: hafta + sonuç rozeti */}
       <div className="flex items-start justify-between gap-2 mb-3 min-h-[34px]">
-        <span className="text-[11px] font-black tracking-widest uppercase text-[#1A6B3C] leading-snug line-clamp-2">
+        <span className="text-[11px] font-black tracking-widest uppercase text-[#1b5e44] leading-snug line-clamp-2">
           {match.roundLabel ?? (match.week ? `${match.week}. Hafta` : match.competition)}
         </span>
         {result && (
           <span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-[12px] font-black shadow-sm leading-none ${
-            result === 'G' ? 'bg-[#1A6B3C] text-white' : result === 'M' ? 'bg-[#d01b2a] text-white' : 'bg-[#FFD100] text-[#0f4a28]'
+            result === 'G' ? 'bg-[#1b5e44] text-white' : result === 'M' ? 'bg-[#d01b2a] text-white' : 'bg-[#f5c400] text-[#103f2e]'
           }`} title={result === 'G' ? 'Galibiyet' : result === 'M' ? 'Mağlubiyet' : 'Beraberlik'}>{result}</span>
         )}
       </div>
@@ -40,8 +40,8 @@ function MatchCard({ match }: { match: Match }) {
         <div className="flex items-center gap-1.5 px-1">
           {match.isCompleted ? (
             <>
-              <span className="w-10 h-11 flex items-center justify-center rounded-lg bg-[#0f4a28] text-2xl font-black text-white tabular-nums">{match.homeScore}</span>
-              <span className="w-10 h-11 flex items-center justify-center rounded-lg bg-[#0f4a28] text-2xl font-black text-white tabular-nums">{match.awayScore}</span>
+              <span className="w-10 h-11 flex items-center justify-center rounded-lg bg-[#103f2e] text-2xl font-black text-white tabular-nums">{match.homeScore}</span>
+              <span className="w-10 h-11 flex items-center justify-center rounded-lg bg-[#103f2e] text-2xl font-black text-white tabular-nums">{match.awayScore}</span>
             </>
           ) : (
             <span className="h-11 flex items-center text-sm font-black text-[#7aab8e] px-2">VS</span>
@@ -54,14 +54,14 @@ function MatchCard({ match }: { match: Match }) {
 
       {/* Takım isimleri — ayrı satır, sabit yükseklik */}
       <div className="grid grid-cols-[1fr_auto_1fr] gap-2 mt-2.5">
-        <span className={`text-[11px] font-bold text-center leading-tight line-clamp-2 min-h-[30px] ${urfaIsHome ? 'text-[#1A6B3C]' : 'text-[#15532f]'}`}>{match.homeTeam}</span>
+        <span className={`text-[11px] font-bold text-center leading-tight line-clamp-2 min-h-[30px] ${urfaIsHome ? 'text-[#1b5e44]' : 'text-[#154836]'}`}>{match.homeTeam}</span>
         <span className="w-[88px]" />
-        <span className={`text-[11px] font-bold text-center leading-tight line-clamp-2 min-h-[30px] ${!urfaIsHome ? 'text-[#1A6B3C]' : 'text-[#15532f]'}`}>{match.awayTeam}</span>
+        <span className={`text-[11px] font-bold text-center leading-tight line-clamp-2 min-h-[30px] ${!urfaIsHome ? 'text-[#1b5e44]' : 'text-[#154836]'}`}>{match.awayTeam}</span>
       </div>
 
       {/* Stat — alta sabit */}
       <div className="mt-auto pt-3.5 border-t border-[#edf7f2] flex items-center justify-center gap-1.5 text-[12px] text-[#7aab8e]">
-        <MapPin size={12} className="text-[#1A6B3C] shrink-0" />
+        <MapPin size={12} className="text-[#1b5e44] shrink-0" />
         <span className="truncate">{match.venue || '—'}</span>
       </div>
     </div>
@@ -95,9 +95,9 @@ export default async function FixturePreview() {
         {/* Başlık + sıradaki maç geri sayımı */}
         <div className="flex flex-col sm:flex-row sm:items-center gap-5 mb-10">
           <div className="flex items-center gap-4">
-            <span className="block w-1.5 h-11 bg-[#FFD100] rounded-full" />
+            <span className="block w-1.5 h-11 bg-[#f5c400] rounded-full" />
             <div>
-              <h2 className="font-heading text-4xl md:text-5xl font-black text-[#15532f] tracking-tight">Maç Merkezi</h2>
+              <h2 className="font-heading text-4xl md:text-5xl font-black text-[#154836] tracking-tight">Maç Merkezi</h2>
               <p className="text-xs font-bold text-[#7aab8e] mt-1">{meta.league} · {meta.season}</p>
             </div>
           </div>
@@ -127,9 +127,9 @@ export default async function FixturePreview() {
         {/* Orta buton */}
         <div className="flex justify-center mt-10">
           <Link href="/mac-merkezi"
-            className="inline-flex items-center gap-2 bg-white border border-[#ddeae2] hover:border-[#1A6B3C]/40 hover:shadow-md text-[#15532f] font-bold text-[15px] px-7 py-4 rounded-2xl transition-all">
+            className="inline-flex items-center gap-2 bg-white border border-[#ddeae2] hover:border-[#1b5e44]/40 hover:shadow-md text-[#154836] font-bold text-[15px] px-7 py-4 rounded-2xl transition-all">
             Maç Merkezine Git
-            <ArrowUpRight size={17} className="text-[#1A6B3C]" />
+            <ArrowUpRight size={17} className="text-[#1b5e44]" />
           </Link>
         </div>
       </div>

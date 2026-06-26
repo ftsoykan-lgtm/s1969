@@ -29,7 +29,7 @@ export default function NextMatchCountdown({ target }: { target: string | null }
     return (
       <div className="flex items-center gap-2.5">
         <span className="text-[11px] font-black tracking-[0.2em] uppercase text-[#7aab8e]">Sıradaki Maç</span>
-        <span className="text-sm font-bold text-[#15532f] bg-[#f5f9f6] border border-[#ddeae2] rounded-lg px-3 py-1.5">
+        <span className="text-sm font-bold text-[#154836] bg-[#f5f9f6] border border-[#ddeae2] rounded-lg px-3 py-1.5">
           Maç bulunmuyor
         </span>
       </div>
@@ -49,10 +49,10 @@ export default function NextMatchCountdown({ target }: { target: string | null }
         {boxes.map(([label, val], i) => (
           <div key={label} className="flex items-start gap-1.5">
             <div className="text-center">
-              <div className="font-heading text-2xl md:text-3xl font-black text-[#1A6B3C] tabular-nums leading-none w-9">{pad(val)}</div>
+              <div className="font-heading text-2xl md:text-3xl font-black text-[#1b5e44] tabular-nums leading-none w-9">{pad(val)}</div>
               <div className="text-[8px] font-black tracking-wide uppercase text-[#7aab8e] mt-1">{label}</div>
             </div>
-            {i < boxes.length - 1 && <span className="text-xl md:text-2xl font-black text-[#FFD100] leading-none">:</span>}
+            {i < boxes.length - 1 && <span className="text-xl md:text-2xl font-black text-[#f5c400] leading-none">:</span>}
           </div>
         ))}
       </div>
