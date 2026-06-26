@@ -76,37 +76,32 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --background: #ffffff;
-  --foreground: #0e2a1c;
-  --card: #ffffff;
-  --card-foreground: #0e2a1c;
-  --primary: #1A6B3C;
-  --primary-foreground: #ffffff;
-  --secondary: #f1f6f3;
-  --secondary-foreground: #0f4a28;
-  --muted: #f1f6f3;
-  --muted-foreground: #5b7d6b;
+  --primary: #00875A;
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
   --accent: #FFD100;
-  --accent-foreground: #0f4a28;
+  --accent-foreground: oklch(0.145 0 0);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: #e2ece6;
-  --input: #e2ece6;
-  --ring: #1A6B3C;
-  --chart-1: #1A6B3C;
-  --chart-2: #2f8a52;
-  --chart-3: #0f4a28;
-  --chart-4: #FFD100;
-  --chart-5: #092d18;
-  /* Keskin / kurumsal köşeler — press-kit hissi */
-  --radius: 0.375rem;
-  --sidebar: #ffffff;
-  --sidebar-foreground: #0e2a1c;
-  --sidebar-primary: #1A6B3C;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #f1f6f3;
-  --sidebar-accent-foreground: #0f4a28;
-  --sidebar-border: #e2ece6;
-  --sidebar-ring: #1A6B3C;
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: #00875A;
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: #00875A;
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: #00875A;
 }
 
 .dark {
@@ -236,66 +231,3 @@ img {
 /* ─── Header video üzeri haber geçişi ─── */
 @keyframes heroUp { from { opacity: 0; transform: translateY(18px) } to { opacity: 1; transform: translateY(0) } }
 .hero-up { animation: heroUp .6s ease-out both; }
-
-/* ═══════════════════════════════════════════════════════════════
-   KURUMSAL TASARIM DİLİ — paylaşılan yardımcı sınıflar
-   (dengeli hibrit · keskin köşe · ölçülü altın · az gradient)
-   ═══════════════════════════════════════════════════════════════ */
-
-/* Bölüm dış kabı — tutarlı yatay genişlik */
-.u-wrap { width: 100%; margin-inline: auto; max-width: 80rem; padding-inline: 1rem; }
-@media (min-width: 640px) { .u-wrap { padding-inline: 1.5rem; } }
-@media (min-width: 1024px) { .u-wrap { padding-inline: 2rem; } }
-
-/* Bölüm dikey ritmi — 8px tabanlı tutarlı ölçek */
-.u-sec { padding-block: 4rem; }
-@media (min-width: 768px) { .u-sec { padding-block: 5.5rem; } }
-
-/* Eyebrow / kicker — küçük üst etiket (büyük başlığın üstünde) */
-.u-eyebrow {
-  display: inline-flex; align-items: center; gap: .625rem;
-  font-size: .6875rem; font-weight: 700; letter-spacing: .22em;
-  text-transform: uppercase; color: var(--c-green-500);
-}
-.u-eyebrow::before {
-  content: ""; display: block; width: 1.75rem; height: 2px;
-  background: var(--c-green-500);
-}
-
-/* Bölüm başlığı — display font, ölçülü ağırlık (her şey black değil) */
-.u-h2 {
-  font-family: var(--font-display), system-ui, sans-serif;
-  font-size: clamp(1.75rem, 1.2rem + 2.2vw, 2.75rem);
-  font-weight: 800; letter-spacing: -0.02em; line-height: 1.04;
-  color: var(--c-green-900);
-}
-
-/* Kurumsal kart — keskin, ince çerçeve, üstte hairline aksan */
-.u-card {
-  position: relative; background: var(--c-card);
-  border: 1px solid var(--c-border);
-  border-radius: 0.375rem;
-  transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
-}
-.u-card:hover {
-  border-color: color-mix(in srgb, var(--c-green-500) 35%, transparent);
-  box-shadow: 0 10px 30px -16px rgba(9,45,24,.28);
-}
-
-/* Üst aksan çizgisi (kartların/blokların tepesinde ince kurumsal şerit) */
-.u-accent { height: 3px; background: var(--c-green-500); }
-.u-accent--gold { background: var(--c-yellow); }
-
-/* Kurumsal buton — keskin, düz, çok seyrek altın */
-.u-btn {
-  display: inline-flex; align-items: center; gap: .5rem;
-  font-size: .8125rem; font-weight: 700; letter-spacing: .01em;
-  padding: .75rem 1.25rem; border-radius: 0.375rem;
-  transition: all .2s ease; line-height: 1;
-}
-.u-btn--solid { background: var(--c-green-500); color: #fff; }
-.u-btn--solid:hover { background: var(--c-green-700); }
-.u-btn--ghost { background: transparent; color: var(--c-green-700); border: 1px solid var(--c-border); }
-.u-btn--ghost:hover { border-color: var(--c-green-500); background: var(--c-green-50); }
-.u-btn--gold { background: var(--c-yellow); color: var(--c-green-700); }
-.u-btn--gold:hover { filter: brightness(1.04); }

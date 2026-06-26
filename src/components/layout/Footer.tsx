@@ -53,14 +53,15 @@ export default function Footer({ club = defaultClub }: { club?: ClubInfo }) {
     <footer className="relative bg-[#0a3320] text-white overflow-hidden">
       {/* Arka plan parıltıları + watermark */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-32 -left-24 w-[480px] h-[480px] rounded-full bg-[#1A6B3C]/20 blur-[130px]" />
+        <div className="absolute -top-32 -left-24 w-[480px] h-[480px] rounded-full bg-[#1A6B3C]/30 blur-[130px]" />
+        <div className="absolute -bottom-32 right-0 w-[480px] h-[480px] rounded-full bg-[#FFD100]/[0.05] blur-[120px]" />
         <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center select-none">
           <span className="font-heading text-[26vw] font-black leading-none text-white/[0.015] tracking-tighter">{club.shortCode}</span>
         </div>
       </div>
 
-      {/* Üst ince altın hat (düz) */}
-      <div className="h-[3px] bg-[#FFD100]" />
+      {/* Üst altın hat (navbar ile aynı) */}
+      <div className="h-1 bg-gradient-to-r from-[#1A6B3C] via-[#FFD100] to-[#1A6B3C]" />
 
       {/* ── Bülten / CTA premium şeridi ────────────────────────────── */}
       <div className="relative border-b border-white/[0.07]">
@@ -71,11 +72,11 @@ export default function Footer({ club = defaultClub }: { club?: ClubInfo }) {
               Ceylanlar&apos;dan <span className="text-[#FFD100]">hiçbir an</span> kaçmasın
             </h3>
           </div>
-          <form className="flex w-full md:w-auto items-center gap-2 bg-white/[0.05] border border-white/10 p-1.5">
+          <form className="flex w-full md:w-auto items-center gap-2 rounded-full bg-white/[0.05] border border-white/10 p-1.5 backdrop-blur-sm">
             <input type="email" placeholder="E-posta adresiniz" aria-label="E-posta"
               className="flex-1 md:w-64 bg-transparent px-4 py-2 text-sm text-white placeholder-white/35 focus:outline-none" />
             <button type="submit"
-              className="shrink-0 inline-flex items-center gap-1.5 text-[#0a3320] font-bold text-[11px] tracking-wide uppercase px-5 py-2.5 bg-[#FFD100] hover:bg-[#e8c000] transition-colors">
+              className="shrink-0 inline-flex items-center gap-1.5 text-[#0a3320] font-black text-[11px] tracking-wide uppercase px-5 py-2.5 rounded-full bg-gradient-to-b from-[#FFE04D] to-[#FFD100] shadow-[0_4px_14px_rgba(255,209,0,0.3)] hover:scale-[1.03] transition-transform">
               Abone Ol
             </button>
           </form>
@@ -90,9 +91,9 @@ export default function Footer({ club = defaultClub }: { club?: ClubInfo }) {
           <Link href="/" className="inline-flex items-center gap-3.5 group mb-5">
             {hasLogo ? (
               <img src={club.logoUrl} alt={club.name}
-                className="h-14 w-14 rounded-md object-contain bg-white/5 ring-1 ring-white/15 shrink-0" />
+                className="h-14 w-14 rounded-2xl object-contain bg-white/5 ring-1 ring-white/15 shrink-0" />
             ) : (
-              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-md bg-[#FFD100] text-[#0a3320] font-extrabold text-base">
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-[#FFD100] to-[#d4ad00] text-[#0a3320] font-black text-base shadow-lg">
                 {club.shortCode}
               </div>
             )}
@@ -108,7 +109,7 @@ export default function Footer({ club = defaultClub }: { club?: ClubInfo }) {
           <div className="flex flex-wrap gap-2.5">
             {socials.map(({ href, label, Icon }) => (
               <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
-                className="h-11 w-11 flex items-center justify-center rounded-md bg-white/[0.05] border border-white/10 text-white/60 hover:text-[#0a3320] hover:bg-[#FFD100] hover:border-[#FFD100] transition-colors duration-200">
+                className="h-11 w-11 flex items-center justify-center rounded-full bg-white/[0.05] border border-white/10 text-white/60 hover:text-[#0a3320] hover:bg-[#FFD100] hover:border-[#FFD100] hover:scale-110 transition-all duration-300">
                 <Icon />
               </a>
             ))}
@@ -126,8 +127,8 @@ export default function Footer({ club = defaultClub }: { club?: ClubInfo }) {
               {col.items.map((link) => (
                 <li key={link.label}>
                   <Link href={link.href}
-                    className="group inline-flex items-center gap-2.5 text-[15px] text-white/45 hover:text-white transition-colors">
-                    <span className="w-2 h-px bg-white/20 group-hover:w-3 group-hover:bg-[#FFD100] transition-all" />
+                    className="group inline-flex items-center gap-2 text-[15px] text-white/45 hover:text-white transition-colors">
+                    <span className="w-1.5 h-1.5 rounded-full bg-white/15 group-hover:bg-[#FFD100] group-hover:scale-125 transition-all" />
                     {link.label}
                   </Link>
                 </li>
@@ -140,7 +141,7 @@ export default function Footer({ club = defaultClub }: { club?: ClubInfo }) {
         <div className="col-span-2 lg:col-span-4 pt-8 mt-2 border-t border-white/[0.07] grid grid-cols-1 sm:grid-cols-3 gap-5 text-sm">
           {club.address && (
             <div className="flex items-start gap-3">
-              <span className="mt-0.5 shrink-0 w-8 h-8 rounded-md bg-white/[0.05] border border-white/10 flex items-center justify-center text-[#FFD100]">
+              <span className="mt-0.5 shrink-0 w-8 h-8 rounded-xl bg-white/[0.05] border border-white/10 flex items-center justify-center text-[#FFD100]">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
               </span>
               <span className="text-white/45 leading-relaxed">{club.address}</span>
@@ -148,7 +149,7 @@ export default function Footer({ club = defaultClub }: { club?: ClubInfo }) {
           )}
           {club.phone && (
             <a href={`tel:${club.phone}`} className="flex items-center gap-3 group">
-              <span className="shrink-0 w-8 h-8 rounded-md bg-white/[0.05] border border-white/10 flex items-center justify-center text-[#FFD100]">
+              <span className="shrink-0 w-8 h-8 rounded-xl bg-white/[0.05] border border-white/10 flex items-center justify-center text-[#FFD100]">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 010 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.9.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
               </span>
               <span className="text-white/45 group-hover:text-white transition-colors">{club.phone}</span>
@@ -156,7 +157,7 @@ export default function Footer({ club = defaultClub }: { club?: ClubInfo }) {
           )}
           {club.email && (
             <a href={`mailto:${club.email}`} className="flex items-center gap-3 group">
-              <span className="shrink-0 w-8 h-8 rounded-md bg-white/[0.05] border border-white/10 flex items-center justify-center text-[#FFD100]">
+              <span className="shrink-0 w-8 h-8 rounded-xl bg-white/[0.05] border border-white/10 flex items-center justify-center text-[#FFD100]">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
               </span>
               <span className="text-white/45 group-hover:text-white transition-colors">{club.email}</span>

@@ -43,62 +43,61 @@ export default function HeroVideo({ club, src, items = [] }: { club: ClubInfo; s
 
   return (
     <section className="relative bg-[#092d18] overflow-hidden">
-      <div className="relative h-[68vh] min-h-[520px] md:h-[88vh] md:max-h-[900px]">
+      <div className="relative h-[64vh] min-h-[460px] md:h-[84vh] md:max-h-[860px]">
         {/* Arka plan video */}
         {src ? (
           <video ref={ref} className="absolute inset-0 w-full h-full object-cover"
             src={src} autoPlay muted loop playsInline preload="auto"
-            style={{ filter: 'saturate(1.06) contrast(1.04)' }} />
+            style={{ filter: 'saturate(1.08) contrast(1.04)' }} />
         ) : (
           <div className="absolute inset-0 bg-[radial-gradient(120%_100%_at_50%_-10%,#1A6B3C_0%,#092d18_60%)]" />
         )}
 
-        {/* Karartma */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#04130b] via-[#04130b]/20 to-[#04130b]/15" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#04130b]/55 via-transparent to-transparent" />
+        {/* Karartma — okunabilirlik için sadece metnin olduğu alanlarda */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#04130b]/90 via-[#04130b]/10 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#04130b]/45 via-transparent to-transparent" />
 
         {/* Ön plan */}
         <div className="absolute inset-x-0 bottom-0">
-          <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 pb-11 md:pb-16">
+          <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 pb-10 md:pb-14">
             <div className="flex items-end justify-between gap-6">
 
-              {/* Sol: öne çıkan haber */}
-              <div className="min-w-0 flex items-end gap-6">
+              {/* Sol: öne çıkan haber — görsel + metin */}
+              <div className="min-w-0 flex items-end gap-5">
                 {active?.imageUrl && (
                   <Link href={active.href} key={`img-${idx}`}
-                    className="hidden md:block relative shrink-0 w-44 lg:w-56 aspect-[4/5] overflow-hidden ring-1 ring-white/15 shadow-2xl group hero-up">
+                    className="hidden md:block relative shrink-0 w-44 lg:w-52 aspect-[4/3] rounded-2xl overflow-hidden ring-1 ring-white/20 shadow-2xl group hero-up">
                     <img src={active.imageUrl} alt={active.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                    <span className="absolute inset-0 bg-gradient-to-t from-[#04130b]/60 to-transparent" />
-                    <span className="absolute bottom-0 left-0 h-[3px] w-full bg-[#FFD100] scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-500" />
+                    <span className="absolute inset-0 bg-gradient-to-t from-[#04130b]/50 to-transparent" />
                   </Link>
                 )}
 
                 <div className="min-w-0">
                   {active ? (
-                    <Link href={active.href} className="group block max-w-3xl" key={idx}>
+                    <Link href={active.href} className="group block max-w-2xl" key={idx}>
                       {active.category && (
-                        <span className="inline-flex items-center gap-2.5 mb-4 hero-up">
-                          <span className="w-8 h-[2px] bg-[#FFD100]" />
-                          <span className="text-[#FFD100] text-[11px] font-bold tracking-[0.26em] uppercase">{active.category}</span>
+                        <span className="inline-flex items-center gap-2 mb-3 hero-up">
+                          <span className="w-7 h-0.5 bg-[#FFD100]" />
+                          <span className="text-[#FFD100] text-[11px] font-black tracking-[0.28em] uppercase">{active.category}</span>
                         </span>
                       )}
-                      <h1 className="font-heading text-3xl md:text-5xl lg:text-[3.4rem] font-extrabold text-white leading-[1.02] tracking-[-0.02em] line-clamp-3 hero-up"
+                      <h1 className="font-heading text-2xl md:text-4xl lg:text-[2.7rem] font-black text-white leading-[1.05] tracking-tight line-clamp-3 drop-shadow-2xl hero-up"
                         style={{ animationDelay: '.06s' }}>
                         {active.title}
                       </h1>
                       {active.excerpt && (
-                        <p className="mt-4 text-white/65 text-[15px] md:text-base leading-relaxed line-clamp-2 max-w-xl hero-up" style={{ animationDelay: '.12s' }}>
+                        <p className="mt-3 text-white/65 text-sm md:text-base leading-relaxed line-clamp-2 max-w-xl hero-up" style={{ animationDelay: '.12s' }}>
                           {active.excerpt}
                         </p>
                       )}
-                      <span className="inline-flex items-center gap-2 mt-6 text-[#0f4a28] bg-[#FFD100] text-[12px] font-bold uppercase tracking-wide px-5 py-3 group-hover:gap-3 transition-all hero-up"
+                      <span className="inline-flex items-center gap-2 mt-5 text-[#0f4a28] bg-[#FFD100] text-[12px] font-black uppercase tracking-wide pl-4 pr-5 py-2.5 rounded-full group-hover:gap-3 transition-all shadow-lg shadow-[#FFD100]/20 hero-up"
                         style={{ animationDelay: '.18s' }}>
                         Haberin Devamı <ArrowRight size={15} />
                       </span>
                     </Link>
                   ) : (
                     <div className="max-w-2xl">
-                      <h1 className="font-heading text-5xl md:text-7xl font-extrabold text-white uppercase tracking-[-0.02em] leading-[0.95]">{club.name}</h1>
+                      <h1 className="font-heading text-4xl md:text-6xl font-black text-white uppercase tracking-tight leading-[0.95] drop-shadow-2xl">{club.name}</h1>
                     </div>
                   )}
                 </div>
@@ -107,17 +106,17 @@ export default function HeroVideo({ club, src, items = [] }: { club: ClubInfo; s
               {/* Sağ: sayaç + oklar */}
               {n > 1 && (
                 <div className="shrink-0 flex flex-col items-end gap-4 pb-1">
-                  <div className="font-heading font-extrabold tabular-nums leading-none">
+                  <div className="font-heading font-black tabular-nums leading-none">
                     <span className="text-4xl md:text-5xl text-white">{num(idx)}</span>
                     <span className="text-lg md:text-xl text-white/40"> / {String(n).padStart(2, '0')}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <button onClick={prev} aria-label="Önceki"
-                      className="h-10 w-10 flex items-center justify-center border border-white/25 text-white hover:bg-[#FFD100] hover:text-[#0f4a28] hover:border-[#FFD100] transition-all">
+                      className="h-10 w-10 flex items-center justify-center rounded-full border border-white/25 text-white hover:bg-[#FFD100] hover:text-[#0f4a28] hover:border-[#FFD100] transition-all">
                       <ChevronLeft size={18} />
                     </button>
                     <button onClick={next} aria-label="Sonraki"
-                      className="h-10 w-10 flex items-center justify-center border border-white/25 text-white hover:bg-[#FFD100] hover:text-[#0f4a28] hover:border-[#FFD100] transition-all">
+                      className="h-10 w-10 flex items-center justify-center rounded-full border border-white/25 text-white hover:bg-[#FFD100] hover:text-[#0f4a28] hover:border-[#FFD100] transition-all">
                       <ChevronRight size={18} />
                     </button>
                   </div>
@@ -126,7 +125,7 @@ export default function HeroVideo({ club, src, items = [] }: { club: ClubInfo; s
             </div>
           </div>
 
-          {/* İnce ilerleme çizgisi */}
+          {/* İnce ilerleme çizgisi (en alt) */}
           {n > 1 && (
             <div className="h-[3px] bg-white/10">
               <span key={idx} className="block h-full bg-[#FFD100]" style={{ animation: `heroProg ${INTERVAL}ms linear` }} />
@@ -135,8 +134,8 @@ export default function HeroVideo({ club, src, items = [] }: { club: ClubInfo; s
         </div>
       </div>
 
-      {/* Alt ince yeşil hat (gradient yerine düz) */}
-      <div className="h-[3px] bg-[#1A6B3C]" />
+      {/* Alt altın hat */}
+      <div className="h-1 bg-gradient-to-r from-[#1A6B3C] via-[#FFD100] to-[#1A6B3C]" />
 
       <style jsx global>{`
         @keyframes heroProg { from { width: 0% } to { width: 100% } }
