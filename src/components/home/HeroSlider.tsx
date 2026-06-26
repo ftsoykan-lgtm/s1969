@@ -38,7 +38,7 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
 
   return (
     <section className="relative bg-[#081f12] overflow-hidden">
-      <div className="relative h-[440px] sm:h-[560px] lg:h-[calc(100vh-110px)] lg:min-h-[640px] lg:max-h-[940px]">
+      <div className="relative h-[420px] sm:h-[540px] lg:h-[calc(100vh-188px)] lg:min-h-[600px] lg:max-h-[900px]">
 
         {/* ── SOL komşu (kenardan sızar) ───────────────────────────── */}
         {n > 1 && (
@@ -75,7 +75,7 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
             </div>
           ))}
 
-          <div className="absolute inset-x-0 bottom-0 z-20 p-5 sm:p-8 lg:p-10 pb-16 sm:pb-20">
+          <div className="absolute inset-x-0 bottom-0 z-20 p-5 sm:p-8 lg:p-10">
             <Link href={active.href} className="group block max-w-2xl" key={idx}>
               {active.category && (
                 <span className="inline-block bg-ugold text-ugreend text-[10px] font-bold tracking-[0.18em] uppercase px-3 py-1 mb-3"
@@ -95,40 +95,43 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
           </div>
         </div>
 
-        {/* ── Alt-orta navigasyon: oklar + noktalar ────────────────── */}
-        {n > 1 && (
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 flex items-center gap-3">
-            <button onClick={prev} aria-label="Önceki"
-              className="h-9 w-9 flex items-center justify-center rounded-full border border-ugold text-ugold hover:bg-ugold hover:text-ugreend transition-colors">
-              <ChevronLeft size={18} />
-            </button>
-            <div className="flex items-center gap-2.5">
-              {items.map((_, i) => {
-                if (i === idx) {
-                  // Aktif: yeşil zeminde sarı dolan ilerleme barı (dolunca sonraki habere geçer)
-                  return (
-                    <span key={i} className="relative h-2.5 w-14 rounded-full bg-ugold overflow-hidden">
-                      <span key={idx} className="absolute inset-y-0 left-0 rounded-full bg-ugreen"
-                        style={{ animation: `hProg ${INTERVAL}ms linear both` }} />
-                    </span>
-                  )
-                }
-                const past = i < idx
-                return (
-                  <button key={i} onClick={() => goTo(i)} aria-label={`Slayt ${i + 1}`}
-                    className={`h-2.5 w-2.5 rounded-full transition-colors ${
-                      past ? 'bg-ugold hover:brightness-110' : 'border border-ugold/60 hover:border-ugold hover:bg-ugold/30'
-                    }`} />
-                )
-              })}
-            </div>
-            <button onClick={next} aria-label="Sonraki"
-              className="h-9 w-9 flex items-center justify-center rounded-full bg-ugold text-ugreend hover:brightness-105 transition-all">
-              <ChevronRight size={18} />
-            </button>
-          </div>
-        )}
       </div>
+
+      {/* ── Navigasyon şeridi (haberin ALTINDA, üzerine binmez) ──────── */}
+      {n > 1 && (
+        <div className="bg-ugreendd flex items-center justify-center gap-3 py-4">
+          <button onClick={prev} aria-label="Önceki"
+            className="h-9 w-9 flex items-center justify-center rounded-full border border-ugold text-ugold hover:bg-ugold hover:text-ugreend transition-colors">
+            <ChevronLeft size={18} />
+          </button>
+          <div className="flex items-center gap-2.5">
+            {items.map((_, i) => {
+              if (i === idx) {
+                // Aktif: yeşil zeminde sarı→yeşil dolan ilerleme barı (dolunca sonraki habere geçer)
+                return (
+                  <span key={i} className="relative h-2.5 w-14 rounded-full bg-ugreend overflow-hidden ring-1 ring-ugold/30">
+                    <span key={idx} className="absolute inset-y-0 left-0 overflow-hidden rounded-full"
+                      style={{ animation: `hProg ${INTERVAL}ms linear both` }}>
+                      <span className="block h-full w-14 rounded-full bg-gradient-to-r from-ugold to-ugreen" />
+                    </span>
+                  </span>
+                )
+              }
+              const past = i < idx
+              return (
+                <button key={i} onClick={() => goTo(i)} aria-label={`Slayt ${i + 1}`}
+                  className={`h-2.5 w-2.5 rounded-full transition-colors ${
+                    past ? 'bg-ugold hover:brightness-110' : 'border border-ugold/60 hover:border-ugold hover:bg-ugold/30'
+                  }`} />
+              )
+            })}
+          </div>
+          <button onClick={next} aria-label="Sonraki"
+            className="h-9 w-9 flex items-center justify-center rounded-full bg-ugold text-ugreend hover:brightness-105 transition-all">
+            <ChevronRight size={18} />
+          </button>
+        </div>
+      )}
 
       <div className="h-[3px] bg-ugold" />
 
