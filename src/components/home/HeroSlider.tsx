@@ -97,43 +97,53 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
 
       </div>
 
-      {/* ── Navigasyon şeridi (haberin ALTINDA, üzerine binmez) ──────── */}
+      {/* ── Navigasyon şeridi (premium · navbar diliyle uyumlu) ──────── */}
       {n > 1 && (
-        <div className="bg-ugreendd flex items-center justify-center gap-3 py-4">
-          <button onClick={prev} aria-label="Önceki"
-            className="h-9 w-9 flex items-center justify-center rounded-full border border-ugold text-ugold hover:bg-ugold hover:text-ugreend transition-colors">
-            <ChevronLeft size={18} />
-          </button>
-          <div className="flex items-center gap-2.5">
-            {items.map((_, i) => {
-              if (i === idx) {
-                // Aktif: yeşil zeminde sarı→yeşil dolan ilerleme barı (dolunca sonraki habere geçer)
-                return (
-                  <span key={i} className="relative h-2.5 w-14 rounded-full bg-ugreend overflow-hidden ring-1 ring-ugold/30">
-                    <span key={idx} className="absolute inset-y-0 left-0 overflow-hidden rounded-full"
-                      style={{ animation: `hProg ${INTERVAL}ms linear both` }}>
-                      <span className="block h-full w-14 rounded-full bg-gradient-to-r from-ugold to-ugreen" />
+        <div className="relative bg-gradient-to-b from-ugreens to-ugreen">
+          {/* üst altın saç çizgisi — navbar ile aynı */}
+          <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-ugold/40 to-transparent" />
+          <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 py-4 sm:py-5 flex items-center justify-center gap-4 sm:gap-5">
+
+            {/* slayt sayacı (premium dokunuş) — yalnız geniş ekran */}
+            <span className="hidden sm:block font-heading font-extrabold tabular-nums text-white/90 text-sm tracking-wide">
+              {String(idx + 1).padStart(2, '0')}<span className="text-ugold/70"> / {String(n).padStart(2, '0')}</span>
+            </span>
+
+            <button onClick={prev} aria-label="Önceki"
+              className="h-10 w-10 flex items-center justify-center rounded-full border border-white/25 text-white hover:bg-ugold hover:text-ugreend hover:border-ugold transition-all">
+              <ChevronLeft size={18} />
+            </button>
+
+            <div className="flex items-center gap-2.5">
+              {items.map((_, i) => {
+                if (i === idx) {
+                  // Aktif: yeşil zeminde sarı→yeşil dolan ilerleme barı (dolunca sonraki habere geçer)
+                  return (
+                    <span key={i} className="relative h-2.5 w-16 rounded-full bg-ugreendd overflow-hidden ring-1 ring-ugold/40 shadow-inner">
+                      <span key={idx} className="absolute inset-y-0 left-0 overflow-hidden rounded-full"
+                        style={{ animation: `hProg ${INTERVAL}ms linear both` }}>
+                        <span className="block h-full w-16 rounded-full bg-gradient-to-r from-ugold via-ugoldl to-ugreen" />
+                      </span>
                     </span>
-                  </span>
+                  )
+                }
+                const past = i < idx
+                return (
+                  <button key={i} onClick={() => goTo(i)} aria-label={`Slayt ${i + 1}`}
+                    className={`h-2.5 w-2.5 rounded-full transition-all ${
+                      past ? 'bg-ugold hover:brightness-110' : 'border border-white/35 hover:border-ugold hover:bg-ugold/40'
+                    }`} />
                 )
-              }
-              const past = i < idx
-              return (
-                <button key={i} onClick={() => goTo(i)} aria-label={`Slayt ${i + 1}`}
-                  className={`h-2.5 w-2.5 rounded-full transition-colors ${
-                    past ? 'bg-ugold hover:brightness-110' : 'border border-ugold/60 hover:border-ugold hover:bg-ugold/30'
-                  }`} />
-              )
-            })}
+              })}
+            </div>
+
+            <button onClick={next} aria-label="Sonraki"
+              className="h-10 w-10 flex items-center justify-center rounded-full bg-ugold text-ugreend shadow-[0_4px_14px_-4px_rgba(0,0,0,0.5)] hover:brightness-105 transition-all">
+              <ChevronRight size={18} />
+            </button>
           </div>
-          <button onClick={next} aria-label="Sonraki"
-            className="h-9 w-9 flex items-center justify-center rounded-full bg-ugold text-ugreend hover:brightness-105 transition-all">
-            <ChevronRight size={18} />
-          </button>
         </div>
       )}
-
-      <div className="h-[3px] bg-ugold" />
 
       <style jsx global>{`
         @keyframes hProg { from { width: 0% } to { width: 100% } }
