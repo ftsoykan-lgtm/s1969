@@ -44,7 +44,7 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
         {n > 1 && (
           <button onClick={prev} aria-label="Önceki haber"
             className="hidden md:block absolute left-0 top-0 bottom-0 w-[20%] z-10 group">
-            <Image src={prevItem.imageUrl} alt="" fill sizes="20vw" className="object-cover" />
+            <Image src={prevItem.imageUrl} alt="" fill sizes="50vw" className="object-cover" />
             <span className="absolute inset-0 bg-[#04130b]/70 group-hover:bg-[#04130b]/55 transition-colors" />
             <span className="absolute bottom-6 left-4 right-8 text-left">
               <span className="block text-white/80 text-sm font-bold leading-snug line-clamp-3 drop-shadow">{prevItem.title}</span>
@@ -56,7 +56,7 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
         {n > 1 && (
           <button onClick={next} aria-label="Sonraki haber"
             className="hidden md:block absolute right-0 top-0 bottom-0 w-[20%] z-10 group">
-            <Image src={nextItem.imageUrl} alt="" fill sizes="20vw" className="object-cover" />
+            <Image src={nextItem.imageUrl} alt="" fill sizes="50vw" className="object-cover" />
             <span className="absolute inset-0 bg-[#04130b]/70 group-hover:bg-[#04130b]/55 transition-colors" />
             <span className="absolute bottom-6 right-4 left-8 text-right">
               <span className="block text-white/80 text-sm font-bold leading-snug line-clamp-3 drop-shadow">{nextItem.title}</span>
