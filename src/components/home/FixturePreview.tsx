@@ -89,7 +89,7 @@ export default async function FixturePreview() {
   const target = next ? `${next.date}T${next.time && /^\d{1,2}:\d{2}$/.test(next.time) ? next.time : '00:00'}:00` : null
 
   return (
-    <section className="py-20 bg-[#f8faf9]">
+    <section className="py-20 md:py-24 bg-[#f8faf9]">
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
 
         {/* Başlık + sıradaki maç geri sayımı */}

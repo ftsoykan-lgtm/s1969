@@ -330,3 +330,15 @@ img {
 
 /* Görsel netliği — premium his */
 img { image-rendering: -webkit-optimize-contrast; }
+
+/* İç sayfa hero bandı — premium (yumuşak gradient + atmosfer + altın hairline) */
+.page-hero {
+  position: relative;
+  background:
+    radial-gradient(120% 150% at 88% -30%, color-mix(in srgb, var(--c-ugold) 9%, transparent), transparent 58%),
+    linear-gradient(to bottom, var(--c-ugreens), var(--c-ugreen));
+}
+.page-hero::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
+  background: linear-gradient(to right, transparent, color-mix(in srgb, var(--c-ugold) 55%, transparent), transparent);
+}

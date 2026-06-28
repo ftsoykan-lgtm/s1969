@@ -14,7 +14,7 @@ export default async function HaberlerPage() {
 
   return (
     <div className="min-h-screen bg-[#f5f9f6]">
-      <div className="bg-ugreen py-14">
+      <div className="page-hero py-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-3">
             <span className="block w-8 h-0.5 bg-ugold" />

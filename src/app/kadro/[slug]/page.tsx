@@ -36,7 +36,7 @@ export default async function OyuncuDetayPage({ params }: Props) {
   return (
     <div className="min-h-screen bg-[#f5f9f6]">
       {/* Hero banner */}
-      <div className="bg-ugreen py-14">
+      <div className="page-hero py-14">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <Link href="/kadro" className="inline-flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors mb-6">
             <ArrowLeft size={16} /> Kadroya Dön

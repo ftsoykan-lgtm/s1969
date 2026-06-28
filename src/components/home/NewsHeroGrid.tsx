@@ -68,7 +68,7 @@ export default function NewsHeroGrid({ news, catName }: { news: SiteNews[]; catN
   const gridItems = rest.slice(3, 7)
 
   return (
-    <section className="py-16 md:py-20 bg-white">
+    <section className="py-20 md:py-24 bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between mb-9">
           <div className="flex items-center gap-4">
