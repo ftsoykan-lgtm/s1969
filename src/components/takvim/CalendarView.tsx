@@ -171,18 +171,20 @@ export default function CalendarView({ items, season, league }: { items: CalMatc
             <p className="text-[10px] font-extrabold tracking-widest uppercase text-[#7aab8e] mb-2 px-1">Bu Ay {monthMatches.length} Maç</p>
             {monthMatches.map((m, idx) => {
               const r = result(m)
-              const [, , dd] = m.date.split('-')
+              const [, mmStr, dd] = m.date.split('-')
+              const shortMonth = AYLAR[Number(mmStr) - 1]?.slice(0, 3) ?? ''
               const inner = (
                 <div className="relative flex items-center gap-3 pl-4 pr-3 py-3 rounded-xl bg-white border border-[#edf7f2] hover:border-ugreen/40 hover:shadow-[0_10px_26px_-16px_rgba(15,74,40,0.4)] transition-all overflow-hidden">
                   <span className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-ugold to-ugreen" />
-                  <div className="flex flex-col items-center w-10 shrink-0">
-                    <span className="text-xl font-extrabold text-ugreend tabular-nums leading-none">{Number(dd)}</span>
-                    <span className="text-[9px] font-bold uppercase tracking-wide text-ugoldd mt-0.5">{m.time || '—'}</span>
+                  <div className="flex flex-col items-center justify-center w-12 shrink-0 leading-none">
+                    <span className="text-2xl font-extrabold text-ugreend tabular-nums">{Number(dd)}</span>
+                    <span className="text-[10px] font-extrabold uppercase tracking-[0.15em] text-ugoldd mt-1">{shortMonth}</span>
                   </div>
+                  <span className="w-px self-stretch bg-[#edf7f2] shrink-0" />
                   <div className="relative h-10 w-10 shrink-0 bg-white rounded-lg p-1 ring-1 ring-ugold/30 shadow-sm"><img src={m.opponentLogo} alt="" className="w-full h-full object-contain" /></div>
                   <div className="min-w-0 flex-1">
                     <p className="text-sm font-extrabold text-ugreenm truncate">{m.isHome ? '🏠 ' : '✈️ '}{m.opponent}</p>
-                    <p className="text-[11px] text-[#7aab8e] truncate">{m.roundLabel ?? ''}{m.venue ? ` · ${m.venue}` : ''}</p>
+                    <p className="text-[11px] text-[#7aab8e] truncate">{m.time ? `${m.time} · ` : ''}{m.roundLabel ?? ''}{m.venue ? ` · ${m.venue}` : ''}</p>
                   </div>
                   {m.isCompleted && m.homeScore != null ? (
                     <span className={`shrink-0 text-sm font-extrabold tabular-nums px-2 py-0.5 rounded-lg ${r === 'G' ? 'bg-ugreen text-white' : r === 'M' ? 'bg-[#d01b2a] text-white' : 'bg-ugold text-ugreend'}`}>{m.homeScore}-{m.awayScore}</span>
