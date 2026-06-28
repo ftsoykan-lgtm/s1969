@@ -198,22 +198,22 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
                   <div key={link.label} className="relative flex items-stretch"
                     onMouseEnter={openMega} onMouseLeave={closeMega}>
                     <button className={cn(
-                      'group relative flex items-center gap-1 h-full px-4 text-[12px] font-bold tracking-[0.06em] transition-colors',
-                      megaOpen ? 'text-ugold' : 'text-white/80 hover:text-white'
+                      'group relative flex items-center gap-1 h-full px-4 text-[13px] font-extrabold tracking-[0.08em] transition-colors',
+                      megaOpen ? 'text-ugold' : 'text-white/85 hover:text-white'
                     )}>
                       {link.label}
-                      <ChevronDown size={11} className={cn('transition-transform duration-200', megaOpen && 'rotate-180')} />
-                      <span className={cn('absolute left-1/2 -translate-x-1/2 bottom-[16px] h-[2px] bg-ugold rounded-full shadow-[0_0_8px_rgba(255,209,0,0.6)] transition-all duration-300', megaOpen ? 'w-5' : 'w-0 group-hover:w-5')} />
+                      <ChevronDown size={12} className={cn('transition-transform duration-200', megaOpen && 'rotate-180')} />
+                      <span className={cn('absolute left-1/2 -translate-x-1/2 bottom-3 h-[3px] bg-ugold rounded-full transition-all duration-300', megaOpen ? 'w-7' : 'w-0 group-hover:w-7')} />
                     </button>
                   </div>
                 ) : (
                   <Link key={link.href} href={link.href}
                     className={cn(
-                      'group relative flex items-center h-full px-4 text-[12px] font-bold tracking-[0.06em] transition-colors',
-                      isActive(link.href) ? 'text-ugold' : 'text-white/80 hover:text-white'
+                      'group relative flex items-center h-full px-4 text-[13px] font-extrabold tracking-[0.08em] transition-colors',
+                      isActive(link.href) ? 'text-ugold' : 'text-white/85 hover:text-white'
                     )}>
                     {link.label}
-                    <span className={cn('absolute left-1/2 -translate-x-1/2 bottom-[16px] h-[2px] bg-ugold rounded-full shadow-[0_0_8px_rgba(255,209,0,0.6)] transition-all duration-300', isActive(link.href) ? 'w-5' : 'w-0 group-hover:w-5')} />
+                    <span className={cn('absolute left-1/2 -translate-x-1/2 bottom-3 h-[3px] bg-ugold rounded-full transition-all duration-300', isActive(link.href) ? 'w-7' : 'w-0 group-hover:w-7')} />
                   </Link>
                 )
               )}

@@ -20,7 +20,7 @@ export default async function YonetimPage() {
         )}
         <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-16">
           <div className="flex items-center gap-3 mb-3"><span className="block w-8 h-0.5 bg-ugold" /><p className="text-xs font-extrabold tracking-widest uppercase text-ugold/60">Kulüp</p></div>
-          <h1 className="font-heading text-4xl md:text-5xl font-extrabold text-white tracking-tight">{title}</h1>
+          <h1 className="font-heading text-5xl md:text-7xl font-extrabold text-white tracking-[-0.03em] leading-[0.95]">{title}</h1>
           {subtitle && <p className="mt-3 text-white/55 text-base md:text-lg max-w-2xl">{subtitle}</p>}
         </div>
       </div>

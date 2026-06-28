@@ -18,10 +18,10 @@ function MatchCard({ match }: { match: Match }) {
     : null
 
   const Inner = (
-    <div className="card-premium p-5 h-full flex flex-col">
+    <div className="card-premium p-5 h-full flex flex-col border-t-4 border-t-ugold">
       {/* Üst: hafta + sonuç rozeti */}
       <div className="flex items-start justify-between gap-2 mb-3 min-h-[34px]">
-        <span className="text-[11px] font-extrabold tracking-widest uppercase text-ugreen leading-snug line-clamp-2">
+        <span className="text-[11px] font-extrabold tracking-widest uppercase text-ugold leading-snug line-clamp-2">
           {match.roundLabel ?? (match.week ? `${match.week}. Hafta` : match.competition)}
         </span>
         {result && (

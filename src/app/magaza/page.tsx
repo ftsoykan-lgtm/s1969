@@ -22,7 +22,7 @@ export default function MagazaPage() {
             <span className="block w-8 h-0.5 bg-ugold" />
             <p className="text-xs font-extrabold tracking-widest uppercase text-ugold/60">Resmi Ürünler</p>
           </div>
-          <h1 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight">
+          <h1 className="text-5xl md:text-7xl font-extrabold text-white tracking-[-0.03em] leading-[0.95]">
             Kulüp <span className="text-ugold">Mağazası</span>
           </h1>
         </div>

@@ -106,14 +106,14 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
           <Link href={active.href} aria-label={active.title} className="absolute inset-0 z-[15]" />
 
           <div className="absolute inset-x-0 bottom-0 z-20 p-5 sm:p-8 lg:p-10">
-            <Link href={active.href} className="group block max-w-2xl" key={idx}>
+            <Link href={active.href} className="group block max-w-3xl border-l-4 border-ugold pl-5 sm:pl-6" key={idx}>
               {active.category && (
-                <span className="inline-block bg-ugold text-ugreend text-[10px] font-bold tracking-[0.18em] uppercase px-3 py-1 mb-3"
+                <span className="inline-block bg-ugold text-ugreend text-[11px] font-extrabold tracking-[0.18em] uppercase px-3.5 py-1.5 mb-4"
                   style={{ animation: 'hUp .5s ease-out both' }}>
                   {active.category}
                 </span>
               )}
-              <h1 className="font-heading text-2xl sm:text-3xl lg:text-[2.5rem] font-extrabold text-white leading-[1.08] tracking-tight line-clamp-3 drop-shadow-xl"
+              <h1 className="font-heading text-3xl sm:text-4xl lg:text-[3.2rem] font-extrabold text-white leading-[1.02] tracking-[-0.02em] line-clamp-3 drop-shadow-xl"
                 style={{ animation: 'hUp .6s ease-out .08s both' }}>
                 {active.title}
               </h1>

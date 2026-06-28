@@ -53,7 +53,7 @@ export default async function KadroPage({ searchParams }: Props) {
               Profesyonel Takım{season ? ` · ${season}` : ''}
             </p>
           </div>
-          <h1 className="font-heading text-4xl md:text-5xl font-extrabold text-white tracking-tight">
+          <h1 className="font-heading text-5xl md:text-7xl font-extrabold text-white tracking-[-0.03em] leading-[0.95]">
             Takım <span className="text-ugold">Kadrosu</span>
           </h1>
           {players.length > 0 && <p className="mt-3 text-[11px] text-white/40">{players.length} oyuncu</p>}

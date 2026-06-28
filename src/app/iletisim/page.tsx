@@ -20,7 +20,7 @@ export default async function IletisimPage() {
             <span className="block w-8 h-0.5 bg-ugold" />
             <p className="text-xs font-extrabold tracking-widest uppercase text-ugold/60">Bize Ulaşın</p>
           </div>
-          <h1 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight">
+          <h1 className="text-5xl md:text-7xl font-extrabold text-white tracking-[-0.03em] leading-[0.95]">
             <span className="text-ugold">İletişim</span>
           </h1>
         </div>

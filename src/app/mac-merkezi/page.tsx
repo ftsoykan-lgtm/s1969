@@ -44,7 +44,7 @@ export default async function MacMerkeziPage() {
             <span className="block w-8 h-0.5 bg-ugold" />
             <p className="text-xs font-extrabold tracking-widest uppercase text-ugold/60">{meta.league} · {meta.season}</p>
           </div>
-          <h1 className="font-heading text-4xl md:text-5xl font-extrabold text-white tracking-tight">
+          <h1 className="font-heading text-5xl md:text-7xl font-extrabold text-white tracking-[-0.03em] leading-[0.95]">
             Maç <span className="text-ugold">Merkezi</span>
           </h1>
 
