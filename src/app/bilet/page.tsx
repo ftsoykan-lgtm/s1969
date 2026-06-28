@@ -16,9 +16,9 @@ export default function BiletPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-3">
             <span className="block w-8 h-0.5 bg-ugold" />
-            <p className="text-xs font-black tracking-widest uppercase text-ugold/60">Maç Biletleri</p>
+            <p className="text-xs font-extrabold tracking-widest uppercase text-ugold/60">Maç Biletleri</p>
           </div>
-          <h1 className="text-4xl md:text-5xl font-black text-white tracking-tight">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight">
             Bilet <span className="text-ugold">Al</span>
           </h1>
         </div>
@@ -34,8 +34,8 @@ export default function BiletPage() {
           <div key={m.id} className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm overflow-hidden">
             <div className="bg-ugreend px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
-                <p className="text-ugold text-xs font-black tracking-widest uppercase mb-1">Ev Sahibi Maçı</p>
-                <h2 className="text-white font-black text-xl">Şanlıurfaspor <span className="text-white/40 mx-2 font-normal">vs</span> {m.opponent}</h2>
+                <p className="text-ugold text-xs font-extrabold tracking-widest uppercase mb-1">Ev Sahibi Maçı</p>
+                <h2 className="text-white font-extrabold text-xl">Şanlıurfaspor <span className="text-white/40 mx-2 font-normal">vs</span> {m.opponent}</h2>
               </div>
               <div className="flex items-center gap-4 text-sm text-white/70">
                 <span className="flex items-center gap-1"><Clock size={13} />{m.date} — {m.time}</span>
@@ -49,9 +49,9 @@ export default function BiletPage() {
                 { tier: 'VIP Tribün', price: m.prices.vip, color: 'border-ugold/60', badge: 'bg-ugold text-ugreenm' },
               ].map(({ tier, price, color, badge }) => (
                 <div key={tier} className={`rounded-xl border-2 ${color} p-4 flex flex-col gap-3`}>
-                  <span className={`inline-block self-start px-2.5 py-1 rounded-full text-[11px] font-black ${badge}`}>{tier}</span>
-                  <p className="text-2xl font-black text-ugreenm">₺{price}</p>
-                  <button className="w-full bg-ugreen hover:bg-ugreend text-white text-sm font-black py-2.5 rounded-xl transition-colors flex items-center justify-center gap-2">
+                  <span className={`inline-block self-start px-2.5 py-1 rounded-full text-[11px] font-extrabold ${badge}`}>{tier}</span>
+                  <p className="text-2xl font-extrabold text-ugreenm">₺{price}</p>
+                  <button className="w-full bg-ugreen hover:bg-ugreend text-white text-sm font-extrabold py-2.5 rounded-xl transition-colors flex items-center justify-center gap-2">
                     <Ticket size={14} /> Satın Al
                   </button>
                 </div>

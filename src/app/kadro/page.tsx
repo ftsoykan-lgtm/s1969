@@ -49,11 +49,11 @@ export default async function KadroPage({ searchParams }: Props) {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-3">
             <span className="block w-8 h-0.5 bg-ugold" />
-            <p className="text-xs font-black tracking-widest uppercase text-ugold/60">
+            <p className="text-xs font-extrabold tracking-widest uppercase text-ugold/60">
               Profesyonel Takım{season ? ` · ${season}` : ''}
             </p>
           </div>
-          <h1 className="font-heading text-4xl md:text-5xl font-black text-white tracking-tight">
+          <h1 className="font-heading text-4xl md:text-5xl font-extrabold text-white tracking-tight">
             Takım <span className="text-ugold">Kadrosu</span>
           </h1>
           {players.length > 0 && <p className="mt-3 text-[11px] text-white/40">{players.length} oyuncu</p>}
@@ -61,10 +61,10 @@ export default async function KadroPage({ searchParams }: Props) {
           {/* Sezon seçici */}
           {seasons.length >= 1 && (
             <div className="flex flex-wrap items-center gap-2 mt-5">
-              <span className="text-[10px] font-black tracking-widest uppercase text-white/40">Sezon:</span>
+              <span className="text-[10px] font-extrabold tracking-widest uppercase text-white/40">Sezon:</span>
               {seasons.map((s) => (
                 <Link key={s} href={s === seasons[0] ? '/kadro' : `/kadro?sezon=${s}`}
-                  className={`text-xs font-black px-3 py-1.5 rounded-full transition-all ${s === season ? 'bg-ugold text-ugreend' : 'bg-white/10 text-white/70 hover:bg-white/20'}`}>
+                  className={`text-xs font-extrabold px-3 py-1.5 rounded-full transition-all ${s === season ? 'bg-ugold text-ugreend' : 'bg-white/10 text-white/70 hover:bg-white/20'}`}>
                   {s}
                 </Link>
               ))}
@@ -79,7 +79,7 @@ export default async function KadroPage({ searchParams }: Props) {
             <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-[#edf7f2] mb-5">
               <Loader2 size={28} className="text-ugreen animate-spin" />
             </div>
-            <h2 className="text-xl font-black text-ugreenm mb-2">Kadro Güncelleniyor...</h2>
+            <h2 className="text-xl font-extrabold text-ugreenm mb-2">Kadro Güncelleniyor...</h2>
             <p className="text-sm text-utxt2 leading-relaxed">
               Güncel sezon kadrosu TFF sisteminde henüz yayınlanmadı. Kadro açıklandığında otomatik görünecek.
             </p>
@@ -90,7 +90,7 @@ export default async function KadroPage({ searchParams }: Props) {
               <div key={g.pos}>
                 <div className="flex items-center gap-3 mb-6">
                   <span className="block w-4 h-0.5 bg-ugold" />
-                  <h2 className="text-sm font-black tracking-widest uppercase text-ugreen">{g.pos}</h2>
+                  <h2 className="text-sm font-extrabold tracking-widest uppercase text-ugreen">{g.pos}</h2>
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                   {g.list.map((p) => <PlayerCard key={p.slug} player={p} />)}
@@ -103,7 +103,7 @@ export default async function KadroPage({ searchParams }: Props) {
                 {groups.length > 0 && (
                   <div className="flex items-center gap-3 mb-6">
                     <span className="block w-4 h-0.5 bg-ugold" />
-                    <h2 className="text-sm font-black tracking-widest uppercase text-ugreen">Kadro</h2>
+                    <h2 className="text-sm font-extrabold tracking-widest uppercase text-ugreen">Kadro</h2>
                   </div>
                 )}
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">

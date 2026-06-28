@@ -55,11 +55,11 @@ export default function AdminSponsorlarPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-black text-ugreenm">Sponsorlar</h1>
+          <h1 className="text-2xl font-extrabold text-ugreenm">Sponsorlar</h1>
           <p className="text-sm text-utxt2 mt-1">{rows.length} sponsor · Ana / Resmi / Destekçi</p>
         </div>
         <button onClick={addNew}
-          className="inline-flex items-center gap-2 bg-ugreen hover:bg-ugreend text-white font-black px-4 py-2.5 rounded-xl text-sm transition-colors shadow-sm">
+          className="inline-flex items-center gap-2 bg-ugreen hover:bg-ugreend text-white font-extrabold px-4 py-2.5 rounded-xl text-sm transition-colors shadow-sm">
           <Plus size={15} /> Sponsor Ekle
         </button>
       </div>
@@ -112,7 +112,7 @@ export default function AdminSponsorlarPage() {
 
                 <div className="flex flex-col gap-1.5 shrink-0">
                   <button onClick={() => handleSave(i)} disabled={busy !== null}
-                    className="inline-flex items-center gap-1.5 bg-ugreen hover:bg-ugreend disabled:opacity-60 text-white text-xs font-black px-3 py-2 rounded-lg transition-colors">
+                    className="inline-flex items-center gap-1.5 bg-ugreen hover:bg-ugreend disabled:opacity-60 text-white text-xs font-extrabold px-3 py-2 rounded-lg transition-colors">
                     {busy === (s.id ?? 'yeni') ? <Loader2 size={13} className="animate-spin" /> : <Check size={13} />} Kaydet
                   </button>
                   <button onClick={() => handleDelete(s, i)}
@@ -134,7 +134,7 @@ const inputCls = 'w-full bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-3 py
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <label className="block text-[10px] font-black text-utxt2 mb-1 uppercase tracking-wide">{label}</label>
+      <label className="block text-[10px] font-extrabold text-utxt2 mb-1 uppercase tracking-wide">{label}</label>
       {children}
     </div>
   )

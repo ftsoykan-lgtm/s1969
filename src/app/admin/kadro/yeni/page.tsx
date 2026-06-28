@@ -11,7 +11,7 @@ const flagCodes: Record<string, string> = { 'Türkiye': 'tr', 'Brezilya': 'br', 
 
 const Field = ({ label, children }: { label: string; children: React.ReactNode }) => (
   <div>
-    <label className="block text-xs font-black text-utxt2 mb-1.5 uppercase tracking-wide">{label}</label>
+    <label className="block text-xs font-extrabold text-utxt2 mb-1.5 uppercase tracking-wide">{label}</label>
     {children}
   </div>
 )
@@ -51,12 +51,12 @@ export default function YeniOyuncuPage() {
         <Link href="/admin/kadro" className="p-2 text-[#7aab8e] hover:text-ugreen hover:bg-[#edf7f2] rounded-xl transition-all">
           <ArrowLeft size={18} />
         </Link>
-        <h1 className="text-2xl font-black text-ugreenm">Yeni Oyuncu</h1>
+        <h1 className="text-2xl font-extrabold text-ugreenm">Yeni Oyuncu</h1>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm p-6 space-y-4">
-          <p className="text-xs font-black text-[#7aab8e] uppercase tracking-widest mb-2">Kişisel Bilgiler</p>
+          <p className="text-xs font-extrabold text-[#7aab8e] uppercase tracking-widest mb-2">Kişisel Bilgiler</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Field label="Ad Soyad *">
               <Input value={form.name} onChange={e => set('name', e.target.value)} placeholder="Oyuncu adı" required />
@@ -84,7 +84,7 @@ export default function YeniOyuncuPage() {
         </div>
 
         <div className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm p-6 space-y-4">
-          <p className="text-xs font-black text-[#7aab8e] uppercase tracking-widest mb-2">Sezon İstatistikleri</p>
+          <p className="text-xs font-extrabold text-[#7aab8e] uppercase tracking-widest mb-2">Sezon İstatistikleri</p>
           <div className="grid grid-cols-3 sm:grid-cols-5 gap-4">
             {[
               { k: 'matches', label: 'Maç' },
@@ -103,7 +103,7 @@ export default function YeniOyuncuPage() {
         <div className="flex gap-3">
           <Link href="/admin/kadro" className="px-5 py-2.5 border border-[#ddeae2] text-utxt2 font-bold text-sm rounded-xl hover:bg-[#f5f9f6] transition-colors">İptal</Link>
           <button type="submit" disabled={loading}
-            className="inline-flex items-center gap-2 bg-ugreen hover:bg-ugreend disabled:opacity-60 text-white font-black px-5 py-2.5 rounded-xl text-sm transition-colors shadow-sm">
+            className="inline-flex items-center gap-2 bg-ugreen hover:bg-ugreend disabled:opacity-60 text-white font-extrabold px-5 py-2.5 rounded-xl text-sm transition-colors shadow-sm">
             <Save size={15} />
             {loading ? 'Kaydediliyor...' : 'Oyuncu Ekle'}
           </button>

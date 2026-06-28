@@ -93,8 +93,8 @@ export default function CalendarView({ items, season, league }: { items: CalMatc
             <ChevronLeft size={18} />
           </button>
           <div className="text-center">
-            <h2 className="font-heading text-xl sm:text-3xl font-black text-white leading-none uppercase tracking-tight">{AYLAR[cur.m]}</h2>
-            <p className="text-ugold text-[10px] sm:text-xs font-black tracking-[0.3em] mt-1">{cur.y}</p>
+            <h2 className="font-heading text-xl sm:text-3xl font-extrabold text-white leading-none uppercase tracking-tight">{AYLAR[cur.m]}</h2>
+            <p className="text-ugold text-[10px] sm:text-xs font-extrabold tracking-[0.3em] mt-1">{cur.y}</p>
           </div>
           <button onClick={() => canNext && setCurK((k) => k + 1)} disabled={!canNext} aria-label="Sonraki ay"
             className="h-9 w-9 sm:h-10 sm:w-10 flex items-center justify-center rounded-full text-white bg-white/15 hover:bg-ugold hover:text-ugreend transition-all disabled:opacity-25 disabled:hover:bg-white/15 disabled:hover:text-white">
@@ -105,7 +105,7 @@ export default function CalendarView({ items, season, league }: { items: CalMatc
         {/* Gün başlıkları */}
         <div className="grid grid-cols-7 bg-[#f3f9f5] border-b border-[#e3efe8]">
           {GUNLER.map((g, i) => (
-            <div key={g} className={`py-2 sm:py-2.5 text-center text-[9px] sm:text-[11px] font-black tracking-wide uppercase ${i >= 5 ? 'text-ugoldd' : 'text-[#7aab8e]'}`}>{g}</div>
+            <div key={g} className={`py-2 sm:py-2.5 text-center text-[9px] sm:text-[11px] font-extrabold tracking-wide uppercase ${i >= 5 ? 'text-ugoldd' : 'text-[#7aab8e]'}`}>{g}</div>
           ))}
         </div>
 
@@ -124,7 +124,7 @@ export default function CalendarView({ items, season, league }: { items: CalMatc
                 m ? 'bg-[#f4faf0] hover:bg-[#ecf7e6] cursor-pointer' : 'bg-white hover:bg-[#f8faf9]'
               }`}>
                 {m && <span className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-ugold to-ugreen" />}
-                <span className={`text-[10px] sm:text-xs font-black self-start ${
+                <span className={`text-[10px] sm:text-xs font-extrabold self-start ${
                   isToday ? 'flex h-4 w-4 sm:h-5 sm:w-5 items-center justify-center rounded-full bg-ugold text-ugreend' : m ? 'text-ugreend' : 'text-[#b6cdc0]'
                 }`}>{d}</span>
                 {m && (
@@ -133,13 +133,13 @@ export default function CalendarView({ items, season, league }: { items: CalMatc
                       <img src={m.opponentLogo} alt={m.opponent} className="w-full h-full object-contain" />
                     </div>
                     {m.isCompleted && m.homeScore != null ? (
-                      <span className={`text-[8px] sm:text-[11px] font-black tabular-nums ${r === 'G' ? 'text-ugreen' : r === 'M' ? 'text-[#d01b2a]' : 'text-ugoldd'}`}>{m.homeScore}-{m.awayScore}</span>
+                      <span className={`text-[8px] sm:text-[11px] font-extrabold tabular-nums ${r === 'G' ? 'text-ugreen' : r === 'M' ? 'text-[#d01b2a]' : 'text-ugoldd'}`}>{m.homeScore}-{m.awayScore}</span>
                     ) : (
-                      <span className="hidden sm:block text-[10px] font-black text-ugreen tabular-nums">{m.time || (m.isHome ? 'EV' : 'DEP')}</span>
+                      <span className="hidden sm:block text-[10px] font-extrabold text-ugreen tabular-nums">{m.time || (m.isHome ? 'EV' : 'DEP')}</span>
                     )}
                   </div>
                 )}
-                {dayMatches.length > 1 && <span className="absolute top-0.5 right-1 text-[7px] sm:text-[8px] font-black text-ugoldd">+{dayMatches.length - 1}</span>}
+                {dayMatches.length > 1 && <span className="absolute top-0.5 right-1 text-[7px] sm:text-[8px] font-extrabold text-ugoldd">+{dayMatches.length - 1}</span>}
               </div>
             )
             return (
@@ -153,25 +153,25 @@ export default function CalendarView({ items, season, league }: { items: CalMatc
         {/* Bu ayın maç listesi */}
         {monthMatches.length > 0 && (
           <div className="px-2.5 sm:px-5 py-4 space-y-1.5 bg-[#fafdfb]">
-            <p className="text-[10px] font-black tracking-widest uppercase text-[#7aab8e] mb-2 px-1">Bu Ay {monthMatches.length} Maç</p>
+            <p className="text-[10px] font-extrabold tracking-widest uppercase text-[#7aab8e] mb-2 px-1">Bu Ay {monthMatches.length} Maç</p>
             {monthMatches.map((m, idx) => {
               const r = result(m)
               const [, , dd] = m.date.split('-')
               const inner = (
                 <div className="flex items-center gap-3 px-2.5 py-2.5 rounded-xl bg-white border border-[#edf7f2] hover:border-ugreen/30 hover:shadow-sm transition-all">
                   <div className="flex flex-col items-center w-9 shrink-0">
-                    <span className="text-base font-black text-ugreend tabular-nums leading-none">{Number(dd)}</span>
+                    <span className="text-base font-extrabold text-ugreend tabular-nums leading-none">{Number(dd)}</span>
                     <span className="text-[9px] font-bold text-ugoldd">{m.time || '—'}</span>
                   </div>
                   <div className="relative h-8 w-8 shrink-0"><img src={m.opponentLogo} alt="" className="w-full h-full object-contain" /></div>
                   <div className="min-w-0 flex-1">
-                    <p className="text-sm font-black text-ugreenm truncate">{m.isHome ? '🏠 ' : '✈️ '}{m.opponent}</p>
+                    <p className="text-sm font-extrabold text-ugreenm truncate">{m.isHome ? '🏠 ' : '✈️ '}{m.opponent}</p>
                     <p className="text-[11px] text-[#7aab8e] truncate">{m.roundLabel ?? ''}{m.venue ? ` · ${m.venue}` : ''}</p>
                   </div>
                   {m.isCompleted && m.homeScore != null ? (
-                    <span className={`shrink-0 text-sm font-black tabular-nums px-2 py-0.5 rounded-lg ${r === 'G' ? 'bg-ugreen text-white' : r === 'M' ? 'bg-[#d01b2a] text-white' : 'bg-ugold text-ugreend'}`}>{m.homeScore}-{m.awayScore}</span>
+                    <span className={`shrink-0 text-sm font-extrabold tabular-nums px-2 py-0.5 rounded-lg ${r === 'G' ? 'bg-ugreen text-white' : r === 'M' ? 'bg-[#d01b2a] text-white' : 'bg-ugold text-ugreend'}`}>{m.homeScore}-{m.awayScore}</span>
                   ) : (
-                    <span className="shrink-0 text-[10px] font-black text-ugreend bg-ugold px-2 py-1 rounded-md uppercase">{m.isHome ? 'Ev' : 'Dep'}</span>
+                    <span className="shrink-0 text-[10px] font-extrabold text-ugreend bg-ugold px-2 py-1 rounded-md uppercase">{m.isHome ? 'Ev' : 'Dep'}</span>
                   )}
                 </div>
               )
@@ -185,7 +185,7 @@ export default function CalendarView({ items, season, league }: { items: CalMatc
       <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-ugreend via-[#15592f] to-ugreens text-white shadow-[0_20px_50px_-22px_rgba(9,45,24,0.6)]">
         {/* dekor */}
         <div className="pointer-events-none absolute -top-20 -right-16 w-72 h-72 rounded-full bg-ugold/10 blur-[90px]" />
-        <div className="pointer-events-none absolute top-6 right-6 font-heading text-[7rem] font-black text-white/[0.03] leading-none select-none hidden sm:block">ŞFK</div>
+        <div className="pointer-events-none absolute top-6 right-6 font-heading text-[7rem] font-extrabold text-white/[0.03] leading-none select-none hidden sm:block">ŞFK</div>
         <div className="h-1 bg-gradient-to-r from-ugold via-ugreen to-ugold" />
 
         <div className="relative p-6 sm:p-8">
@@ -194,8 +194,8 @@ export default function CalendarView({ items, season, league }: { items: CalMatc
               <CalendarPlus size={22} />
             </span>
             <div>
-              <h3 className="font-heading text-xl sm:text-2xl font-black leading-tight">Maç Takvimini Telefonuna Ekle</h3>
-              <p className="text-ugold/70 text-[11px] font-black tracking-widest uppercase">Bir kez ekle · sürekli güncel</p>
+              <h3 className="font-heading text-xl sm:text-2xl font-extrabold leading-tight">Maç Takvimini Telefonuna Ekle</h3>
+              <p className="text-ugold/70 text-[11px] font-extrabold tracking-widest uppercase">Bir kez ekle · sürekli güncel</p>
             </div>
           </div>
 
@@ -212,9 +212,9 @@ export default function CalendarView({ items, season, league }: { items: CalMatc
               { n: '3', icon: RefreshCw, t: 'Güncel Kalır', d: 'Fikstür değişince takvimin otomatik güncellenir.' },
             ].map((s) => (
               <div key={s.n} className="relative rounded-2xl bg-white/[0.06] border border-white/10 p-4">
-                <span className="absolute top-3 right-3 font-heading text-2xl font-black text-white/15">{s.n}</span>
+                <span className="absolute top-3 right-3 font-heading text-2xl font-extrabold text-white/15">{s.n}</span>
                 <s.icon size={20} className="text-ugold mb-2.5" />
-                <p className="text-sm font-black text-white">{s.t}</p>
+                <p className="text-sm font-extrabold text-white">{s.t}</p>
                 <p className="text-[12px] text-white/50 leading-snug mt-1">{s.d}</p>
               </div>
             ))}
@@ -222,16 +222,16 @@ export default function CalendarView({ items, season, league }: { items: CalMatc
 
           {/* Butonlar */}
           <div className="flex flex-wrap gap-2.5">
-            <a href={webcal || '/takvim.ics'} className="inline-flex items-center gap-2 bg-ugold text-ugreend font-black text-[13px] px-5 py-3 rounded-full hover:brightness-105 transition-all shadow-lg shadow-ugold/20">
+            <a href={webcal || '/takvim.ics'} className="inline-flex items-center gap-2 bg-ugold text-ugreend font-extrabold text-[13px] px-5 py-3 rounded-full hover:brightness-105 transition-all shadow-lg shadow-ugold/20">
               <CalendarPlus size={16} /> iPhone / Apple Takvim
             </a>
-            <a href={googleUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-white/10 border border-white/15 text-white font-black text-[13px] px-5 py-3 rounded-full hover:bg-white/15 transition-all">
+            <a href={googleUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-white/10 border border-white/15 text-white font-extrabold text-[13px] px-5 py-3 rounded-full hover:bg-white/15 transition-all">
               <CalendarPlus size={16} /> Google Takvim
             </a>
-            <a href="/takvim.ics" download className="inline-flex items-center gap-2 bg-white/10 border border-white/15 text-white font-black text-[13px] px-5 py-3 rounded-full hover:bg-white/15 transition-all">
+            <a href="/takvim.ics" download className="inline-flex items-center gap-2 bg-white/10 border border-white/15 text-white font-extrabold text-[13px] px-5 py-3 rounded-full hover:bg-white/15 transition-all">
               <Download size={16} /> .ics İndir
             </a>
-            <button onClick={copyLink} className="inline-flex items-center gap-2 bg-white/10 border border-white/15 text-white font-black text-[13px] px-5 py-3 rounded-full hover:bg-white/15 transition-all">
+            <button onClick={copyLink} className="inline-flex items-center gap-2 bg-white/10 border border-white/15 text-white font-extrabold text-[13px] px-5 py-3 rounded-full hover:bg-white/15 transition-all">
               {copied ? <Check size={16} className="text-ugold" /> : <Copy size={16} />} {copied ? 'Kopyalandı' : 'Linki Kopyala'}
             </button>
           </div>

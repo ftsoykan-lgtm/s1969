@@ -32,9 +32,9 @@ export default async function StaticPage({ params }: Props) {
         <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-16">
           <div className="flex items-center gap-3 mb-3">
             <span className="block w-8 h-0.5 bg-ugold" />
-            <p className="text-xs font-black tracking-widest uppercase text-ugold/60">Şanlıurfaspor</p>
+            <p className="text-xs font-extrabold tracking-widest uppercase text-ugold/60">Şanlıurfaspor</p>
           </div>
-          <h1 className="font-heading text-4xl md:text-5xl font-black text-white tracking-tight">{page.title}</h1>
+          <h1 className="font-heading text-4xl md:text-5xl font-extrabold text-white tracking-tight">{page.title}</h1>
           {page.subtitle && <p className="mt-3 text-white/55 text-base md:text-lg max-w-2xl">{page.subtitle}</p>}
         </div>
       </div>

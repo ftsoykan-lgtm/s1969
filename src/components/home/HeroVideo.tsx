@@ -78,10 +78,10 @@ export default function HeroVideo({ club, src, items = [] }: { club: ClubInfo; s
                       {active.category && (
                         <span className="inline-flex items-center gap-2 mb-3 hero-up">
                           <span className="w-7 h-0.5 bg-ugold" />
-                          <span className="text-ugold text-[11px] font-black tracking-[0.28em] uppercase">{active.category}</span>
+                          <span className="text-ugold text-[11px] font-extrabold tracking-[0.28em] uppercase">{active.category}</span>
                         </span>
                       )}
-                      <h1 className="font-heading text-2xl md:text-4xl lg:text-[2.7rem] font-black text-white leading-[1.05] tracking-tight line-clamp-3 drop-shadow-2xl hero-up"
+                      <h1 className="font-heading text-2xl md:text-4xl lg:text-[2.7rem] font-extrabold text-white leading-[1.05] tracking-tight line-clamp-3 drop-shadow-2xl hero-up"
                         style={{ animationDelay: '.06s' }}>
                         {active.title}
                       </h1>
@@ -90,14 +90,14 @@ export default function HeroVideo({ club, src, items = [] }: { club: ClubInfo; s
                           {active.excerpt}
                         </p>
                       )}
-                      <span className="inline-flex items-center gap-2 mt-5 text-ugreend bg-ugold text-[12px] font-black uppercase tracking-wide pl-4 pr-5 py-2.5 rounded-full group-hover:gap-3 transition-all shadow-lg shadow-ugold/20 hero-up"
+                      <span className="inline-flex items-center gap-2 mt-5 text-ugreend bg-ugold text-[12px] font-extrabold uppercase tracking-wide pl-4 pr-5 py-2.5 rounded-full group-hover:gap-3 transition-all shadow-lg shadow-ugold/20 hero-up"
                         style={{ animationDelay: '.18s' }}>
                         Haberin Devamı <ArrowRight size={15} />
                       </span>
                     </Link>
                   ) : (
                     <div className="max-w-2xl">
-                      <h1 className="font-heading text-4xl md:text-6xl font-black text-white uppercase tracking-tight leading-[0.95] drop-shadow-2xl">{club.name}</h1>
+                      <h1 className="font-heading text-4xl md:text-6xl font-extrabold text-white uppercase tracking-tight leading-[0.95] drop-shadow-2xl">{club.name}</h1>
                     </div>
                   )}
                 </div>
@@ -106,7 +106,7 @@ export default function HeroVideo({ club, src, items = [] }: { club: ClubInfo; s
               {/* Sağ: sayaç + oklar */}
               {n > 1 && (
                 <div className="shrink-0 flex flex-col items-end gap-4 pb-1">
-                  <div className="font-heading font-black tabular-nums leading-none">
+                  <div className="font-heading font-extrabold tabular-nums leading-none">
                     <span className="text-4xl md:text-5xl text-white">{num(idx)}</span>
                     <span className="text-lg md:text-xl text-white/40"> / {String(n).padStart(2, '0')}</span>
                   </div>

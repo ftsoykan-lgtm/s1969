@@ -21,11 +21,11 @@ function MatchCard({ match }: { match: Match }) {
     <div className="card-premium p-5 h-full flex flex-col">
       {/* Üst: hafta + sonuç rozeti */}
       <div className="flex items-start justify-between gap-2 mb-3 min-h-[34px]">
-        <span className="text-[11px] font-black tracking-widest uppercase text-ugreen leading-snug line-clamp-2">
+        <span className="text-[11px] font-extrabold tracking-widest uppercase text-ugreen leading-snug line-clamp-2">
           {match.roundLabel ?? (match.week ? `${match.week}. Hafta` : match.competition)}
         </span>
         {result && (
-          <span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-[12px] font-black shadow-sm leading-none ${
+          <span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-[12px] font-extrabold shadow-sm leading-none ${
             result === 'G' ? 'bg-ugreen text-white' : result === 'M' ? 'bg-[#d01b2a] text-white' : 'bg-ugold text-ugreend'
           }`} title={result === 'G' ? 'Galibiyet' : result === 'M' ? 'Mağlubiyet' : 'Beraberlik'}>{result}</span>
         )}
@@ -40,11 +40,11 @@ function MatchCard({ match }: { match: Match }) {
         <div className="flex items-center gap-1.5 px-1">
           {match.isCompleted ? (
             <>
-              <span className="w-10 h-11 flex items-center justify-center rounded-lg bg-ugreend text-2xl font-black text-white tabular-nums">{match.homeScore}</span>
-              <span className="w-10 h-11 flex items-center justify-center rounded-lg bg-ugreend text-2xl font-black text-white tabular-nums">{match.awayScore}</span>
+              <span className="w-10 h-11 flex items-center justify-center rounded-lg bg-ugreend text-2xl font-extrabold text-white tabular-nums">{match.homeScore}</span>
+              <span className="w-10 h-11 flex items-center justify-center rounded-lg bg-ugreend text-2xl font-extrabold text-white tabular-nums">{match.awayScore}</span>
             </>
           ) : (
-            <span className="h-11 flex items-center text-sm font-black text-[#7aab8e] px-2">VS</span>
+            <span className="h-11 flex items-center text-sm font-extrabold text-[#7aab8e] px-2">VS</span>
           )}
         </div>
         <div className="flex justify-center">
@@ -89,7 +89,7 @@ export default async function FixturePreview() {
   const target = next ? `${next.date}T${next.time && /^\d{1,2}:\d{2}$/.test(next.time) ? next.time : '00:00'}:00` : null
 
   return (
-    <section className="py-20 md:py-24 bg-[#f8faf9]">
+    <section className="reveal py-20 md:py-24 bg-[#f8faf9]">
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
 
         {/* Başlık + sıradaki maç geri sayımı */}
@@ -97,7 +97,7 @@ export default async function FixturePreview() {
           <div className="flex items-center gap-4">
             <span className="block w-1.5 h-11 bg-ugold rounded-full" />
             <div>
-              <h2 className="font-heading text-4xl md:text-5xl font-black text-ugreenm tracking-tight">Maç Merkezi</h2>
+              <h2 className="font-heading text-4xl md:text-5xl font-extrabold text-ugreenm tracking-tight">Maç Merkezi</h2>
               <p className="text-xs font-bold text-[#7aab8e] mt-1">{meta.league} · {meta.season}</p>
             </div>
           </div>

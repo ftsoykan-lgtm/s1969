@@ -39,7 +39,7 @@ export default async function AdminDashboard() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-black text-ugreenm">Dashboard</h1>
+        <h1 className="text-2xl font-extrabold text-ugreenm">Dashboard</h1>
         <p className="text-sm text-utxt2 mt-1">Hoş geldiniz, <span className="font-bold">{user?.email}</span></p>
       </div>
 
@@ -51,7 +51,7 @@ export default async function AdminDashboard() {
             <div className={`inline-flex h-10 w-10 items-center justify-center rounded-xl mb-3 ${s.color}`}>
               <s.icon size={18} />
             </div>
-            <p className="text-2xl font-black text-ugreenm tabular-nums">{s.value}</p>
+            <p className="text-2xl font-extrabold text-ugreenm tabular-nums">{s.value}</p>
             <p className="text-xs text-[#7aab8e] font-semibold mt-0.5">{s.label}</p>
           </Link>
         ))}
@@ -59,14 +59,14 @@ export default async function AdminDashboard() {
 
       {/* Hızlı işlemler */}
       <div className="flex flex-wrap gap-3">
-        <Link href="/admin/haberler" className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-black bg-ugreen text-white hover:bg-ugreend transition-colors">Yeni Haber Ekle <ArrowUpRight size={13} /></Link>
-        <Link href="/admin/kadro" className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-black bg-ugold text-ugreenm hover:brightness-105 transition-all">Kadroyu Güncelle <ArrowUpRight size={13} /></Link>
-        <Link href="/admin/sayfalar" className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-black border border-[#ddeae2] text-ugreenm hover:bg-[#f5f9f6] transition-colors">Sayfa Düzenle <ArrowUpRight size={13} /></Link>
+        <Link href="/admin/haberler" className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-extrabold bg-ugreen text-white hover:bg-ugreend transition-colors">Yeni Haber Ekle <ArrowUpRight size={13} /></Link>
+        <Link href="/admin/kadro" className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-extrabold bg-ugold text-ugreenm hover:brightness-105 transition-all">Kadroyu Güncelle <ArrowUpRight size={13} /></Link>
+        <Link href="/admin/sayfalar" className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-extrabold border border-[#ddeae2] text-ugreenm hover:bg-[#f5f9f6] transition-colors">Sayfa Düzenle <ArrowUpRight size={13} /></Link>
       </div>
 
       {/* Yönetim bölümleri */}
       <div>
-        <h2 className="text-xs font-black tracking-widest uppercase text-[#7aab8e] mb-3">Yönetim</h2>
+        <h2 className="text-xs font-extrabold tracking-widest uppercase text-[#7aab8e] mb-3">Yönetim</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {sections.map((s) => (
             <Link key={s.href} href={s.href}
@@ -75,7 +75,7 @@ export default async function AdminDashboard() {
                 <s.icon size={19} />
               </span>
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-black text-ugreenm">{s.label}</p>
+                <p className="text-sm font-extrabold text-ugreenm">{s.label}</p>
                 <p className="text-[11px] text-[#7aab8e] truncate">{s.desc}</p>
               </div>
               <ArrowRight size={15} className="text-[#cfe3d8] group-hover:text-ugreen transition-colors shrink-0" />
@@ -86,7 +86,7 @@ export default async function AdminDashboard() {
 
       {/* Otomatik içerik bilgisi */}
       <div className="bg-[#edf7f2] border border-ugreen/20 rounded-2xl p-6">
-        <h2 className="text-sm font-black text-ugreen mb-2">Maç Merkezi & Kadro otomatik</h2>
+        <h2 className="text-sm font-extrabold text-ugreen mb-2">Maç Merkezi & Kadro otomatik</h2>
         <p className="text-sm text-utxt2">Fikstür, sonuçlar, puan durumu, maç kadroları ve oyuncu profilleri her gün TFF'den otomatik çekilir. Manuel girdiğin bilgiler (foto, biyografi, açıklama) korunur. Diğer tüm içerik bu panelden yönetilir.</p>
       </div>
     </div>

@@ -33,7 +33,7 @@ export default function AdminKategorilerPage() {
     <div className="space-y-6 max-w-2xl">
       <div className="flex items-center gap-3">
         <Link href="/admin/haberler" className="p-2 text-[#7aab8e] hover:text-ugreen hover:bg-[#edf7f2] rounded-xl transition-all"><ArrowLeft size={18} /></Link>
-        <h1 className="text-2xl font-black text-ugreenm">Haber Kategorileri</h1>
+        <h1 className="text-2xl font-extrabold text-ugreenm">Haber Kategorileri</h1>
       </div>
 
       {err && <div className="flex items-center gap-2 bg-red-50 border border-red-200 text-red-700 rounded-xl px-4 py-3 text-sm"><AlertCircle size={15} /> {err}</div>}
@@ -43,7 +43,7 @@ export default function AdminKategorilerPage() {
           <input value={yeni} onChange={(e) => setYeni(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && ekle()}
             placeholder="Yeni kategori adı..." className="flex-1 bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-4 py-2.5 text-sm text-ugreenm placeholder-[#7aab8e] focus:outline-none focus:border-ugreen" />
           <button onClick={ekle} disabled={busy || !yeni.trim()}
-            className="inline-flex items-center gap-2 bg-ugreen hover:bg-ugreend disabled:opacity-60 text-white font-black px-4 py-2.5 rounded-xl text-sm transition-colors">
+            className="inline-flex items-center gap-2 bg-ugreen hover:bg-ugreend disabled:opacity-60 text-white font-extrabold px-4 py-2.5 rounded-xl text-sm transition-colors">
             {busy ? <Loader2 size={15} className="animate-spin" /> : <Plus size={15} />} Ekle
           </button>
         </div>

@@ -53,7 +53,7 @@ export default function AdminHaberlerPage() {
       <div className="space-y-6 max-w-3xl">
         <div className="flex items-center gap-3">
           <button onClick={() => setEditing(null)} className="p-2 text-[#7aab8e] hover:text-ugreen hover:bg-[#edf7f2] rounded-xl transition-all"><X size={18} /></button>
-          <h1 className="text-2xl font-black text-ugreenm">{editing.id ? 'Haberi Düzenle' : 'Yeni Haber'}</h1>
+          <h1 className="text-2xl font-extrabold text-ugreenm">{editing.id ? 'Haberi Düzenle' : 'Yeni Haber'}</h1>
         </div>
 
         {err && <div className="flex items-center gap-2 bg-red-50 border border-red-200 text-red-700 rounded-xl px-4 py-3 text-sm"><AlertCircle size={15} /> {err}</div>}
@@ -106,7 +106,7 @@ export default function AdminHaberlerPage() {
         <div className="flex gap-3">
           <button onClick={() => setEditing(null)} className="px-5 py-2.5 border border-[#ddeae2] text-utxt2 font-bold text-sm rounded-xl hover:bg-[#f5f9f6]">İptal</button>
           <button onClick={save} disabled={busy || !editing.title}
-            className="inline-flex items-center gap-2 bg-ugreen hover:bg-ugreend disabled:opacity-60 text-white font-black px-5 py-2.5 rounded-xl text-sm transition-colors shadow-sm">
+            className="inline-flex items-center gap-2 bg-ugreen hover:bg-ugreend disabled:opacity-60 text-white font-extrabold px-5 py-2.5 rounded-xl text-sm transition-colors shadow-sm">
             {busy ? <Loader2 size={15} className="animate-spin" /> : <Check size={15} />} Kaydet
           </button>
         </div>
@@ -119,13 +119,13 @@ export default function AdminHaberlerPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-black text-ugreenm">Haberler</h1>
+          <h1 className="text-2xl font-extrabold text-ugreenm">Haberler</h1>
           <p className="text-sm text-utxt2 mt-1">{rows.length} haber</p>
         </div>
         <div className="flex gap-2">
-          <Link href="/admin/kategoriler" className="inline-flex items-center gap-2 border border-[#ddeae2] text-utxt2 font-black px-4 py-2.5 rounded-xl text-sm hover:bg-[#f5f9f6]">Kategoriler</Link>
+          <Link href="/admin/kategoriler" className="inline-flex items-center gap-2 border border-[#ddeae2] text-utxt2 font-extrabold px-4 py-2.5 rounded-xl text-sm hover:bg-[#f5f9f6]">Kategoriler</Link>
           <button onClick={() => setEditing({ ...empty, published_at: new Date().toISOString().slice(0, 10) })}
-            className="inline-flex items-center gap-2 bg-ugreen hover:bg-ugreend text-white font-black px-4 py-2.5 rounded-xl text-sm transition-colors shadow-sm">
+            className="inline-flex items-center gap-2 bg-ugreen hover:bg-ugreend text-white font-extrabold px-4 py-2.5 rounded-xl text-sm transition-colors shadow-sm">
             <Plus size={15} /> Yeni Haber
           </button>
         </div>
@@ -148,9 +148,9 @@ export default function AdminHaberlerPage() {
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-bold text-ugreenm truncate">{n.title}</p>
                 <div className="flex items-center gap-2 mt-0.5">
-                  <span className="text-[10px] font-black text-ugreen bg-[#edf7f2] px-2 py-0.5 rounded-full">{catName(n.category)}</span>
-                  {n.featured && <span className="text-[10px] font-black text-ugoldd bg-ugold/15 px-2 py-0.5 rounded-full flex items-center gap-1"><Star size={9} /> Hero</span>}
-                  {!n.published && <span className="text-[10px] font-black text-[#7aab8e] bg-[#f5f9f6] px-2 py-0.5 rounded-full">Taslak</span>}
+                  <span className="text-[10px] font-extrabold text-ugreen bg-[#edf7f2] px-2 py-0.5 rounded-full">{catName(n.category)}</span>
+                  {n.featured && <span className="text-[10px] font-extrabold text-ugoldd bg-ugold/15 px-2 py-0.5 rounded-full flex items-center gap-1"><Star size={9} /> Hero</span>}
+                  {!n.published && <span className="text-[10px] font-extrabold text-[#7aab8e] bg-[#f5f9f6] px-2 py-0.5 rounded-full">Taslak</span>}
                 </div>
               </div>
               <div className="flex items-center gap-1">
@@ -168,7 +168,7 @@ export default function AdminHaberlerPage() {
 const inp = 'w-full bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-4 py-2.5 text-sm text-ugreenm placeholder-[#7aab8e] focus:outline-none focus:border-ugreen transition-colors'
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
-  return <div><label className="block text-xs font-black text-utxt2 mb-1.5 uppercase tracking-wide">{label}</label>{children}</div>
+  return <div><label className="block text-xs font-extrabold text-utxt2 mb-1.5 uppercase tracking-wide">{label}</label>{children}</div>
 }
 
 function Toggle({ on, onClick, label, icon: Icon }: { on: boolean; onClick: () => void; label: string; icon: React.ComponentType<{ size?: number }> }) {

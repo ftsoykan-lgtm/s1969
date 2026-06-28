@@ -48,10 +48,10 @@ export default function SocialSection({ club }: { club: ClubInfo }) {
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 text-center">
         <div className="inline-flex items-center gap-3 mb-3">
           <span className="block w-8 h-0.5 bg-ugold" />
-          <p className="text-[11px] font-black tracking-[0.25em] uppercase text-ugreen">Bizi Takip Et</p>
+          <p className="text-[11px] font-extrabold tracking-[0.25em] uppercase text-ugreen">Bizi Takip Et</p>
           <span className="block w-8 h-0.5 bg-ugold" />
         </div>
-        <h2 className="font-heading text-3xl md:text-4xl font-black text-ugreenm tracking-tight mb-12">Sosyal Medya Hesaplarımız</h2>
+        <h2 className="font-heading text-3xl md:text-4xl font-extrabold text-ugreenm tracking-tight mb-12">Sosyal Medya Hesaplarımız</h2>
 
         <div className="flex flex-wrap items-stretch justify-center gap-4">
           {cards.map((c) => (
@@ -64,7 +64,7 @@ export default function SocialSection({ club }: { club: ClubInfo }) {
                 {c.icon}
               </span>
               <div className="relative text-left min-w-0">
-                <p className="text-sm font-black leading-tight">{c.key}</p>
+                <p className="text-sm font-extrabold leading-tight">{c.key}</p>
                 <p className="text-[12px] font-semibold opacity-80 truncate">{handle(c.href) || 'Takip Et'}</p>
               </div>
               <svg className="relative ml-auto opacity-60 group-hover:opacity-100 group-hover:translate-x-1 transition-all shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
@@ -73,7 +73,7 @@ export default function SocialSection({ club }: { club: ClubInfo }) {
         </div>
 
         {club.hashtag && (
-          <p className="mt-10 text-2xl md:text-3xl font-black tracking-tight text-ugreen">
+          <p className="mt-10 text-2xl md:text-3xl font-extrabold tracking-tight text-ugreen">
             {club.hashtag.startsWith('#') ? club.hashtag : `#${club.hashtag}`}
           </p>
         )}

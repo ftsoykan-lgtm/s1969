@@ -35,7 +35,7 @@ export default function LogoUpload({ value, onChange, size = 256, folder = 'logo
   return (
     <div>
       <div className="flex items-center gap-2 mb-1.5">
-        <label className="text-xs font-black text-utxt2 uppercase tracking-wide">{label}</label>
+        <label className="text-xs font-extrabold text-utxt2 uppercase tracking-wide">{label}</label>
         <button type="button" onClick={() => setManual(!manual)}
           className="text-[10px] font-bold text-[#7aab8e] hover:text-ugreen flex items-center gap-1">
           <LinkIcon size={10} /> {manual ? 'Yükle' : 'URL gir'}

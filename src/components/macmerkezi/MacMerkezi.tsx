@@ -40,12 +40,12 @@ export function MatchCard({ match, logos }: { match: Match; logos: Record<string
               <Image src={tournamentLogo} alt={match.competition} fill className="object-contain" />
             </div>
           )}
-          <span className="text-[10px] font-black tracking-widest uppercase text-ugreen truncate">
+          <span className="text-[10px] font-extrabold tracking-widest uppercase text-ugreen truncate">
             {match.roundLabel ?? (match.week ? `${match.week}. Hafta` : match.competition)}
           </span>
         </div>
         {result && (
-          <span className={`flex h-6 w-6 items-center justify-center rounded-md text-[12px] font-black shrink-0 shadow-sm ${
+          <span className={`flex h-6 w-6 items-center justify-center rounded-md text-[12px] font-extrabold shrink-0 shadow-sm ${
             result === 'G' ? 'bg-ugreen text-white' : result === 'M' ? 'bg-[#d01b2a] text-white' : 'bg-ugold text-ugreend'
           }`} title={result === 'G' ? 'Galibiyet' : result === 'M' ? 'Mağlubiyet' : 'Beraberlik'}>{result}</span>
         )}
@@ -70,11 +70,11 @@ export function MatchCard({ match, logos }: { match: Match; logos: Record<string
           <div className="flex items-center gap-1 px-1 shrink-0">
             {match.isCompleted ? (
               <>
-                <span className="w-8 h-9 flex items-center justify-center rounded-lg bg-ugreend text-lg font-black text-white tabular-nums">{match.homeScore}</span>
-                <span className="w-8 h-9 flex items-center justify-center rounded-lg bg-ugreend text-lg font-black text-white tabular-nums">{match.awayScore}</span>
+                <span className="w-8 h-9 flex items-center justify-center rounded-lg bg-ugreend text-lg font-extrabold text-white tabular-nums">{match.homeScore}</span>
+                <span className="w-8 h-9 flex items-center justify-center rounded-lg bg-ugreend text-lg font-extrabold text-white tabular-nums">{match.awayScore}</span>
               </>
             ) : (
-              <span className="text-sm font-black text-[#7aab8e]">vs</span>
+              <span className="text-sm font-extrabold text-[#7aab8e]">vs</span>
             )}
           </div>
 
@@ -129,7 +129,7 @@ export default function MacMerkezi({
       {/* Filtre çubuğu */}
       <div className={`flex flex-wrap items-end gap-4 mb-8 ${showFilter ? '' : 'hidden'}`}>
         <div>
-          <label className="block text-[10px] font-black tracking-widest uppercase text-[#7aab8e] mb-1.5">Sezon</label>
+          <label className="block text-[10px] font-extrabold tracking-widest uppercase text-[#7aab8e] mb-1.5">Sezon</label>
           <div className="flex items-center gap-2 bg-white border border-[#ddeae2] rounded-xl px-4 py-2.5 shadow-sm">
             <span className="w-2 h-2 rounded-full bg-ugreen" />
             <span className="text-sm font-bold text-ugreenm">{season ?? '2025-2026'}</span>
@@ -137,7 +137,7 @@ export default function MacMerkezi({
         </div>
         {tournaments.length > 1 && (
           <div>
-            <label className="block text-[10px] font-black tracking-widest uppercase text-[#7aab8e] mb-1.5">Turnuva</label>
+            <label className="block text-[10px] font-extrabold tracking-widest uppercase text-[#7aab8e] mb-1.5">Turnuva</label>
             <select value={tournament} onChange={(e) => setTournament(e.target.value)}
               className="bg-white border border-[#ddeae2] rounded-xl px-4 py-2.5 text-sm font-bold text-ugreenm shadow-sm focus:outline-none focus:border-ugreen transition-colors min-w-[190px]">
               <option value="hepsi">Tüm Turnuvalar</option>

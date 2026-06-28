@@ -40,12 +40,12 @@ export default function SplashScreen({ club }: { club: ClubInfo }) {
           <img src={club.logoUrl} alt={club.name}
             className="h-28 w-28 object-contain drop-shadow-2xl" />
         ) : (
-          <div className="flex h-28 w-28 items-center justify-center rounded-full bg-ugold text-ugreend font-black text-3xl shadow-2xl">
+          <div className="flex h-28 w-28 items-center justify-center rounded-full bg-ugold text-ugreend font-extrabold text-3xl shadow-2xl">
             {club.shortCode}
           </div>
         )}
         <div className="text-center">
-          <p className="text-white font-black text-2xl tracking-wide uppercase">{club.name}</p>
+          <p className="text-white font-extrabold text-2xl tracking-wide uppercase">{club.name}</p>
         </div>
 
         {/* Yükleniyor çubuğu */}

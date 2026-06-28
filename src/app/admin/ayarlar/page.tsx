@@ -14,12 +14,12 @@ const SocialIcon = ({ name }: { name: string }) => {
   const icons: Record<string, string> = {
     Facebook: 'f', X: 'X', Instagram: 'ig', YouTube: '▶', TikTok: '♪'
   }
-  return <span className="w-7 h-7 rounded-lg bg-ugreend text-ugold text-[11px] font-black flex items-center justify-center shrink-0">{icons[name] ?? name[0]}</span>
+  return <span className="w-7 h-7 rounded-lg bg-ugreend text-ugold text-[11px] font-extrabold flex items-center justify-center shrink-0">{icons[name] ?? name[0]}</span>
 }
 
 const Field = ({ label, hint, children }: { label: string; hint?: string; children: React.ReactNode }) => (
   <div>
-    <label className="block text-xs font-black text-utxt2 mb-1.5 uppercase tracking-wide">{label}</label>
+    <label className="block text-xs font-extrabold text-utxt2 mb-1.5 uppercase tracking-wide">{label}</label>
     {children}
     {hint && <p className="text-[11px] text-[#7aab8e] mt-1">{hint}</p>}
   </div>
@@ -111,9 +111,9 @@ export default function AdminAyarlarPage() {
   return (
     <div className="space-y-6 max-w-3xl">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-black text-ugreenm">Site Ayarları</h1>
+        <h1 className="text-2xl font-extrabold text-ugreenm">Site Ayarları</h1>
         <button onClick={handleSave} disabled={saving || loading}
-          className={`inline-flex items-center gap-2 font-black px-5 py-2.5 rounded-xl text-sm transition-all shadow-sm disabled:opacity-60 ${saved ? 'bg-[#edf7f2] text-ugreen' : 'bg-ugreen hover:bg-ugreend text-white'}`}>
+          className={`inline-flex items-center gap-2 font-extrabold px-5 py-2.5 rounded-xl text-sm transition-all shadow-sm disabled:opacity-60 ${saved ? 'bg-[#edf7f2] text-ugreen' : 'bg-ugreen hover:bg-ugreend text-white'}`}>
           {saving ? <Loader2 size={15} className="animate-spin" /> : <Save size={15} />}
           {saving ? 'Kaydediliyor...' : saved ? 'Kaydedildi ✓' : 'Kaydet'}
         </button>
@@ -134,7 +134,7 @@ export default function AdminAyarlarPage() {
       <div className="flex gap-1 bg-[#f5f9f6] p-1 rounded-xl border border-[#ddeae2]">
         {tabs.map(t => (
           <button key={t} onClick={() => setTab(t)}
-            className={`flex-1 py-2 px-3 text-xs font-black rounded-lg transition-all ${tab === t ? 'bg-white text-ugreenm shadow-sm' : 'text-[#7aab8e] hover:text-utxt2'}`}>
+            className={`flex-1 py-2 px-3 text-xs font-extrabold rounded-lg transition-all ${tab === t ? 'bg-white text-ugreenm shadow-sm' : 'text-[#7aab8e] hover:text-utxt2'}`}>
             {t}
           </button>
         ))}
@@ -145,7 +145,7 @@ export default function AdminAyarlarPage() {
           <>
             {/* Renk teması seçimi */}
             <div className="pb-4 border-b border-[#edf7f2]">
-              <label className="block text-xs font-black text-[#356152] mb-2 uppercase tracking-wide">Renk Teması</label>
+              <label className="block text-xs font-extrabold text-[#356152] mb-2 uppercase tracking-wide">Renk Teması</label>
               <div className="grid grid-cols-2 gap-3">
                 {([
                   { key: 'emerald', label: 'Zümrüt (Mevcut)', g: '#1b5e44', gd: '#103f2e', y: '#f5c400' },
@@ -158,7 +158,7 @@ export default function AdminAyarlarPage() {
                       <span className="w-7 h-7 rounded-md" style={{ background: t.gd }} />
                       <span className="w-7 h-7 rounded-md" style={{ background: t.y }} />
                     </div>
-                    <p className="text-[13px] font-black text-[#154836]">{t.label}</p>
+                    <p className="text-[13px] font-extrabold text-[#154836]">{t.label}</p>
                     {theme === t.key && <span className="absolute top-2 right-2 text-[#1b5e44]"><Check size={16} /></span>}
                   </button>
                 ))}
@@ -254,7 +254,7 @@ export default function AdminAyarlarPage() {
 
             {/* Bülten */}
             <div className="pt-4 border-t border-[#edf7f2] space-y-3">
-              <p className="text-xs font-black text-ugreenm uppercase tracking-wide">Bülten Bloğu</p>
+              <p className="text-xs font-extrabold text-ugreenm uppercase tracking-wide">Bülten Bloğu</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Field label="Üst Etiket"><Input value={footer.newsletterKicker} onChange={e => setFooter(p => ({ ...p, newsletterKicker: e.target.value }))} /></Field>
                 <Field label="Başlık"><Input value={footer.newsletterTitle} onChange={e => setFooter(p => ({ ...p, newsletterTitle: e.target.value }))} /></Field>
@@ -266,9 +266,9 @@ export default function AdminAyarlarPage() {
             {/* Link Kolonları */}
             <div className="pt-4 border-t border-[#edf7f2] space-y-4">
               <div className="flex items-center justify-between">
-                <p className="text-xs font-black text-ugreenm uppercase tracking-wide">Link Kolonları</p>
+                <p className="text-xs font-extrabold text-ugreenm uppercase tracking-wide">Link Kolonları</p>
                 <button type="button" onClick={() => setFooter(p => ({ ...p, columns: [...p.columns, { title: 'Yeni Kolon', links: [] }] }))}
-                  className="text-[11px] font-black text-ugreen hover:underline">+ Kolon Ekle</button>
+                  className="text-[11px] font-extrabold text-ugreen hover:underline">+ Kolon Ekle</button>
               </div>
               {footer.columns.map((col, ci) => (
                 <div key={ci} className="bg-[#f5f9f6] border border-[#ddeae2] rounded-xl p-4 space-y-3">
@@ -276,7 +276,7 @@ export default function AdminAyarlarPage() {
                     <Input value={col.title} placeholder="Kolon başlığı"
                       onChange={e => setFooter(p => { const c = [...p.columns]; c[ci] = { ...c[ci], title: e.target.value }; return { ...p, columns: c } })} />
                     <button type="button" onClick={() => setFooter(p => ({ ...p, columns: p.columns.filter((_, i) => i !== ci) }))}
-                      className="shrink-0 text-[11px] font-black text-red-600 hover:underline px-2">Sil</button>
+                      className="shrink-0 text-[11px] font-extrabold text-red-600 hover:underline px-2">Sil</button>
                   </div>
                   {col.links.map((lnk, li) => (
                     <div key={li} className="flex items-center gap-2 pl-3">
@@ -297,9 +297,9 @@ export default function AdminAyarlarPage() {
             {/* Yasal Linkler + Telif */}
             <div className="pt-4 border-t border-[#edf7f2] space-y-3">
               <div className="flex items-center justify-between">
-                <p className="text-xs font-black text-ugreenm uppercase tracking-wide">Alt Bar — Yasal Linkler</p>
+                <p className="text-xs font-extrabold text-ugreenm uppercase tracking-wide">Alt Bar — Yasal Linkler</p>
                 <button type="button" onClick={() => setFooter(p => ({ ...p, legalLinks: [...p.legalLinks, { label: '', href: '' }] }))}
-                  className="text-[11px] font-black text-ugreen hover:underline">+ Link Ekle</button>
+                  className="text-[11px] font-extrabold text-ugreen hover:underline">+ Link Ekle</button>
               </div>
               {footer.legalLinks.map((lnk, i) => (
                 <div key={i} className="flex items-center gap-2">

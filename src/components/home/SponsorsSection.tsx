@@ -15,15 +15,15 @@ export default function SponsorsSection({ sponsors = sponsorsData }: { sponsors?
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-3 mb-2.5">
             <span className="block w-8 h-0.5 bg-ugreen" />
-            <p className="text-xs font-black tracking-widest uppercase text-ugreen">Güç Birliği</p>
+            <p className="text-xs font-extrabold tracking-widest uppercase text-ugreen">Güç Birliği</p>
             <span className="block w-8 h-0.5 bg-ugreen" />
           </div>
-          <h2 className="font-heading text-3xl md:text-4xl font-black text-ugreenm tracking-tight">Sponsorlarımız</h2>
+          <h2 className="font-heading text-3xl md:text-4xl font-extrabold text-ugreenm tracking-tight">Sponsorlarımız</h2>
         </div>
 
         {ana.length > 0 && (
           <div className="mb-8">
-            <p className="text-[10px] font-black tracking-widest uppercase text-[#7aab8e] text-center mb-5">Ana Sponsor</p>
+            <p className="text-[10px] font-extrabold tracking-widest uppercase text-[#7aab8e] text-center mb-5">Ana Sponsor</p>
             <div className="flex flex-wrap justify-center gap-4">
               {ana.map((s) => (
                 <a key={s.id} href={s.website} target="_blank" rel="noopener noreferrer" title={s.name}
@@ -37,7 +37,7 @@ export default function SponsorsSection({ sponsors = sponsorsData }: { sponsors?
 
         {resmi.length > 0 && (
           <div className="mb-6">
-            <p className="text-[10px] font-black tracking-widest uppercase text-[#7aab8e] text-center mb-4">Resmi Sponsorlar</p>
+            <p className="text-[10px] font-extrabold tracking-widest uppercase text-[#7aab8e] text-center mb-4">Resmi Sponsorlar</p>
             <div className="flex flex-wrap justify-center gap-3">
               {resmi.map((s) => (
                 <a key={s.id} href={s.website} target="_blank" rel="noopener noreferrer" title={s.name}
@@ -51,7 +51,7 @@ export default function SponsorsSection({ sponsors = sponsorsData }: { sponsors?
 
         {destekci.length > 0 && (
           <div>
-            <p className="text-[10px] font-black tracking-widest uppercase text-[#7aab8e]/70 text-center mb-3">Destekçiler</p>
+            <p className="text-[10px] font-extrabold tracking-widest uppercase text-[#7aab8e]/70 text-center mb-3">Destekçiler</p>
             <div className="flex flex-wrap justify-center gap-2">
               {destekci.map((s) => (
                 <a key={s.id} href={s.website} target="_blank" rel="noopener noreferrer" title={s.name}

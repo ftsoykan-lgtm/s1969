@@ -28,7 +28,7 @@ export default function NextMatchCountdown({ target }: { target: string | null }
   if (!target) {
     return (
       <div className="flex items-center gap-2.5">
-        <span className="text-[11px] font-black tracking-[0.2em] uppercase text-[#7aab8e]">Sıradaki Maç</span>
+        <span className="text-[11px] font-extrabold tracking-[0.2em] uppercase text-[#7aab8e]">Sıradaki Maç</span>
         <span className="text-sm font-bold text-ugreenm bg-[#f5f9f6] border border-[#ddeae2] rounded-lg px-3 py-1.5">
           Maç bulunmuyor
         </span>
@@ -42,17 +42,17 @@ export default function NextMatchCountdown({ target }: { target: string | null }
 
   return (
     <div className="flex items-center gap-3">
-      <span className="hidden md:block text-[11px] font-black tracking-[0.2em] uppercase text-[#7aab8e] leading-tight text-right">
+      <span className="hidden md:block text-[11px] font-extrabold tracking-[0.2em] uppercase text-[#7aab8e] leading-tight text-right">
         Sıradaki<br />Maç
       </span>
       <div className="flex items-start gap-1.5">
         {boxes.map(([label, val], i) => (
           <div key={label} className="flex items-start gap-1.5">
             <div className="text-center">
-              <div className="font-heading text-2xl md:text-3xl font-black text-ugreen tabular-nums leading-none w-9">{pad(val)}</div>
-              <div className="text-[8px] font-black tracking-wide uppercase text-[#7aab8e] mt-1">{label}</div>
+              <div className="font-heading text-2xl md:text-3xl font-extrabold text-ugreen tabular-nums leading-none w-9">{pad(val)}</div>
+              <div className="text-[8px] font-extrabold tracking-wide uppercase text-[#7aab8e] mt-1">{label}</div>
             </div>
-            {i < boxes.length - 1 && <span className="text-xl md:text-2xl font-black text-ugold leading-none">:</span>}
+            {i < boxes.length - 1 && <span className="text-xl md:text-2xl font-extrabold text-ugold leading-none">:</span>}
           </div>
         ))}
       </div>

@@ -18,9 +18,9 @@ export default async function IletisimPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-3">
             <span className="block w-8 h-0.5 bg-ugold" />
-            <p className="text-xs font-black tracking-widest uppercase text-ugold/60">Bize Ulaşın</p>
+            <p className="text-xs font-extrabold tracking-widest uppercase text-ugold/60">Bize Ulaşın</p>
           </div>
-          <h1 className="text-4xl md:text-5xl font-black text-white tracking-tight">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight">
             <span className="text-ugold">İletişim</span>
           </h1>
         </div>
@@ -29,14 +29,14 @@ export default async function IletisimPage() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 pb-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           <div className="space-y-4">
-            <h2 className="text-xl font-black text-ugreenm mb-6">İletişim Bilgileri</h2>
+            <h2 className="text-xl font-extrabold text-ugreenm mb-6">İletişim Bilgileri</h2>
             {contacts.map(({ icon: Icon, label, value, color }) => (
               <div key={label} className="flex items-start gap-4 bg-white rounded-xl border border-[#ddeae2] shadow-sm p-5 hover:shadow-md hover:border-ugreen/30 transition-all">
                 <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${color}`}>
                   <Icon size={18} />
                 </div>
                 <div>
-                  <p className="text-xs font-black tracking-widest uppercase text-[#7aab8e] mb-0.5">{label}</p>
+                  <p className="text-xs font-extrabold tracking-widest uppercase text-[#7aab8e] mb-0.5">{label}</p>
                   <p className="text-ugreenm text-sm font-bold">{value}</p>
                 </div>
               </div>
@@ -54,7 +54,7 @@ export default async function IletisimPage() {
           </div>
 
           <div>
-            <h2 className="text-xl font-black text-ugreenm mb-6">Bize Yazın</h2>
+            <h2 className="text-xl font-extrabold text-ugreenm mb-6">Bize Yazın</h2>
             <form className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm p-6 space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[
@@ -62,14 +62,14 @@ export default async function IletisimPage() {
                   { label: 'E-posta', type: 'email', placeholder: 'ornek@email.com' },
                 ].map(({ label, type, placeholder }) => (
                   <div key={label}>
-                    <label className="block text-xs font-black text-utxt2 mb-1.5 uppercase tracking-wide">{label}</label>
+                    <label className="block text-xs font-extrabold text-utxt2 mb-1.5 uppercase tracking-wide">{label}</label>
                     <input type={type} placeholder={placeholder}
                       className="w-full bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-4 py-2.5 text-sm text-ugreenm placeholder-[#7aab8e] focus:outline-none focus:border-ugreen focus:bg-white transition-all" />
                   </div>
                 ))}
               </div>
               <div>
-                <label className="block text-xs font-black text-utxt2 mb-1.5 uppercase tracking-wide">Konu</label>
+                <label className="block text-xs font-extrabold text-utxt2 mb-1.5 uppercase tracking-wide">Konu</label>
                 <select className="w-full bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-4 py-2.5 text-sm text-ugreenm focus:outline-none focus:border-ugreen transition-all">
                   <option value="">Konu seçin</option>
                   <option>Genel Bilgi</option>
@@ -80,12 +80,12 @@ export default async function IletisimPage() {
                 </select>
               </div>
               <div>
-                <label className="block text-xs font-black text-utxt2 mb-1.5 uppercase tracking-wide">Mesaj</label>
+                <label className="block text-xs font-extrabold text-utxt2 mb-1.5 uppercase tracking-wide">Mesaj</label>
                 <textarea rows={5} placeholder="Mesajınızı buraya yazın..."
                   className="w-full bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-4 py-2.5 text-sm text-ugreenm placeholder-[#7aab8e] focus:outline-none focus:border-ugreen transition-all resize-none" />
               </div>
               <button type="submit"
-                className="w-full bg-ugreen hover:bg-ugreend text-white font-black py-3 rounded-xl transition-colors text-sm shadow-sm">
+                className="w-full bg-ugreen hover:bg-ugreend text-white font-extrabold py-3 rounded-xl transition-colors text-sm shadow-sm">
                 Gönder
               </button>
               <p className="text-[11px] text-[#7aab8e] text-center">En geç 2 iş günü içinde yanıtlanır.</p>

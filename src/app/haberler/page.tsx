@@ -18,9 +18,9 @@ export default async function HaberlerPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-3">
             <span className="block w-8 h-0.5 bg-ugold" />
-            <p className="text-xs font-black tracking-widest uppercase text-ugold/60">Güncel</p>
+            <p className="text-xs font-extrabold tracking-widest uppercase text-ugold/60">Güncel</p>
           </div>
-          <h1 className="text-4xl md:text-5xl font-black text-white tracking-tight">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight">
             Kulüp <span className="text-ugold">Haberleri</span>
           </h1>
         </div>

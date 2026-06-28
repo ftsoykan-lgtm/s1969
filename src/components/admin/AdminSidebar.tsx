@@ -70,10 +70,10 @@ export default function AdminSidebar({ logoUrl }: { logoUrl?: string | null }) {
           {logoUrl ? (
             <img src={logoUrl} alt="" className="h-9 w-9 rounded-full object-contain bg-white ring-1 ring-ugold/30 shadow-md shrink-0" />
           ) : (
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-ugold text-ugreend font-black text-base shadow-md shrink-0">Ş</div>
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-ugold text-ugreend font-extrabold text-base shadow-md shrink-0">Ş</div>
           )}
           <div className="min-w-0">
-            <p className="text-white font-black text-[13px] leading-tight truncate uppercase">Şanlıurfaspor</p>
+            <p className="text-white font-extrabold text-[13px] leading-tight truncate uppercase">Şanlıurfaspor</p>
             <p className="text-ugold/40 text-[9px] font-bold tracking-[0.15em] uppercase">Admin Panel</p>
           </div>
         </div>
@@ -83,7 +83,7 @@ export default function AdminSidebar({ logoUrl }: { logoUrl?: string | null }) {
       <nav className="flex-1 px-2.5 py-4 space-y-4 overflow-y-auto">
         {navGroups.map((group) => (
           <div key={group.label}>
-            <p className="text-[9px] font-black tracking-[0.18em] text-white/25 px-2.5 mb-1.5">{group.label}</p>
+            <p className="text-[9px] font-extrabold tracking-[0.18em] text-white/25 px-2.5 mb-1.5">{group.label}</p>
             <div className="space-y-0.5">
               {group.items.map((item) => {
                 const active = isActive(item)

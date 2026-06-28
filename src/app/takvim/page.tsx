@@ -39,9 +39,9 @@ export default async function TakvimPage() {
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-3">
             <span className="block w-8 h-0.5 bg-ugold" />
-            <p className="text-xs font-black tracking-widest uppercase text-ugold/60">{meta.league} · {meta.season}</p>
+            <p className="text-xs font-extrabold tracking-widest uppercase text-ugold/60">{meta.league} · {meta.season}</p>
           </div>
-          <h1 className="font-heading text-4xl md:text-5xl font-black text-white tracking-tight">
+          <h1 className="font-heading text-4xl md:text-5xl font-extrabold text-white tracking-tight">
             Maç <span className="text-ugold">Takvimi</span>
           </h1>
           <p className="mt-3 text-[11px] text-white/40">TFF fikstüründen otomatik · {items.length} maç</p>

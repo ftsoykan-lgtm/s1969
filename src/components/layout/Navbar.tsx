@@ -123,7 +123,7 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
               ))}
             </div>
             <span className="w-px h-4 bg-white/15" />
-            <Link href="/magaza" className="text-[10px] font-black tracking-[0.2em] uppercase text-white/45 hover:text-ugold transition-colors">Mağaza</Link>
+            <Link href="/magaza" className="text-[10px] font-extrabold tracking-[0.2em] uppercase text-white/45 hover:text-ugold transition-colors">Mağaza</Link>
           </div>
         </div>
       </div>
@@ -146,10 +146,10 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
                 <img src={club.logoUrl} alt="" className="h-9 w-9 rounded-full object-contain bg-white ring-1 ring-white/20 shrink-0" />
               ) : (
                 <div className="h-9 w-9 rounded-full bg-ugold flex items-center justify-center shrink-0">
-                  <span className="font-heading font-black text-[10px] text-ugreend">{club.shortCode}</span>
+                  <span className="font-heading font-extrabold text-[10px] text-ugreend">{club.shortCode}</span>
                 </div>
               )}
-              <span className="font-heading font-black text-[15px] tracking-tight uppercase text-white truncate">{club.name}</span>
+              <span className="font-heading font-extrabold text-[15px] tracking-tight uppercase text-white truncate">{club.name}</span>
             </Link>
 
             <button aria-label="Dil" className="justify-self-end h-10 w-10 flex items-center justify-center text-white/80 hover:text-ugold transition-colors -mr-1">
@@ -169,12 +169,12 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
                     className="relative h-12 w-12 rounded-full object-contain bg-white ring-1 ring-ugold/40 group-hover:ring-ugold shadow-md transition-all duration-200" />
                 ) : (
                   <div className="relative h-12 w-12 rounded-full bg-gradient-to-br from-ugold to-[#e8b800] flex items-center justify-center shadow-md ring-1 ring-ugold/40 transition-all duration-200">
-                    <span className="font-heading font-black text-sm text-ugreend">{club.shortCode}</span>
+                    <span className="font-heading font-extrabold text-sm text-ugreend">{club.shortCode}</span>
                   </div>
                 )}
               </div>
               <div className="leading-none">
-                <p className="font-heading font-black text-[18px] tracking-tight uppercase text-white">{club.name}</p>
+                <p className="font-heading font-extrabold text-[18px] tracking-tight uppercase text-white">{club.name}</p>
               </div>
             </Link>
 
@@ -213,7 +213,7 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
                 <Search size={18} />
               </button>
               <Link href="/bilet"
-                className="group relative inline-flex items-center gap-2 text-ugreend font-black text-[12px] tracking-wide uppercase pl-4 pr-5 py-2.5 rounded-full overflow-hidden
+                className="group relative inline-flex items-center gap-2 text-ugreend font-extrabold text-[12px] tracking-wide uppercase pl-4 pr-5 py-2.5 rounded-full overflow-hidden
                            bg-gradient-to-b from-ugoldl to-ugold shadow-[0_4px_16px_-2px_rgba(255,209,0,0.45)] transition-all hover:scale-[1.03]">
                 {/* üst cila */}
                 <span className="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-white/30" />
@@ -235,7 +235,7 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
               <div className="p-8 grid grid-cols-[1fr_1fr_1fr_1.1fr] gap-10">
                 {kulupMenu.map((col) => (
                   <div key={col.baslik}>
-                    <p className="text-ugold text-[10px] font-black tracking-[0.25em] mb-4 pb-3 border-b border-white/10">{col.baslik}</p>
+                    <p className="text-ugold text-[10px] font-extrabold tracking-[0.25em] mb-4 pb-3 border-b border-white/10">{col.baslik}</p>
                     <ul className="space-y-0.5">
                       {col.linkler.map((item) => (
                         <li key={item.label}>
@@ -250,10 +250,10 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
                   </div>
                 ))}
                 <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-ugreen to-ugreenm ring-1 ring-white/10 p-5 flex flex-col justify-end">
-                  <div className="absolute top-3 right-3 font-heading text-[5rem] font-black text-white/[0.04] leading-none">{club.shortCode}</div>
-                  <p className="relative text-[10px] font-black tracking-[0.25em] uppercase text-ugold/70 mb-1">{club.nickname}</p>
-                  <p className="relative text-white font-black text-lg leading-tight mb-3">Tribünde yerini al</p>
-                  <Link href="/bilet" className="relative inline-flex items-center justify-center gap-2 bg-ugold text-ugreenm font-black text-[11px] tracking-wide uppercase px-4 py-2.5 rounded-full hover:bg-ugoldh transition-colors">Bilet Al →</Link>
+                  <div className="absolute top-3 right-3 font-heading text-[5rem] font-extrabold text-white/[0.04] leading-none">{club.shortCode}</div>
+                  <p className="relative text-[10px] font-extrabold tracking-[0.25em] uppercase text-ugold/70 mb-1">{club.nickname}</p>
+                  <p className="relative text-white font-extrabold text-lg leading-tight mb-3">Tribünde yerini al</p>
+                  <Link href="/bilet" className="relative inline-flex items-center justify-center gap-2 bg-ugold text-ugreenm font-extrabold text-[11px] tracking-wide uppercase px-4 py-2.5 rounded-full hover:bg-ugoldh transition-colors">Bilet Al →</Link>
                 </div>
               </div>
             </div>
@@ -271,9 +271,9 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
               {hasLogo ? (
                 <img src={club.logoUrl} alt="" className="h-9 w-9 rounded-full object-contain bg-white ring-1 ring-white/20" />
               ) : (
-                <div className="h-9 w-9 rounded-full bg-ugold flex items-center justify-center"><span className="font-heading font-black text-[10px] text-ugreend">{club.shortCode}</span></div>
+                <div className="h-9 w-9 rounded-full bg-ugold flex items-center justify-center"><span className="font-heading font-extrabold text-[10px] text-ugreend">{club.shortCode}</span></div>
               )}
-              <span className="font-heading font-black text-base tracking-tight uppercase text-white">{club.name}</span>
+              <span className="font-heading font-extrabold text-base tracking-tight uppercase text-white">{club.name}</span>
             </Link>
             <button onClick={() => setMobileOpen(false)} aria-label="Kapat"
               className="h-10 w-10 flex items-center justify-center rounded-full text-white bg-white/[0.06] hover:bg-white/10 transition-colors">
@@ -295,7 +295,7 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
                     <div className="pb-3 pl-1 space-y-3">
                       {kulupMenu.map((col) => (
                         <div key={col.baslik}>
-                          <p className="pt-1 pb-1 text-[10px] font-black tracking-[0.2em] text-ugold/60">{col.baslik}</p>
+                          <p className="pt-1 pb-1 text-[10px] font-extrabold tracking-[0.2em] text-ugold/60">{col.baslik}</p>
                           {col.linkler.map((item) => (
                             <Link key={item.label} href={item.href} onClick={() => setMobileOpen(false)}
                               className="block py-2 text-[15px] text-white/65 hover:text-white transition-colors">{item.label}</Link>
@@ -313,7 +313,7 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
             )}
 
             <Link href="/bilet" onClick={() => setMobileOpen(false)}
-              className="block mt-6 py-4 text-center text-sm font-black tracking-widest text-ugreend bg-ugold rounded-xl uppercase shadow-lg shadow-ugold/20">
+              className="block mt-6 py-4 text-center text-sm font-extrabold tracking-widest text-ugreend bg-ugold rounded-xl uppercase shadow-lg shadow-ugold/20">
               Bilet Al
             </Link>
 

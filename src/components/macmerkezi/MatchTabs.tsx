@@ -16,7 +16,7 @@ export default function MatchTabs() {
         const active = pathname === t.href
         return (
           <Link key={t.href} href={t.href}
-            className={`px-5 py-2.5 rounded-full text-[13px] font-black tracking-wide transition-all ${
+            className={`px-5 py-2.5 rounded-full text-[13px] font-extrabold tracking-wide transition-all ${
               active ? 'bg-ugreend text-white shadow' : 'text-utxt2 hover:bg-[#f5f9f6]'
             }`}>
             {t.label}

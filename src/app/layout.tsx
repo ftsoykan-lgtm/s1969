@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Plus_Jakarta_Sans, Saira } from 'next/font/google'
 import './globals.css'
 import SiteShell from '@/components/layout/SiteShell'
+import ScrollReveal from '@/components/layout/ScrollReveal'
 import { getClubInfo } from '@/lib/supabase/club-server'
 import { getSponsors } from '@/lib/supabase/sponsors-server'
 
@@ -46,6 +47,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="tr" data-theme={club.theme === 'classic' ? 'classic' : 'emerald'} className={`${inter.variable} ${sora.variable} h-full`}>
       <body className="min-h-full flex flex-col bg-[#f8faf9] antialiased">
+        <ScrollReveal />
         <SiteShell club={club} sponsors={sponsors}>{children}</SiteShell>
       </body>
     </html>

@@ -54,7 +54,7 @@ export default function Footer({ club = defaultClub }: { club?: ClubInfo }) {
         <div className="absolute -top-32 -left-24 w-[480px] h-[480px] rounded-full bg-ugreen/30 blur-[130px]" />
         <div className="absolute -bottom-32 right-0 w-[480px] h-[480px] rounded-full bg-ugold/[0.05] blur-[120px]" />
         <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center select-none">
-          <span className="font-heading text-[26vw] font-black leading-none text-white/[0.015] tracking-tighter">{club.shortCode}</span>
+          <span className="font-heading text-[26vw] font-extrabold leading-none text-white/[0.015] tracking-tighter">{club.shortCode}</span>
         </div>
       </div>
 
@@ -65,14 +65,14 @@ export default function Footer({ club = defaultClub }: { club?: ClubInfo }) {
       <div className="relative border-b border-white/[0.07]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <div>
-            <p className="text-[10px] font-black tracking-[0.3em] uppercase text-ugold/60 mb-1.5">{f.newsletterKicker}</p>
+            <p className="text-[10px] font-extrabold tracking-[0.3em] uppercase text-ugold/60 mb-1.5">{f.newsletterKicker}</p>
             <h3 className="font-heading text-2xl md:text-3xl font-extrabold text-white tracking-tight">{f.newsletterTitle}</h3>
           </div>
           <form className="flex w-full md:w-auto items-center gap-2 rounded-full bg-white/[0.05] border border-white/10 p-1.5 backdrop-blur-sm">
             <input type="email" placeholder={f.newsletterPlaceholder} aria-label="E-posta"
               className="flex-1 md:w-64 bg-transparent px-4 py-2 text-sm text-white placeholder-white/35 focus:outline-none" />
             <button type="submit"
-              className="shrink-0 inline-flex items-center gap-1.5 text-ugreenm font-black text-[11px] tracking-wide uppercase px-5 py-2.5 rounded-full bg-gradient-to-b from-ugoldl to-ugold shadow-[0_4px_14px_rgba(255,209,0,0.3)] hover:scale-[1.03] transition-transform">
+              className="shrink-0 inline-flex items-center gap-1.5 text-ugreenm font-extrabold text-[11px] tracking-wide uppercase px-5 py-2.5 rounded-full bg-gradient-to-b from-ugoldl to-ugold shadow-[0_4px_14px_rgba(255,209,0,0.3)] hover:scale-[1.03] transition-transform">
               {f.newsletterButton}
             </button>
           </form>
@@ -89,7 +89,7 @@ export default function Footer({ club = defaultClub }: { club?: ClubInfo }) {
               <img src={club.logoUrl} alt={club.name}
                 className="h-14 w-14 rounded-2xl object-contain bg-white/5 ring-1 ring-white/15 shrink-0" />
             ) : (
-              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-ugold to-ugoldd text-ugreenm font-black text-base shadow-lg">
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-ugold to-ugoldd text-ugreenm font-extrabold text-base shadow-lg">
                 {club.shortCode}
               </div>
             )}
@@ -116,7 +116,7 @@ export default function Footer({ club = defaultClub }: { club?: ClubInfo }) {
           <div key={col.title}>
             <div className="flex items-center gap-2 mb-5">
               <span className="w-4 h-px bg-ugold/60" />
-              <h3 className="text-[10px] font-black tracking-[0.25em] uppercase text-ugold">{col.title}</h3>
+              <h3 className="text-[10px] font-extrabold tracking-[0.25em] uppercase text-ugold">{col.title}</h3>
             </div>
             <ul className="space-y-2.5">
               {col.links.map((link) => (

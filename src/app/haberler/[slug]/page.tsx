@@ -40,10 +40,10 @@ export default async function HaberDetayPage({ params }: Props) {
 
         <article className="bg-white rounded-2xl border border-[#ddeae2] shadow-lg overflow-hidden">
           <div className="p-6 md:p-10">
-            <span className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-black tracking-widest uppercase mb-5 bg-ugold text-ugreenm">
+            <span className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-extrabold tracking-widest uppercase mb-5 bg-ugold text-ugreenm">
               {catName}
             </span>
-            <h1 className="text-3xl md:text-4xl font-black text-ugreenm leading-tight tracking-tight mb-4">{item.title}</h1>
+            <h1 className="text-3xl md:text-4xl font-extrabold text-ugreenm leading-tight tracking-tight mb-4">{item.title}</h1>
             <div className="flex items-center gap-2 text-sm text-utxt2 mb-8 pb-8 border-b border-[#ddeae2]">
               <Calendar size={14} />
               <span>{formatDate(item.date)}</span>
@@ -55,7 +55,7 @@ export default async function HaberDetayPage({ params }: Props) {
 
         {related.length > 0 && (
           <div className="mt-12">
-            <h2 className="text-xl font-black text-ugreenm mb-5">İlgili Haberler</h2>
+            <h2 className="text-xl font-extrabold text-ugreenm mb-5">İlgili Haberler</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {related.map((rel) => (
                 <Link key={rel.id} href={`/haberler/${rel.slug}`}

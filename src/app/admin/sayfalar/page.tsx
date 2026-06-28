@@ -71,11 +71,11 @@ export default function AdminSayfalarPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-black text-ugreenm">Sayfalar</h1>
+          <h1 className="text-2xl font-extrabold text-ugreenm">Sayfalar</h1>
           <p className="text-sm text-utxt2 mt-1">{rows.length} sayfa · Tarihçe hariç tüm bilgi sayfaları buradan yönetilir</p>
         </div>
         <button onClick={addNew}
-          className="inline-flex items-center gap-2 bg-ugreen hover:bg-ugreend text-white font-black px-4 py-2.5 rounded-xl text-sm transition-colors shadow-sm">
+          className="inline-flex items-center gap-2 bg-ugreen hover:bg-ugreend text-white font-extrabold px-4 py-2.5 rounded-xl text-sm transition-colors shadow-sm">
           <Plus size={15} /> Sayfa Ekle
         </button>
       </div>
@@ -89,7 +89,7 @@ export default function AdminSayfalarPage() {
         <div className="space-y-6">
           {grouped.map((g) => g.items.length > 0 && (
             <div key={g.key}>
-              <p className="text-[11px] font-black tracking-widest uppercase text-[#7aab8e] mb-2">{g.label}</p>
+              <p className="text-[11px] font-extrabold tracking-widest uppercase text-[#7aab8e] mb-2">{g.label}</p>
               <div className="space-y-2.5">
                 {g.items.map(({ r, i }) => {
                   const id = r._orig ?? '__yeni__'
@@ -99,10 +99,10 @@ export default function AdminSayfalarPage() {
                       <button onClick={() => setOpen(isOpen ? null : id)}
                         className="w-full flex items-center gap-3 px-4 py-3.5 text-left hover:bg-[#f8faf9] transition-colors">
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-black text-ugreenm truncate">{r.title}</p>
+                          <p className="text-sm font-extrabold text-ugreenm truncate">{r.title}</p>
                           <p className="text-[11px] text-[#7aab8e] truncate">/sayfa/{r.slug || slugify(r.title)}</p>
                         </div>
-                        {!r.published && <span className="text-[10px] font-black uppercase text-[#7aab8e] bg-[#f5f9f6] rounded px-2 py-0.5">Taslak</span>}
+                        {!r.published && <span className="text-[10px] font-extrabold uppercase text-[#7aab8e] bg-[#f5f9f6] rounded px-2 py-0.5">Taslak</span>}
                         {r._orig && <Link href={`/sayfa/${r.slug}`} target="_blank" onClick={(e) => e.stopPropagation()} className="text-[#7aab8e] hover:text-ugreen p-1"><ExternalLink size={14} /></Link>}
                         <ChevronDown size={16} className={`text-[#7aab8e] transition-transform ${isOpen ? 'rotate-180' : ''}`} />
                       </button>
@@ -140,7 +140,7 @@ export default function AdminSayfalarPage() {
                           </div>
                           <div className="flex items-center gap-2 pt-1">
                             <button onClick={() => handleSave(i)} disabled={busy !== null}
-                              className="inline-flex items-center gap-1.5 bg-ugreen hover:bg-ugreend disabled:opacity-60 text-white text-xs font-black px-4 py-2.5 rounded-lg transition-colors">
+                              className="inline-flex items-center gap-1.5 bg-ugreen hover:bg-ugreend disabled:opacity-60 text-white text-xs font-extrabold px-4 py-2.5 rounded-lg transition-colors">
                               {busy === id ? <Loader2 size={13} className="animate-spin" /> : <Check size={13} />} Kaydet
                             </button>
                             <button onClick={() => handleDelete(r, i)}
@@ -167,7 +167,7 @@ const inputCls = 'w-full bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-3 py
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <label className="block text-[10px] font-black text-utxt2 mb-1 uppercase tracking-wide">{label}</label>
+      <label className="block text-[10px] font-extrabold text-utxt2 mb-1 uppercase tracking-wide">{label}</label>
       {children}
     </div>
   )

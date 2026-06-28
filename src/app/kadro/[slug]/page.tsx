@@ -42,12 +42,12 @@ export default async function OyuncuDetayPage({ params }: Props) {
             <ArrowLeft size={16} /> Kadroya Dön
           </Link>
           <div className="flex items-center gap-4">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-ugold text-ugreend font-black text-2xl shadow-lg">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-ugold text-ugreend font-extrabold text-2xl shadow-lg">
               {player.number}
             </div>
             <div>
-              <p className="text-ugold text-xs font-black tracking-widest uppercase">{player.position}</p>
-              <h1 className="text-3xl md:text-4xl font-black text-white">{player.name}</h1>
+              <p className="text-ugold text-xs font-extrabold tracking-widest uppercase">{player.position}</p>
+              <h1 className="text-3xl md:text-4xl font-extrabold text-white">{player.name}</h1>
             </div>
           </div>
         </div>
@@ -63,7 +63,7 @@ export default async function OyuncuDetayPage({ params }: Props) {
           {/* Bilgiler */}
           <div className="space-y-4">
             <div className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm p-6">
-              <h2 className="text-xs font-black tracking-widest uppercase text-[#7aab8e] mb-5">Oyuncu Bilgileri</h2>
+              <h2 className="text-xs font-extrabold tracking-widest uppercase text-[#7aab8e] mb-5">Oyuncu Bilgileri</h2>
               <dl className="space-y-3">
                 {[
                   { label: 'Uyruk', value: `${FLAG[player.flagCode] ?? '🌍'} ${player.nationality}` },
@@ -73,18 +73,18 @@ export default async function OyuncuDetayPage({ params }: Props) {
                 ].map(({ label, value }) => (
                   <div key={label} className="flex justify-between items-center py-2 border-b border-[#edf7f2] last:border-0">
                     <dt className="text-sm text-utxt2">{label}</dt>
-                    <dd className="text-sm font-black text-ugreenm">{value}</dd>
+                    <dd className="text-sm font-extrabold text-ugreenm">{value}</dd>
                   </div>
                 ))}
               </dl>
             </div>
 
             <div className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm p-6">
-              <h2 className="text-xs font-black tracking-widest uppercase text-[#7aab8e] mb-5">Sezon İstatistikleri</h2>
+              <h2 className="text-xs font-extrabold tracking-widest uppercase text-[#7aab8e] mb-5">Sezon İstatistikleri</h2>
               <div className="grid grid-cols-5 gap-3">
                 {stats.map((s) => (
                   <div key={s.label} className="text-center bg-[#f5f9f6] rounded-xl py-4">
-                    <div className={`text-2xl font-black ${s.color}`}>{s.value}</div>
+                    <div className={`text-2xl font-extrabold ${s.color}`}>{s.value}</div>
                     <div className="text-[10px] text-[#7aab8e] mt-1 font-semibold uppercase tracking-wide">{s.label}</div>
                   </div>
                 ))}

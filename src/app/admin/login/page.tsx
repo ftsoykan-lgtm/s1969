@@ -55,10 +55,10 @@ export default function AdminLoginPage() {
     <div className="min-h-screen bg-ugreend flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-ugold text-ugreend font-black text-2xl shadow-xl mb-4">
+          <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-ugold text-ugreend font-extrabold text-2xl shadow-xl mb-4">
             Ş
           </div>
-          <h1 className="text-2xl font-black text-white">Admin Panel</h1>
+          <h1 className="text-2xl font-extrabold text-white">Admin Panel</h1>
           <p className="text-white/50 text-sm mt-1">Şanlıurfaspor Yönetim Sistemi</p>
         </div>
 
@@ -71,7 +71,7 @@ export default function AdminLoginPage() {
           )}
 
           <div>
-            <label className="block text-xs font-black text-utxt2 mb-1.5 uppercase tracking-wide">
+            <label className="block text-xs font-extrabold text-utxt2 mb-1.5 uppercase tracking-wide">
               E-posta
             </label>
             <div className="relative">
@@ -89,7 +89,7 @@ export default function AdminLoginPage() {
           </div>
 
           <div>
-            <label className="block text-xs font-black text-utxt2 mb-1.5 uppercase tracking-wide">
+            <label className="block text-xs font-extrabold text-utxt2 mb-1.5 uppercase tracking-wide">
               Şifre
             </label>
             <div className="relative">
@@ -116,7 +116,7 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-ugreen hover:bg-ugreend disabled:opacity-60 text-white font-black py-3 rounded-xl transition-colors text-sm shadow-sm"
+            className="w-full bg-ugreen hover:bg-ugreend disabled:opacity-60 text-white font-extrabold py-3 rounded-xl transition-colors text-sm shadow-sm"
           >
             {loading ? 'Giriş yapılıyor...' : 'Giriş Yap'}
           </button>

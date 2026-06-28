@@ -32,7 +32,7 @@ export default function PlayerCard({ player }: { player: CardPlayer }) {
             className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105" />
         ) : (
           <div className="w-full h-full flex items-center justify-center bg-[radial-gradient(circle_at_50%_30%,#1f7a45,#0b3a20)]">
-            <span className="text-6xl font-black text-white/15 select-none">{initials}</span>
+            <span className="text-6xl font-extrabold text-white/15 select-none">{initials}</span>
           </div>
         )}
 
@@ -45,7 +45,7 @@ export default function PlayerCard({ player }: { player: CardPlayer }) {
         )}
         {/* Numara */}
         {player.number != null && (
-          <div className="absolute top-1 right-3.5 text-6xl font-black text-white/90 drop-shadow-lg leading-none tabular-nums italic">
+          <div className="absolute top-1 right-3.5 text-6xl font-extrabold text-white/90 drop-shadow-lg leading-none tabular-nums italic">
             {player.number}
           </div>
         )}
@@ -53,7 +53,7 @@ export default function PlayerCard({ player }: { player: CardPlayer }) {
       </div>
 
       <div className="absolute inset-x-0 bottom-0 p-5 text-center">
-        <p className="text-white font-black text-lg uppercase leading-tight tracking-wide line-clamp-1">{player.name}</p>
+        <p className="text-white font-extrabold text-lg uppercase leading-tight tracking-wide line-clamp-1">{player.name}</p>
         <div className="mx-auto my-2.5 h-0.5 w-9 bg-ugold rounded-full group-hover:w-16 transition-all duration-300" />
         <p className="text-ugold text-xs font-bold uppercase tracking-[0.15em]">{player.position || 'Profesyonel'}</p>
       </div>

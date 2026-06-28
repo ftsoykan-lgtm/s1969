@@ -99,7 +99,7 @@ export default function AdminKadroPage() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-black text-ugreenm">Kadro / Oyuncu Profilleri</h1>
+          <h1 className="text-2xl font-extrabold text-ugreenm">Kadro / Oyuncu Profilleri</h1>
           <p className="text-sm text-utxt2 mt-1">{rows.length} oyuncu · {activeCount} aktif · Sezon {season}</p>
         </div>
         <div className="flex items-center gap-2">
@@ -108,11 +108,11 @@ export default function AdminKadroPage() {
             {seasons.map((s) => <option key={s} value={s}>{s}</option>)}
           </select>
           <button onClick={handleSync} disabled={syncing}
-            className="inline-flex items-center gap-2 bg-ugreend hover:bg-ugreen disabled:opacity-60 text-white font-black px-4 py-2.5 rounded-xl text-sm transition-colors shadow-sm">
+            className="inline-flex items-center gap-2 bg-ugreend hover:bg-ugreen disabled:opacity-60 text-white font-extrabold px-4 py-2.5 rounded-xl text-sm transition-colors shadow-sm">
             {syncing ? <Loader2 size={15} className="animate-spin" /> : <RefreshCw size={15} />} TFF ile Senkronize Et
           </button>
           <button onClick={addNew}
-            className="inline-flex items-center gap-2 bg-ugreen hover:bg-ugreend text-white font-black px-4 py-2.5 rounded-xl text-sm transition-colors shadow-sm">
+            className="inline-flex items-center gap-2 bg-ugreen hover:bg-ugreend text-white font-extrabold px-4 py-2.5 rounded-xl text-sm transition-colors shadow-sm">
             <Plus size={15} /> Oyuncu Ekle
           </button>
         </div>
@@ -143,10 +143,10 @@ export default function AdminKadroPage() {
                     {(p.photo || p.photo_tff) ? <img src={p.photo || p.photo_tff!} alt="" className="w-full h-full object-cover" /> : <span className="text-[10px] text-[#7aab8e]">{p.number ?? '?'}</span>}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-black text-ugreenm truncate">{p.number != null ? `${p.number} · ` : ''}{p.name}</p>
+                    <p className="text-sm font-extrabold text-ugreenm truncate">{p.number != null ? `${p.number} · ` : ''}{p.name}</p>
                     <p className="text-[11px] text-[#7aab8e] truncate">{p.position || 'Mevki yok'}{p.manual ? ' · Elle eklendi' : p.tff_id ? ' · TFF' : ''}</p>
                   </div>
-                  {!p.active && <span className="inline-flex items-center gap-1 text-[10px] font-black uppercase text-[#7aab8e] bg-[#f5f9f6] rounded px-2 py-0.5"><EyeOff size={11} /> Pasif</span>}
+                  {!p.active && <span className="inline-flex items-center gap-1 text-[10px] font-extrabold uppercase text-[#7aab8e] bg-[#f5f9f6] rounded px-2 py-0.5"><EyeOff size={11} /> Pasif</span>}
                   {p.id && p.slug && <Link href={`/oyuncu/${p.slug}`} target="_blank" onClick={(e) => e.stopPropagation()} className="text-[#7aab8e] hover:text-ugreen p-1"><ExternalLink size={14} /></Link>}
                   <ChevronDown size={16} className={`text-[#7aab8e] transition-transform ${isOpen ? 'rotate-180' : ''}`} />
                 </button>
@@ -191,7 +191,7 @@ export default function AdminKadroPage() {
 
                     <div className="flex items-center gap-3 pt-1">
                       <button onClick={() => handleSave(i)} disabled={busy !== null}
-                        className="inline-flex items-center gap-1.5 bg-ugreen hover:bg-ugreend disabled:opacity-60 text-white text-xs font-black px-4 py-2.5 rounded-lg transition-colors">
+                        className="inline-flex items-center gap-1.5 bg-ugreen hover:bg-ugreend disabled:opacity-60 text-white text-xs font-extrabold px-4 py-2.5 rounded-lg transition-colors">
                         {busy === id ? <Loader2 size={13} className="animate-spin" /> : <Check size={13} />} Kaydet
                       </button>
                       <label className="flex items-center gap-2 text-sm font-bold text-utxt2">
@@ -217,7 +217,7 @@ const inp = 'w-full bg-[#f5f9f6] border border-[#ddeae2] rounded-xl px-3 py-2 te
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <label className="block text-[10px] font-black text-utxt2 mb-1 uppercase tracking-wide">{label}</label>
+      <label className="block text-[10px] font-extrabold text-utxt2 mb-1 uppercase tracking-wide">{label}</label>
       {children}
     </div>
   )

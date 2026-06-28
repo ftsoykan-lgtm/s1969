@@ -65,7 +65,7 @@ export default async function OyuncuProfil({ params, searchParams }: Props) {
         <div className="pointer-events-none absolute -top-32 -left-20 w-[480px] h-[480px] rounded-full bg-ugreen/40 blur-[120px]" />
         <div className="pointer-events-none absolute top-10 right-10 w-[360px] h-[360px] rounded-full bg-ugold/[0.06] blur-[100px]" />
         {player.number != null && (
-          <div className="pointer-events-none absolute -bottom-16 right-2 sm:right-16 font-heading text-[20rem] md:text-[26rem] font-black text-white/[0.04] leading-none select-none">{player.number}</div>
+          <div className="pointer-events-none absolute -bottom-16 right-2 sm:right-16 font-heading text-[20rem] md:text-[26rem] font-extrabold text-white/[0.04] leading-none select-none">{player.number}</div>
         )}
 
         <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 pt-8 pb-0">
@@ -79,20 +79,20 @@ export default async function OyuncuProfil({ params, searchParams }: Props) {
               <div className="relative w-56 h-72 md:w-[300px] md:h-[380px] rounded-t-3xl overflow-hidden bg-gradient-to-b from-[#1f7a45] to-[#0b3a20] ring-1 ring-white/10 shadow-2xl">
                 {player.photoUrl
                   ? <img src={player.photoUrl} alt={player.name} className="w-full h-full object-cover object-top" />
-                  : <div className="w-full h-full flex items-center justify-center"><span className="text-7xl font-black text-white/15">{initials}</span></div>}
+                  : <div className="w-full h-full flex items-center justify-center"><span className="text-7xl font-extrabold text-white/15">{initials}</span></div>}
                 <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-ugreenm to-transparent" />
               </div>
             </div>
 
             <div className="pb-8 text-center md:text-left">
               <div className="flex items-center justify-center md:justify-start gap-3 mb-3 flex-wrap">
-                {player.number != null && <span className="font-heading text-4xl font-black text-ugold leading-none">#{player.number}</span>}
-                {player.position && <span className="text-[11px] font-black tracking-widest uppercase text-ugreend bg-ugold rounded-full px-3 py-1">{player.position}</span>}
+                {player.number != null && <span className="font-heading text-4xl font-extrabold text-ugold leading-none">#{player.number}</span>}
+                {player.position && <span className="text-[11px] font-extrabold tracking-widest uppercase text-ugreend bg-ugold rounded-full px-3 py-1">{player.position}</span>}
                 {player.flagCode && <img src={`https://flagcdn.com/h20/${player.flagCode}.png`} alt="" className="h-4 rounded-sm shadow" />}
-                {!player.active && <span className="text-[11px] font-black uppercase text-white/60 bg-white/10 rounded-full px-3 py-1">Eski Kadro</span>}
+                {!player.active && <span className="text-[11px] font-extrabold uppercase text-white/60 bg-white/10 rounded-full px-3 py-1">Eski Kadro</span>}
               </div>
-              <h1 className="font-heading text-4xl md:text-6xl font-black text-white tracking-tight uppercase leading-[0.95] drop-shadow-2xl">{player.name}</h1>
-              <p className="mt-3 text-[11px] font-black tracking-[0.25em] uppercase text-ugold/60">Şanlıurfaspor · Sezon {player.season}</p>
+              <h1 className="font-heading text-4xl md:text-6xl font-extrabold text-white tracking-tight uppercase leading-[0.95] drop-shadow-2xl">{player.name}</h1>
+              <p className="mt-3 text-[11px] font-extrabold tracking-[0.25em] uppercase text-ugold/60">Şanlıurfaspor · Sezon {player.season}</p>
 
               {(player.instagram || player.twitter) && (
                 <div className="flex items-center justify-center md:justify-start gap-2.5 mt-5">
@@ -103,10 +103,10 @@ export default async function OyuncuProfil({ params, searchParams }: Props) {
 
               {seasons.length > 1 && (
                 <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 mt-5">
-                  <span className="text-[10px] font-black tracking-widest uppercase text-white/40">Sezonlar:</span>
+                  <span className="text-[10px] font-extrabold tracking-widest uppercase text-white/40">Sezonlar:</span>
                   {seasons.map((s) => (
                     <Link key={s} href={`/oyuncu/${slug}?sezon=${s}`}
-                      className={`text-xs font-black px-3 py-1.5 rounded-full transition-all ${s === player.season ? 'bg-ugold text-ugreend' : 'bg-white/10 text-white/70 hover:bg-white/20'}`}>{s}</Link>
+                      className={`text-xs font-extrabold px-3 py-1.5 rounded-full transition-all ${s === player.season ? 'bg-ugold text-ugreend' : 'bg-white/10 text-white/70 hover:bg-white/20'}`}>{s}</Link>
                   ))}
                 </div>
               )}
@@ -127,8 +127,8 @@ export default async function OyuncuProfil({ params, searchParams }: Props) {
                   <s.icon size={17} />
                 </span>
                 <div className="min-w-0">
-                  <p className="text-[9px] font-black tracking-widest uppercase text-[#7aab8e]">{s.label}</p>
-                  <p className="text-sm font-black text-ugreenm truncate">{s.value}</p>
+                  <p className="text-[9px] font-extrabold tracking-widest uppercase text-[#7aab8e]">{s.label}</p>
+                  <p className="text-sm font-extrabold text-ugreenm truncate">{s.value}</p>
                 </div>
               </div>
             ))}
@@ -139,7 +139,7 @@ export default async function OyuncuProfil({ params, searchParams }: Props) {
       {/* ════ BİYOGRAFİ ════ */}
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 pb-16">
         <div className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm p-6 md:p-9">
-          <h2 className="text-xs font-black tracking-widest uppercase text-[#7aab8e] mb-5 flex items-center gap-2">
+          <h2 className="text-xs font-extrabold tracking-widest uppercase text-[#7aab8e] mb-5 flex items-center gap-2">
             <span className="inline-block w-1 h-4 bg-ugold rounded-full" /> Biyografi
           </h2>
           {(player.bio || player.description) ? (

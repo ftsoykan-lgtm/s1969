@@ -81,7 +81,7 @@ export default async function MacDetayPage({ params }: Props) {
       {/* ════ PREMIUM SKOR BAŞLIĞI ════ */}
       <div className="relative bg-gradient-to-b from-[#0c3a23] to-ugreenm overflow-hidden">
         <div className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 w-[700px] h-[400px] rounded-full bg-ugreen/40 blur-[120px]" />
-        <div className="pointer-events-none absolute top-0 right-8 font-heading text-[14rem] font-black leading-none text-white/[0.02] select-none">VS</div>
+        <div className="pointer-events-none absolute top-0 right-8 font-heading text-[14rem] font-extrabold leading-none text-white/[0.02] select-none">VS</div>
 
         <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-10">
           <Link href="/mac-merkezi"
@@ -89,11 +89,11 @@ export default async function MacDetayPage({ params }: Props) {
             <span className="flex h-6 w-6 items-center justify-center rounded-full bg-ugold text-ugreend group-hover:bg-ugreend group-hover:text-ugold transition-colors">
               <ArrowLeft size={14} />
             </span>
-            <span className="text-[12px] font-black tracking-wide uppercase text-white group-hover:text-ugreend transition-colors">Maç Merkezi</span>
+            <span className="text-[12px] font-extrabold tracking-wide uppercase text-white group-hover:text-ugreend transition-colors">Maç Merkezi</span>
           </Link>
 
           <div className="flex justify-center mb-7">
-            <span className="inline-flex items-center gap-2 bg-ugold text-ugreend text-[11px] font-black tracking-[0.15em] uppercase px-4 py-1.5"
+            <span className="inline-flex items-center gap-2 bg-ugold text-ugreend text-[11px] font-extrabold tracking-[0.15em] uppercase px-4 py-1.5"
               style={{ clipPath: 'polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%)' }}>
               {canonicalCompetition(match.competition)}{match.roundLabel ? ` · ${match.roundLabel}` : ''}
             </span>
@@ -102,33 +102,33 @@ export default async function MacDetayPage({ params }: Props) {
           <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3 md:gap-8">
             <div className="flex flex-col items-center gap-3">
               <div className="relative w-20 h-20 md:w-32 md:h-32 drop-shadow-2xl"><Image src={match.homeTeamLogo} alt={match.homeTeam} fill className="object-contain" /></div>
-              <span className={`text-sm md:text-xl font-black text-center ${urfaIsHome ? 'text-ugold' : 'text-white'}`}>{match.homeTeam}</span>
+              <span className={`text-sm md:text-xl font-extrabold text-center ${urfaIsHome ? 'text-ugold' : 'text-white'}`}>{match.homeTeam}</span>
             </div>
 
             <div className="text-center px-1">
               {match.isCompleted ? (
                 <>
                   <div className="flex items-center justify-center gap-3 md:gap-5">
-                    <span className="text-6xl md:text-8xl font-black text-white tabular-nums leading-none">{match.homeScore}</span>
-                    <span className="text-3xl md:text-5xl font-black text-white/25">-</span>
-                    <span className="text-6xl md:text-8xl font-black text-white tabular-nums leading-none">{match.awayScore}</span>
+                    <span className="text-6xl md:text-8xl font-extrabold text-white tabular-nums leading-none">{match.homeScore}</span>
+                    <span className="text-3xl md:text-5xl font-extrabold text-white/25">-</span>
+                    <span className="text-6xl md:text-8xl font-extrabold text-white tabular-nums leading-none">{match.awayScore}</span>
                   </div>
                   {(htHome > 0 || htAway > 0 || goals.length > 0) && (
                     <p className="mt-3 text-xs font-bold text-white/45">İlk Yarı: <span className="text-white/70 tabular-nums">{htHome} - {htAway}</span></p>
                   )}
-                  <span className="inline-block mt-2 text-[10px] font-black tracking-[0.2em] uppercase text-ugold/70">Maç Sonucu</span>
+                  <span className="inline-block mt-2 text-[10px] font-extrabold tracking-[0.2em] uppercase text-ugold/70">Maç Sonucu</span>
                 </>
               ) : (
                 <>
-                  <div className="text-3xl md:text-5xl font-black text-ugold">{match.time || 'VS'}</div>
-                  <span className="inline-block mt-2 text-[10px] font-black tracking-widest uppercase text-white/40">{match.date ? formatDate(match.date) : 'Yakında'}</span>
+                  <div className="text-3xl md:text-5xl font-extrabold text-ugold">{match.time || 'VS'}</div>
+                  <span className="inline-block mt-2 text-[10px] font-extrabold tracking-widest uppercase text-white/40">{match.date ? formatDate(match.date) : 'Yakında'}</span>
                 </>
               )}
             </div>
 
             <div className="flex flex-col items-center gap-3">
               <div className="relative w-20 h-20 md:w-32 md:h-32 drop-shadow-2xl"><Image src={match.awayTeamLogo} alt={match.awayTeam} fill className="object-contain" /></div>
-              <span className={`text-sm md:text-xl font-black text-center ${!urfaIsHome ? 'text-ugold' : 'text-white'}`}>{match.awayTeam}</span>
+              <span className={`text-sm md:text-xl font-extrabold text-center ${!urfaIsHome ? 'text-ugold' : 'text-white'}`}>{match.awayTeam}</span>
             </div>
           </div>
 
@@ -161,7 +161,7 @@ export default async function MacDetayPage({ params }: Props) {
                         <span className="text-sm font-bold text-ugreenm">{e.player}{e.detail ? <span className="text-[#7aab8e] font-normal"> · {e.detail}</span> : null}</span>
                         <EventIcon type={e.type} />
                       </div>
-                      <span className="relative z-10 flex h-8 min-w-8 px-2 items-center justify-center rounded-full bg-ugreend text-[11px] font-black text-white tabular-nums shadow">
+                      <span className="relative z-10 flex h-8 min-w-8 px-2 items-center justify-center rounded-full bg-ugreend text-[11px] font-extrabold text-white tabular-nums shadow">
                         {e.minute != null ? `${e.minute}'` : '·'}
                       </span>
                       <div className={`flex items-center gap-2 ${!isHome ? 'justify-start text-left' : 'opacity-0 pointer-events-none'}`}>
@@ -216,7 +216,7 @@ export default async function MacDetayPage({ params }: Props) {
                       <Flag size={15} />
                     </span>
                     <div className="min-w-0">
-                      <p className={`text-sm font-black truncate ${main ? 'text-white' : 'text-ugreenm'}`}>{r.name}</p>
+                      <p className={`text-sm font-extrabold truncate ${main ? 'text-white' : 'text-ugreenm'}`}>{r.name}</p>
                       <p className={`text-[10px] font-bold tracking-wide uppercase ${main ? 'text-ugold/80' : 'text-[#7aab8e]'}`}>{r.role}</p>
                     </div>
                   </div>
@@ -260,7 +260,7 @@ function Chip({ icon: Icon, children }: { icon: React.ComponentType<{ size?: num
 function Card({ title, icon: Icon, children }: { title: string; icon?: React.ComponentType<{ size?: number; className?: string }>; children: React.ReactNode }) {
   return (
     <div className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm p-6">
-      <h2 className="text-xs font-black tracking-widest uppercase text-[#7aab8e] mb-5 flex items-center gap-2">
+      <h2 className="text-xs font-extrabold tracking-widest uppercase text-[#7aab8e] mb-5 flex items-center gap-2">
         {Icon && <Icon size={14} className="text-ugreen" />}
         <span className="inline-block w-1 h-4 bg-ugold rounded-full" />{title}
       </h2>
@@ -275,8 +275,8 @@ function Milestone({ emoji, anim, label, score, tone }: { emoji: string; anim?: 
     <div className="relative flex justify-center py-1">
       <div className={`relative z-10 inline-flex items-center gap-2 ${bg} rounded-full pl-3 pr-4 py-2 shadow-md`}>
         <span className={`text-sm leading-none ${anim ?? ''}`}>{emoji}</span>
-        <span className="text-[11px] font-black tracking-wide uppercase">{label}</span>
-        {score && <span className="text-sm font-black tabular-nums border-l border-current/20 pl-2 ml-0.5">{score}</span>}
+        <span className="text-[11px] font-extrabold tracking-wide uppercase">{label}</span>
+        {score && <span className="text-sm font-extrabold tabular-nums border-l border-current/20 pl-2 ml-0.5">{score}</span>}
       </div>
     </div>
   )
@@ -293,8 +293,8 @@ function ElevenList({ team, logo, players, coach, variant = 'opp', muted = false
       <span className={`absolute left-0 top-0 bottom-0 w-1 ${stripe}`} />
       <div className="flex items-center gap-2.5 px-4 py-3 bg-[#f8faf9] border-b border-[#edf7f2]">
         <div className="relative w-7 h-7 shrink-0"><Image src={logo} alt="" fill className="object-contain" /></div>
-        <span className="text-sm font-black text-ugreenm">{team}</span>
-        {isSfk && !muted && <span className="ml-auto text-[9px] font-black tracking-widest uppercase text-ugreen bg-[#e3f1e9] rounded-full px-2 py-0.5">Bizim Takım</span>}
+        <span className="text-sm font-extrabold text-ugreenm">{team}</span>
+        {isSfk && !muted && <span className="ml-auto text-[9px] font-extrabold tracking-widest uppercase text-ugreen bg-[#e3f1e9] rounded-full px-2 py-0.5">Bizim Takım</span>}
       </div>
       <ul className="p-2 space-y-0.5">
         {players.map((p, i) => {
@@ -303,7 +303,7 @@ function ElevenList({ team, logo, players, coach, variant = 'opp', muted = false
           const linkable = isSfk && profileSlugs?.has(slug)
           const inner = (
             <>
-              <span className={`flex h-7 w-7 items-center justify-center rounded-md text-[11px] font-black tabular-nums shrink-0 shadow-sm ${badge}`}>{p.number ?? '-'}</span>
+              <span className={`flex h-7 w-7 items-center justify-center rounded-md text-[11px] font-extrabold tabular-nums shrink-0 shadow-sm ${badge}`}>{p.number ?? '-'}</span>
               <span className={`text-sm font-semibold truncate ${linkable ? 'text-ugreend group-hover/pl:text-ugreen group-hover/pl:underline' : 'text-ugreenm'}`}>{p.name}</span>
             </>
           )
@@ -328,7 +328,7 @@ function Info({ icon: Icon, label, value }: { icon: React.ComponentType<{ size?:
         <Icon size={18} />
       </div>
       <div className="min-w-0">
-        <p className="text-[10px] font-black tracking-widest uppercase text-[#7aab8e]">{label}</p>
+        <p className="text-[10px] font-extrabold tracking-widest uppercase text-[#7aab8e]">{label}</p>
         <p className="text-sm font-bold text-ugreenm truncate">{value}</p>
       </div>
     </div>

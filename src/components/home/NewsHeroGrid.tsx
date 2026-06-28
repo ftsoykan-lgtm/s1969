@@ -5,7 +5,7 @@ import type { SiteNews } from '@/lib/supabase/news-server'
 
 function Badge({ label }: { label: string }) {
   return (
-    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-black tracking-widest uppercase bg-ugold text-ugreend">
+    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-widest uppercase bg-ugold text-ugreend">
       <span className="w-1.5 h-1.5 rounded-full bg-current opacity-70" />
       {label}
     </span>
@@ -21,7 +21,7 @@ function MainCard({ item, label }: { item: SiteNews; label: string }) {
       <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-ugold transition-colors duration-300 pointer-events-none" />
       <div className="absolute bottom-0 left-0 right-0 p-7">
         <Badge label={label} />
-        <h2 className="mt-3 text-white text-2xl md:text-3xl font-black leading-snug tracking-tight line-clamp-3">{item.title}</h2>
+        <h2 className="mt-3 text-white text-2xl md:text-3xl font-extrabold leading-snug tracking-tight line-clamp-3">{item.title}</h2>
         <p className="mt-2 text-white/55 text-base line-clamp-2">{item.excerpt}</p>
         <p className="mt-3 text-[12px] text-ugold/70 font-medium">{formatDate(item.date)}</p>
       </div>
@@ -54,7 +54,7 @@ function GridCard({ item, label }: { item: SiteNews; label: string }) {
         <div className="absolute top-3 left-3"><Badge label={label} /></div>
       </div>
       <div className="p-4">
-        <h3 className="text-base font-black text-ugreenm leading-snug line-clamp-2 group-hover:text-ugreen transition-colors">{item.title}</h3>
+        <h3 className="text-base font-extrabold text-ugreenm leading-snug line-clamp-2 group-hover:text-ugreen transition-colors">{item.title}</h3>
         <p className="mt-2 text-xs text-[#7aab8e] font-medium">{formatDate(item.date)}</p>
       </div>
     </Link>
@@ -68,14 +68,14 @@ export default function NewsHeroGrid({ news, catName }: { news: SiteNews[]; catN
   const gridItems = rest.slice(3, 7)
 
   return (
-    <section className="py-20 md:py-24 bg-white">
+    <section className="reveal py-20 md:py-24 bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between mb-9">
           <div className="flex items-center gap-4">
             <span className="block w-1.5 h-10 bg-ugold rounded-full" />
             <div>
-              <p className="text-[11px] font-black tracking-[0.2em] uppercase text-ugreen/70 mb-0.5">Son Dakika</p>
-              <h2 className="text-3xl md:text-5xl font-black text-ugreenm tracking-tight">
+              <p className="text-[11px] font-extrabold tracking-[0.2em] uppercase text-ugreen/70 mb-0.5">Son Dakika</p>
+              <h2 className="text-3xl md:text-5xl font-extrabold text-ugreenm tracking-tight">
                 Kulüp <span className="text-ugreen">Haberleri</span>
               </h2>
             </div>

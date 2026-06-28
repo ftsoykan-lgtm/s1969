@@ -72,7 +72,7 @@ export default function AdminLogolarPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-black text-ugreenm">Logolar</h1>
+        <h1 className="text-2xl font-extrabold text-ugreenm">Logolar</h1>
         <p className="text-sm text-utxt2 mt-1">Takım ve turnuva logoları. Yükleyin veya URL girin.</p>
       </div>
 
@@ -82,7 +82,7 @@ export default function AdminLogolarPage() {
         <>
           {/* Turnuva logoları */}
           <div>
-            <p className="text-xs font-black tracking-widest uppercase text-ugreen mb-3 flex items-center gap-2">
+            <p className="text-xs font-extrabold tracking-widest uppercase text-ugreen mb-3 flex items-center gap-2">
               <span className="w-4 h-0.5 bg-ugold inline-block" /> Turnuva Logoları
             </p>
             {competitions.length === 0 ? (
@@ -98,7 +98,7 @@ export default function AdminLogolarPage() {
 
           {/* Takım logoları */}
           <div>
-            <p className="text-xs font-black tracking-widest uppercase text-ugreen mb-3 flex items-center gap-2">
+            <p className="text-xs font-extrabold tracking-widest uppercase text-ugreen mb-3 flex items-center gap-2">
               <span className="w-4 h-0.5 bg-ugold inline-block" /> Takım Logoları
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

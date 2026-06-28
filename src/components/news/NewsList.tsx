@@ -36,8 +36,8 @@ export default function NewsList({ news, categories }: { news: SiteNews[]; categ
               <Image src={featured.imageUrl} alt={featured.title} fill priority sizes="100vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
               <div className="absolute inset-0 bg-gradient-to-t from-ugreenm/97 via-ugreend/40 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-7 md:p-9 max-w-3xl">
-                <span className="inline-block px-3 py-1 rounded-full text-[11px] font-black tracking-widest uppercase bg-ugold text-ugreend">{catName(featured.category)}</span>
-                <h2 className="mt-3 text-white text-2xl md:text-4xl font-black leading-snug tracking-tight line-clamp-3">{featured.title}</h2>
+                <span className="inline-block px-3 py-1 rounded-full text-[11px] font-extrabold tracking-widest uppercase bg-ugold text-ugreend">{catName(featured.category)}</span>
+                <h2 className="mt-3 text-white text-2xl md:text-4xl font-extrabold leading-snug tracking-tight line-clamp-3">{featured.title}</h2>
                 <p className="mt-2 text-white/60 text-base line-clamp-2 max-w-2xl">{featured.excerpt}</p>
                 <p className="mt-3 text-[12px] text-ugold/70 font-medium">{formatDate(featured.date)}</p>
               </div>
@@ -52,11 +52,11 @@ export default function NewsList({ news, categories }: { news: SiteNews[]; categ
                 <div className="relative h-48 overflow-hidden bg-[#edf7f2]">
                   <Image src={n.imageUrl} alt={n.title} fill sizes="33vw" className="object-cover group-hover:scale-105 transition-transform duration-500" />
                   <div className="absolute top-3 left-3">
-                    <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-black tracking-widest uppercase bg-ugold text-ugreend">{catName(n.category)}</span>
+                    <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-widest uppercase bg-ugold text-ugreend">{catName(n.category)}</span>
                   </div>
                 </div>
                 <div className="p-5">
-                  <h3 className="text-base font-black text-ugreenm leading-snug line-clamp-2 group-hover:text-ugreen transition-colors">{n.title}</h3>
+                  <h3 className="text-base font-extrabold text-ugreenm leading-snug line-clamp-2 group-hover:text-ugreen transition-colors">{n.title}</h3>
                   <p className="mt-2 text-sm text-utxt2 line-clamp-2">{n.excerpt}</p>
                   <p className="mt-3 text-xs text-[#7aab8e] font-medium">{formatDate(n.date)}</p>
                 </div>
@@ -72,7 +72,7 @@ export default function NewsList({ news, categories }: { news: SiteNews[]; categ
 function Pill({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
   return (
     <button onClick={onClick}
-      className={`px-5 py-2.5 rounded-full text-sm font-black tracking-wide transition-all ${
+      className={`px-5 py-2.5 rounded-full text-sm font-extrabold tracking-wide transition-all ${
         active ? 'bg-ugreen text-white shadow-sm' : 'bg-white border border-[#ddeae2] text-utxt2 hover:border-ugreen/40'
       }`}>
       {children}

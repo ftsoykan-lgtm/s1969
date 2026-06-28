@@ -39,22 +39,22 @@ export default function StandingsTable({
       {/* Başlık — eyebrow sezon + büyük LİG TABLOSU */}
       {title && (
         <div className="mb-4">
-          <p className="text-[11px] font-black tracking-[0.18em] uppercase text-ugreenm">
+          <p className="text-[11px] font-extrabold tracking-[0.18em] uppercase text-ugreenm">
             Sezon {season ? <span className="text-ugold bg-ugreen px-1.5 py-0.5 rounded">{season}</span> : ''}
           </p>
-          <h3 className="font-heading text-3xl md:text-4xl font-black text-ugreenm tracking-tight leading-none mt-2">LİG TABLOSU</h3>
+          <h3 className="font-heading text-3xl md:text-4xl font-extrabold text-ugreenm tracking-tight leading-none mt-2">LİG TABLOSU</h3>
         </div>
       )}
 
       <div className="panel-premium overflow-hidden">
         {/* Başlık şeridi — yeşil */}
         <div className={`grid ${COLS} gap-1 items-center px-3 py-3 bg-ugreen`}>
-          <span className="text-[11px] font-black text-white/50 text-center">#</span>
-          <span className="text-[11px] font-black tracking-wide uppercase text-white pl-1">Kulüpler</span>
+          <span className="text-[11px] font-extrabold text-white/50 text-center">#</span>
+          <span className="text-[11px] font-extrabold tracking-wide uppercase text-white pl-1">Kulüpler</span>
           {['O', 'G', 'B', 'M', 'AV'].map((c) => (
-            <span key={c} className="text-[11px] font-black text-white/60 text-center">{c}</span>
+            <span key={c} className="text-[11px] font-extrabold text-white/60 text-center">{c}</span>
           ))}
-          <span className="text-[11px] font-black text-ugold text-center">P</span>
+          <span className="text-[11px] font-extrabold text-ugold text-center">P</span>
         </div>
 
         {shown.map((row, i) => {
@@ -66,7 +66,7 @@ export default function StandingsTable({
                 cur ? 'bg-ugreenm' : i % 2 === 1 ? 'bg-[#f5f9f6] hover:bg-[#eef5f0]' : 'bg-white hover:bg-[#f5f9f6]'
               }`}>
               <span className={`absolute left-0 top-0 bottom-0 w-1 ${barColor(row.rank, total)}`} />
-              <span className={`text-xs font-black text-center tabular-nums ${cur ? 'text-ugold' : 'text-ugreenm'}`}>{row.rank}</span>
+              <span className={`text-xs font-extrabold text-center tabular-nums ${cur ? 'text-ugold' : 'text-ugreenm'}`}>{row.rank}</span>
               <div className="flex items-center gap-2 min-w-0 pl-1">
                 <div className="relative w-5 h-5 shrink-0"><Image src={row.teamLogo} alt={row.team} fill className="object-contain" /></div>
                 <span className={`text-[12px] font-bold truncate ${cur ? 'text-white' : 'text-ugreenm'}`}>{row.team}</span>
@@ -76,7 +76,7 @@ export default function StandingsTable({
               <span className={`text-[11px] text-center tabular-nums ${cur ? 'text-white/70' : 'text-utxt2'}`}>{row.drawn}</span>
               <span className={`text-[11px] text-center tabular-nums ${cur ? 'text-white/70' : 'text-utxt2'}`}>{row.lost}</span>
               <span className={`text-[11px] text-center tabular-nums ${cur ? 'text-white/80' : 'text-utxt2'}`}>{av > 0 ? `+${av}` : av}</span>
-              <span className={`text-[13px] font-black text-center tabular-nums ${cur ? 'text-ugold' : 'text-ugreenm'}`}>{row.points}</span>
+              <span className={`text-[13px] font-extrabold text-center tabular-nums ${cur ? 'text-ugold' : 'text-ugreenm'}`}>{row.points}</span>
             </div>
           )
         })}

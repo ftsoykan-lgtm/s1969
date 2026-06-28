@@ -20,9 +20,9 @@ export default function MagazaPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-3">
             <span className="block w-8 h-0.5 bg-ugold" />
-            <p className="text-xs font-black tracking-widest uppercase text-ugold/60">Resmi Ürünler</p>
+            <p className="text-xs font-extrabold tracking-widest uppercase text-ugold/60">Resmi Ürünler</p>
           </div>
-          <h1 className="text-4xl md:text-5xl font-black text-white tracking-tight">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight">
             Kulüp <span className="text-ugold">Mağazası</span>
           </h1>
         </div>
@@ -35,16 +35,16 @@ export default function MagazaPage() {
               <div className="relative h-52 overflow-hidden bg-[#edf7f2]">
                 <Image src={p.image} alt={p.name} fill sizes="25vw" className="object-cover group-hover:scale-105 transition-transform duration-500" />
                 {p.isNew && (
-                  <span className="absolute top-3 left-3 bg-ugold text-ugreenm text-[10px] font-black px-2 py-0.5 rounded-full">YENİ</span>
+                  <span className="absolute top-3 left-3 bg-ugold text-ugreenm text-[10px] font-extrabold px-2 py-0.5 rounded-full">YENİ</span>
                 )}
                 {p.oldPrice && (
-                  <span className="absolute top-3 right-3 bg-red-500 text-white text-[10px] font-black px-2 py-0.5 rounded-full">
+                  <span className="absolute top-3 right-3 bg-red-500 text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full">
                     %{Math.round((1 - p.price / p.oldPrice) * 100)} İNDİRİM
                   </span>
                 )}
               </div>
               <div className="p-4">
-                <p className="text-[10px] text-[#7aab8e] font-black uppercase tracking-wide mb-1">{p.category}</p>
+                <p className="text-[10px] text-[#7aab8e] font-extrabold uppercase tracking-wide mb-1">{p.category}</p>
                 <p className="text-sm font-bold text-ugreenm leading-tight mb-2">{p.name}</p>
                 <div className="flex items-center gap-1 mb-3">
                   <Star size={10} fill="#f5c400" className="text-ugold" />
@@ -52,10 +52,10 @@ export default function MagazaPage() {
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
-                    <span className="text-lg font-black text-ugreenm">₺{p.price}</span>
+                    <span className="text-lg font-extrabold text-ugreenm">₺{p.price}</span>
                     {p.oldPrice && <span className="text-xs text-[#7aab8e] line-through ml-1">₺{p.oldPrice}</span>}
                   </div>
-                  <button className="flex items-center gap-1.5 bg-ugreen hover:bg-ugreend text-white text-[11px] font-black px-3 py-2 rounded-xl transition-colors">
+                  <button className="flex items-center gap-1.5 bg-ugreen hover:bg-ugreend text-white text-[11px] font-extrabold px-3 py-2 rounded-xl transition-colors">
                     <ShoppingCart size={12} /> Ekle
                   </button>
                 </div>
