@@ -83,22 +83,23 @@ export default function CalendarView({ items, season, league }: { items: CalMatc
 
   return (
     <div className="space-y-7">
-      {/* ── Takvim kartı (açık · sarı-yeşil) ─────────────────────── */}
-      <div className="rounded-3xl overflow-hidden bg-white ring-1 ring-[#d2e5da] shadow-[0_18px_45px_-22px_rgba(15,74,40,0.35)]">
-        {/* Başlık (yeşil) */}
-        <div className="relative bg-gradient-to-r from-ugreen to-[#15592f] px-4 sm:px-7 py-4 sm:py-5 flex items-center justify-between">
-          <div className="absolute bottom-0 inset-x-0 h-0.5 bg-gradient-to-r from-transparent via-ugold/70 to-transparent" />
+      {/* ── Takvim kartı (premium · sarı-yeşil) ──────────────────── */}
+      <div className="rounded-3xl overflow-hidden bg-white ring-1 ring-[#d2e5da] shadow-[0_28px_60px_-28px_rgba(15,74,40,0.5)]">
+        {/* Başlık (yeşil · premium) */}
+        <div className="relative bg-gradient-to-br from-ugreens via-ugreen to-ugreend px-4 sm:px-7 py-5 sm:py-7 flex items-center justify-between overflow-hidden">
+          <span aria-hidden className="pointer-events-none absolute -top-8 right-8 font-heading text-[7rem] font-extrabold text-white/[0.05] leading-none select-none hidden sm:block">{cur.y}</span>
+          <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-ugold/60 to-transparent" />
           <button onClick={() => canPrev && setCurK((k) => k - 1)} disabled={!canPrev} aria-label="Önceki ay"
-            className="h-9 w-9 sm:h-10 sm:w-10 flex items-center justify-center rounded-full text-white bg-white/15 hover:bg-ugold hover:text-ugreend transition-all disabled:opacity-25 disabled:hover:bg-white/15 disabled:hover:text-white">
-            <ChevronLeft size={18} />
+            className="relative h-10 w-10 sm:h-11 sm:w-11 flex items-center justify-center rounded-full text-white bg-white/10 ring-1 ring-white/15 hover:bg-ugold hover:text-ugreend hover:ring-ugold transition-all disabled:opacity-25 disabled:hover:bg-white/10 disabled:hover:text-white">
+            <ChevronLeft size={19} />
           </button>
-          <div className="text-center">
-            <h2 className="font-heading text-xl sm:text-3xl font-extrabold text-white leading-none uppercase tracking-tight">{AYLAR[cur.m]}</h2>
-            <p className="text-ugold text-[10px] sm:text-xs font-extrabold tracking-[0.3em] mt-1">{cur.y}</p>
+          <div className="relative text-center">
+            <p className="text-ugold text-[10px] sm:text-[11px] font-extrabold tracking-[0.35em] uppercase mb-1">Maç Takvimi</p>
+            <h2 className="font-heading text-3xl sm:text-5xl font-extrabold text-white leading-none uppercase tracking-[-0.02em]">{AYLAR[cur.m]} <span className="text-ugold">{cur.y}</span></h2>
           </div>
           <button onClick={() => canNext && setCurK((k) => k + 1)} disabled={!canNext} aria-label="Sonraki ay"
-            className="h-9 w-9 sm:h-10 sm:w-10 flex items-center justify-center rounded-full text-white bg-white/15 hover:bg-ugold hover:text-ugreend transition-all disabled:opacity-25 disabled:hover:bg-white/15 disabled:hover:text-white">
-            <ChevronRight size={18} />
+            className="relative h-10 w-10 sm:h-11 sm:w-11 flex items-center justify-center rounded-full text-white bg-white/10 ring-1 ring-white/15 hover:bg-ugold hover:text-ugreend hover:ring-ugold transition-all disabled:opacity-25 disabled:hover:bg-white/10 disabled:hover:text-white">
+            <ChevronRight size={19} />
           </button>
         </div>
 
@@ -148,6 +149,20 @@ export default function CalendarView({ items, season, league }: { items: CalMatc
               </div>
             )
           })}
+        </div>
+
+        {/* Sonuç renk lejantı */}
+        <div className="flex items-center justify-center flex-wrap gap-x-5 gap-y-1.5 px-4 py-3 bg-[#f7fbf8] border-t border-[#eef5f0]">
+          {[
+            { c: 'bg-ugreen', t: 'Galibiyet' },
+            { c: 'bg-ugold', t: 'Beraberlik' },
+            { c: 'bg-[#d01b2a]', t: 'Mağlubiyet' },
+            { c: 'bg-ugold ring-2 ring-ugold/30', t: 'Bugün' },
+          ].map((l) => (
+            <span key={l.t} className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wide text-[#7aab8e]">
+              <span className={`w-2.5 h-2.5 rounded-full ${l.c}`} />{l.t}
+            </span>
+          ))}
         </div>
 
         {/* Bu ayın maç listesi */}
