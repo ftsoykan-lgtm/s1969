@@ -17,52 +17,57 @@ function MatchCard({ match }: { match: Match }) {
     ? urfaScore > oppScore ? 'G' : urfaScore < oppScore ? 'M' : 'B'
     : null
 
+  const accentTop = result === 'G' ? 'border-t-ugreen' : result === 'M' ? 'border-t-[#d01b2a]' : 'border-t-ugold'
+  const Logo = ({ src, alt }: { src: string; alt: string }) => (
+    <div className="h-16 w-16 rounded-2xl bg-white ring-1 ring-[#e2ece6] shadow-[0_4px_12px_-6px_rgba(15,74,40,0.4)] flex items-center justify-center p-2">
+      <div className="relative w-full h-full"><Image src={src} alt={alt} fill className="object-contain" /></div>
+    </div>
+  )
+
   const Inner = (
-    <div className="card-premium p-5 h-full flex flex-col border-t-4 border-t-ugold">
+    <div className={`card-premium p-5 h-full flex flex-col border-t-4 ${accentTop}`}>
       {/* Üst: hafta + sonuç rozeti */}
-      <div className="flex items-start justify-between gap-2 mb-3 min-h-[34px]">
-        <span className="text-[11px] font-extrabold tracking-widest uppercase text-ugold leading-snug line-clamp-2">
+      <div className="flex items-center justify-between gap-2 mb-3 min-h-[28px]">
+        <span className="text-[11px] font-extrabold tracking-widest uppercase text-ugold leading-snug line-clamp-1">
           {match.roundLabel ?? (match.week ? `${match.week}. Hafta` : match.competition)}
         </span>
         {result && (
-          <span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-[12px] font-extrabold shadow-sm leading-none ${
+          <span className={`flex h-6 px-2 items-center justify-center rounded-full text-[11px] font-extrabold shadow-sm leading-none gap-1 ${
             result === 'G' ? 'bg-ugreen text-white' : result === 'M' ? 'bg-[#d01b2a] text-white' : 'bg-ugold text-ugreend'
-          }`} title={result === 'G' ? 'Galibiyet' : result === 'M' ? 'Mağlubiyet' : 'Beraberlik'}>{result}</span>
+          }`}>{result === 'G' ? 'Galibiyet' : result === 'M' ? 'Mağlubiyet' : 'Beraberlik'}</span>
         )}
       </div>
-      <p className="text-[12px] text-[#7aab8e] font-semibold mb-4">{formatDate(match.date)}</p>
+      <p className="text-[11px] text-[#7aab8e] font-bold uppercase tracking-wide mb-4">{formatDate(match.date)}</p>
 
-      {/* Logolar + skor — daima ortalı/hizalı */}
+      {/* Logolar + skor */}
       <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
-        <div className="flex justify-center">
-          <div className="relative w-14 h-14"><Image src={match.homeTeamLogo} alt={match.homeTeam} fill className="object-contain" /></div>
-        </div>
+        <div className="flex justify-center"><Logo src={match.homeTeamLogo} alt={match.homeTeam} /></div>
         <div className="flex items-center gap-1.5 px-1">
           {match.isCompleted ? (
             <>
-              <span className="w-10 h-11 flex items-center justify-center rounded-lg bg-ugreend text-2xl font-extrabold text-white tabular-nums">{match.homeScore}</span>
-              <span className="w-10 h-11 flex items-center justify-center rounded-lg bg-ugreend text-2xl font-extrabold text-white tabular-nums">{match.awayScore}</span>
+              <span className="w-11 h-12 flex items-center justify-center rounded-xl bg-gradient-to-b from-ugreen to-ugreend text-2xl font-extrabold text-white tabular-nums shadow-[0_6px_14px_-6px_rgba(15,74,40,0.6)]">{match.homeScore}</span>
+              <span className="w-11 h-12 flex items-center justify-center rounded-xl bg-gradient-to-b from-ugreen to-ugreend text-2xl font-extrabold text-white tabular-nums shadow-[0_6px_14px_-6px_rgba(15,74,40,0.6)]">{match.awayScore}</span>
             </>
           ) : (
-            <span className="h-11 flex items-center text-sm font-extrabold text-[#7aab8e] px-2">VS</span>
+            <span className="h-12 flex items-center text-sm font-extrabold text-ugold px-3 rounded-xl bg-ugold/10 ring-1 ring-ugold/25">VS</span>
           )}
         </div>
-        <div className="flex justify-center">
-          <div className="relative w-14 h-14"><Image src={match.awayTeamLogo} alt={match.awayTeam} fill className="object-contain" /></div>
-        </div>
+        <div className="flex justify-center"><Logo src={match.awayTeamLogo} alt={match.awayTeam} /></div>
       </div>
 
-      {/* Takım isimleri — ayrı satır, sabit yükseklik */}
-      <div className="grid grid-cols-[1fr_auto_1fr] gap-2 mt-2.5">
-        <span className={`text-[11px] font-bold text-center leading-tight line-clamp-2 min-h-[30px] ${urfaIsHome ? 'text-ugreen' : 'text-ugreenm'}`}>{match.homeTeam}</span>
-        <span className="w-[88px]" />
-        <span className={`text-[11px] font-bold text-center leading-tight line-clamp-2 min-h-[30px] ${!urfaIsHome ? 'text-ugreen' : 'text-ugreenm'}`}>{match.awayTeam}</span>
+      {/* Takım isimleri */}
+      <div className="grid grid-cols-[1fr_auto_1fr] gap-2 mt-3 items-start">
+        <span className={`text-[12px] font-extrabold text-center leading-tight line-clamp-2 min-h-[30px] ${urfaIsHome ? 'text-ugreen' : 'text-ugreenm'}`}>{match.homeTeam}</span>
+        <span className="w-[94px]" />
+        <span className={`text-[12px] font-extrabold text-center leading-tight line-clamp-2 min-h-[30px] ${!urfaIsHome ? 'text-ugreen' : 'text-ugreenm'}`}>{match.awayTeam}</span>
       </div>
 
       {/* Stat — alta sabit */}
-      <div className="mt-auto pt-3.5 border-t border-[#edf7f2] flex items-center justify-center gap-1.5 text-[12px] text-[#7aab8e]">
-        <MapPin size={12} className="text-ugreen shrink-0" />
-        <span className="truncate">{match.venue || '—'}</span>
+      <div className="mt-auto pt-3.5 border-t border-[#edf7f2] flex items-center justify-center gap-1.5">
+        <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-utxt2 bg-[#f4faf0] px-3 py-1.5 rounded-full">
+          <MapPin size={12} className="text-ugreen shrink-0" />
+          <span className="truncate max-w-[180px]">{match.venue || '—'}</span>
+        </span>
       </div>
     </div>
   )
