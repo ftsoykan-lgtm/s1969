@@ -31,19 +31,17 @@ export default async function SquadPreview() {
 
       <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 mb-10">
         <div className="flex items-end justify-between gap-4">
-          <div className="flex items-center gap-4">
-            <span className="block w-1.5 h-11 bg-ugold rounded-full" />
-            <div>
-              <p className="text-[11px] font-extrabold tracking-[0.2em] uppercase text-ugreen mb-1">
-                Profesyonel Takım{season ? ` · ${season}` : ''}
-              </p>
-              <h2 className="font-heading text-3xl md:text-5xl font-extrabold text-ugreenm tracking-tight">
-                Takım <span className="text-ugreen">Kadrosu</span>
-              </h2>
-            </div>
+          <div>
+            <span className="inline-flex items-center gap-2 mb-3">
+              <span className="block h-2.5 w-2.5 rounded-full bg-ugold" />
+              <span className="text-[12px] font-extrabold tracking-[0.25em] uppercase text-ugold">Profesyonel Takım{season ? ` · ${season}` : ''}</span>
+            </span>
+            <h2 className="font-heading text-5xl md:text-7xl font-extrabold text-ugreenm tracking-[-0.03em] leading-[0.92]">
+              TAKIM <span className="text-ugreen">KADROSU</span>
+            </h2>
           </div>
           <Link href="/kadro"
-            className="hidden sm:inline-flex items-center gap-2 text-sm font-extrabold tracking-wide uppercase text-white bg-ugreend hover:bg-ugreen rounded-full px-6 py-3 transition-colors shadow-md">
+            className="hidden sm:inline-flex items-center gap-2 text-sm font-extrabold tracking-wide uppercase text-white bg-ugreen hover:bg-ugreend rounded-xl px-6 py-3.5 transition-colors shadow-[0_10px_24px_-10px_rgba(12,46,34,0.5)]">
             Tüm Kadro →
           </Link>
         </div>

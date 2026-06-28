@@ -68,21 +68,23 @@ export default function NewsHeroGrid({ news, catName }: { news: SiteNews[]; catN
   const gridItems = rest.slice(3, 7)
 
   return (
-    <section className="reveal py-20 md:py-24 bg-white">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between mb-9">
-          <div className="flex items-center gap-4">
-            <span className="block w-1.5 h-10 bg-ugold rounded-full" />
-            <div>
-              <p className="text-[11px] font-extrabold tracking-[0.2em] uppercase text-ugreen/70 mb-0.5">Son Dakika</p>
-              <h2 className="text-3xl md:text-5xl font-extrabold text-ugreenm tracking-tight">
-                Kulüp <span className="text-ugreen">Haberleri</span>
-              </h2>
-            </div>
+    <section className="reveal relative py-20 md:py-24 bg-white overflow-hidden">
+      {/* arkada dev soluk filigran */}
+      <span aria-hidden className="pointer-events-none absolute -top-6 right-2 font-heading text-[18vw] leading-none font-extrabold text-ugreen/[0.04] select-none hidden md:block">HABER</span>
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex items-end justify-between mb-10">
+          <div>
+            <span className="inline-flex items-center gap-2 mb-3">
+              <span className="block h-2.5 w-2.5 rounded-full bg-ugold" />
+              <span className="text-[12px] font-extrabold tracking-[0.25em] uppercase text-ugold">Son Dakika</span>
+            </span>
+            <h2 className="font-heading text-5xl md:text-7xl font-extrabold text-ugreenm tracking-[-0.03em] leading-[0.92]">
+              KULÜP<br /><span className="text-ugreen">HABERLERİ</span>
+            </h2>
           </div>
           <Link href="/haberler"
-            className="hidden sm:inline-flex items-center gap-2 text-sm font-bold text-ugreen border-2 border-ugreen/30 rounded-xl px-5 py-2.5 hover:bg-ugreen hover:text-white hover:border-ugreen transition-all">
-            Tümünü Gör →
+            className="hidden sm:inline-flex items-center gap-2 text-sm font-extrabold uppercase tracking-wide text-white bg-ugreen px-6 py-3.5 rounded-xl hover:bg-ugreend transition-colors shadow-[0_10px_24px_-10px_rgba(12,46,34,0.5)]">
+            Tüm Haberler →
           </Link>
         </div>
 
