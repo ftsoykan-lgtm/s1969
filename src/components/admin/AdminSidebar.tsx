@@ -7,7 +7,7 @@ import { useState } from 'react'
 import {
   LayoutDashboard, Newspaper, Users, Image,
   LogOut, ChevronRight, Settings, Star,
-  FolderOpen, FileText
+  FolderOpen, FileText, Mail
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -37,6 +37,7 @@ const navGroups = [
   {
     label: 'SİSTEM',
     items: [
+      { label: 'Aboneler', href: '/admin/aboneler', icon: Mail },
       { label: 'Site Ayarları', href: '/admin/ayarlar', icon: Settings },
     ],
   },

@@ -592,3 +592,49 @@ export async function syncPlayersFromTff(season?: string): Promise<{ ok: boolean
     return { ok: true, count: rows.length, season: s }
   } catch (e) { return { ok: false, error: (e as Error).message } }
 }
+
+/* ─── BÜLTEN ABONELERİ (footer "Abone Ol") ──────────────────── */
+
+const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/
+
+/** Herkese açık: e-postayı subscribers tablosuna ekler (RLS insert) */
+export async function subscribeEmail(email: string): Promise<{ ok: boolean; error?: string; already?: boolean }> {
+  const e = (email || '').trim().toLowerCase()
+  if (!EMAIL_RE.test(e)) return { ok: false, error: 'Geçerli bir e-posta adresi girin.' }
+  try {
+    const { error } = await client().from('subscribers').insert({ email: e })
+    if (error) {
+      if (error.code === '23505') return { ok: true, already: true } // zaten kayıtlı
+      return { ok: false, error: error.message }
+    }
+    return { ok: true }
+  } catch (err) {
+    return { ok: false, error: (err as Error).message }
+  }
+}
+
+export interface Subscriber { id: number; email: string; created_at: string }
+
+/** Admin: tüm aboneler (yeniden eskiye) */
+export async function getSubscribers(): Promise<Subscriber[]> {
+  try {
+    const { data, error } = await client()
+      .from('subscribers')
+      .select('id, email, created_at')
+      .order('created_at', { ascending: false })
+    if (error || !data) return []
+    return data as Subscriber[]
+  } catch {
+    return []
+  }
+}
+
+/** Admin: abone sil */
+export async function deleteSubscriber(id: number): Promise<{ ok: boolean; error?: string }> {
+  try {
+    const { error } = await client().from('subscribers').delete().eq('id', id)
+    return error ? { ok: false, error: error.message } : { ok: true }
+  } catch (e) {
+    return { ok: false, error: (e as Error).message }
+  }
+}

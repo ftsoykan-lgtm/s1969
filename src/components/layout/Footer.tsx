@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { clubInfo as defaultClub, defaultFooter } from '@/data/club'
 import type { ClubInfo } from '@/data/club'
+import NewsletterForm from './NewsletterForm'
 
 /* ─── Sosyal medya SVG ikonları (Navbar ile aynı dil) ────────────────────── */
 const SocialIcons = {
@@ -68,14 +69,7 @@ export default function Footer({ club = defaultClub }: { club?: ClubInfo }) {
             <p className="text-[10px] font-extrabold tracking-[0.3em] uppercase text-ugold/60 mb-1.5">{f.newsletterKicker}</p>
             <h3 className="font-heading text-2xl md:text-3xl font-extrabold text-white tracking-tight">{f.newsletterTitle}</h3>
           </div>
-          <form className="flex w-full md:w-auto items-center gap-2 rounded-full bg-white/[0.05] border border-white/10 p-1.5 backdrop-blur-sm">
-            <input type="email" placeholder={f.newsletterPlaceholder} aria-label="E-posta"
-              className="flex-1 md:w-64 bg-transparent px-4 py-2 text-sm text-white placeholder-white/35 focus:outline-none" />
-            <button type="submit"
-              className="shrink-0 inline-flex items-center gap-1.5 text-ugreenm font-extrabold text-[11px] tracking-wide uppercase px-5 py-2.5 rounded-full bg-gradient-to-b from-ugoldl to-ugold shadow-[0_4px_14px_rgba(255,209,0,0.3)] hover:scale-[1.03] transition-transform">
-              {f.newsletterButton}
-            </button>
-          </form>
+          <NewsletterForm placeholder={f.newsletterPlaceholder} buttonLabel={f.newsletterButton} />
         </div>
       </div>
 
