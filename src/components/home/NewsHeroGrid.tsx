@@ -48,9 +48,9 @@ function SideCard({ item, label }: { item: SiteNews; label: string }) {
 function GridCard({ item, label }: { item: SiteNews; label: string }) {
   return (
     <Link href={`/haberler/${item.slug}`}
-      className="group block rounded-xl overflow-hidden bg-white border border-[#ddeae2] shadow-sm hover:shadow-lg hover:border-ugreen/30 transition-all hover:-translate-y-1 duration-300">
+      className="group block rounded-2xl overflow-hidden card-premium">
       <div className="relative h-44 overflow-hidden bg-[#edf7f2]">
-        <Image src={item.imageUrl} alt={item.title} fill sizes="25vw" className="object-cover group-hover:scale-105 transition-transform duration-500" />
+        <Image src={item.imageUrl} alt={item.title} fill sizes="25vw" className="object-cover media-zoom" />
         <div className="absolute top-3 left-3"><Badge label={label} /></div>
       </div>
       <div className="p-4">

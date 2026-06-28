@@ -18,7 +18,7 @@ function MatchCard({ match }: { match: Match }) {
     : null
 
   const Inner = (
-    <div className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm p-5 hover:shadow-md hover:border-ugreen/30 transition-all h-full flex flex-col">
+    <div className="card-premium p-5 h-full flex flex-col">
       {/* Üst: hafta + sonuç rozeti */}
       <div className="flex items-start justify-between gap-2 mb-3 min-h-[34px]">
         <span className="text-[11px] font-black tracking-widest uppercase text-ugreen leading-snug line-clamp-2">

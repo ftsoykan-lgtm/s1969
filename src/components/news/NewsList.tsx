@@ -48,7 +48,7 @@ export default function NewsList({ news, categories }: { news: SiteNews[]; categ
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {(active === 'hepsi' ? rest : filtered).map((n) => (
               <Link key={n.id} href={`/haberler/${n.slug}`}
-                className="group block rounded-2xl overflow-hidden bg-white border border-[#ddeae2] shadow-sm hover:shadow-lg hover:border-ugreen/30 transition-all hover:-translate-y-1 duration-300">
+                className="group block rounded-2xl overflow-hidden card-premium">
                 <div className="relative h-48 overflow-hidden bg-[#edf7f2]">
                   <Image src={n.imageUrl} alt={n.title} fill sizes="33vw" className="object-cover group-hover:scale-105 transition-transform duration-500" />
                   <div className="absolute top-3 left-3">

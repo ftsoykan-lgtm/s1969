@@ -46,7 +46,7 @@ export default function StandingsTable({
         </div>
       )}
 
-      <div className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm overflow-hidden">
+      <div className="panel-premium overflow-hidden">
         {/* Başlık şeridi — yeşil */}
         <div className={`grid ${COLS} gap-1 items-center px-3 py-3 bg-ugreen`}>
           <span className="text-[11px] font-black text-white/50 text-center">#</span>
