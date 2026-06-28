@@ -121,26 +121,26 @@ export default function CalendarView({ items, season, league }: { items: CalMatc
             const r = m ? result(m) : null
 
             const cell = (
-              <div className={`relative h-full p-1 sm:p-2 flex flex-col transition-colors overflow-hidden ${
-                m ? 'bg-[#f4faf0] hover:bg-[#ecf7e6] cursor-pointer' : 'bg-white hover:bg-[#f8faf9]'
-              }`}>
+              <div className={`group/cell relative h-full p-1.5 sm:p-2 flex flex-col transition-all overflow-hidden ${
+                m ? 'bg-gradient-to-b from-[#f4faf0] to-[#e9f7ee] hover:to-[#dcf2e3] cursor-pointer' : 'bg-white hover:bg-[#f8faf9]'
+              } ${isToday ? 'ring-2 ring-inset ring-ugold/55' : ''}`}>
                 {m && <span className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-ugold to-ugreen" />}
                 <span className={`text-[10px] sm:text-xs font-extrabold self-start ${
-                  isToday ? 'flex h-4 w-4 sm:h-5 sm:w-5 items-center justify-center rounded-full bg-ugold text-ugreend' : m ? 'text-ugreend' : 'text-[#b6cdc0]'
+                  isToday ? 'flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-ugold text-ugreend shadow-sm' : m ? 'text-ugreend' : 'text-[#b6cdc0]'
                 }`}>{d}</span>
                 {m && (
-                  <div className="flex-1 flex flex-col items-center justify-center gap-0.5 min-h-0">
-                    <div className="relative h-6 w-6 sm:h-9 sm:w-9 bg-white rounded-md sm:rounded-lg p-0.5 shadow-sm ring-1 ring-ugold/30">
+                  <div className="flex-1 flex flex-col items-center justify-center gap-1 min-h-0">
+                    <div className="relative h-7 w-7 sm:h-10 sm:w-10 bg-white rounded-lg p-1 ring-1 ring-ugold/40 shadow-[0_5px_12px_-4px_rgba(15,74,40,0.4)] transition-transform group-hover/cell:scale-105">
                       <img src={m.opponentLogo} alt={m.opponent} className="w-full h-full object-contain" />
                     </div>
                     {m.isCompleted && m.homeScore != null ? (
-                      <span className={`text-[8px] sm:text-[11px] font-extrabold tabular-nums ${r === 'G' ? 'text-ugreen' : r === 'M' ? 'text-[#d01b2a]' : 'text-ugoldd'}`}>{m.homeScore}-{m.awayScore}</span>
+                      <span className={`text-[9px] sm:text-[11px] font-extrabold tabular-nums px-1.5 py-0.5 rounded-md leading-none ${r === 'G' ? 'bg-ugreen text-white' : r === 'M' ? 'bg-[#d01b2a] text-white' : 'bg-ugold text-ugreend'}`}>{m.homeScore}-{m.awayScore}</span>
                     ) : (
                       <span className="hidden sm:block text-[10px] font-extrabold text-ugreen tabular-nums">{m.time || (m.isHome ? 'EV' : 'DEP')}</span>
                     )}
                   </div>
                 )}
-                {dayMatches.length > 1 && <span className="absolute top-0.5 right-1 text-[7px] sm:text-[8px] font-extrabold text-ugoldd">+{dayMatches.length - 1}</span>}
+                {dayMatches.length > 1 && <span className="absolute top-1 right-1.5 flex h-4 min-w-4 px-1 items-center justify-center rounded-full bg-ugold text-ugreend text-[8px] font-extrabold">+{dayMatches.length - 1}</span>}
               </div>
             )
             return (
@@ -173,12 +173,13 @@ export default function CalendarView({ items, season, league }: { items: CalMatc
               const r = result(m)
               const [, , dd] = m.date.split('-')
               const inner = (
-                <div className="flex items-center gap-3 px-2.5 py-2.5 rounded-xl bg-white border border-[#edf7f2] hover:border-ugreen/30 hover:shadow-sm transition-all">
-                  <div className="flex flex-col items-center w-9 shrink-0">
-                    <span className="text-base font-extrabold text-ugreend tabular-nums leading-none">{Number(dd)}</span>
-                    <span className="text-[9px] font-bold text-ugoldd">{m.time || '—'}</span>
+                <div className="relative flex items-center gap-3 pl-4 pr-3 py-3 rounded-xl bg-white border border-[#edf7f2] hover:border-ugreen/40 hover:shadow-[0_10px_26px_-16px_rgba(15,74,40,0.4)] transition-all overflow-hidden">
+                  <span className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-ugold to-ugreen" />
+                  <div className="flex flex-col items-center w-10 shrink-0">
+                    <span className="text-xl font-extrabold text-ugreend tabular-nums leading-none">{Number(dd)}</span>
+                    <span className="text-[9px] font-bold uppercase tracking-wide text-ugoldd mt-0.5">{m.time || '—'}</span>
                   </div>
-                  <div className="relative h-8 w-8 shrink-0"><img src={m.opponentLogo} alt="" className="w-full h-full object-contain" /></div>
+                  <div className="relative h-10 w-10 shrink-0 bg-white rounded-lg p-1 ring-1 ring-ugold/30 shadow-sm"><img src={m.opponentLogo} alt="" className="w-full h-full object-contain" /></div>
                   <div className="min-w-0 flex-1">
                     <p className="text-sm font-extrabold text-ugreenm truncate">{m.isHome ? '🏠 ' : '✈️ '}{m.opponent}</p>
                     <p className="text-[11px] text-[#7aab8e] truncate">{m.roundLabel ?? ''}{m.venue ? ` · ${m.venue}` : ''}</p>
