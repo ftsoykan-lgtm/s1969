@@ -74,9 +74,18 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
   const [mobileSubOpen, setMobileSubOpen] = useState(false)
   const [megaOpen, setMegaOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const megaTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => { setMobileOpen(false); setMegaOpen(false); setMobileSubOpen(false) }, [pathname])
+
+  // Scroll'da navbar'ı daralt + camlaştır
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   // Mobil menü açıkken arka plan kaymasını tamamen kilitle (iOS dahil)
   useEffect(() => {
@@ -110,8 +119,9 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
       {/* En üst sarı-yeşil aksan */}
       <div className="h-1 bg-gradient-to-r from-ugold via-ugreen to-ugold" />
 
-      {/* ── İnce üst kimlik bandı ──────────────────────────────────────── */}
-      <div className="hidden lg:block bg-ugreenm border-b border-white/[0.05]">
+      {/* ── İnce üst kimlik bandı (scroll'da gizlenir) ─────────────────── */}
+      <div className={cn('hidden lg:block bg-ugreenm border-b border-white/[0.05] overflow-hidden transition-all duration-300',
+        scrolled ? 'max-h-0 opacity-0 pointer-events-none' : 'max-h-10 opacity-100')}>
         <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 flex items-center justify-end h-10">
           <div className="flex items-center gap-3.5">
             <div className="flex items-center gap-1.5">
@@ -128,8 +138,11 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
         </div>
       </div>
 
-      {/* ── Ana bar ────────────────────────────────────────────────────── */}
-      <div className="relative bg-gradient-to-b from-ugreens to-ugreen shadow-[0_10px_30px_-14px_rgba(0,0,0,0.4)]">
+      {/* ── Ana bar (scroll'da camlaşır + güçlü gölge) ─────────────────── */}
+      <div className={cn('relative transition-all duration-300',
+        scrolled
+          ? 'bg-ugreen/85 backdrop-blur-xl shadow-[0_14px_40px_-12px_rgba(0,0,0,0.55)]'
+          : 'bg-gradient-to-b from-ugreens to-ugreen shadow-[0_10px_30px_-14px_rgba(0,0,0,0.4)]')}>
         {/* alt altın saç çizgisi */}
         <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-ugold/40 to-transparent" />
         <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
@@ -158,7 +171,7 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
           </div>
 
           {/* ── MASAÜSTÜ BAR ────────────────────────────────────────── */}
-          <div className="hidden lg:flex items-center h-[70px]">
+          <div className={cn('hidden lg:flex items-center transition-all duration-300', scrolled ? 'h-[60px]' : 'h-[70px]')}>
 
             {/* ── Logo + wordmark (rafine) ────────────────────────────── */}
             <Link href="/" className="relative group flex items-center gap-3.5 h-full shrink-0" aria-label={club.name}>
@@ -166,7 +179,7 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
                 <div className="absolute -inset-1.5 rounded-full bg-ugold/0 group-hover:bg-ugold/25 blur-md transition-all duration-300" />
                 {hasLogo ? (
                   <img src={club.logoUrl} alt={club.name}
-                    className="relative h-12 w-12 rounded-full object-contain bg-white ring-1 ring-ugold/40 group-hover:ring-ugold shadow-md transition-all duration-200" />
+                    className={cn('relative rounded-full object-contain bg-white ring-1 ring-ugold/40 group-hover:ring-ugold shadow-md transition-all duration-300', scrolled ? 'h-10 w-10' : 'h-12 w-12')} />
                 ) : (
                   <div className="relative h-12 w-12 rounded-full bg-gradient-to-br from-ugold to-[#e8b800] flex items-center justify-center shadow-md ring-1 ring-ugold/40 transition-all duration-200">
                     <span className="font-heading font-extrabold text-sm text-ugreend">{club.shortCode}</span>
