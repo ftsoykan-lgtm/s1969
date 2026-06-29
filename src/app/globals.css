@@ -297,6 +297,40 @@ img {
 @keyframes hKenBurns { from { transform: scale(1.05) } to { transform: scale(1.12) } }
 .hero-kb { animation: hKenBurns 7s ease-out both; }
 
+/* Maç Merkezi CTA — gol animasyonu: file titremesi + gol parlaması (yalnız hover) */
+@keyframes netShake {
+  0%, 100% { transform: translateX(0) }
+  30%      { transform: translateX(2.2px) }
+  55%      { transform: translateX(-1.4px) }
+  78%      { transform: translateX(0.7px) }
+}
+@keyframes goalFlash {
+  0%   { opacity: 0; transform: scale(0.4) }
+  45%  { opacity: 0.85 }
+  100% { opacity: 0; transform: scale(1.55) }
+}
+@keyframes golPop {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.5) }
+  60%  { opacity: 1; transform: translate(-50%, -50%) scale(1.12) }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(1) }
+}
+@keyframes ctaShake {
+  0%, 100% { transform: translateX(0) }
+  25%      { transform: translateX(2px) }
+  55%      { transform: translateX(-1.2px) }
+  80%      { transform: translateX(0.6px) }
+}
+
+/* Hero metin kademeli beliriş — sınıf bazlı (inline yerine) ki reduced-motion ile kapanabilsin */
+.hAnim1 { animation: hUp .5s ease-out both; }
+.hAnim2 { animation: hUp .6s ease-out .08s both; }
+.hAnim3 { animation: hUp .6s ease-out .16s both; }
+.hAnim4 { animation: hUp .6s ease-out .24s both; }
+@media (prefers-reduced-motion: reduce) {
+  .hero-kb { animation: none !important; }
+  .hAnim1, .hAnim2, .hAnim3, .hAnim4 { animation: none !important; }
+}
+
 /* ═══════════════════════════════════════════════════════════════
    PREMIUM RAFİNE — cila katmanı (yapı/renk korunur)
    Yumuşak katmanlı gölge + ölçülü hover mikro-etkileşimi.
