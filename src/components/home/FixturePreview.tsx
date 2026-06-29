@@ -1,76 +1,10 @@
 import Link from 'next/link'
-import Image from 'next/image'
-import { formatDate } from '@/lib/utils'
-import { Match } from '@/types'
-import { MapPin, ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import { getTeamLogoMap, applyLogosToMatches, applyLogosToStandings } from '@/lib/supabase/logos-server'
 import { getLiveTff } from '@/lib/supabase/tff-server'
 import NextMatchCountdown from './NextMatchCountdown'
 import StandingsTable from '@/components/standings/StandingsTable'
-
-/* ─── Tek maç kartı ─────────────────────────────────────────── */
-function MatchCard({ match }: { match: Match }) {
-  const urfaIsHome = match.homeTeam === 'Şanlıurfaspor'
-  const urfaScore = urfaIsHome ? match.homeScore : match.awayScore
-  const oppScore = urfaIsHome ? match.awayScore : match.homeScore
-  const result = match.isCompleted && urfaScore !== null && oppScore !== null
-    ? urfaScore > oppScore ? 'G' : urfaScore < oppScore ? 'M' : 'B'
-    : null
-
-  const Inner = (
-    <div className="card-premium p-5 h-full flex flex-col border-t-4 border-t-ugold">
-      {/* Üst: hafta + sonuç rozeti */}
-      <div className="flex items-start justify-between gap-2 mb-3 min-h-[34px]">
-        <span className="text-[11px] font-extrabold tracking-widest uppercase text-ugold leading-snug line-clamp-2">
-          {match.roundLabel ?? (match.week ? `${match.week}. Hafta` : match.competition)}
-        </span>
-        {result && (
-          <span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-[12px] font-extrabold shadow-sm leading-none ${
-            result === 'G' ? 'bg-ugreen text-white' : result === 'M' ? 'bg-[#d01b2a] text-white' : 'bg-ugold text-ugreend'
-          }`} title={result === 'G' ? 'Galibiyet' : result === 'M' ? 'Mağlubiyet' : 'Beraberlik'}>{result}</span>
-        )}
-      </div>
-      <p className="text-[12px] text-[#7aab8e] font-semibold mb-4">{formatDate(match.date)}</p>
-
-      {/* Logolar + skor — daima ortalı/hizalı */}
-      <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
-        <div className="flex justify-center">
-          <div className="relative w-14 h-14"><Image src={match.homeTeamLogo} alt={match.homeTeam} fill className="object-contain" /></div>
-        </div>
-        <div className="flex items-center gap-1.5 px-1">
-          {match.isCompleted ? (
-            <>
-              <span className="w-10 h-11 flex items-center justify-center rounded-lg bg-ugreend text-2xl font-extrabold text-white tabular-nums">{match.homeScore}</span>
-              <span className="w-10 h-11 flex items-center justify-center rounded-lg bg-ugreend text-2xl font-extrabold text-white tabular-nums">{match.awayScore}</span>
-            </>
-          ) : (
-            <span className="h-11 flex items-center text-sm font-extrabold text-[#7aab8e] px-2">VS</span>
-          )}
-        </div>
-        <div className="flex justify-center">
-          <div className="relative w-14 h-14"><Image src={match.awayTeamLogo} alt={match.awayTeam} fill className="object-contain" /></div>
-        </div>
-      </div>
-
-      {/* Takım isimleri — ayrı satır, sabit yükseklik */}
-      <div className="grid grid-cols-[1fr_auto_1fr] gap-2 mt-2.5">
-        <span className={`text-[11px] font-bold text-center leading-tight line-clamp-2 min-h-[30px] ${urfaIsHome ? 'text-ugreen' : 'text-ugreenm'}`}>{match.homeTeam}</span>
-        <span className="w-[88px]" />
-        <span className={`text-[11px] font-bold text-center leading-tight line-clamp-2 min-h-[30px] ${!urfaIsHome ? 'text-ugreen' : 'text-ugreenm'}`}>{match.awayTeam}</span>
-      </div>
-
-      {/* Stat — alta sabit */}
-      <div className="mt-auto pt-3.5 border-t border-[#edf7f2] flex items-center justify-center gap-1.5 text-[12px] text-[#7aab8e]">
-        <MapPin size={12} className="text-ugreen shrink-0" />
-        <span className="truncate">{match.venue || '—'}</span>
-      </div>
-    </div>
-  )
-
-  return match.macId
-    ? <Link href={`/mac/${match.macId}`} className="block group h-full">{Inner}</Link>
-    : Inner
-}
+import MatchCard from '@/components/macmerkezi/MatchCard'
 
 
 /* ─── Bölüm ─────────────────────────────────────────────────── */
@@ -114,7 +48,7 @@ export default async function FixturePreview() {
           <div>
             {lastThree.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 items-stretch">
-                {lastThree.map((m) => <MatchCard key={m.id} match={m} />)}
+                {lastThree.map((m, i) => <MatchCard key={m.id} match={m} logos={logoMap} index={i} />)}
               </div>
             ) : (
               <div className="bg-white rounded-2xl border border-[#ddeae2] p-10 text-center text-sm text-[#7aab8e]">

@@ -1,104 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
-import { MapPin, Calendar } from 'lucide-react'
 import type { Match, StandingRow } from '@/types'
-import { competitionLogo } from '@/lib/tff'
 import StandingsTable from '@/components/standings/StandingsTable'
-
-/* Tarih + saat → "24.08.2025 19:00" */
-function tarihSaat(dateISO: string, time?: string): string {
-  if (!dateISO) return time || ''
-  const [y, m, d] = dateISO.split('-')
-  const g = d && m && y ? `${d}.${m}.${y}` : dateISO
-  return time ? `${g}  ${time}` : g
-}
-
-/* ─── Maç kartı (Trabzonspor tarzı) ─────────────────────────── */
-export function MatchCard({ match, logos }: { match: Match; logos: Record<string, string> }) {
-  const urfaIsHome = match.homeTeam === 'Şanlıurfaspor'
-  const urfaScore = urfaIsHome ? match.homeScore : match.awayScore
-  const oppScore = urfaIsHome ? match.awayScore : match.homeScore
-  const result = match.isCompleted && urfaScore !== null && oppScore !== null
-    ? urfaScore > oppScore ? 'G' : urfaScore < oppScore ? 'M' : 'B'
-    : null
-  const tournamentLogo = competitionLogo(logos, match.competition)
-  const Wrapper = match.macId
-    ? ({ children }: { children: React.ReactNode }) => <Link href={`/mac/${match.macId}`} className="block group">{children}</Link>
-    : ({ children }: { children: React.ReactNode }) => <div>{children}</div>
-
-  return (
-    <Wrapper>
-    <div className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm hover:shadow-md hover:border-ugreen/30 transition-all overflow-hidden cursor-pointer">
-      {/* Üst şerit: turnuva logosu + hafta */}
-      <div className="flex items-center justify-between px-4 py-2.5 bg-[#f5f9f6] border-b border-[#edf7f2]">
-        <div className="flex items-center gap-2 min-w-0">
-          {tournamentLogo && (
-            <div className="relative w-5 h-5 shrink-0">
-              <Image src={tournamentLogo} alt={match.competition} fill className="object-contain" />
-            </div>
-          )}
-          <span className="text-[10px] font-extrabold tracking-widest uppercase text-ugreen truncate">
-            {match.roundLabel ?? (match.week ? `${match.week}. Hafta` : match.competition)}
-          </span>
-        </div>
-        {result && (
-          <span className={`flex h-6 w-6 items-center justify-center rounded-md text-[12px] font-extrabold shrink-0 shadow-sm ${
-            result === 'G' ? 'bg-ugreen text-white' : result === 'M' ? 'bg-[#d01b2a] text-white' : 'bg-ugold text-ugreend'
-          }`} title={result === 'G' ? 'Galibiyet' : result === 'M' ? 'Mağlubiyet' : 'Beraberlik'}>{result}</span>
-        )}
-      </div>
-
-      <div className="p-4">
-        {/* Tarih + saat */}
-        <div className="flex items-center justify-center gap-1.5 text-[11px] text-utxt2 font-semibold mb-4">
-          <Calendar size={11} className="text-[#7aab8e]" />
-          <span className="tabular-nums">{tarihSaat(match.date, match.time)}</span>
-        </div>
-
-        {/* Takımlar + skor */}
-        <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
-          <div className="flex flex-col items-center gap-2 min-w-0">
-            <div className="relative w-12 h-12 shrink-0">
-              <Image src={match.homeTeamLogo} alt={match.homeTeam} fill className="object-contain" />
-            </div>
-            <span className={`text-[11px] font-bold text-center w-full truncate ${urfaIsHome ? 'text-ugreen' : 'text-ugreenm'}`}>{match.homeTeam}</span>
-          </div>
-
-          <div className="flex items-center gap-1 px-1 shrink-0">
-            {match.isCompleted ? (
-              <>
-                <span className="w-8 h-9 flex items-center justify-center rounded-lg bg-ugreend text-lg font-extrabold text-white tabular-nums">{match.homeScore}</span>
-                <span className="w-8 h-9 flex items-center justify-center rounded-lg bg-ugreend text-lg font-extrabold text-white tabular-nums">{match.awayScore}</span>
-              </>
-            ) : (
-              <span className="text-sm font-extrabold text-[#7aab8e]">vs</span>
-            )}
-          </div>
-
-          <div className="flex flex-col items-center gap-2 min-w-0">
-            <div className="relative w-12 h-12 shrink-0">
-              <Image src={match.awayTeamLogo} alt={match.awayTeam} fill className="object-contain" />
-            </div>
-            <span className={`text-[11px] font-bold text-center w-full truncate ${!urfaIsHome ? 'text-ugreen' : 'text-ugreenm'}`}>{match.awayTeam}</span>
-          </div>
-        </div>
-
-        {/* Stat */}
-        <div className="mt-4 pt-3 border-t border-[#edf7f2] flex items-center justify-center gap-1.5 text-[11px] text-[#7aab8e]">
-          <MapPin size={11} className="text-ugreen shrink-0" />
-          <span className="truncate">{match.venue}</span>
-        </div>
-      </div>
-    </div>
-    </Wrapper>
-  )
-}
-
-/* ─── Puan tablosu — tek paylaşılan bileşen (site geneli aynı tasarım) ─── */
-export { StandingsTable }
+import MatchCard from './MatchCard'
 
 /* ─── Maç Merkezi ───────────────────────────────────────────── */
 export default function MacMerkezi({
@@ -152,7 +57,7 @@ export default function MacMerkezi({
         <div>
           {matches.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-              {matches.map((m) => <MatchCard key={m.id} match={m} logos={logos} />)}
+              {matches.map((m, i) => <MatchCard key={m.id} match={m} logos={logos} index={i} />)}
             </div>
           ) : (
             <div className="bg-white rounded-2xl border border-[#ddeae2] p-10 text-center">

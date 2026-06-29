@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import { getTeamLogoMap, applyLogosToStandings, applyLogosToMatches } from '@/lib/supabase/logos-server'
 import { getLiveTff } from '@/lib/supabase/tff-server'
-import { MatchCard, StandingsTable } from '@/components/macmerkezi/MacMerkezi'
+import MatchCard from '@/components/macmerkezi/MatchCard'
+import StandingsTable from '@/components/standings/StandingsTable'
 import MatchTabs from '@/components/macmerkezi/MatchTabs'
 
 export const metadata: Metadata = {
@@ -71,7 +72,7 @@ export default async function MacMerkeziPage() {
               <SectionTitle note={`${completed.length} maç oynandı`}>Son Maçlar</SectionTitle>
               {last5.length > 0 ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {last5.map((m) => <MatchCard key={m.id} match={m} logos={logoMap} />)}
+                  {last5.map((m, i) => <MatchCard key={m.id} match={m} logos={logoMap} index={i} />)}
                 </div>
               ) : <Empty>Henüz oynanmış maç yok.</Empty>}
             </section>
@@ -81,7 +82,7 @@ export default async function MacMerkeziPage() {
               <SectionTitle note={`${upcoming.length} maç`}>Yaklaşan Maçlar</SectionTitle>
               {upcoming.length > 0 ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {upcoming.map((m) => <MatchCard key={m.id} match={m} logos={logoMap} />)}
+                  {upcoming.map((m, i) => <MatchCard key={m.id} match={m} logos={logoMap} index={i} />)}
                 </div>
               ) : <Empty>Yaklaşan maç bulunmuyor.</Empty>}
             </section>

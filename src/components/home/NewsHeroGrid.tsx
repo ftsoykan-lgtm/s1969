@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { formatDate } from '@/lib/utils'
 import type { SiteNews } from '@/lib/supabase/news-server'
+import MotionReveal from '@/components/ui/MotionReveal'
 
 function Badge({ label }: { label: string }) {
   return (
@@ -91,13 +92,21 @@ export default function NewsHeroGrid({ news, catName }: { news: SiteNews[]; catN
         <div className="grid grid-cols-1 md:grid-cols-[55fr_45fr] gap-3 md:h-[460px]">
           <MainCard item={mainItem} label={catName(mainItem.category)} />
           <div className="flex flex-col gap-3">
-            {sideItems.map((item) => <SideCard key={item.id} item={item} label={catName(item.category)} />)}
+            {sideItems.map((item, i) => (
+              <MotionReveal key={item.id} delay={i * 0.1} className="flex-1 flex">
+                <SideCard item={item} label={catName(item.category)} />
+              </MotionReveal>
+            ))}
           </div>
         </div>
 
         {gridItems.length > 0 && (
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
-            {gridItems.map((item) => <GridCard key={item.id} item={item} label={catName(item.category)} />)}
+            {gridItems.map((item, i) => (
+              <MotionReveal key={item.id} delay={i * 0.08}>
+                <GridCard item={item} label={catName(item.category)} />
+              </MotionReveal>
+            ))}
           </div>
         )}
       </div>
