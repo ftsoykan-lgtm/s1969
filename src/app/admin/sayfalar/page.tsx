@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { getPagesAdmin, savePage, deletePage, uploadImage, type AdminPage } from '@/lib/supabase/settings'
-import { Plus, Trash2, Upload, Loader2, Check, AlertCircle, ExternalLink, ChevronDown } from 'lucide-react'
+import { seedSitePages } from '@/lib/supabase/pages-seed'
+import { Plus, Trash2, Upload, Loader2, Check, AlertCircle, ExternalLink, ChevronDown, Sparkles } from 'lucide-react'
 
 const GROUPS: { key: string; label: string }[] = [
   { key: 'kulup', label: 'Kulüp' },
@@ -25,6 +26,17 @@ export default function AdminSayfalarPage() {
   const [busy, setBusy] = useState<string | null>(null)
   const [err, setErr] = useState<string | null>(null)
   const [ok, setOk] = useState<string | null>(null)
+  const [seeding, setSeeding] = useState(false)
+
+  const handleSeed = async () => {
+    setSeeding(true); setErr(null); setOk(null)
+    const res = await seedSitePages()
+    if (res.ok) {
+      setOk(res.created > 0 ? `${res.created} sayfa içerikle oluşturuldu (${res.skipped} zaten vardı).` : 'Tüm menü sayfaları zaten mevcut.')
+      await load()
+    } else setErr(`Oluşturulamadı: ${res.error ?? 'bilinmeyen hata'}`)
+    setSeeding(false)
+  }
 
   const load = () => getPagesAdmin().then((r) => {
     setRows(r.map((p) => ({ ...p, _orig: p.slug })))
@@ -74,10 +86,17 @@ export default function AdminSayfalarPage() {
           <h1 className="text-2xl font-extrabold text-ugreenm">Sayfalar</h1>
           <p className="text-sm text-utxt2 mt-1">{rows.length} sayfa · Tarihçe hariç tüm bilgi sayfaları buradan yönetilir</p>
         </div>
-        <button onClick={addNew}
-          className="inline-flex items-center gap-2 bg-ugreen hover:bg-ugreend text-white font-extrabold px-4 py-2.5 rounded-xl text-sm transition-colors shadow-sm">
-          <Plus size={15} /> Sayfa Ekle
-        </button>
+        <div className="flex items-center gap-2">
+          <button onClick={handleSeed} disabled={seeding}
+            className="inline-flex items-center gap-2 bg-white border border-[#ddeae2] hover:border-ugreen/40 text-ugreenm font-bold px-4 py-2.5 rounded-xl text-sm transition-colors shadow-sm disabled:opacity-60">
+            {seeding ? <Loader2 size={15} className="animate-spin" /> : <Sparkles size={15} className="text-ugreen" />}
+            {seeding ? 'Oluşturuluyor...' : 'Menü sayfalarını oluştur'}
+          </button>
+          <button onClick={addNew}
+            className="inline-flex items-center gap-2 bg-ugreen hover:bg-ugreend text-white font-extrabold px-4 py-2.5 rounded-xl text-sm transition-colors shadow-sm">
+            <Plus size={15} /> Sayfa Ekle
+          </button>
+        </div>
       </div>
 
       {err && <Banner tone="err"><AlertCircle size={15} className="shrink-0" /> {err}</Banner>}
