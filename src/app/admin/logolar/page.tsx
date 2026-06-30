@@ -3,8 +3,9 @@
 import { useState, useEffect } from 'react'
 import { standingsData } from '@/data/fixtures'
 import { getTeamLogos, saveTeamLogo, uploadImage, getTffCompetitions } from '@/lib/supabase/settings'
+import { importTeamLogos, type LogoImportResult } from '@/lib/supabase/logos-import'
 import { canonicalCompetition } from '@/lib/tff'
-import { Upload, Loader2, Check, Link as LinkIcon } from 'lucide-react'
+import { Upload, Loader2, Check, Link as LinkIcon, DownloadCloud } from 'lucide-react'
 
 export default function AdminLogolarPage() {
   const teams = Array.from(new Set(standingsData.map((s) => s.team)))
@@ -14,6 +15,20 @@ export default function AdminLogolarPage() {
   const [busy, setBusy] = useState<string | null>(null)
   const [okKey, setOkKey] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
+  const [importing, setImporting] = useState(false)
+  const [importResult, setImportResult] = useState<LogoImportResult | null>(null)
+
+  const handleImport = async () => {
+    setImporting(true)
+    setImportResult(null)
+    const res = await importTeamLogos()
+    setImportResult(res)
+    if (res.ok) {
+      const saved = await getTeamLogos()
+      setLogos((prev) => ({ ...prev, ...saved }))
+    }
+    setImporting(false)
+  }
 
   useEffect(() => {
     Promise.all([getTeamLogos(), getTffCompetitions()]).then(([saved, comps]) => {
@@ -71,10 +86,33 @@ export default function AdminLogolarPage() {
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-2xl font-extrabold text-ugreenm">Logolar</h1>
-        <p className="text-sm text-utxt2 mt-1">Takım ve turnuva logoları. Yükleyin veya URL girin.</p>
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h1 className="text-2xl font-extrabold text-ugreenm">Logolar</h1>
+          <p className="text-sm text-utxt2 mt-1">Takım ve turnuva logoları. Yükleyin veya URL girin.</p>
+        </div>
+        <button onClick={handleImport} disabled={importing}
+          className="inline-flex items-center gap-2 bg-ugreen hover:bg-ugreend text-white font-bold text-sm px-4 py-2.5 rounded-xl shadow-sm transition-colors disabled:opacity-60">
+          {importing ? <Loader2 size={15} className="animate-spin" /> : <DownloadCloud size={15} />}
+          {importing ? 'İçe aktarılıyor...' : 'TFF logolarını içe aktar'}
+        </button>
       </div>
+
+      {importResult && (
+        <div className={`rounded-xl border p-4 text-sm ${importResult.ok ? 'bg-ugreen/10 border-ugreen/30 text-ugreenm' : 'bg-[#fdecec] border-[#d01b2a]/30 text-[#9c1320]'}`}>
+          {importResult.ok ? (
+            <>
+              <span className="font-bold">{importResult.imported}</span> logo Supabase&apos;e indirildi,{' '}
+              <span className="font-bold">{importResult.skipped}</span> atlandı (zaten kayıtlı).
+              {importResult.failed.length > 0 && (
+                <span className="block mt-1 text-[#9c1320]">Çekilemeyen ({importResult.failed.length}): {importResult.failed.join(', ')} — tekrar deneyebilirsiniz.</span>
+              )}
+            </>
+          ) : (
+            <>İçe aktarma başarısız: {importResult.error ?? 'bilinmeyen hata'}</>
+          )}
+        </div>
+      )}
 
       {loading ? (
         <div className="flex items-center gap-2 text-sm text-[#7aab8e]"><Loader2 size={14} className="animate-spin" /> Yükleniyor...</div>
@@ -110,7 +148,7 @@ export default function AdminLogolarPage() {
 
       <div className="flex items-start gap-2.5 bg-ugold/10 border border-ugold/30 rounded-xl p-4 text-sm text-ugreenm">
         <LinkIcon size={15} className="text-ugoldd mt-0.5 shrink-0" />
-        <span>Logolar otomatik 128×128px'e ölçeklenir ve Supabase Storage'a yüklenir. URL alanından çıkınca otomatik kaydedilir. Takım logoları TFF'den otomatik gelir; turnuva logolarını siz eklersiniz.</span>
+        <span>{"Logolar otomatik 128×128px'e ölçeklenir ve Supabase Storage'a yüklenir. URL alanından çıkınca otomatik kaydedilir. Takım logoları TFF'den otomatik gelir; turnuva logolarını siz eklersiniz. \"TFF logolarını içe aktar\" ile tüm takım logolarını tek seferde veritabanına indirebilirsiniz."}</span>
       </div>
     </div>
   )
