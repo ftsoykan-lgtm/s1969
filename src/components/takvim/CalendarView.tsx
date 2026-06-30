@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useMemo } from 'react'
 import Link from 'next/link'
-import { ChevronLeft, ChevronRight, CalendarPlus, Download, Copy, Check, MapPin, Bell, RefreshCw, Smartphone } from 'lucide-react'
+import { motion, AnimatePresence, MotionConfig } from 'framer-motion'
+import { ChevronLeft, ChevronRight, CalendarPlus, Download, Copy, Check, MapPin, Bell, RefreshCw, Smartphone, Clock, CalendarDays } from 'lucide-react'
 
 export interface CalMatch {
   date: string
@@ -22,6 +23,25 @@ export interface CalMatch {
 
 const AYLAR = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık']
 const GUNLER = ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz']
+
+/* ── Kendi SVG ikonlarımız (emoji yerine) ── */
+function IconHome({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden>
+      <path d="M3.5 11.5 12 4l8.5 7.5" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M5.5 10.5V20h13v-9.5" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M10 20v-5h4v5" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+function IconPlane({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden>
+      <path d="M21 15.9v-1.7l-7.4-4.4V4.6a1.6 1.6 0 0 0-3.2 0v5.2L3 14.2v1.7l7.4-2.1v4.1l-2 1.4V21l3.6-1 3.6 1v-1.7l-2-1.4v-4.1l7.4 2.1Z" />
+    </svg>
+  )
+}
 
 export default function CalendarView({ items, season, league }: { items: CalMatch[]; season?: string; league?: string }) {
   const byDate = useMemo(() => {
@@ -47,6 +67,8 @@ export default function CalendarView({ items, season, league }: { items: CalMatc
   }, [items, minK, maxK]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const [curK, setCurK] = useState(initK)
+  // Veri (initK) yüklendiğinde görünen ayı yaklaşan maça hizala — kasıtlı senkronizasyon
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { setCurK(initK) }, [initK])
   const cur = { y: Math.floor(curK / 12), m: curK % 12 }
   const canPrev = curK > minK
@@ -55,7 +77,9 @@ export default function CalendarView({ items, season, league }: { items: CalMatc
   const [ics, setIcs] = useState('/takvim.ics')
   const [webcal, setWebcal] = useState('')
   const [copied, setCopied] = useState(false)
+  // window.location yalnız istemcide var — mount sonrası abonelik URL'lerini üret
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setWebcal(`webcal://${window.location.host}/takvim.ics`)
     setIcs(`${window.location.origin}/takvim.ics`)
   }, [])
@@ -81,10 +105,18 @@ export default function CalendarView({ items, season, league }: { items: CalMatc
     .filter((m) => { const [y, mo] = m.date.split('-').map(Number); return y === cur.y && mo - 1 === cur.m })
     .sort((a, b) => a.date.localeCompare(b.date))
 
+  // ── Animasyon varyantları — MotionConfig reducedMotion="user" ile erişilebilir,
+  //    SSR/istemci tutarlı (initial'da reduce dallanması YOK → hydration uyuşur) ──
+  const ease: [number, number, number, number] = [0.16, 1, 0.3, 1]
+  const cellV = { hidden: { opacity: 0, y: 8, scale: 0.96 }, show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.26, ease } } }
+  const rowV = { hidden: { opacity: 0, y: 16 }, show: { opacity: 1, y: 0, transition: { duration: 0.42, ease } } }
+  const stepV = { hidden: { opacity: 0, y: 18 }, show: { opacity: 1, y: 0, transition: { duration: 0.45, ease } } }
+
   return (
+    <MotionConfig reducedMotion="user">
     <div className="space-y-7">
       {/* ── Takvim kartı (premium · sarı-yeşil) ──────────────────── */}
-      <div className="rounded-3xl overflow-hidden bg-white ring-1 ring-[#d2e5da] shadow-[0_28px_60px_-28px_rgba(15,74,40,0.5)]">
+      <div className="rounded-3xl overflow-hidden bg-white border border-[#bfd8cb] shadow-[0_2px_4px_rgba(12,46,34,0.06),0_24px_50px_-22px_rgba(12,46,34,0.45)]">
         {/* Başlık (yeşil · premium) */}
         <div className="relative bg-gradient-to-br from-ugreens via-ugreen to-ugreend px-4 sm:px-7 py-5 sm:py-7 flex items-center justify-between overflow-hidden">
           <span aria-hidden className="pointer-events-none absolute -top-8 right-8 font-heading text-[7rem] font-extrabold text-white/[0.05] leading-none select-none hidden sm:block">{cur.y}</span>
@@ -95,7 +127,18 @@ export default function CalendarView({ items, season, league }: { items: CalMatc
           </button>
           <div className="relative text-center">
             <p className="text-ugold text-[10px] sm:text-[11px] font-extrabold tracking-[0.35em] uppercase mb-1">Maç Takvimi</p>
-            <h2 className="font-heading text-3xl sm:text-5xl font-extrabold text-white leading-none uppercase tracking-[-0.02em]">{AYLAR[cur.m]} <span className="text-ugold">{cur.y}</span></h2>
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.h2
+                key={curK}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.28, ease }}
+                className="font-heading text-3xl sm:text-5xl font-extrabold text-white leading-none uppercase tracking-[-0.02em]"
+              >
+                {AYLAR[cur.m]} <span className="text-ugold">{cur.y}</span>
+              </motion.h2>
+            </AnimatePresence>
           </div>
           <button onClick={() => canNext && setCurK((k) => k + 1)} disabled={!canNext} aria-label="Sonraki ay"
             className="relative h-10 w-10 sm:h-11 sm:w-11 flex items-center justify-center rounded-full text-white bg-white/10 ring-1 ring-white/15 hover:bg-ugold hover:text-ugreend hover:ring-ugold transition-all disabled:opacity-25 disabled:hover:bg-white/10 disabled:hover:text-white">
@@ -104,16 +147,23 @@ export default function CalendarView({ items, season, league }: { items: CalMatc
         </div>
 
         {/* Gün başlıkları */}
-        <div className="grid grid-cols-7 bg-[#f3f9f5] border-b border-[#e3efe8]">
+        <div className="grid grid-cols-7 bg-[#e6f1ea] border-b border-[#d7e7df]">
           {GUNLER.map((g, i) => (
             <div key={g} className={`py-2 sm:py-2.5 text-center text-[9px] sm:text-[11px] font-extrabold tracking-wide uppercase ${i >= 5 ? 'text-ugoldd' : 'text-[#7aab8e]'}`}>{g}</div>
           ))}
         </div>
 
         {/* Günler */}
-        <div className="grid grid-cols-7">
+        <motion.div
+          key={curK}
+          className="grid grid-cols-7"
+          initial="hidden"
+          animate="show"
+          variants={{ show: { transition: { staggerChildren: 0.008 } } }}
+        >
           {cells.map((d, i) => {
-            if (d === null) return <div key={i} className="aspect-square sm:aspect-[1.1] border-b border-r border-[#eef5f0] bg-[#fafdfb]" />
+            const weekend = i % 7 >= 5
+            if (d === null) return <motion.div key={i} variants={cellV} className={`aspect-square sm:aspect-[1.1] border-b border-r border-[#d7e7df] ${weekend ? 'bg-[#dfece5]' : 'bg-[#e6f1ea]'}`} />
             const ds = dateStr(d)
             const dayMatches = byDate.get(ds) ?? []
             const isToday = ds === todayStr
@@ -122,7 +172,7 @@ export default function CalendarView({ items, season, league }: { items: CalMatc
 
             const cell = (
               <div className={`group/cell relative h-full p-1.5 sm:p-2 flex flex-col transition-all overflow-hidden ${
-                m ? 'bg-gradient-to-b from-[#f4faf0] to-[#e9f7ee] hover:to-[#dcf2e3] cursor-pointer' : 'bg-white hover:bg-[#f8faf9]'
+                m ? 'bg-gradient-to-b from-white to-[#eafaf0] hover:to-[#ddf3e5] cursor-pointer shadow-[inset_0_0_0_1px_rgba(245,196,0,0.12)]' : weekend ? 'bg-[#e6f1ea] hover:bg-[#d9ebe1]' : 'bg-[#eef6f1] hover:bg-[#e0efe7]'
               } ${isToday ? 'ring-2 ring-inset ring-ugold/55' : ''}`}>
                 {m && <span className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-ugold to-ugreen" />}
                 <span className={`text-[10px] sm:text-xs font-extrabold self-start ${
@@ -144,12 +194,12 @@ export default function CalendarView({ items, season, league }: { items: CalMatc
               </div>
             )
             return (
-              <div key={i} className="aspect-square sm:aspect-[1.1] border-b border-r border-[#eef5f0] overflow-hidden">
+              <motion.div key={i} variants={cellV} className="aspect-square sm:aspect-[1.1] border-b border-r border-[#dde9e2] overflow-hidden">
                 {m && m.macId ? <Link href={`/mac/${m.macId}`} className="block h-full">{cell}</Link> : cell}
-              </div>
+              </motion.div>
             )
           })}
-        </div>
+        </motion.div>
 
         {/* Sonuç renk lejantı */}
         <div className="flex items-center justify-center flex-wrap gap-x-5 gap-y-1.5 px-4 py-3 bg-[#f7fbf8] border-t border-[#eef5f0]">
@@ -167,40 +217,80 @@ export default function CalendarView({ items, season, league }: { items: CalMatc
 
         {/* Bu ayın maç listesi */}
         {monthMatches.length > 0 && (
-          <div className="px-2.5 sm:px-5 py-4 space-y-1.5 bg-[#fafdfb]">
-            <p className="text-[10px] font-extrabold tracking-widest uppercase text-[#7aab8e] mb-2 px-1">Bu Ay {monthMatches.length} Maç</p>
+          <motion.div
+            key={`list-${curK}`}
+            className="px-2.5 sm:px-5 py-4 space-y-1.5 bg-[#eef6f1] border-t border-[#dcebe2]"
+            initial="hidden"
+            animate="show"
+            variants={{ show: { transition: { staggerChildren: 0.07, delayChildren: 0.05 } } }}
+          >
+            <p className="text-[10px] font-extrabold tracking-widest uppercase text-[#7aab8e] mb-2 px-1">{AYLAR[cur.m]} {cur.y} · {monthMatches.length} Maç</p>
             {monthMatches.map((m, idx) => {
               const r = result(m)
-              const [, mmStr, dd] = m.date.split('-')
+              const [yy, mmStr, dd] = m.date.split('-')
               const shortMonth = AYLAR[Number(mmStr) - 1]?.slice(0, 3) ?? ''
+              const wd = GUNLER[(new Date(Number(yy), Number(mmStr) - 1, Number(dd)).getDay() + 6) % 7]
               const inner = (
-                <div className="relative flex items-center gap-3 pl-4 pr-3 py-3 rounded-xl bg-white border border-[#edf7f2] hover:border-ugreen/40 hover:shadow-[0_10px_26px_-16px_rgba(15,74,40,0.4)] transition-all overflow-hidden">
+                <div className="group/row relative flex items-center gap-3 sm:gap-4 pl-4 pr-3 sm:pr-4 py-3.5 rounded-2xl bg-white border border-[#e0eee7] hover:border-ugreen/40 hover:shadow-[0_14px_32px_-18px_rgba(15,74,40,0.5)] transition-all overflow-hidden">
                   <span className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-ugold to-ugreen" />
-                  <div className="flex flex-col items-center justify-center w-12 shrink-0 leading-none">
-                    <span className="text-2xl font-extrabold text-ugreend tabular-nums">{Number(dd)}</span>
-                    <span className="text-[10px] font-extrabold uppercase tracking-[0.15em] text-ugoldd mt-1">{shortMonth}</span>
+
+                  {/* Tarih */}
+                  <div className="flex flex-col items-center justify-center w-12 sm:w-14 shrink-0 leading-none">
+                    <span className="text-2xl sm:text-[28px] font-extrabold text-ugreend tabular-nums">{Number(dd)}</span>
+                    <span className="text-[10px] font-extrabold uppercase tracking-[0.12em] text-ugoldd mt-1">{shortMonth}</span>
+                    <span className="text-[9px] font-bold uppercase tracking-wide text-[#9bb5a8] mt-0.5">{wd}</span>
                   </div>
-                  <span className="w-px self-stretch bg-[#edf7f2] shrink-0" />
-                  <div className="relative h-10 w-10 shrink-0 bg-white rounded-lg p-1 ring-1 ring-ugold/30 shadow-sm"><img src={m.opponentLogo} alt="" className="w-full h-full object-contain" /></div>
+
+                  <span className="w-px self-stretch bg-[#e9f3ed] shrink-0" />
+
+                  {/* Rakip logo */}
+                  <div className="relative h-11 w-11 sm:h-12 sm:w-12 shrink-0 bg-white rounded-xl p-1.5 ring-1 ring-ugold/30 shadow-sm transition-transform group-hover/row:scale-105">
+                    <img src={m.opponentLogo} alt="" className="w-full h-full object-contain" />
+                  </div>
+
+                  {/* Bilgi */}
                   <div className="min-w-0 flex-1">
-                    <p className="text-sm font-extrabold text-ugreenm truncate">{m.isHome ? '🏠 ' : '✈️ '}{m.opponent}</p>
-                    <p className="text-[11px] text-[#7aab8e] truncate">{m.time ? `${m.time} · ` : ''}{m.roundLabel ?? ''}{m.venue ? ` · ${m.venue}` : ''}</p>
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <span className={`inline-flex items-center gap-1 text-[9px] font-extrabold uppercase tracking-wide rounded-md px-1.5 py-0.5 shrink-0 ${m.isHome ? 'bg-ugreen/10 text-ugreen' : 'bg-ugold/15 text-ugoldd'}`}>
+                        {m.isHome ? <IconHome className="w-3 h-3" /> : <IconPlane className="w-3 h-3" />}
+                        {m.isHome ? 'Ev' : 'Deplasman'}
+                      </span>
+                      <p className="text-sm sm:text-[15px] font-extrabold text-ugreenm truncate">{m.opponent}</p>
+                    </div>
+                    <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[11px] font-medium text-[#5b8771]">
+                      {m.roundLabel && <span className="inline-flex items-center gap-1"><CalendarDays size={12} className="text-ugold shrink-0" /> {m.roundLabel}</span>}
+                      {m.venue && <span className="inline-flex items-center gap-1 min-w-0"><MapPin size={12} className="text-ugold shrink-0" /> <span className="truncate">{m.venue}</span></span>}
+                    </div>
                   </div>
+
+                  {/* Sonuç / saat */}
                   {m.isCompleted && m.homeScore != null ? (
-                    <span className={`shrink-0 text-sm font-extrabold tabular-nums px-2 py-0.5 rounded-lg ${r === 'G' ? 'bg-ugreen text-white' : r === 'M' ? 'bg-[#d01b2a] text-white' : 'bg-ugold text-ugreend'}`}>{m.homeScore}-{m.awayScore}</span>
+                    <span className={`shrink-0 text-base font-extrabold tabular-nums px-3 py-1.5 rounded-xl ${r === 'G' ? 'bg-ugreen text-white' : r === 'M' ? 'bg-[#d01b2a] text-white' : 'bg-ugold text-ugreend'}`}>{m.homeScore}-{m.awayScore}</span>
                   ) : (
-                    <span className="shrink-0 text-[10px] font-extrabold text-ugreend bg-ugold px-2 py-1 rounded-md uppercase">{m.isHome ? 'Ev' : 'Dep'}</span>
+                    <span className="shrink-0 inline-flex flex-col items-center justify-center rounded-xl bg-[#f3f9f5] ring-1 ring-[#dceae3] px-3 py-1.5 leading-none">
+                      <span className="inline-flex items-center gap-0.5 text-[8px] font-bold uppercase tracking-wider text-[#9bb5a8]"><Clock size={9} /> Saat</span>
+                      <span className="text-sm font-extrabold text-ugreend tabular-nums mt-1">{m.time || '—'}</span>
+                    </span>
                   )}
                 </div>
               )
-              return m.macId ? <Link key={idx} href={`/mac/${m.macId}`} className="block">{inner}</Link> : <div key={idx}>{inner}</div>
+              return (
+                <motion.div key={idx} variants={rowV} whileHover={{ scale: 1.01 }} transition={{ duration: 0.2 }}>
+                  {m.macId ? <Link href={`/mac/${m.macId}`} className="block">{inner}</Link> : inner}
+                </motion.div>
+              )
             })}
-          </div>
+          </motion.div>
         )}
       </div>
 
       {/* ── Senkronizasyon kartı (bilgilendirici · özel) ─────────── */}
-      <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-ugreend via-[#15592f] to-ugreens text-white shadow-[0_20px_50px_-22px_rgba(9,45,24,0.6)]">
+      <motion.div
+        initial={{ opacity: 0, y: 32 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={{ duration: 0.6, ease }}
+        className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-ugreend via-[#15592f] to-ugreens text-white shadow-[0_20px_50px_-22px_rgba(9,45,24,0.6)]">
         {/* dekor */}
         <div className="pointer-events-none absolute -top-20 -right-16 w-72 h-72 rounded-full bg-ugold/10 blur-[90px]" />
         <div className="pointer-events-none absolute top-6 right-6 font-heading text-[7rem] font-extrabold text-white/[0.03] leading-none select-none hidden sm:block">ŞFK</div>
@@ -223,20 +313,26 @@ export default function CalendarView({ items, season, league }: { items: CalMatc
           </p>
 
           {/* Nasıl çalışır — 3 adım */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-7">
+          <motion.div
+            className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-7"
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: '-60px' }}
+            variants={{ show: { transition: { staggerChildren: 0.12 } } }}
+          >
             {[
               { n: '1', icon: Smartphone, t: 'Takvime Ekle', d: 'Aşağıdaki butonla telefon takvimine abone ol.' },
               { n: '2', icon: Bell, t: 'Maçlar Düşer', d: 'Tüm maçlar tarih ve saatiyle takvimine gelir.' },
               { n: '3', icon: RefreshCw, t: 'Güncel Kalır', d: 'Fikstür değişince takvimin otomatik güncellenir.' },
             ].map((s) => (
-              <div key={s.n} className="relative rounded-2xl bg-white/[0.06] border border-white/10 p-4">
+              <motion.div key={s.n} variants={stepV} className="relative rounded-2xl bg-white/[0.06] border border-white/10 p-4">
                 <span className="absolute top-3 right-3 font-heading text-2xl font-extrabold text-white/15">{s.n}</span>
                 <s.icon size={20} className="text-ugold mb-2.5" />
                 <p className="text-sm font-extrabold text-white">{s.t}</p>
                 <p className="text-[12px] text-white/50 leading-snug mt-1">{s.d}</p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
           {/* Butonlar */}
           <div className="flex flex-wrap gap-2.5">
@@ -255,7 +351,8 @@ export default function CalendarView({ items, season, league }: { items: CalMatc
           </div>
           <p className="text-white/30 text-[11px] mt-4 flex items-center gap-1.5"><MapPin size={11} /> {league}{season ? ` · ${season}` : ''}</p>
         </div>
-      </div>
+      </motion.div>
     </div>
+    </MotionConfig>
   )
 }
