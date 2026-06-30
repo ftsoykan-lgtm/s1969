@@ -68,7 +68,7 @@ export default function StandingsTable({
               <span className={`absolute left-0 top-0 bottom-0 w-1 ${barColor(row.rank, total)}`} />
               <span className={`text-xs font-extrabold text-center tabular-nums ${cur ? 'text-ugold' : 'text-ugreenm'}`}>{row.rank}</span>
               <div className="flex items-center gap-2 min-w-0 pl-1">
-                <div className="relative w-5 h-5 shrink-0"><Image src={row.teamLogo} alt={row.team} fill className="object-contain" /></div>
+                <div className="relative w-5 h-5 shrink-0"><Image src={row.teamLogo} alt={row.team} fill unoptimized sizes="20px" className="object-contain" /></div>
                 <span className={`text-[12px] font-bold truncate ${cur ? 'text-white' : 'text-ugreenm'}`}>{row.team}</span>
               </div>
               <span className={`text-[11px] text-center tabular-nums ${cur ? 'text-white/70' : 'text-utxt2'}`}>{row.played}</span>

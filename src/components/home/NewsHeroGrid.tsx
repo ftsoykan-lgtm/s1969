@@ -71,13 +71,13 @@ export default function NewsHeroGrid({ news, catName }: { news: SiteNews[]; catN
   return (
     <section className="reveal relative py-20 md:py-24 bg-white overflow-hidden">
       {/* arkada dev soluk filigran */}
-      <span aria-hidden className="pointer-events-none absolute -top-6 right-2 font-heading text-[18vw] leading-none font-extrabold text-ugreen/[0.04] select-none hidden md:block">HABER</span>
+      <span aria-hidden className="pointer-events-none absolute -top-6 right-2 font-heading text-[18vw] leading-none font-extrabold text-ugreen/[0.06] select-none hidden md:block">HABER</span>
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex items-end justify-between mb-10">
           <div>
             <span className="inline-flex items-center gap-2 mb-3">
               <span className="block h-2.5 w-2.5 rounded-full bg-ugold" />
-              <span className="text-[12px] font-extrabold tracking-[0.25em] uppercase text-ugold">Son Dakika</span>
+              <span className="text-[12px] font-extrabold tracking-[0.25em] uppercase text-[#8a6d00]">Son Dakika</span>
             </span>
             <h2 className="font-heading text-5xl md:text-7xl font-extrabold text-ugreenm tracking-[-0.03em] leading-[0.92]">
               KULÜP<br /><span className="text-ugreen">HABERLERİ</span>

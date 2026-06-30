@@ -101,7 +101,7 @@ export default async function MacDetayPage({ params }: Props) {
 
           <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3 md:gap-8">
             <div className="flex flex-col items-center gap-3">
-              <div className="relative w-20 h-20 md:w-32 md:h-32 drop-shadow-2xl"><Image src={match.homeTeamLogo} alt={match.homeTeam} fill className="object-contain" /></div>
+              <div className="relative w-20 h-20 md:w-32 md:h-32 drop-shadow-2xl"><Image src={match.homeTeamLogo} alt={match.homeTeam} fill unoptimized sizes="128px" className="object-contain" /></div>
               <span className={`text-sm md:text-xl font-extrabold text-center ${urfaIsHome ? 'text-ugold' : 'text-white'}`}>{match.homeTeam}</span>
             </div>
 
@@ -127,7 +127,7 @@ export default async function MacDetayPage({ params }: Props) {
             </div>
 
             <div className="flex flex-col items-center gap-3">
-              <div className="relative w-20 h-20 md:w-32 md:h-32 drop-shadow-2xl"><Image src={match.awayTeamLogo} alt={match.awayTeam} fill className="object-contain" /></div>
+              <div className="relative w-20 h-20 md:w-32 md:h-32 drop-shadow-2xl"><Image src={match.awayTeamLogo} alt={match.awayTeam} fill unoptimized sizes="128px" className="object-contain" /></div>
               <span className={`text-sm md:text-xl font-extrabold text-center ${!urfaIsHome ? 'text-ugold' : 'text-white'}`}>{match.awayTeam}</span>
             </div>
           </div>
@@ -239,7 +239,7 @@ export default async function MacDetayPage({ params }: Props) {
           <a href={`https://www.tff.org/Default.aspx?pageID=29&macID=${match.macId}`}
             target="_blank" rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 bg-white border border-[#ddeae2] hover:border-ugreen/40 text-ugreenm font-bold text-sm px-6 py-3.5 rounded-2xl transition-all">
-            TFF'de Resmi Maç Sayfası
+            {"TFF'de Resmi Maç Sayfası"}
             <ExternalLink size={15} className="text-ugreen" />
           </a>
         )}
@@ -292,7 +292,7 @@ function ElevenList({ team, logo, players, coach, variant = 'opp', muted = false
     <div className="relative rounded-xl border border-[#edf7f2] overflow-hidden">
       <span className={`absolute left-0 top-0 bottom-0 w-1 ${stripe}`} />
       <div className="flex items-center gap-2.5 px-4 py-3 bg-[#f8faf9] border-b border-[#edf7f2]">
-        <div className="relative w-7 h-7 shrink-0"><Image src={logo} alt="" fill className="object-contain" /></div>
+        <div className="relative w-7 h-7 shrink-0"><Image src={logo} alt="" fill unoptimized sizes="28px" className="object-contain" /></div>
         <span className="text-sm font-extrabold text-ugreenm">{team}</span>
         {isSfk && !muted && <span className="ml-auto text-[9px] font-extrabold tracking-widest uppercase text-ugreen bg-[#e3f1e9] rounded-full px-2 py-0.5">Bizim Takım</span>}
       </div>

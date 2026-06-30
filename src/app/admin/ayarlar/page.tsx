@@ -41,7 +41,7 @@ export default function AdminAyarlarPage() {
 
   const [club, setClub] = useState({
     name: clubInfo.name, fullName: clubInfo.fullName, founded: clubInfo.founded,
-    nickname: clubInfo.nickname, colors: clubInfo.colors,
+    nickname: clubInfo.nickname, brandTagline: clubInfo.brandTagline, colors: clubInfo.colors,
     stadium: clubInfo.stadium, capacity: clubInfo.stadiumCapacity, city: clubInfo.city,
     president: clubInfo.president, headCoach: clubInfo.headCoach, logoUrl: clubInfo.logoUrl,
     heroVideo: clubInfo.heroVideo,
@@ -64,7 +64,8 @@ export default function AdminAyarlarPage() {
   useEffect(() => {
     getSettings().then((s) => {
       setClub({
-        name: s.name, fullName: s.fullName, founded: s.founded, nickname: s.nickname, colors: s.colors,
+        name: s.name, fullName: s.fullName, founded: s.founded, nickname: s.nickname,
+        brandTagline: s.brandTagline ?? clubInfo.brandTagline, colors: s.colors,
         stadium: s.stadium, capacity: s.stadiumCapacity, city: s.city,
         president: s.president, headCoach: s.headCoach, logoUrl: s.logoUrl,
         heroVideo: s.heroVideo ?? '',
@@ -86,6 +87,7 @@ export default function AdminAyarlarPage() {
     const payload: ClubInfo = {
       ...clubInfo,
       name: club.name, fullName: club.fullName, founded: club.founded, nickname: club.nickname,
+      brandTagline: club.brandTagline,
       colors: club.colors, stadium: club.stadium, stadiumCapacity: club.capacity, city: club.city,
       president: club.president, headCoach: club.headCoach, logoUrl: club.logoUrl,
       heroVideo: club.heroVideo,
@@ -172,6 +174,7 @@ export default function AdminAyarlarPage() {
               <Field label="Kuruluş Yılı"><Input value={club.founded} onChange={e => setClub(p => ({ ...p, founded: e.target.value }))} /></Field>
               <Field label="Şehir"><Input value={club.city} onChange={e => setClub(p => ({ ...p, city: e.target.value }))} /></Field>
               <Field label="Lakap"><Input value={club.nickname} onChange={e => setClub(p => ({ ...p, nickname: e.target.value }))} /></Field>
+              <Field label="Navbar Alt Başlığı" hint="Kulüp adının altında görünür (örn. Resmi Web Sitesi)"><Input value={club.brandTagline} onChange={e => setClub(p => ({ ...p, brandTagline: e.target.value }))} /></Field>
               <Field label="Renkler"><Input value={club.colors} onChange={e => setClub(p => ({ ...p, colors: e.target.value }))} /></Field>
               <Field label="Stat Adı"><Input value={club.stadium} onChange={e => setClub(p => ({ ...p, stadium: e.target.value }))} /></Field>
               <Field label="Stat Kapasitesi"><Input value={club.capacity} onChange={e => setClub(p => ({ ...p, capacity: e.target.value }))} /></Field>

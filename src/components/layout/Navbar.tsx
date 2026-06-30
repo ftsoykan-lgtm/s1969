@@ -77,6 +77,7 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
   const [scrolled, setScrolled] = useState(false)
   const megaTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect -- route değişiminde açık menüleri kapat (kasıtlı senkronizasyon)
   useEffect(() => { setMobileOpen(false); setMegaOpen(false); setMobileSubOpen(false) }, [pathname])
 
   // Scroll'da navbar'ı daralt + camlaştır
@@ -162,7 +163,10 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
                   <span className="font-heading font-extrabold text-[10px] text-ugreend">{club.shortCode}</span>
                 </div>
               )}
-              <span className="font-heading font-extrabold text-[15px] tracking-tight uppercase text-white truncate">{club.name}</span>
+              <span className="flex flex-col leading-none min-w-0">
+                <span className="font-heading font-extrabold text-[15px] tracking-tight uppercase text-white truncate">{club.name}</span>
+                {club.brandTagline && <span className="text-[8px] font-semibold tracking-[0.16em] uppercase text-ugold/75 truncate">{club.brandTagline}</span>}
+              </span>
             </Link>
 
             <button aria-label="Dil" className="justify-self-end h-10 w-10 flex items-center justify-center text-white/80 hover:text-ugold transition-colors -mr-1">
@@ -176,18 +180,24 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
             {/* ── Logo + wordmark (rafine) ────────────────────────────── */}
             <Link href="/" className="relative group flex items-center gap-3.5 h-full shrink-0" aria-label={club.name}>
               <div className="relative shrink-0">
-                <div className="absolute -inset-1.5 rounded-full bg-ugold/0 group-hover:bg-ugold/25 blur-md transition-all duration-300" />
+                {/* hover hâlesi */}
+                <div className="absolute -inset-2 rounded-full bg-ugold/0 group-hover:bg-ugold/30 blur-md transition-all duration-300" />
+                {/* dönen altın halka — yalnız hover (kurumsal, ölçülü) */}
+                <span aria-hidden className="pointer-events-none absolute -inset-1 rounded-full border border-dashed border-ugold/0 group-hover:border-ugold/60 group-hover:[animation:spin_6s_linear_infinite] transition-colors duration-300" />
                 {hasLogo ? (
                   <img src={club.logoUrl} alt={club.name}
-                    className={cn('relative rounded-full object-contain bg-white ring-1 ring-ugold/40 group-hover:ring-ugold shadow-md transition-all duration-300', scrolled ? 'h-10 w-10' : 'h-12 w-12')} />
+                    className={cn('logo-emblem relative rounded-full object-contain bg-white ring-2 ring-ugold/50 group-hover:ring-ugold group-hover:scale-105 shadow-md transition-all duration-300', scrolled ? 'h-10 w-10' : 'h-12 w-12')} />
                 ) : (
-                  <div className="relative h-12 w-12 rounded-full bg-gradient-to-br from-ugold to-[#e8b800] flex items-center justify-center shadow-md ring-1 ring-ugold/40 transition-all duration-200">
+                  <div className={cn('logo-emblem relative rounded-full bg-gradient-to-br from-ugold to-[#e8b800] flex items-center justify-center shadow-md ring-2 ring-ugold/50 group-hover:scale-105 transition-all duration-300', scrolled ? 'h-10 w-10' : 'h-12 w-12')}>
                     <span className="font-heading font-extrabold text-sm text-ugreend">{club.shortCode}</span>
                   </div>
                 )}
               </div>
               <div className="leading-none">
                 <p className="font-heading font-extrabold text-[18px] tracking-tight uppercase text-white">{club.name}</p>
+                {club.brandTagline && (
+                  <p className="mt-1 text-[9.5px] font-semibold tracking-[0.22em] uppercase text-ugold/75">{club.brandTagline}</p>
+                )}
               </div>
             </Link>
 

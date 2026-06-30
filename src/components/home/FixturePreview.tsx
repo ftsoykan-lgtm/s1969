@@ -23,7 +23,7 @@ export default async function FixturePreview() {
 
   return (
     <section className="reveal relative py-20 md:py-24 bg-[#f8faf9] overflow-hidden">
-      <span aria-hidden className="pointer-events-none absolute -top-6 left-0 font-heading text-[18vw] leading-none font-extrabold text-ugreen/[0.04] select-none hidden md:block">MAÇ</span>
+      <span aria-hidden className="pointer-events-none absolute -top-6 left-0 font-heading text-[18vw] leading-none font-extrabold text-ugreen/[0.06] select-none hidden md:block">MAÇ</span>
       <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
 
         {/* Başlık + sıradaki maç geri sayımı */}
@@ -31,7 +31,7 @@ export default async function FixturePreview() {
           <div>
             <span className="inline-flex items-center gap-2 mb-3">
               <span className="block h-2.5 w-2.5 rounded-full bg-ugold" />
-              <span className="text-[12px] font-extrabold tracking-[0.25em] uppercase text-ugold">{meta.league} · {meta.season}</span>
+              <span className="text-[12px] font-extrabold tracking-[0.25em] uppercase text-[#8a6d00]">{meta.league} · {meta.season}</span>
             </span>
             <h2 className="font-heading text-5xl md:text-7xl font-extrabold text-ugreenm tracking-[-0.03em] leading-[0.92]">
               MAÇ <span className="text-ugreen">MERKEZİ</span>

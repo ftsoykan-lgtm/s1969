@@ -57,7 +57,7 @@ export default async function OyuncuDetayPage({ params }: Props) {
         <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-6">
           {/* Fotoğraf */}
           <div className="relative rounded-2xl overflow-hidden h-96 border border-[#ddeae2] shadow-lg">
-            <Image src={player.imageUrl} alt={player.name} fill className="object-cover object-top" />
+            <Image src={player.imageUrl} alt={player.name} fill sizes="(max-width: 768px) 100vw, 380px" className="object-cover object-top" />
           </div>
 
           {/* Bilgiler */}

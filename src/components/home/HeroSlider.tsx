@@ -112,7 +112,9 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
   return (
     <MotionConfig reducedMotion="user">
       <section className="relative bg-[#081f12] overflow-hidden"
-        onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
+        onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
+        onTouchStart={() => setHovered(true)}
+        onTouchEnd={() => setHovered(false)} onTouchCancel={() => setHovered(false)}>
         {/* slayt değişimini ekran okuyucuya bildir */}
         <span className="sr-only" aria-live="polite">{`Slayt ${idx + 1} / ${n}: ${active.title}`}</span>
 

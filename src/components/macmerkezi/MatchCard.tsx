@@ -20,10 +20,10 @@ function tarihSaat(dateISO: string, time?: string): string {
 type ResultKind = 'G' | 'M' | 'B'
 
 /* Sonuca göre canlı tema — üst aksan + rozet + yumuşak zemin tonu */
-const THEME: Record<ResultKind, { label: string; bar: string; pill: string; tint: string }> = {
-  G: { label: 'Galibiyet', bar: 'from-ugreen to-ugreend', pill: 'bg-ugreen text-white', tint: 'from-ugreen/[0.07]' },
-  M: { label: 'Mağlubiyet', bar: 'from-[#d01b2a] to-[#9c1320]', pill: 'bg-[#d01b2a] text-white', tint: 'from-[#d01b2a]/[0.06]' },
-  B: { label: 'Beraberlik', bar: 'from-ugold to-[#d6a915]', pill: 'bg-ugold text-ugreend', tint: 'from-ugold/[0.10]' },
+const THEME: Record<ResultKind, { label: string; full: string; bar: string; pill: string; tint: string }> = {
+  G: { label: 'G', full: 'Galibiyet', bar: 'from-ugreen to-ugreend', pill: 'bg-ugreen text-white', tint: 'from-ugreen/[0.07]' },
+  M: { label: 'M', full: 'Mağlubiyet', bar: 'from-[#d01b2a] to-[#9c1320]', pill: 'bg-[#d01b2a] text-white', tint: 'from-[#d01b2a]/[0.06]' },
+  B: { label: 'B', full: 'Beraberlik', bar: 'from-ugold to-[#d6a915]', pill: 'bg-ugold text-ugreend', tint: 'from-ugold/[0.10]' },
 }
 const NEUTRAL_BAR = 'from-ugold via-ugreen to-ugreend'
 
@@ -69,7 +69,7 @@ function TeamLogo({ src, alt }: { src: string; alt: string }) {
     <div className="group/logo relative aspect-square w-full max-w-[52px] mx-auto">
       <span className="absolute inset-0 rounded-full bg-white ring-1 ring-[#e3efe8] shadow-[0_2px_8px_-3px_rgba(12,46,34,0.25)]" />
       <span className="absolute inset-0 rounded-full bg-ugreen/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-      <Image src={src} alt={alt} fill sizes="52px" className="relative object-contain p-2 transition-transform duration-500 group-hover:scale-110" />
+      <Image src={src} alt={alt} fill unoptimized sizes="52px" className="relative object-contain p-2 transition-transform duration-500 group-hover:scale-110" />
     </div>
   )
 }
@@ -118,13 +118,14 @@ export default function MatchCard({
           <div className="flex items-center gap-2 min-w-0">
             {tournamentLogo && (
               <div className="relative w-5 h-5 shrink-0">
-                <Image src={tournamentLogo} alt={match.competition} fill sizes="20px" className="object-contain" />
+                <Image src={tournamentLogo} alt={match.competition} fill unoptimized sizes="20px" className="object-contain" />
               </div>
             )}
             <span className="text-[10px] font-extrabold tracking-widest uppercase text-ugreen truncate">{roundText}</span>
           </div>
           {theme && (
-            <span className={`shrink-0 rounded-full px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wide shadow-sm ${theme.pill}`}>
+            <span title={theme.full} aria-label={theme.full}
+              className={`shrink-0 flex h-6 w-6 items-center justify-center rounded-full text-[11px] font-extrabold shadow-sm ${theme.pill}`}>
               {theme.label}
             </span>
           )}

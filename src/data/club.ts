@@ -16,6 +16,7 @@ export interface ClubInfo {
   fullName: string
   shortCode: string
   nickname: string
+  brandTagline: string   // navbar'da kulüp adının altında — admin'den düzenlenir
   founded: string
   colors: string
 
@@ -117,6 +118,7 @@ export const clubInfo: ClubInfo = {
   fullName: 'Şanlıurfaspor Futbol Kulübü',
   shortCode: 'ŞANLIURFASPOR',
   nickname: 'Ceylanlar',
+  brandTagline: 'Resmi Web Sitesi',
   founded: '1969',
   colors: 'Sarı - Yeşil',
 
