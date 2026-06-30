@@ -4,24 +4,19 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Gövde fontu — Inter dosyaları, "Mesopotamia Sans" adıyla self-host edildi */
-@font-face {
-  font-family: 'Mesopotamia Sans';
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-  src: url('/fonts/mesopotamia-latin.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+/* Gövde fontu — General Sans, "Mesopotamia Sans" adıyla self-host (Just Sans tarzı, temiz geometrik) */
+@font-face { font-family: 'Mesopotamia Sans'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/msa-400.woff2') format('woff2'); }
+@font-face { font-family: 'Mesopotamia Sans'; font-style: normal; font-weight: 500; font-display: swap; src: url('/fonts/msa-500.woff2') format('woff2'); }
+@font-face { font-family: 'Mesopotamia Sans'; font-style: normal; font-weight: 600; font-display: swap; src: url('/fonts/msa-600.woff2') format('woff2'); }
+@font-face { font-family: 'Mesopotamia Sans'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/msa-700.woff2') format('woff2'); }
+/* Başlık fontu — Clash Display, "Mesopotamia Display" adıyla self-host (Mouzambik tarzı, şık display) */
+@font-face { font-family: 'Mesopotamia Display'; font-style: normal; font-weight: 500; font-display: swap; src: url('/fonts/msd-500.woff2') format('woff2'); }
+@font-face { font-family: 'Mesopotamia Display'; font-style: normal; font-weight: 600; font-display: swap; src: url('/fonts/msd-600.woff2') format('woff2'); }
+@font-face { font-family: 'Mesopotamia Display'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/msd-700.woff2') format('woff2'); }
+:root {
+  --font-sans: 'Mesopotamia Sans', system-ui, -apple-system, sans-serif;
+  --font-display: 'Mesopotamia Display', 'Mesopotamia Sans', system-ui, sans-serif;
 }
-@font-face {
-  font-family: 'Mesopotamia Sans';
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-  src: url('/fonts/mesopotamia-latin-ext.woff2') format('woff2');
-  unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF, U+FB00-FB06;
-}
-:root { --font-sans: 'Mesopotamia Sans', system-ui, -apple-system, sans-serif; }
 
 @theme inline {
   --color-background: var(--background);
