@@ -419,6 +419,7 @@ export interface AdminPage {
   nav_group?: string
   sort?: number
   published?: boolean
+  data?: Record<string, unknown> | null
 }
 
 export async function getPagesAdmin(): Promise<AdminPage[]> {
@@ -448,6 +449,7 @@ export async function savePage(p: AdminPage, originalSlug?: string): Promise<{ o
       nav_group: p.nav_group ?? 'kulup',
       sort: p.sort ?? 0,
       published: p.published ?? true,
+      data: p.data ?? {},
       updated_at: new Date().toISOString(),
     }
     const supabase = client()

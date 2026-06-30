@@ -9,6 +9,7 @@ export interface SitePage {
   navGroup: string
   sort: number
   published: boolean
+  data?: Record<string, unknown> | null
 }
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -22,6 +23,7 @@ function map(r: any): SitePage {
     navGroup: r.nav_group ?? 'kulup',
     sort: r.sort ?? 0,
     published: r.published ?? true,
+    data: (r.data && typeof r.data === 'object') ? r.data : null,
   }
 }
 
@@ -40,6 +42,17 @@ export async function getPage(slug: string): Promise<SitePage | null> {
   } catch {
     return null
   }
+}
+
+/** Aynı gruptaki diğer yayınlanmış sayfalar (ilgili linkler için) */
+export async function getRelatedPages(
+  navGroup: string,
+  excludeSlug: string,
+): Promise<{ slug: string; title: string }[]> {
+  const all = await getPages()
+  return all
+    .filter((p) => p.navGroup === navGroup && p.slug !== excludeSlug)
+    .map((p) => ({ slug: p.slug, title: p.title }))
 }
 
 /** Yayınlanmış tüm sayfalar (navbar/footer menüleri için) */

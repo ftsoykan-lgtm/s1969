@@ -4,7 +4,9 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { getPagesAdmin, savePage, deletePage, uploadImage, type AdminPage } from '@/lib/supabase/settings'
 import { seedSitePages } from '@/lib/supabase/pages-seed'
-import { Plus, Trash2, Upload, Loader2, Check, AlertCircle, ExternalLink, ChevronDown, Sparkles } from 'lucide-react'
+import { getSpec } from '@/lib/pages/specs'
+import StructuredEditor from '@/components/admin/StructuredEditor'
+import { Plus, Trash2, Upload, Loader2, Check, AlertCircle, ExternalLink, ChevronDown, Sparkles, LayoutTemplate } from 'lucide-react'
 
 const GROUPS: { key: string; label: string }[] = [
   { key: 'kulup', label: 'Kulüp' },
@@ -138,10 +140,31 @@ export default function AdminSayfalarPage() {
                               </select>
                             </Field>
                           </div>
-                          <Field label="İçerik">
-                            <textarea value={r.body ?? ''} onChange={(e) => update(i, { body: e.target.value })} rows={8}
-                              placeholder="Paragrafları boş satırla ayırın..." className={inputCls + ' resize-y leading-relaxed'} />
-                          </Field>
+                          {(() => {
+                            const spec = getSpec(r.slug)
+                            if (spec) {
+                              return (
+                                <div className="rounded-2xl border border-[#dbeee4] bg-[#f3faf6] p-4">
+                                  <div className="flex items-center gap-2 mb-3">
+                                    <LayoutTemplate size={14} className="text-ugreen" />
+                                    <span className="text-[11px] font-extrabold uppercase tracking-wide text-ugreenm">Özel tasarım içeriği</span>
+                                    <span className="text-[10px] text-[#7aab8e]">— bu sayfanın kendine özgü şablonu var</span>
+                                  </div>
+                                  <StructuredEditor
+                                    fields={spec.fields}
+                                    value={{ ...spec.defaults, ...((r.data as Record<string, unknown>) ?? {}) }}
+                                    onChange={(d) => update(i, { data: d })}
+                                  />
+                                </div>
+                              )
+                            }
+                            return (
+                              <Field label="İçerik">
+                                <textarea value={r.body ?? ''} onChange={(e) => update(i, { body: e.target.value })} rows={8}
+                                  placeholder="Paragrafları boş satırla ayırın..." className={inputCls + ' resize-y leading-relaxed'} />
+                              </Field>
+                            )
+                          })()}
                           <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto_auto] gap-3 items-end">
                             <Field label="Kapak Görseli (opsiyonel)">
                               <div className="flex items-center gap-1.5">
