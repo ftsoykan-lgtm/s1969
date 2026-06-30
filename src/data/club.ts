@@ -125,14 +125,14 @@ export const clubInfo: ClubInfo = {
   league: 'TFF 2. Lig',
   group: 'Beyaz Grup',
 
-  stadium: 'Şanlıurfa GAP Stadyumu',
+  stadium: 'Şanlıurfa 11 Nisan Stadyumu',
   stadiumCapacity: '28.965',
 
   president: '',          // ← Admin panelden girilecek
   headCoach: '',          // ← Admin panelden girilecek
 
   city: 'Şanlıurfa',
-  address: 'Şanlıurfa GAP Stadyumu, Karaköprü, Şanlıurfa',
+  address: 'Şanlıurfa 11 Nisan Stadyumu, Şanlıurfa',
   phone: '+90 (414) 000 00 00',
   email: 'info@sanliurfaspor.org',
   website: 'https://www.sanliurfaspor.org',

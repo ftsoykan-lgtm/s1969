@@ -4,9 +4,9 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = { title: 'Bilet Al' }
 
 const matches = [
-  { id: 1, opponent: 'Galatasaray', date: '2026-07-12', time: '19:00', venue: 'GAP Arena', prices: { ucurtma: 150, orta: 250, vip: 500 } },
-  { id: 2, opponent: 'Fenerbahçe', date: '2026-07-26', time: '20:30', venue: 'GAP Arena', prices: { ucurtma: 200, orta: 350, vip: 750 } },
-  { id: 3, opponent: 'Beşiktaş', date: '2026-08-09', time: '19:00', venue: 'GAP Arena', prices: { ucurtma: 150, orta: 250, vip: 500 } },
+  { id: 1, opponent: 'Galatasaray', date: '2026-07-12', time: '19:00', venue: '11 Nisan Stadyumu', prices: { ucurtma: 150, orta: 250, vip: 500 } },
+  { id: 2, opponent: 'Fenerbahçe', date: '2026-07-26', time: '20:30', venue: '11 Nisan Stadyumu', prices: { ucurtma: 200, orta: 350, vip: 750 } },
+  { id: 3, opponent: 'Beşiktaş', date: '2026-08-09', time: '19:00', venue: '11 Nisan Stadyumu', prices: { ucurtma: 150, orta: 250, vip: 500 } },
 ]
 
 export default function BiletPage() {
@@ -27,7 +27,7 @@ export default function BiletPage() {
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-12 pb-20 space-y-6">
         <div className="flex items-start gap-3 bg-ugold/10 border border-ugold/30 rounded-xl p-4">
           <Info size={16} className="text-ugoldd mt-0.5 shrink-0" />
-          <p className="text-sm text-ugreenm">Biletler çevrimiçi satın alınabilir veya GAP Arena gişesinden temin edilebilir. Üye indirimi için giriş yapın.</p>
+          <p className="text-sm text-ugreenm">Biletler çevrimiçi satın alınabilir veya 11 Nisan Stadyumu gişesinden temin edilebilir. Üye indirimi için giriş yapın.</p>
         </div>
 
         {matches.map((m) => (

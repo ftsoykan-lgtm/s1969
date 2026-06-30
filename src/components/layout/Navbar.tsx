@@ -37,7 +37,7 @@ const kulupMenu = [
     { label: 'Tüzük', href: '/sayfa/tuzuk' },
   ]},
   { baslik: 'TESİSLER', linkler: [
-    { label: 'GAP Arena', href: '/sayfa/gap-arena' },
+    { label: '11 Nisan Stadyumu', href: '/sayfa/gap-arena' },
     { label: 'Antrenman Tesisi', href: '/sayfa/antrenman-tesisi' },
     { label: 'Altyapı Akademisi', href: '/sayfa/altyapi-akademisi' },
     { label: 'Müze', href: '/sayfa/muze' },
