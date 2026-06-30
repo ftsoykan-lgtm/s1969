@@ -4,12 +4,15 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Gövde fontu — JUST Sans (self-host), "Mesopotamia Sans" adıyla. Regular + ExBold (2 ağırlık) */
-@font-face { font-family: 'Mesopotamia Sans'; font-style: normal; font-weight: 1 500; font-display: swap; src: url('/fonts/just-sans-regular.woff2') format('woff2'); }
-@font-face { font-family: 'Mesopotamia Sans'; font-style: normal; font-weight: 501 900; font-display: swap; src: url('/fonts/just-sans-exbold.woff2') format('woff2'); }
-/* Başlık fontu — Mouzambik (self-host), "Mesopotamia Display" adıyla. Tek ağırlık tüm aralığı kapsar (faux-bold yok) */
-@font-face { font-family: 'Mesopotamia Display'; font-style: normal; font-weight: 1 900; font-display: swap; src: url('/fonts/mouzambik-regular.woff2') format('woff2'); }
-@font-face { font-family: 'Mesopotamia Display'; font-style: italic; font-weight: 1 900; font-display: swap; src: url('/fonts/mouzambik-italic.woff2') format('woff2'); }
+/* Gövde fontu — General Sans, "Mesopotamia Sans" adıyla self-host (Just Sans tarzı, temiz geometrik) */
+@font-face { font-family: 'Mesopotamia Sans'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/msa-400.woff2') format('woff2'); }
+@font-face { font-family: 'Mesopotamia Sans'; font-style: normal; font-weight: 500; font-display: swap; src: url('/fonts/msa-500.woff2') format('woff2'); }
+@font-face { font-family: 'Mesopotamia Sans'; font-style: normal; font-weight: 600; font-display: swap; src: url('/fonts/msa-600.woff2') format('woff2'); }
+@font-face { font-family: 'Mesopotamia Sans'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/msa-700.woff2') format('woff2'); }
+/* Başlık fontu — Clash Display, "Mesopotamia Display" adıyla self-host (Mouzambik tarzı, şık display) */
+@font-face { font-family: 'Mesopotamia Display'; font-style: normal; font-weight: 500; font-display: swap; src: url('/fonts/msd-500.woff2') format('woff2'); }
+@font-face { font-family: 'Mesopotamia Display'; font-style: normal; font-weight: 600; font-display: swap; src: url('/fonts/msd-600.woff2') format('woff2'); }
+@font-face { font-family: 'Mesopotamia Display'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/msd-700.woff2') format('woff2'); }
 :root {
   --font-sans: 'Mesopotamia Sans', system-ui, -apple-system, sans-serif;
   --font-display: 'Mesopotamia Display', 'Mesopotamia Sans', system-ui, sans-serif;
