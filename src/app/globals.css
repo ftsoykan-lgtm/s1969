@@ -9,13 +9,12 @@
 @font-face { font-family: 'Mesopotamia Sans'; font-style: normal; font-weight: 500; font-display: swap; src: url('/fonts/msa-500.woff2') format('woff2'); }
 @font-face { font-family: 'Mesopotamia Sans'; font-style: normal; font-weight: 600; font-display: swap; src: url('/fonts/msa-600.woff2') format('woff2'); }
 @font-face { font-family: 'Mesopotamia Sans'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/msa-700.woff2') format('woff2'); }
-/* Başlık fontu — Clash Display, "Mesopotamia Display" adıyla self-host (Mouzambik tarzı, şık display) */
-@font-face { font-family: 'Mesopotamia Display'; font-style: normal; font-weight: 500; font-display: swap; src: url('/fonts/msd-500.woff2') format('woff2'); }
-@font-face { font-family: 'Mesopotamia Display'; font-style: normal; font-weight: 600; font-display: swap; src: url('/fonts/msd-600.woff2') format('woff2'); }
-@font-face { font-family: 'Mesopotamia Display'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/msd-700.woff2') format('woff2'); }
+/* Font — Archivo (next/font): kurumsal grotesk, sportif + otoriter.
+   @font-face global 'Archivo' adıyla kayıtlı; iç içe var() döngüsünü
+   önlemek için doğrudan aile adıyla referans veriyoruz. */
 :root {
-  --font-sans: 'Mesopotamia Sans', system-ui, -apple-system, sans-serif;
-  --font-display: 'Mesopotamia Display', 'Mesopotamia Sans', system-ui, sans-serif;
+  --font-sans: 'Archivo', 'Mesopotamia Sans', system-ui, -apple-system, sans-serif;
+  --font-display: 'Archivo', 'Mesopotamia Sans', system-ui, sans-serif;
 }
 
 @theme inline {
@@ -218,8 +217,8 @@
     overflow-x: hidden;
     max-width: 100%;
   }
-  /* Başlıklar: display fontu + sıkı harf aralığı — kurumsal his */
-  h1, h2, h3 {
+  /* Başlıklar: Rubik — modern, sıkı harf aralığı (kurumsal his) */
+  h1, h2, h3, h4 {
     font-family: var(--font-display), var(--font-sans), system-ui, sans-serif;
     letter-spacing: -0.02em;
   }

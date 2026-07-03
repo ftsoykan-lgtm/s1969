@@ -48,7 +48,7 @@ export default function AdminLogolarPage() {
 
   const handleUpload = async (key: string, file: File) => {
     setBusy(key)
-    const res = await uploadImage(file, { folder: 'logos', size: 128 })
+    const res = await uploadImage(file, { folder: 'logos', original: true })
     if (res.ok && res.url) {
       setLogo(key, res.url)
       await saveTeamLogo(key, res.url)

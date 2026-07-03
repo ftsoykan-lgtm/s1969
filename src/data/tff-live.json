@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-26T13:38:15.341Z",
+  "updatedAt": "2026-07-03T14:15:36.119Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2025-2026",
@@ -10854,7 +10854,13 @@
         "name": "Anıl Gözütok",
         "tffId": "2560738",
         "number": null,
-        "position": null
+        "position": null,
+        "birthPlace": "Almanya",
+        "birthDate": "27.10.2000",
+        "nationality": "Türkiye",
+        "flagCode": "tr",
+        "licenseNo": "18742",
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "Berk Yıldız",
@@ -10872,13 +10878,7 @@
         "name": "Berk İsmail Ünsal",
         "tffId": "1023707",
         "number": null,
-        "position": null,
-        "birthPlace": "Gaziosmanpaşa",
-        "birthDate": "06.08.1994",
-        "nationality": "Türkiye",
-        "flagCode": "tr",
-        "licenseNo": "973290",
-        "club": "Kızılkaya Tarım Şanlıurfaspor"
+        "position": null
       },
       {
         "name": "Berke Kılıç",
@@ -10896,13 +10896,7 @@
         "name": "Burak Öğür",
         "tffId": "784599",
         "number": null,
-        "position": null,
-        "birthPlace": "İstanbul",
-        "birthDate": "18.09.1989",
-        "nationality": "Türkiye",
-        "flagCode": "tr",
-        "licenseNo": "1116536",
-        "club": "Kızılkaya Tarım Şanlıurfaspor"
+        "position": null
       },
       {
         "name": "Burak Can Çamoğlu",
@@ -10950,7 +10944,13 @@
         "name": "Eyüpcan Delibalta",
         "tffId": "1369129",
         "number": null,
-        "position": null
+        "position": null,
+        "birthPlace": "Seyhan",
+        "birthDate": "11.11.1996",
+        "nationality": "Türkiye",
+        "flagCode": "tr",
+        "licenseNo": "1457494",
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "Güney Tutcuoğlu",
@@ -11016,13 +11016,7 @@
         "name": "Mert Çölgeçen",
         "tffId": "1526664",
         "number": null,
-        "position": null,
-        "birthPlace": "Edremit/balıkesir",
-        "birthDate": "07.02.2001",
-        "nationality": "Türkiye",
-        "flagCode": "tr",
-        "licenseNo": "1679316",
-        "club": "Kızılkaya Tarım Şanlıurfaspor"
+        "position": null
       },
       {
         "name": "Onur Karakabak",
@@ -11064,13 +11058,7 @@
         "name": "Sadık Çiftpınar",
         "tffId": "827547",
         "number": null,
-        "position": null,
-        "birthPlace": "Seyhan",
-        "birthDate": "01.01.1993",
-        "nationality": "Türkiye",
-        "flagCode": "tr",
-        "licenseNo": "1413632",
-        "club": "Kızılkaya Tarım Şanlıurfaspor"
+        "position": null
       },
       {
         "name": "Sadık Arda Yılmaztürk",
@@ -11136,13 +11124,7 @@
         "name": "Vedat Bora",
         "tffId": "1153697",
         "number": null,
-        "position": null,
-        "birthPlace": "Gebze",
-        "birthDate": "27.01.1995",
-        "nationality": "Türkiye",
-        "flagCode": "tr",
-        "licenseNo": "1139974",
-        "club": "Kızılkaya Tarım Şanlıurfaspor"
+        "position": null
       },
       {
         "name": "Yılmaz Ceylan",

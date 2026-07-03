@@ -12,7 +12,7 @@ interface Props {
   label?: string
 }
 
-export default function LogoUpload({ value, onChange, size = 256, folder = 'logos', label = 'Logo' }: Props) {
+export default function LogoUpload({ value, onChange, folder = 'logos', label = 'Logo' }: Props) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [state, setState] = useState<'idle' | 'uploading' | 'ok' | 'error'>('idle')
   const [error, setError] = useState<string | null>(null)
@@ -21,7 +21,7 @@ export default function LogoUpload({ value, onChange, size = 256, folder = 'logo
   const handleFile = async (file: File) => {
     setState('uploading')
     setError(null)
-    const res = await uploadImage(file, { folder, size })
+    const res = await uploadImage(file, { folder, original: true })
     if (res.ok && res.url) {
       onChange(res.url)
       setState('ok')
@@ -81,7 +81,7 @@ export default function LogoUpload({ value, onChange, size = 256, folder = 'logo
                   : <Upload size={14} />}
                 {state === 'uploading' ? 'Yükleniyor...' : state === 'ok' ? 'Yüklendi' : 'Görsel Yükle'}
               </button>
-              <p className="text-[11px] text-[#7aab8e] mt-1.5">PNG/JPG/WEBP — otomatik {size}×{size}px'e ölçeklenir</p>
+              <p className="text-[11px] text-[#7aab8e] mt-1.5">PNG / JPG / WEBP / SVG — orijinal kalitesinde yüklenir</p>
             </>
           )}
           {state === 'error' && error && (

@@ -53,6 +53,7 @@ export interface ClubInfo {
 
   // Görseller
   logoUrl: string
+  logoSize: number    // navbar'da logonun görünüm boyutu (px) — admin'den ayarlanır
   heroVideo: string   // header (üst) alanı için arka plan videosu — boşsa haber slider gösterilir
 
   // SEO (admin'den yönetilir)
@@ -149,6 +150,7 @@ export const clubInfo: ClubInfo = {
   hashtag: '#Şanlıurfaspor',
 
   logoUrl: 'https://placehold.co/96x96/1A6B3C/FFD100?text=%C5%9EFK',
+  logoSize: 72,
   heroVideo: '',   // Admin → Site Ayarları'ndan eklenir (boşsa haber slider gösterilir)
 
   seoTitle: 'Şanlıurfaspor — Resmi Web Sitesi',

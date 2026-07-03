@@ -118,7 +118,7 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
         {/* slayt değişimini ekran okuyucuya bildir */}
         <span className="sr-only" aria-live="polite">{`Slayt ${idx + 1} / ${n}: ${active.title}`}</span>
 
-        <div className="relative h-[420px] sm:h-[540px] lg:h-[calc(100vh-188px)] lg:min-h-[600px] lg:max-h-[900px]">
+        <div className="relative h-[420px] sm:h-[540px] lg:h-[calc(100vh-118px)] lg:min-h-[560px]">
 
           {/* ── SOL komşu (kenardan sızar) ───────────────────────────── */}
           {n > 1 && (
@@ -168,7 +168,7 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
             {/* Görselin tamamı habere tıklanabilir (içerik + nav daha üstte) */}
             <Link href={active.href} aria-label={active.title} className="absolute inset-0 z-[15]" />
 
-            <div className="absolute inset-x-0 bottom-0 z-20 p-5 sm:p-8 lg:p-10 pointer-events-none">
+            <div className="absolute inset-x-0 bottom-0 z-20 p-5 sm:p-8 lg:p-10 pb-20 sm:pb-24 pointer-events-none">
               <div className="group block max-w-3xl border-l-4 border-ugold pl-5 sm:pl-6 pointer-events-auto" key={idx}>
                 {active.category && (
                   <span className="hAnim1 inline-block bg-ugold text-ugreend text-[11px] font-extrabold tracking-[0.18em] uppercase px-3.5 py-1.5 mb-4">
@@ -190,47 +190,41 @@ export default function HeroSlider({ items }: { items: HeroItem[] }) {
                 </Link>
               </div>
             </div>
+
+            {/* ── Geçiş kontrolleri: haberin üzerinde, alt-ortada (cam pill) ── */}
+            {n > 1 && (
+              <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-30 flex items-center gap-3 rounded-full bg-black/35 backdrop-blur-md ring-1 ring-white/15 px-3 py-2 shadow-[0_8px_24px_-8px_rgba(0,0,0,0.6)]">
+                <span className="hidden sm:block font-heading font-extrabold tabular-nums text-white/90 text-xs tracking-wide pl-1">
+                  {String(idx + 1).padStart(2, '0')}<span className="text-ugold/70"> / {String(n).padStart(2, '0')}</span>
+                </span>
+
+                <button onClick={prev} aria-label="Önceki"
+                  className="h-9 w-9 flex items-center justify-center rounded-full border border-white/30 text-white hover:bg-ugold hover:text-ugreend hover:border-ugold transition-all">
+                  <ChevronLeft size={17} />
+                </button>
+
+                <div className="flex items-center gap-2">
+                  {items.map((_, i) => {
+                    if (i === idx) return <ProgressBar key={idx} paused={paused} onComplete={next} />
+                    const past = i < idx
+                    return (
+                      <button key={i} onClick={() => goTo(i)} aria-label={`Slayt ${i + 1}`}
+                        className={`h-2.5 w-2.5 rounded-full transition-all duration-300 hover:scale-125 ${
+                          past ? 'bg-ugold hover:brightness-110' : 'border border-white/40 hover:border-ugold hover:bg-ugold/40'
+                        }`} />
+                    )
+                  })}
+                </div>
+
+                <button onClick={next} aria-label="Sonraki"
+                  className="h-9 w-9 flex items-center justify-center rounded-full bg-ugold text-ugreend shadow hover:brightness-105 transition-all">
+                  <ChevronRight size={17} />
+                </button>
+              </div>
+            )}
           </div>
 
         </div>
-
-        {/* ── Navigasyon şeridi (premium · navbar diliyle uyumlu) ──────── */}
-        {n > 1 && (
-          <div className="relative bg-gradient-to-b from-ugreens to-ugreen">
-            <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-ugold/40 to-transparent" />
-            <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 py-4 sm:py-5 flex items-center justify-center gap-4 sm:gap-5">
-
-              <span className="hidden sm:block font-heading font-extrabold tabular-nums text-white/90 text-sm tracking-wide">
-                {String(idx + 1).padStart(2, '0')}<span className="text-ugold/70"> / {String(n).padStart(2, '0')}</span>
-              </span>
-
-              <button onClick={prev} aria-label="Önceki"
-                className="h-10 w-10 flex items-center justify-center rounded-full border border-white/25 text-white hover:bg-ugold hover:text-ugreend hover:border-ugold transition-all">
-                <ChevronLeft size={18} />
-              </button>
-
-              <div className="flex items-center gap-2.5">
-                {items.map((_, i) => {
-                  if (i === idx) {
-                    return <ProgressBar key={idx} paused={paused} onComplete={next} />
-                  }
-                  const past = i < idx
-                  return (
-                    <button key={i} onClick={() => goTo(i)} aria-label={`Slayt ${i + 1}`}
-                      className={`h-2.5 w-2.5 rounded-full transition-all duration-300 hover:scale-125 ${
-                        past ? 'bg-ugold hover:brightness-110' : 'border border-white/35 hover:border-ugold hover:bg-ugold/40'
-                      }`} />
-                  )
-                })}
-              </div>
-
-              <button onClick={next} aria-label="Sonraki"
-                className="h-10 w-10 flex items-center justify-center rounded-full bg-ugold text-ugreend shadow-[0_4px_14px_-4px_rgba(0,0,0,0.5)] hover:brightness-105 transition-all">
-                <ChevronRight size={18} />
-              </button>
-            </div>
-          </div>
-        )}
 
       </section>
     </MotionConfig>

@@ -1,13 +1,20 @@
 import type { Metadata } from 'next'
+import { Archivo } from 'next/font/google'
 import './globals.css'
 import SiteShell from '@/components/layout/SiteShell'
 import ScrollReveal from '@/components/layout/ScrollReveal'
 import { getClubInfo } from '@/lib/supabase/club-server'
 import { getSponsors } from '@/lib/supabase/sponsors-server'
 
-// Fontlar globals.css'te @font-face ile self-host edilir:
-//   Gövde  → "Mesopotamia Sans"   (General Sans — Just Sans tarzı)
-//   Başlık → "Mesopotamia Display" (Clash Display — Mouzambik tarzı)
+// Font: Archivo (next/font) — kurumsal grotesk sans, sportif ve otoriter.
+// Hem gövde hem başlık, ağırlık kontrastıyla hiyerarşi. Türkçe: latin-ext.
+const appFont = Archivo({
+  subsets: ['latin', 'latin-ext'],
+  weight: ['400', '500', '600', '700', '800'],
+  style: ['normal', 'italic'],
+  variable: '--font-app',
+  display: 'swap',
+})
 
 export async function generateMetadata(): Promise<Metadata> {
   const club = await getClubInfo()
@@ -32,7 +39,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const [club, sponsors] = await Promise.all([getClubInfo(), getSponsors()])
   return (
-    <html lang="tr" data-theme={club.theme === 'classic' ? 'classic' : 'emerald'} className="h-full">
+    <html lang="tr" data-theme={club.theme === 'classic' ? 'classic' : 'emerald'} className={`h-full ${appFont.variable}`}>
       <body className="min-h-full flex flex-col bg-[#f8faf9] antialiased">
         <ScrollReveal />
         <SiteShell club={club} sponsors={sponsors}>{children}</SiteShell>

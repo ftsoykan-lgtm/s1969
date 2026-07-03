@@ -326,27 +326,41 @@ export async function deletePlayerDetail(name: string): Promise<{ ok: boolean; e
  */
 export async function uploadImage(
   file: File,
-  opts: { folder?: string; size?: number; width?: number; height?: number; fit?: 'contain' | 'cover'; format?: 'png' | 'jpeg'; quality?: number } = {}
+  opts: { folder?: string; size?: number; width?: number; height?: number; fit?: 'contain' | 'cover'; format?: 'png' | 'jpeg'; quality?: number; original?: boolean } = {}
 ): Promise<{ ok: boolean; url?: string; error?: string }> {
-  const { folder = 'logos', size = 256 } = opts
-  const w = opts.width ?? size
-  const h = opts.height ?? size
-  const fit = opts.fit ?? 'contain'
-  const format = opts.format ?? 'png'
-  const quality = opts.quality ?? 0.92
-  const ext = format === 'jpeg' ? 'jpg' : 'png'
-  console.log('🔵 [uploadImage] Başladı —', file.name, '|', Math.round(file.size / 1024), 'KB')
+  const { folder = 'logos', size = 256, original = false } = opts
+  console.log('🔵 [uploadImage] Başladı —', file.name, '|', Math.round(file.size / 1024), 'KB', original ? '(orijinal)' : '')
   try {
-    const resized = await resizeImage(file, w, h, fit, format, quality)
-    console.log('🟡 [uploadImage] Boyutlandırıldı →', `${w}x${h},`, Math.round(resized.size / 1024), 'KB')
+    let blob: Blob
+    let ext: string
+    let contentType: string
+
+    if (original) {
+      // Orijinal dosyayı olduğu gibi yükle — çözünürlük/kalite korunur (logolar, SVG dahil)
+      blob = file
+      contentType = file.type || 'image/png'
+      ext = (file.name.split('.').pop() || '').toLowerCase().replace(/[^a-z0-9]/g, '')
+        || (contentType.includes('svg') ? 'svg' : contentType.includes('webp') ? 'webp' : contentType.includes('png') ? 'png' : 'jpg')
+    } else {
+      const w = opts.width ?? size
+      const h = opts.height ?? size
+      const fit = opts.fit ?? 'contain'
+      const format = opts.format ?? 'png'
+      const quality = opts.quality ?? 0.95
+      blob = await resizeImage(file, w, h, fit, format, quality)
+      ext = format === 'jpeg' ? 'jpg' : 'png'
+      contentType = `image/${format}`
+      console.log('🟡 [uploadImage] Boyutlandırıldı →', `${w}x${h},`, Math.round(blob.size / 1024), 'KB')
+    }
+
     // Tahmin edilemez rastgele dosya adı (orijinal isim/zaman damgası sızmaz)
     const rid = (typeof crypto !== 'undefined' && crypto.randomUUID)
       ? crypto.randomUUID()
       : `${Date.now()}-${Math.random().toString(36).slice(2)}`
     const path = `${folder}/${rid}.${ext}`
     console.log('🟡 [uploadImage] Storage\'a yükleniyor → media/' + path)
-    const { error } = await client().storage.from('media').upload(path, resized, {
-      contentType: `image/${format}`,
+    const { error } = await client().storage.from('media').upload(path, blob, {
+      contentType,
       upsert: true,
     })
     if (error) {

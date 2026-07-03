@@ -44,7 +44,7 @@ export default function AdminAyarlarPage() {
     nickname: clubInfo.nickname, brandTagline: clubInfo.brandTagline, colors: clubInfo.colors,
     stadium: clubInfo.stadium, capacity: clubInfo.stadiumCapacity, city: clubInfo.city,
     president: clubInfo.president, headCoach: clubInfo.headCoach, logoUrl: clubInfo.logoUrl,
-    heroVideo: clubInfo.heroVideo,
+    logoSize: clubInfo.logoSize, heroVideo: clubInfo.heroVideo,
   })
   const [social, setSocial] = useState({
     facebook: clubInfo.social.facebook, twitter: clubInfo.social.twitter,
@@ -68,7 +68,7 @@ export default function AdminAyarlarPage() {
         brandTagline: s.brandTagline ?? clubInfo.brandTagline, colors: s.colors,
         stadium: s.stadium, capacity: s.stadiumCapacity, city: s.city,
         president: s.president, headCoach: s.headCoach, logoUrl: s.logoUrl,
-        heroVideo: s.heroVideo ?? '',
+        logoSize: s.logoSize ?? clubInfo.logoSize, heroVideo: s.heroVideo ?? '',
       })
       setSocial({ ...s.social })
       setHashtag(s.hashtag ?? clubInfo.hashtag)
@@ -90,7 +90,7 @@ export default function AdminAyarlarPage() {
       brandTagline: club.brandTagline,
       colors: club.colors, stadium: club.stadium, stadiumCapacity: club.capacity, city: club.city,
       president: club.president, headCoach: club.headCoach, logoUrl: club.logoUrl,
-      heroVideo: club.heroVideo,
+      logoSize: club.logoSize, heroVideo: club.heroVideo,
       address: contact.address, phone: contact.phone, email: contact.email,
       workHours: contact.workHours, mapEmbedUrl: contact.mapUrl,
       social: { ...social },
@@ -189,6 +189,44 @@ export default function AdminAyarlarPage() {
                 size={256}
                 folder="club"
               />
+
+              {/* Logo görünüm boyutu (navbar) */}
+              <div className="mt-4">
+                <label className="block text-[13px] font-bold text-utxt2 mb-2">
+                  Logo Görünüm Boyutu
+                  <span className="ml-2 text-[11px] font-semibold text-[#7aab8e]">Navbar&apos;da logonun görüneceği boyut</span>
+                </label>
+                <div className="flex items-center gap-4">
+                  <input
+                    type="range" min={40} max={150} step={2}
+                    value={club.logoSize}
+                    onChange={(e) => setClub(p => ({ ...p, logoSize: Number(e.target.value) }))}
+                    className="flex-1 accent-ugreen"
+                  />
+                  <div className="flex items-center gap-1 shrink-0">
+                    <input
+                      type="number" min={40} max={150}
+                      value={club.logoSize}
+                      onChange={(e) => setClub(p => ({ ...p, logoSize: Math.max(40, Math.min(150, Number(e.target.value) || 72)) }))}
+                      className="w-16 bg-[#f5f9f6] border border-[#ddeae2] rounded-lg px-2 py-1.5 text-sm text-ugreenm text-center focus:outline-none focus:border-ugreen"
+                    />
+                    <span className="text-[12px] text-[#7aab8e]">px</span>
+                  </div>
+                </div>
+                {/* Canlı önizleme */}
+                <div className="mt-3 flex items-center gap-3 rounded-xl bg-[#f5f9f6] border border-[#e3efe8] p-3">
+                  <div className="rounded-full bg-ugreenm p-2 shrink-0">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={club.logoUrl}
+                      alt="logo önizleme"
+                      style={{ height: club.logoSize, width: club.logoSize }}
+                      className="rounded-full object-contain bg-white ring-2 ring-ugold/50"
+                    />
+                  </div>
+                  <p className="text-[12px] text-[#7aab8e]">Önizleme — kaydettikten sonra sitede bu boyutta görünür.</p>
+                </div>
+              </div>
             </div>
           </>
         )}

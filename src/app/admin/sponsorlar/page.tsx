@@ -46,7 +46,7 @@ export default function AdminSponsorlarPage() {
 
   const handlePhoto = async (i: number, file: File) => {
     setBusy(rows[i].id ?? 'yeni')
-    const res = await uploadImage(file, { folder: 'sponsors', width: 320, height: 120, fit: 'contain' })
+    const res = await uploadImage(file, { folder: 'sponsors', original: true })
     if (res.ok && res.url) update(i, { logo_url: res.url })
     setBusy(null)
   }

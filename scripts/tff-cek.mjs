@@ -259,7 +259,7 @@ async function cekLogolar(page, standings) {
 /* ─── 2) ŞANLIURFASPOR FİKSTÜRÜ ────────────────────────────── */
 async function cekFikstur(page, season = SEASON) {
   log('Fikstür çekiliyor →', FIXTURE_URL, `(sezon: ${season})`)
-  await page.goto(FIXTURE_URL, { waitUntil: 'networkidle', timeout: 60000 })
+  await page.goto(FIXTURE_URL, { waitUntil: 'domcontentloaded', timeout: 60000 })
   await page.waitForTimeout(1500)
 
   // Sezonu seç (Telerik RadComboBox: yaz + Enter)
@@ -272,14 +272,14 @@ async function cekFikstur(page, season = SEASON) {
     await seasonInput.type(season, { delay: 50 })
     await page.waitForTimeout(1000)
     await seasonInput.press('Enter')
-    await page.waitForLoadState('networkidle', { timeout: 30000 }).catch(() => {})
+    await page.waitForLoadState('load', { timeout: 15000 }).catch(() => {})
     await page.waitForTimeout(1500)
   }
 
   // "Ara" butonuna bas → fikstür gridini doldur
   log('Fikstür listeleniyor (Ara)...')
   await page.locator('#ctl00_MPane_m_28_398_ctnr_m_28_398_bntAra').click()
-  await page.waitForLoadState('networkidle', { timeout: 30000 }).catch(() => {})
+  await page.waitForLoadState('load', { timeout: 15000 }).catch(() => {})
   await page.waitForTimeout(2500)
   await page.waitForSelector('[id*="grdFikstur"] tr', { timeout: 30000 }).catch(() => {})
 
@@ -308,7 +308,7 @@ async function cekFikstur(page, season = SEASON) {
     if (sayfa > 1 && yeni === 0) break
     if (!hasNext) break
     await nextLink.click().catch(() => {})
-    await page.waitForLoadState('networkidle', { timeout: 30000 }).catch(() => {})
+    await page.waitForLoadState('load', { timeout: 15000 }).catch(() => {})
     await page.waitForTimeout(1800)
   }
 
@@ -555,15 +555,19 @@ async function cekKadro(page) {
     .filter((v, i, a) => a.indexOf(v) === i)
   for (const season of seasonlar) {
     try {
-      await page.goto(FIXTURE_URL, { waitUntil: 'networkidle', timeout: 60000 })
+      await page.goto(FIXTURE_URL, { waitUntil: 'domcontentloaded', timeout: 60000 })
       await page.waitForTimeout(1200)
       const si = page.locator('#ctl00_MPane_m_28_196_ctnr_m_28_196_SezonSelector1_combo_Input')
       const cur = await si.inputValue().catch(() => '')
       if (cur.trim() !== season) {
         await si.click(); await si.fill(''); await si.type(season, { delay: 40 })
         await page.waitForTimeout(800); await si.press('Enter')
-        await page.waitForLoadState('networkidle', { timeout: 25000 }).catch(() => {})
+        await page.waitForLoadState('load', { timeout: 15000 }).catch(() => {})
         await page.waitForTimeout(1200)
+        // Sezon listede yoksa combobox eski değerde kalır → yanlış etiketle
+        // kaydetmemek için bu sezonu atla (örn. henüz açılmamış 2027-2028)
+        const secilen = (await si.inputValue().catch(() => '')).trim()
+        if (secilen !== season) { log(`Kadro: sezon ${season} TFF listesinde yok (combobox: "${secilen}") — atlandı`); continue }
       }
       // Durum filtresini "Tümü" yap (Faal sezon bitince boş döner)
       const fInput = page.locator('#ctl00_MPane_m_28_196_ctnr_m_28_196_f_Input')
@@ -571,11 +575,11 @@ async function cekKadro(page) {
       if (fCur.trim() !== 'Tümü') {
         await fInput.click(); await fInput.fill(''); await fInput.type('Tümü', { delay: 40 })
         await page.waitForTimeout(700); await fInput.press('Enter')
-        await page.waitForLoadState('networkidle', { timeout: 25000 }).catch(() => {})
+        await page.waitForLoadState('load', { timeout: 15000 }).catch(() => {})
         await page.waitForTimeout(1000)
       }
       await page.locator('#ctl00_MPane_m_28_196_ctnr_m_28_196_btnAra').click().catch(() => {})
-      await page.waitForLoadState('networkidle', { timeout: 25000 }).catch(() => {})
+      await page.waitForLoadState('load', { timeout: 15000 }).catch(() => {})
       await page.waitForTimeout(2000)
 
       const players = await page.$$eval(
