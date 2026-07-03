@@ -127,23 +127,21 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
 
   const renderNavItem = (link: (typeof navLinks)[number]) =>
     link.hasMega ? (
-      <div key={link.label} className="relative flex items-stretch" onMouseEnter={openMega} onMouseLeave={closeMega}>
+      <div key={link.label} className="relative flex items-center" onMouseEnter={openMega} onMouseLeave={closeMega}>
         <button className={cn(
-          'group relative flex items-center gap-1 h-full px-3 text-[12.5px] font-extrabold tracking-[0.09em] whitespace-nowrap transition-colors',
-          megaOpen ? 'text-ugold' : 'text-white/85 hover:text-white',
+          'group relative flex items-center gap-1.5 text-[12.5px] font-extrabold tracking-[0.1em] whitespace-nowrap px-4 py-2 rounded-full transition-all duration-200',
+          megaOpen ? 'text-ugreend bg-ugold shadow-[0_4px_14px_-4px_rgba(245,196,0,0.6)]' : 'text-white/80 hover:text-white hover:bg-white/[0.08]',
         )}>
           {link.label}
           <ChevronDown size={12} className={cn('transition-transform duration-200', megaOpen && 'rotate-180')} />
-          <span className={cn('absolute left-1/2 -translate-x-1/2 bottom-2.5 h-[2.5px] bg-ugold rounded-full transition-all duration-300', megaOpen ? 'w-6' : 'w-0 group-hover:w-6')} />
         </button>
       </div>
     ) : (
       <Link key={link.href} href={link.href} className={cn(
-        'group relative flex items-center h-full px-3 text-[12.5px] font-extrabold tracking-[0.09em] whitespace-nowrap transition-colors',
-        isActive(link.href) ? 'text-ugold' : 'text-white/85 hover:text-white',
+        'group relative flex items-center text-[12.5px] font-extrabold tracking-[0.1em] whitespace-nowrap px-4 py-2 rounded-full transition-all duration-200',
+        isActive(link.href) ? 'text-ugreend bg-ugold shadow-[0_4px_14px_-4px_rgba(245,196,0,0.6)]' : 'text-white/80 hover:text-white hover:bg-white/[0.08]',
       )}>
         {link.label}
-        <span className={cn('absolute left-1/2 -translate-x-1/2 bottom-2.5 h-[2.5px] bg-ugold rounded-full transition-all duration-300', isActive(link.href) ? 'w-6' : 'w-0 group-hover:w-6')} />
       </Link>
     )
 
@@ -212,7 +210,7 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
           <div className={cn('hidden lg:grid grid-cols-[1fr_auto_1fr] items-center transition-all duration-300', scrolled ? 'h-[64px]' : 'h-[74px]')}>
 
             {/* SOL menü grubu */}
-            <nav className="justify-self-start flex items-stretch h-full">
+            <nav className="justify-self-start flex items-center gap-1">
               {leftLinks.map(renderNavItem)}
             </nav>
 
@@ -220,11 +218,11 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
             <div aria-hidden className="justify-self-center h-full" style={{ width: logoSpacerPx }} />
 
             {/* SAĞ menü grubu + aksiyonlar */}
-            <div className="justify-self-end flex items-stretch h-full">
-              <nav className="flex items-stretch h-full">
+            <div className="justify-self-end flex items-center">
+              <nav className="flex items-center gap-1">
                 {rightLinks.map(renderNavItem)}
               </nav>
-              <div className="flex items-center gap-2 pl-3 ml-2 my-3 border-l border-white/15">
+              <div className="flex items-center gap-2 pl-3 ml-2 border-l border-white/15">
                 <button onClick={() => setSearchOpen(!searchOpen)} aria-label="Ara"
                   className="h-9 w-9 flex items-center justify-center rounded-full text-white/70 hover:text-ugold hover:bg-white/[0.06] transition-all">
                   <Search size={17} />
