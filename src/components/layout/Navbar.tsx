@@ -178,6 +178,8 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
           : 'bg-gradient-to-b from-ugreens to-ugreen shadow-[0_10px_30px_-14px_rgba(0,0,0,0.4)]')}>
         {/* alt altın saç çizgisi */}
         <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-ugold/40 to-transparent" />
+        {/* arma arkasında hafif radyal parlama (masaüstü) */}
+        <div aria-hidden className="hidden lg:block pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-full bg-[radial-gradient(ellipse_at_center,rgba(245,196,0,0.12),transparent_65%)]" />
         <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
 
           {/* ── MOBİL BAR (menü · logo · dil) ───────────────────────── */}
@@ -241,17 +243,22 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
           {/* ── Ortada mutlak konumlu premium arma (layout'u etkilemez, kayma yok) ── */}
           <Link href="/" aria-label={club.name}
             className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-40 items-center justify-center group">
-            <span aria-hidden className="pointer-events-none absolute -inset-3 rounded-full bg-ugold/0 group-hover:bg-ugold/20 blur-lg transition-all duration-300" />
-            <span aria-hidden className="pointer-events-none absolute -inset-1.5 rounded-full border border-dashed border-ugold/0 group-hover:border-ugold/55 group-hover:[animation:spin_7s_linear_infinite] transition-colors duration-300" />
-            {hasLogo ? (
-              <img src={club.logoUrl} alt={club.name} style={{ height: emblemPx, width: emblemPx }}
-                className="logo-emblem relative rounded-full object-contain bg-white ring-2 ring-ugold/50 group-hover:ring-ugold group-hover:scale-105 shadow-[0_10px_30px_-6px_rgba(0,0,0,0.55)] transition-all duration-300" />
-            ) : (
-              <div style={{ height: emblemPx, width: emblemPx }}
-                className="logo-emblem relative rounded-full bg-gradient-to-br from-ugold to-[#e8b800] flex items-center justify-center ring-2 ring-ugold/50 group-hover:scale-105 shadow-[0_10px_30px_-6px_rgba(0,0,0,0.55)] transition-all duration-300">
-                <span className="font-heading font-extrabold text-lg text-ugreend">{club.shortCode}</span>
-              </div>
-            )}
+            {/* kalıcı yumuşak altın hale (hover'da güçlenir) */}
+            <span aria-hidden className="pointer-events-none absolute -inset-4 rounded-full bg-ugold/15 group-hover:bg-ugold/30 blur-xl transition-all duration-300" />
+            {/* hover'da dönen kesikli halka */}
+            <span aria-hidden className="pointer-events-none absolute -inset-2 rounded-full border border-dashed border-ugold/0 group-hover:border-ugold/60 group-hover:[animation:spin_7s_linear_infinite] transition-colors duration-300" />
+            {/* altın çerçeve halkası (çift halka görünümü: altın dış + beyaz iç) */}
+            <span className="relative rounded-full p-[3px] bg-gradient-to-b from-ugoldl via-ugold to-ugoldd shadow-[0_12px_34px_-8px_rgba(0,0,0,0.65),0_0_22px_-4px_rgba(245,196,0,0.55)] group-hover:shadow-[0_14px_38px_-8px_rgba(0,0,0,0.7),0_0_30px_-2px_rgba(245,196,0,0.75)] transition-all duration-300">
+              {hasLogo ? (
+                <img src={club.logoUrl} alt={club.name} style={{ height: emblemPx, width: emblemPx }}
+                  className="logo-emblem block rounded-full object-contain bg-white ring-2 ring-white group-hover:scale-[1.04] transition-transform duration-300" />
+              ) : (
+                <div style={{ height: emblemPx, width: emblemPx }}
+                  className="logo-emblem rounded-full bg-gradient-to-br from-ugold to-[#e8b800] flex items-center justify-center ring-2 ring-white group-hover:scale-[1.04] transition-transform duration-300">
+                  <span className="font-heading font-extrabold text-lg text-ugreend">{club.shortCode}</span>
+                </div>
+              )}
+            </span>
           </Link>
         </div>
 
