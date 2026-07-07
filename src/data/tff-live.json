@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-06T17:22:16.387Z",
+  "updatedAt": "2026-07-07T14:01:53.243Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2025-2026",
@@ -10854,13 +10854,7 @@
         "name": "Anıl Gözütok",
         "tffId": "2560738",
         "number": null,
-        "position": null,
-        "birthPlace": "Almanya",
-        "birthDate": "27.10.2000",
-        "nationality": "Türkiye",
-        "flagCode": "tr",
-        "licenseNo": "18742",
-        "club": "Kızılkaya Tarım Şanlıurfaspor"
+        "position": null
       },
       {
         "name": "Berk Yıldız",
@@ -10902,25 +10896,13 @@
         "name": "Burak Öğür",
         "tffId": "784599",
         "number": null,
-        "position": null,
-        "birthPlace": "İstanbul",
-        "birthDate": "18.09.1989",
-        "nationality": "Türkiye",
-        "flagCode": "tr",
-        "licenseNo": "1116536",
-        "club": "Kızılkaya Tarım Şanlıurfaspor"
+        "position": null
       },
       {
         "name": "Burak Can Çamoğlu",
         "tffId": "1553173",
         "number": null,
-        "position": null,
-        "birthPlace": "Kamen",
-        "birthDate": "05.10.1996",
-        "nationality": "Türkiye",
-        "flagCode": "tr",
-        "licenseNo": "15643",
-        "club": "Kızılkaya Tarım Şanlıurfaspor"
+        "position": null
       },
       {
         "name": "Çınar Tarhan",
