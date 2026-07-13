@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/server'
+import { createClient } from '@/lib/supabase/public'
 import { sponsorsData } from '@/data/sponsors'
 import type { Sponsor } from '@/types'
 

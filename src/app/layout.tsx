@@ -1,18 +1,19 @@
 import type { Metadata } from 'next'
-import { Archivo } from 'next/font/google'
+import { Montserrat } from 'next/font/google'
 import './globals.css'
 import SiteShell from '@/components/layout/SiteShell'
 import ScrollReveal from '@/components/layout/ScrollReveal'
 import { getClubInfo } from '@/lib/supabase/club-server'
 import { getSponsors } from '@/lib/supabase/sponsors-server'
 
-// Font: Archivo (next/font) — kurumsal grotesk sans, sportif ve otoriter.
-// Hem gövde hem başlık, ağırlık kontrastıyla hiyerarşi. Türkçe: latin-ext.
-const appFont = Archivo({
+// Marka tipografisi — Montserrat: futbol kulüplerinin kurumsal standardı
+// (Gotham ailesinin açık karşılığı). Başlık/gövde tek ailede ağırlıkla
+// ayrışır; BÜYÜK HARF menü ve başlıklarda güçlü durur. Türkçe: latin-ext.
+const brandFont = Montserrat({
   subsets: ['latin', 'latin-ext'],
-  weight: ['400', '500', '600', '700', '800'],
+  weight: ['400', '500', '600', '700', '800', '900'],
   style: ['normal', 'italic'],
-  variable: '--font-app',
+  variable: '--font-body',
   display: 'swap',
 })
 
@@ -25,6 +26,10 @@ export async function generateMetadata(): Promise<Metadata> {
     title: { default: title, template: `%s | ${club.name}` },
     description,
     keywords,
+    // Admin → Site Ayarları → SEO'dan yüklenen favicon; boşsa varsayılan app/favicon.ico
+    icons: club.faviconUrl
+      ? { icon: [{ url: club.faviconUrl }], shortcut: club.faviconUrl, apple: club.faviconUrl }
+      : undefined,
     openGraph: {
       title,
       description,
@@ -39,7 +44,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const [club, sponsors] = await Promise.all([getClubInfo(), getSponsors()])
   return (
-    <html lang="tr" data-theme={club.theme === 'classic' ? 'classic' : 'emerald'} className={`h-full ${appFont.variable}`}>
+    <html lang="tr" data-theme={club.theme === 'classic' ? 'classic' : 'emerald'} className={`h-full ${brandFont.variable}`}>
       <body className="min-h-full flex flex-col bg-[#f8faf9] antialiased">
         <ScrollReveal />
         <SiteShell club={club} sponsors={sponsors}>{children}</SiteShell>

@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/server'
+import { createClient } from '@/lib/supabase/public'
 import type { Match, StandingRow } from '@/types'
 import { normTeam } from '@/lib/tff'
 

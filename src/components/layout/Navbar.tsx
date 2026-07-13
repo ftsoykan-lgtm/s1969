@@ -115,81 +115,82 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
   const isActive = (href: string) =>
     pathname === href || (href !== '/' && href !== '#' && pathname.startsWith(href + '/'))
 
-  // Ortalanmış logo düzeni — linkler sol/sağ gruplara ayrılır
-  const leftLinks = navLinks.slice(0, 3)   // HABERLER · KULÜP · KADRO
-  const rightLinks = navLinks.slice(3)     // MAÇ MERKEZİ · TAKVİM · İLETİŞİM
+  // Logo görünüm boyutu — sol kimlik bloğu bar yüksekliğine sığmalı;
+  // admin logoSize eski ortalanmış tasarım için büyük olabilir, 68px ile sınırla.
+  const logoBase = Math.min(club.logoSize || 72, 68)
+  const emblemPx = Math.round((scrolled ? 0.78 : 1) * logoBase)
 
-  // Logo görünüm boyutu — admin ayarından (scroll'da orantılı küçülür)
-  const logoBase = club.logoSize || 72
-  const emblemPx = Math.round((scrolled ? 0.8 : 1) * logoBase)
-  // Ortadaki logo mutlak konumlu; grid'de yatay yer ayıran boşluk (sabit → kayma olmaz)
-  const logoSpacerPx = logoBase + 44
+  // Resmi kulüp menüsü — düz BÜYÜK HARF öğeler, aktif/hover'da ince altın alt-çizgi.
+  const goldUnderline = (on: boolean) =>
+    cn('pointer-events-none absolute left-3 right-3 bottom-1.5 h-[2px] bg-ugold origin-center transition-transform duration-300 ease-out',
+      on ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100')
 
   const renderNavItem = (link: (typeof navLinks)[number]) =>
     link.hasMega ? (
       <div key={link.label} className="relative flex items-center" onMouseEnter={openMega} onMouseLeave={closeMega}>
         <button className={cn(
-          'group relative flex items-center gap-1.5 text-[12.5px] font-extrabold tracking-[0.1em] whitespace-nowrap px-4 py-2 rounded-full transition-all duration-200',
-          megaOpen ? 'text-ugreend bg-ugold shadow-[0_4px_14px_-4px_rgba(245,196,0,0.6)]' : 'text-white/80 hover:text-white hover:bg-white/[0.08]',
+          'group relative flex items-center gap-1.5 text-[12px] font-bold tracking-[0.16em] uppercase whitespace-nowrap px-3 py-3.5 transition-colors duration-200',
+          megaOpen ? 'text-ugold' : 'text-white/85 hover:text-white',
         )}>
           {link.label}
-          <ChevronDown size={12} className={cn('transition-transform duration-200', megaOpen && 'rotate-180')} />
+          <ChevronDown size={12} className={cn('text-ugold/80 transition-transform duration-200', megaOpen && 'rotate-180')} />
+          <span aria-hidden className={goldUnderline(megaOpen)} />
         </button>
       </div>
     ) : (
       <Link key={link.href} href={link.href} className={cn(
-        'group relative flex items-center text-[12.5px] font-extrabold tracking-[0.1em] whitespace-nowrap px-4 py-2 rounded-full transition-all duration-200',
-        isActive(link.href) ? 'text-ugreend bg-ugold shadow-[0_4px_14px_-4px_rgba(245,196,0,0.6)]' : 'text-white/80 hover:text-white hover:bg-white/[0.08]',
+        'group relative flex items-center text-[12px] font-bold tracking-[0.16em] uppercase whitespace-nowrap px-3 py-3.5 transition-colors duration-200',
+        isActive(link.href) ? 'text-ugold' : 'text-white/85 hover:text-white',
       )}>
         {link.label}
+        <span aria-hidden className={goldUnderline(isActive(link.href))} />
       </Link>
     )
 
   return (
     <header className="sticky top-0 z-50 w-full">
-      {/* En üst sarı-yeşil aksan */}
-      <div className="h-1 bg-gradient-to-r from-ugold via-ugreen to-ugold" />
+      {/* En üst altın şerit — tam altın, kimlik vurgusu */}
+      <div className="h-[3px] bg-[linear-gradient(90deg,var(--c-ugoldd),var(--c-ugold)_25%,var(--c-ugoldl)_50%,var(--c-ugold)_75%,var(--c-ugoldd))]" />
 
       {/* ── İnce üst kimlik bandı (scroll'da gizlenir) ─────────────────── */}
-      <div className={cn('hidden lg:block bg-ugreenm border-b border-white/[0.05] overflow-hidden transition-all duration-300',
+      <div className={cn('hidden lg:block bg-ugreenm border-b border-ugold/25 overflow-hidden transition-all duration-300',
         scrolled ? 'max-h-0 opacity-0 pointer-events-none' : 'max-h-10 opacity-100')}>
         <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 flex items-center justify-end h-10">
           <div className="flex items-center gap-3.5">
             <div className="flex items-center gap-1.5">
               {socials.map(({ icon: Icon, href, label, cls }) => (
                 <a key={label} href={href} aria-label={label} target="_blank" rel="noopener noreferrer"
-                  className={`flex h-6 w-6 items-center justify-center rounded-md text-white shadow-sm hover:scale-110 transition-transform ${cls}`}>
+                  className={`flex h-6 w-6 items-center justify-center rounded-md text-white shadow-sm ring-1 ring-white/10 transition-transform duration-200 hover:-translate-y-0.5 hover:scale-105 ${cls}`}>
                   <Icon />
                 </a>
               ))}
             </div>
-            <span className="w-px h-4 bg-white/15" />
-            <Link href="/magaza" className="text-[10px] font-extrabold tracking-[0.2em] uppercase text-white/45 hover:text-ugold transition-colors">Mağaza</Link>
+            <span className="w-px h-4 bg-ugold/35" />
+            <Link href="/magaza" className="text-[10px] font-extrabold tracking-[0.2em] uppercase text-ugold/85 hover:text-ugoldl transition-colors">Mağaza</Link>
           </div>
         </div>
       </div>
 
       {/* ── Ana bar (scroll'da camlaşır + güçlü gölge) ─────────────────── */}
-      <div className={cn('relative transition-all duration-300',
+      <div className={cn('relative overflow-visible transition-all duration-300',
         scrolled
-          ? 'bg-ugreen/85 backdrop-blur-xl shadow-[0_14px_40px_-12px_rgba(0,0,0,0.55)]'
-          : 'bg-gradient-to-b from-ugreens to-ugreen shadow-[0_10px_30px_-14px_rgba(0,0,0,0.4)]')}>
+          ? 'bg-ugreen/85 backdrop-blur-xl shadow-[0_18px_44px_-18px_rgba(0,0,0,0.62)]'
+          : 'bg-[linear-gradient(180deg,var(--c-ugreenm)_0%,var(--c-ugreens)_45%,var(--c-ugreen)_100%)] shadow-[0_14px_34px_-18px_rgba(0,0,0,0.46)]')}>
         {/* alt altın saç çizgisi */}
-        <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-ugold/40 to-transparent" />
-        {/* arma arkasında hafif radyal parlama (masaüstü) */}
-        <div aria-hidden className="hidden lg:block pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-full bg-[radial-gradient(ellipse_at_center,rgba(245,196,0,0.12),transparent_65%)]" />
+        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(60%_130%_at_18%_-30%,rgba(245,196,0,0.2),transparent_58%),radial-gradient(45%_110%_at_100%_50%,rgba(245,196,0,0.14),transparent_70%),linear-gradient(90deg,rgba(255,255,255,0.05),transparent_25%)]" />
+        <div className="absolute bottom-0 inset-x-0 h-[2px] bg-gradient-to-r from-ugold/25 via-ugold/80 to-ugold/25" />
         <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
 
           {/* ── MOBİL BAR (menü · logo · dil) ───────────────────────── */}
           <div className="lg:hidden grid grid-cols-[1fr_auto_1fr] items-center h-16">
             <button onClick={() => setMobileOpen(!mobileOpen)} aria-label="Menü"
-              className="justify-self-start h-10 w-10 flex items-center justify-center text-white -ml-1">
+              className="justify-self-start h-10 w-10 flex items-center justify-center rounded-full text-white bg-white/[0.06] ring-1 ring-white/10 -ml-1">
               {mobileOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
 
             <Link href="/" className="justify-self-center flex items-center gap-2 min-w-0" aria-label={club.name}>
               {hasLogo ? (
-                <img src={club.logoUrl} alt="" className="h-9 w-9 rounded-full object-contain bg-white ring-1 ring-white/20 shrink-0" />
+                <img src={club.logoUrl} alt="" className="h-9 w-9 rounded-full object-contain bg-white ring-2 ring-ugold/55 shadow-[0_0_18px_-6px_rgba(245,196,0,0.8)] shrink-0" />
               ) : (
                 <div className="h-9 w-9 rounded-full bg-ugold flex items-center justify-center shrink-0">
                   <span className="font-heading font-extrabold text-[10px] text-ugreend">{club.shortCode}</span>
@@ -201,35 +202,45 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
               </span>
             </Link>
 
-            <button aria-label="Dil" className="justify-self-end h-10 w-10 flex items-center justify-center text-white/80 hover:text-ugold transition-colors -mr-1">
+            <button aria-label="Dil" className="justify-self-end h-10 w-10 flex items-center justify-center rounded-full text-white/80 bg-white/[0.04] ring-1 ring-white/10 hover:text-ugold hover:bg-white/[0.08] transition-colors -mr-1">
               <Globe size={22} />
             </button>
           </div>
 
-          {/* ── MASAÜSTÜ BAR — ortalanmış logo + ayrık menü ─────────── */}
-          <div className={cn('hidden lg:grid grid-cols-[1fr_auto_1fr] items-center transition-all duration-300', scrolled ? 'h-[64px]' : 'h-[74px]')}>
+          {/* ── MASAÜSTÜ BAR — resmi kulüp düzeni: solda arma + isim, sağda menü ── */}
+          <div className={cn('hidden lg:flex items-center justify-between gap-6 transition-all duration-300', scrolled ? 'h-[64px]' : 'h-[78px]')}>
 
-            {/* SOL menü grubu */}
-            <nav className="justify-self-start flex items-center gap-1">
-              {leftLinks.map(renderNavItem)}
-            </nav>
+            {/* SOL — arma + kulüp adı (kurumsal kimlik bloğu) */}
+            <Link href="/" aria-label={club.name} className="flex items-center gap-3 min-w-0 group">
+              {hasLogo ? (
+                <img src={club.logoUrl} alt="" style={{ height: emblemPx, width: emblemPx }}
+                  className="logo-emblem shrink-0 rounded-full object-contain bg-white ring-2 ring-ugold/70 shadow-[0_6px_18px_-6px_rgba(0,0,0,0.55),0_0_20px_-6px_rgba(245,196,0,0.55)] transition-all duration-300" />
+              ) : (
+                <div style={{ height: emblemPx, width: emblemPx }}
+                  className="shrink-0 rounded-full bg-ugold flex items-center justify-center">
+                  <span className="font-heading font-extrabold text-sm text-ugreend">{club.shortCode}</span>
+                </div>
+              )}
+              {/* Dar masaüstünde (lg) yalnız arma; isim xl ve üstünde */}
+              <span className="hidden xl:flex flex-col leading-none min-w-0">
+                <span className="font-heading font-extrabold text-[19px] tracking-tight uppercase text-white whitespace-nowrap">{club.name}</span>
+                {club.brandTagline && <span className="mt-1 text-[9px] font-bold tracking-[0.22em] uppercase text-ugold/80 whitespace-nowrap">{club.brandTagline}</span>}
+              </span>
+            </Link>
 
-            {/* ORTA — yatay yer ayıran boşluk (gerçek logo mutlak konumlu) */}
-            <div aria-hidden className="justify-self-center h-full" style={{ width: logoSpacerPx }} />
-
-            {/* SAĞ menü grubu + aksiyonlar */}
-            <div className="justify-self-end flex items-center">
-              <nav className="flex items-center gap-1">
-                {rightLinks.map(renderNavItem)}
+            {/* SAĞ — menü + aksiyonlar */}
+            <div className="flex items-center min-w-0">
+              <nav className="flex items-center">
+                {navLinks.map(renderNavItem)}
               </nav>
-              <div className="flex items-center gap-2 pl-3 ml-2 border-l border-white/15">
+              <div className="flex items-center gap-2 pl-4 ml-3 border-l border-ugold/35">
                 <button onClick={() => setSearchOpen(!searchOpen)} aria-label="Ara"
-                  className="h-9 w-9 flex items-center justify-center rounded-full text-white/70 hover:text-ugold hover:bg-white/[0.06] transition-all">
+                  className="h-10 w-10 flex items-center justify-center rounded-full text-white/72 hover:text-ugold hover:bg-white/[0.07] transition-all">
                   <Search size={17} />
                 </button>
                 <Link href="/bilet"
                   className="group relative inline-flex items-center gap-1.5 text-ugreend font-extrabold text-[11.5px] tracking-wide uppercase whitespace-nowrap pl-3.5 pr-4 py-2.5 rounded-full overflow-hidden
-                             bg-gradient-to-b from-ugoldl to-ugold shadow-[0_4px_16px_-2px_rgba(255,209,0,0.45)] transition-all hover:scale-[1.03]">
+                             bg-gradient-to-b from-ugoldl to-ugold shadow-[0_10px_24px_-12px_rgba(245,196,0,0.95),inset_0_1px_0_rgba(255,255,255,0.55)] transition-all hover:-translate-y-0.5 hover:shadow-[0_16px_30px_-14px_rgba(245,196,0,1),inset_0_1px_0_rgba(255,255,255,0.65)]">
                   <span className="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-white/30" />
                   <Ticket size={14} className="relative" />
                   <span className="relative">Bilet Al</span>
@@ -237,27 +248,6 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
               </div>
             </div>
           </div>
-
-          {/* ── Ortada mutlak konumlu premium arma (layout'u etkilemez, kayma yok) ── */}
-          <Link href="/" aria-label={club.name}
-            className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-40 items-center justify-center group">
-            {/* kalıcı yumuşak altın hale (hover'da güçlenir) */}
-            <span aria-hidden className="pointer-events-none absolute -inset-4 rounded-full bg-ugold/15 group-hover:bg-ugold/30 blur-xl transition-all duration-300" />
-            {/* hover'da dönen kesikli halka */}
-            <span aria-hidden className="pointer-events-none absolute -inset-2 rounded-full border border-dashed border-ugold/0 group-hover:border-ugold/60 group-hover:[animation:spin_7s_linear_infinite] transition-colors duration-300" />
-            {/* altın çerçeve halkası (çift halka görünümü: altın dış + beyaz iç) */}
-            <span className="relative rounded-full p-[3px] bg-gradient-to-b from-ugoldl via-ugold to-ugoldd shadow-[0_12px_34px_-8px_rgba(0,0,0,0.65),0_0_22px_-4px_rgba(245,196,0,0.55)] group-hover:shadow-[0_14px_38px_-8px_rgba(0,0,0,0.7),0_0_30px_-2px_rgba(245,196,0,0.75)] transition-all duration-300">
-              {hasLogo ? (
-                <img src={club.logoUrl} alt={club.name} style={{ height: emblemPx, width: emblemPx }}
-                  className="logo-emblem block rounded-full object-contain bg-white ring-2 ring-white group-hover:scale-[1.04] transition-transform duration-300" />
-              ) : (
-                <div style={{ height: emblemPx, width: emblemPx }}
-                  className="logo-emblem rounded-full bg-gradient-to-br from-ugold to-[#e8b800] flex items-center justify-center ring-2 ring-white group-hover:scale-[1.04] transition-transform duration-300">
-                  <span className="font-heading font-extrabold text-lg text-ugreend">{club.shortCode}</span>
-                </div>
-              )}
-            </span>
-          </Link>
         </div>
 
         {/* ── Mega Menu ──────────────────────────────────────────────── */}
@@ -266,17 +256,18 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
             megaOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none')}
           onMouseEnter={openMega} onMouseLeave={closeMega}>
           <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 pt-2">
-            <div className="rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)] bg-ugreenm/97 backdrop-blur-xl ring-1 ring-white/10">
-              <div className="h-1 bg-gradient-to-r from-ugreen via-ugold to-ugreen" />
-              <div className="p-8 grid grid-cols-[1fr_1fr_1fr_1.1fr] gap-10">
+            <div className="relative overflow-hidden rounded-[1.35rem] bg-[linear-gradient(135deg,var(--c-ugreendd),var(--c-ugreenm)_58%,var(--c-ugreen))] shadow-[0_28px_80px_-22px_rgba(0,0,0,0.78)] ring-1 ring-white/12">
+              <div aria-hidden className="absolute inset-0 bg-[radial-gradient(55%_85%_at_90%_0%,rgba(245,196,0,0.18),transparent_62%),linear-gradient(180deg,rgba(255,255,255,0.08),transparent_38%)]" />
+              <div className="relative h-1 bg-gradient-to-r from-transparent via-ugold to-transparent" />
+              <div className="relative p-8 grid grid-cols-[1fr_1fr_1fr_1.1fr] gap-10">
                 {kulupMenu.map((col) => (
                   <div key={col.baslik}>
-                    <p className="text-ugold text-[10px] font-extrabold tracking-[0.25em] mb-4 pb-3 border-b border-white/10">{col.baslik}</p>
+                    <p className="text-ugold text-[10px] font-extrabold tracking-[0.25em] mb-4 pb-3 border-b border-white/12">{col.baslik}</p>
                     <ul className="space-y-0.5">
                       {col.linkler.map((item) => (
                         <li key={item.label}>
                           <Link href={item.href}
-                            className="flex items-center gap-2.5 text-sm text-white/55 hover:text-white hover:bg-white/[0.05] rounded-xl px-3 py-2 -mx-3 transition-all group">
+                            className="flex items-center gap-2.5 text-sm font-medium text-white/66 hover:text-white hover:bg-white/[0.07] rounded-xl px-3 py-2 -mx-3 transition-all group">
                             <span className="w-1.5 h-1.5 rounded-full bg-ugold/30 group-hover:bg-ugold transition-colors shrink-0" />
                             {item.label}
                           </Link>
@@ -285,91 +276,109 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
                     </ul>
                   </div>
                 ))}
-                <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-ugreen to-ugreenm ring-1 ring-white/10 p-5 flex flex-col justify-end">
-                  <div className="absolute top-3 right-3 font-heading text-[5rem] font-extrabold text-white/[0.04] leading-none">{club.shortCode}</div>
+                <div className="relative rounded-2xl overflow-hidden bg-white/[0.07] ring-1 ring-white/12 p-5 flex min-h-[210px] flex-col justify-end shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+                  <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-ugold/70 to-transparent" />
+                  <div className="absolute top-3 right-3 font-heading text-[5rem] font-extrabold text-white/[0.045] leading-none">{club.shortCode}</div>
                   <p className="relative text-[10px] font-extrabold tracking-[0.25em] uppercase text-ugold/70 mb-1">{club.nickname}</p>
                   <p className="relative text-white font-extrabold text-lg leading-tight mb-3">Tribünde yerini al</p>
-                  <Link href="/bilet" className="relative inline-flex items-center justify-center gap-2 bg-ugold text-ugreenm font-extrabold text-[11px] tracking-wide uppercase px-4 py-2.5 rounded-full hover:bg-ugoldh transition-colors">Bilet Al →</Link>
+                  <Link href="/bilet" className="relative inline-flex items-center justify-center gap-2 bg-ugold text-ugreenm font-extrabold text-[11px] tracking-wide uppercase px-4 py-2.5 rounded-full shadow-[0_10px_24px_-14px_rgba(245,196,0,0.9)] hover:bg-ugoldh transition-colors">Bilet Al →</Link>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* ── Mobil menü — TAM EKRAN panel (sağdan kayar) ────────────── */}
+        {/* ── MOBİL MENÜ — TAM EKRAN + BÜYÜK TİPOGRAFİ ──────────────────── */}
         <div className={cn(
-          'lg:hidden fixed inset-0 z-[60] bg-ugreenm flex flex-col transition-transform duration-300 ease-out',
+          'lg:hidden fixed inset-0 z-[60] flex flex-col transition-transform duration-300 ease-out bg-[linear-gradient(180deg,var(--c-ugreendd)_0%,var(--c-ugreens)_52%,var(--c-ugreenb)_100%)]',
           mobileOpen ? 'translate-x-0' : 'translate-x-full pointer-events-none'
         )}>
+          <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(85%_55%_at_80%_0%,rgba(245,196,0,0.18),transparent_62%),linear-gradient(90deg,rgba(255,255,255,0.06),transparent_26%)]" />
+          {/* dev arma filigranı */}
+          <div aria-hidden className="pointer-events-none absolute -right-16 -bottom-10 font-heading text-[16rem] font-extrabold text-white/[0.03] leading-none select-none">{club.shortCode}</div>
+
           {/* Panel başlığı */}
-          <div className="flex items-center justify-between h-16 px-4 border-b border-white/10 shrink-0">
+          <div className="relative flex items-center justify-between h-16 px-4 border-b border-white/12 shrink-0">
             <Link href="/" onClick={() => setMobileOpen(false)} className="flex items-center gap-2.5">
               {hasLogo ? (
-                <img src={club.logoUrl} alt="" className="h-9 w-9 rounded-full object-contain bg-white ring-1 ring-white/20" />
+                <img src={club.logoUrl} alt="" className="h-10 w-10 rounded-full object-contain bg-white ring-2 ring-ugold/60 shadow-[0_0_20px_-8px_rgba(245,196,0,0.9)]" />
               ) : (
-                <div className="h-9 w-9 rounded-full bg-ugold flex items-center justify-center"><span className="font-heading font-extrabold text-[10px] text-ugreend">{club.shortCode}</span></div>
+                <div className="h-10 w-10 rounded-full bg-ugold flex items-center justify-center"><span className="font-heading font-extrabold text-[11px] text-ugreend">{club.shortCode}</span></div>
               )}
               <span className="font-heading font-extrabold text-base tracking-tight uppercase text-white">{club.name}</span>
             </Link>
             <button onClick={() => setMobileOpen(false)} aria-label="Kapat"
-              className="h-10 w-10 flex items-center justify-center rounded-full text-white bg-white/[0.06] hover:bg-white/10 transition-colors">
+              className="h-11 w-11 flex items-center justify-center rounded-full text-white bg-white/[0.08] hover:bg-white/15 transition-colors">
               <X size={22} />
             </button>
           </div>
 
-          {/* İçerik (kaydırılabilir) */}
-          <div className="flex-1 overflow-y-auto overscroll-contain px-4 py-5">
-            {navLinks.map((link) =>
-              link.hasMega ? (
-                <div key={link.label} className="border-b border-white/[0.06]">
-                  <button onClick={() => setMobileSubOpen((v) => !v)}
-                    className="w-full flex items-center justify-between py-4 text-lg font-bold text-white">
-                    {link.label}
-                    <ChevronDown size={18} className={cn('text-white/50 transition-transform', mobileSubOpen && 'rotate-180')} />
-                  </button>
-                  {mobileSubOpen && (
-                    <div className="pb-3 pl-1 space-y-3">
-                      {kulupMenu.map((col) => (
-                        <div key={col.baslik}>
-                          <p className="pt-1 pb-1 text-[10px] font-extrabold tracking-[0.2em] text-ugold/60">{col.baslik}</p>
-                          {col.linkler.map((item) => (
-                            <Link key={item.label} href={item.href} onClick={() => setMobileOpen(false)}
-                              className="block py-2 text-[15px] text-white/65 hover:text-white transition-colors">{item.label}</Link>
-                          ))}
-                        </div>
-                      ))}
-                    </div>
+          {/* İçerik (kaydırılabilir) — açılışta kademeli beliren büyük öğeler */}
+          <div className="relative flex-1 overflow-y-auto overscroll-contain px-5 py-6">
+            {mobileOpen && (
+              <>
+                <nav className="flex flex-col">
+                  {navLinks.map((link, i) =>
+                    link.hasMega ? (
+                      <div key={link.label} className="nav-mitem border-b border-white/[0.09]" style={{ animationDelay: `${i * 55}ms` }}>
+                        <button onClick={() => setMobileSubOpen((v) => !v)}
+                          className="w-full flex items-center justify-between gap-3 py-4">
+                          <span className="flex items-baseline gap-3">
+                            <span className="font-heading text-[9px] font-extrabold tracking-[0.25em] text-ugold/50 tabular-nums">0{i + 1}</span>
+                            <span className="font-heading text-[26px] font-extrabold tracking-tight uppercase text-white leading-none">{link.label}</span>
+                          </span>
+                          <ChevronDown size={22} className={cn('text-ugold/70 transition-transform duration-200', mobileSubOpen && 'rotate-180')} />
+                        </button>
+                        {mobileSubOpen && (
+                          <div className="pb-4 pl-7 grid grid-cols-2 gap-x-4 gap-y-1">
+                            {kulupMenu.flatMap((col) => col.linkler).map((item) => (
+                              <Link key={item.label} href={item.href} onClick={() => setMobileOpen(false)}
+                                className="block rounded-lg px-2 py-1.5 text-[14px] text-white/68 hover:bg-white/[0.06] hover:text-ugold transition-colors">{item.label}</Link>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      <Link key={link.href} href={link.href === '#' ? '#' : link.href} onClick={() => setMobileOpen(false)}
+                        style={{ animationDelay: `${i * 55}ms` }}
+                        className={cn('nav-mitem group flex items-baseline gap-3 py-4 border-b border-white/[0.09]',
+                          isActive(link.href) ? 'text-ugold' : 'text-white')}>
+                        <span className={cn('font-heading text-[9px] font-extrabold tracking-[0.25em] tabular-nums', isActive(link.href) ? 'text-ugold/70' : 'text-ugold/50')}>0{i + 1}</span>
+                        <span className="font-heading text-[26px] font-extrabold tracking-tight uppercase leading-none">{link.label}</span>
+                      </Link>
+                    )
                   )}
+                </nav>
+
+                <Link href="/bilet" onClick={() => setMobileOpen(false)}
+                  style={{ animationDelay: `${navLinks.length * 55}ms` }}
+                  className="nav-mitem flex items-center justify-center gap-2 mt-7 py-4 text-sm font-extrabold tracking-widest text-ugreend bg-gradient-to-b from-ugoldl to-ugold rounded-2xl uppercase shadow-[0_16px_34px_-16px_rgba(245,196,0,1),inset_0_1px_0_rgba(255,255,255,0.55)]">
+                  <Ticket size={16} /> Bilet Al
+                </Link>
+
+                <div className="nav-mitem flex items-center justify-between gap-3 mt-6" style={{ animationDelay: `${(navLinks.length + 1) * 55}ms` }}>
+                  <Link href="/magaza" onClick={() => setMobileOpen(false)}
+                    className="text-[11px] font-extrabold tracking-[0.2em] uppercase text-white/55 hover:text-ugold transition-colors">Mağaza</Link>
+                  <div className="flex items-center gap-2.5">
+                    {socials.map(({ icon: Icon, href, label, cls }) => (
+                      <a key={label} href={href} aria-label={label} target="_blank" rel="noopener noreferrer"
+                        className={`flex h-9 w-9 items-center justify-center rounded-xl text-white shadow-sm ${cls}`}><Icon /></a>
+                    ))}
+                  </div>
                 </div>
-              ) : (
-                <Link key={link.href} href={link.href === '#' ? '#' : link.href} onClick={() => setMobileOpen(false)}
-                  className={cn('block py-4 text-lg font-bold border-b border-white/[0.06] transition-colors',
-                    isActive(link.href) ? 'text-ugold' : 'text-white')}>{link.label}</Link>
-              )
+              </>
             )}
-
-            <Link href="/bilet" onClick={() => setMobileOpen(false)}
-              className="block mt-6 py-4 text-center text-sm font-extrabold tracking-widest text-ugreend bg-ugold rounded-xl uppercase shadow-lg shadow-ugold/20">
-              Bilet Al
-            </Link>
-
-            <div className="flex items-center justify-center gap-3 pt-7">
-              {socials.map(({ icon: Icon, href, label, cls }) => (
-                <a key={label} href={href} aria-label={label}
-                  className={`flex h-10 w-10 items-center justify-center rounded-xl text-white shadow-sm ${cls}`}><Icon /></a>
-              ))}
-            </div>
           </div>
         </div>
 
         {/* ── Arama ────────────────────────────────────────────────── */}
         {searchOpen && (
-          <div className="absolute left-0 right-0 top-full bg-ugreenm/97 backdrop-blur-xl border-b border-white/10 px-4 py-3 z-40">
+          <div className="absolute left-0 right-0 top-full bg-ugreendd/96 backdrop-blur-xl border-b border-white/10 px-4 py-3 z-40 shadow-[0_18px_40px_-24px_rgba(0,0,0,0.75)]">
             <div className="mx-auto max-w-[1280px]">
               <div className="relative">
                 <Search size={15} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" />
                 <input autoFocus type="search" placeholder="Haber, oyuncu, maç ara..."
-                  className="w-full bg-white/[0.06] border border-white/10 rounded-full pl-11 pr-4 py-3 text-sm text-white placeholder-white/30 focus:outline-none focus:border-ugold/40 transition-colors"
+                  className="w-full bg-white/[0.075] border border-white/12 rounded-full pl-11 pr-4 py-3 text-sm text-white placeholder-white/45 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] focus:outline-none focus:border-ugold/55 transition-colors"
                   onBlur={() => setSearchOpen(false)} />
               </div>
             </div>

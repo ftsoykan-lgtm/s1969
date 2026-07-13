@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { getPage, getRelatedPages } from '@/lib/supabase/pages-server'
 import PageRenderer from '@/components/pages/PageRenderer'
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 60
 
 interface Props { params: Promise<{ slug: string }> }
 

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description: 'Şanlıurfaspor profesyonel takım kadrosu — sezonluk.',
 }
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 60
 
 const POSITION_ORDER = ['Kaleci', 'Defans', 'Orta Saha', 'Forvet']
 

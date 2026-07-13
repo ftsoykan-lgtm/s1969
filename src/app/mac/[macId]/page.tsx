@@ -17,7 +17,7 @@ function slugifyName(s: string): string {
     .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
 }
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 60
 
 interface Props { params: Promise<{ macId: string }> }
 

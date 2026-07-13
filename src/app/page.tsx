@@ -4,7 +4,7 @@ import FixturePreview from '@/components/home/FixturePreview'
 import SquadPreview from '@/components/home/SquadPreview'
 import { getNews, getFeaturedNews, getCategories } from '@/lib/supabase/news-server'
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 60
 
 export default async function HomePage() {
   const [news, featured, cats] = await Promise.all([
@@ -12,9 +12,9 @@ export default async function HomePage() {
   ])
   const catName = (slug: string) => cats.find((c) => c.slug === slug)?.name ?? slug
 
-  // Hero slider: öne çıkanlar önce, ardından en son eklenen haberler (görselli, tekrarsız)
-  const heroItems: HeroItem[] = [...featured, ...news]
-    .filter((n, i, a) => a.findIndex((x) => x.slug === n.slug) === i)
+  // Hero slider: YALNIZ admin'de "Hero'da (slider) göster" işaretli görselli haberler.
+  // Hiçbiri işaretli değilse heroItems boş kalır ve HeroSlider render edilmez (alan gizlenir).
+  const heroItems: HeroItem[] = featured
     .filter((n) => n.imageUrl)
     .slice(0, 6)
     .map((n) => ({

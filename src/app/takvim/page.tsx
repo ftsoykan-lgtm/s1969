@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: 'Şanlıurfaspor maç takvimi — ay görünümü ve telefon takvimi senkronizasyonu.',
 }
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 60
 
 export default async function TakvimPage() {
   const [{ matches: raw, meta }, logoMap] = await Promise.all([getLiveTff(), getTeamLogoMap()])

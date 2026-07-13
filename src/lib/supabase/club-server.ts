@@ -1,12 +1,14 @@
-import { createClient } from '@/lib/supabase/server'
+import { cache } from 'react'
+import { createClient } from '@/lib/supabase/public'
 import { clubInfo as fallback } from '@/data/club'
 import type { ClubInfo } from '@/data/club'
 
 /**
  * Kulüp bilgilerini sunucu tarafında Supabase'den okur (admin'de kaydedilen).
  * Kayıt yoksa veya hata olursa statik varsayılana düşer.
+ * React cache() ile sarılı: aynı istekte (generateMetadata + layout) tek sorgu.
  */
-export async function getClubInfo(): Promise<ClubInfo> {
+export const getClubInfo = cache(async (): Promise<ClubInfo> => {
   try {
     const supabase = await createClient()
     const { data, error } = await supabase
@@ -27,4 +29,4 @@ export async function getClubInfo(): Promise<ClubInfo> {
   } catch {
     return fallback
   }
-}
+})

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description: 'Şanlıurfaspor tüm maçlar, fikstür ve sonuçlar — sezon arşivi dahil.',
 }
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 60
 
 interface Props { searchParams: Promise<{ sezon?: string }> }
 

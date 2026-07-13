@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Şanlıurfaspor güncel haberleri, transferler, maç raporları.',
 }
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 60
 
 export default async function HaberlerPage() {
   const [news, categories] = await Promise.all([getNews(), getCategories()])

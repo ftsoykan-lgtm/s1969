@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { getPage, getRelatedPages, type SitePage } from '@/lib/supabase/pages-server'
 import PageRenderer from '@/components/pages/PageRenderer'
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 60
 
 export const metadata: Metadata = { title: 'Yönetim Kurulu' }
 

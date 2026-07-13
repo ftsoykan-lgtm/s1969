@@ -44,7 +44,7 @@ export default function AdminAyarlarPage() {
     nickname: clubInfo.nickname, brandTagline: clubInfo.brandTagline, colors: clubInfo.colors,
     stadium: clubInfo.stadium, capacity: clubInfo.stadiumCapacity, city: clubInfo.city,
     president: clubInfo.president, headCoach: clubInfo.headCoach, logoUrl: clubInfo.logoUrl,
-    logoSize: clubInfo.logoSize, heroVideo: clubInfo.heroVideo,
+    logoSize: clubInfo.logoSize, heroVideo: clubInfo.heroVideo, faviconUrl: clubInfo.faviconUrl,
   })
   const [social, setSocial] = useState({
     facebook: clubInfo.social.facebook, twitter: clubInfo.social.twitter,
@@ -69,6 +69,7 @@ export default function AdminAyarlarPage() {
         stadium: s.stadium, capacity: s.stadiumCapacity, city: s.city,
         president: s.president, headCoach: s.headCoach, logoUrl: s.logoUrl,
         logoSize: s.logoSize ?? clubInfo.logoSize, heroVideo: s.heroVideo ?? '',
+        faviconUrl: s.faviconUrl ?? '',
       })
       setSocial({ ...s.social })
       setHashtag(s.hashtag ?? clubInfo.hashtag)
@@ -90,7 +91,7 @@ export default function AdminAyarlarPage() {
       brandTagline: club.brandTagline,
       colors: club.colors, stadium: club.stadium, stadiumCapacity: club.capacity, city: club.city,
       president: club.president, headCoach: club.headCoach, logoUrl: club.logoUrl,
-      logoSize: club.logoSize, heroVideo: club.heroVideo,
+      logoSize: club.logoSize, heroVideo: club.heroVideo, faviconUrl: club.faviconUrl,
       address: contact.address, phone: contact.phone, email: contact.email,
       workHours: contact.workHours, mapEmbedUrl: contact.mapUrl,
       social: { ...social },
@@ -282,6 +283,27 @@ export default function AdminAyarlarPage() {
             <Field label="Anahtar Kelimeler" hint="Virgülle ayırın">
               <Input value={seo.keywords} onChange={e => setSeo(p => ({ ...p, keywords: e.target.value }))} />
             </Field>
+
+            {/* Favicon — tarayıcı sekmesi ikonu */}
+            <div className="pt-4 border-t border-[#edf7f2]">
+              <LogoUpload
+                label="Favicon (Tarayıcı Sekme İkonu)"
+                value={club.faviconUrl}
+                onChange={(url) => setClub(p => ({ ...p, faviconUrl: url }))}
+                size={64}
+                folder="club"
+              />
+              <div className="mt-2 flex items-start justify-between gap-3">
+                <p className="text-[11px] text-[#7aab8e]">
+                  Kare PNG önerilir (512×512 veya 256×256). Boş bırakılırsa varsayılan site ikonu kullanılır.
+                  Kaydettikten sonra tarayıcı sekmesinde görünür (tarayıcı ikonu önbelleğe aldığı için sert yenileme gerekebilir).
+                </p>
+                {club.faviconUrl && (
+                  <button type="button" onClick={() => setClub(p => ({ ...p, faviconUrl: '' }))}
+                    className="shrink-0 text-[11px] font-extrabold text-red-600 hover:underline">Kaldır</button>
+                )}
+              </div>
+            </div>
           </div>
         )}
 

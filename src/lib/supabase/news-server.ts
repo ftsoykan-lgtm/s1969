@@ -1,4 +1,5 @@
-import { createClient } from '@/lib/supabase/server'
+import { cache } from 'react'
+import { createClient } from '@/lib/supabase/public'
 import { newsData } from '@/data/news'
 import type { NewsItem } from '@/types'
 
@@ -21,8 +22,10 @@ const FALLBACK: SiteNews[] = newsData.map((n) => ({
   imageUrl: n.imageUrl, category: n.category, date: n.date, featured: n.featured,
 }))
 
-/** Yayındaki haberleri Supabase'den çek (yoksa statik) */
-export async function getNews(): Promise<SiteNews[]> {
+/** Yayındaki haberleri Supabase'den çek (yoksa statik).
+ *  React cache() ile sarılı: aynı render/istek içinde birden çok çağrı
+ *  (ör. getNews + getFeaturedNews) tek sorguya indirgenir. */
+export const getNews = cache(async (): Promise<SiteNews[]> => {
   try {
     const supabase = await createClient()
     const { data, error } = await supabase
@@ -35,18 +38,19 @@ export async function getNews(): Promise<SiteNews[]> {
   } catch {
     return FALLBACK
   }
-}
+})
 
 export async function getNewsBySlug(slug: string): Promise<SiteNews | null> {
   const all = await getNews()
   return all.find((n) => n.slug === slug) ?? null
 }
 
-/** Hero'da gösterilecek (featured) haberler */
+/** Hero'da gösterilecek haberler — YALNIZ admin'de "Hero'da (slider) göster"
+ *  işaretli olanlar. Hiç işaretli haber yoksa boş döner ve ana sayfa hero
+ *  alanı tamamen gizlenir; böylece slider admin'den gerçekten açılıp kapanır. */
 export async function getFeaturedNews(): Promise<SiteNews[]> {
   const all = await getNews()
-  const featured = all.filter((n) => n.featured)
-  return featured.length ? featured : all.slice(0, 3)
+  return all.filter((n) => n.featured)
 }
 
 export async function getCategories(): Promise<NewsCategory[]> {

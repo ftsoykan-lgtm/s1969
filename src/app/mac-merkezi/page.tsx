@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description: 'Şanlıurfaspor son maçlar, yaklaşan maçlar ve puan durumu — TFF 2. Lig Beyaz Grup.',
 }
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 60
 
 function SectionTitle({ children, note }: { children: React.ReactNode; note?: string }) {
   return (

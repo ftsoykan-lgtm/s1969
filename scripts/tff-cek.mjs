@@ -317,24 +317,34 @@ async function cekFikstur(page, season = SEASON) {
 
   const fixtures = rawRows
     .map(({ cells, macId }) => {
-      const c = cells.filter(Boolean)
-      // Skor hücresini bul (örn "2-0")
-      const scoreIdx = c.findIndex((x) => /^\d+\s*-\s*\d+$/.test(x))
-      if (scoreIdx < 1) return null
-      const home = c[scoreIdx - 1]
-      const away = c[scoreIdx + 1]
-      const score = c[scoreIdx].replace(/\s/g, '')
-      const [hs, as] = score.split('-').map(Number)
-      const dateRaw = c[scoreIdx + 2] || ''
-      const comp = c[scoreIdx + 3] || ''
-      // "24 Ağustos 2025" → ISO
+      // TFF fikstür grid kolonları SABİT (sondan güvenli parse):
+      //   [hafta?, ev sahibi, skor, deplasman, tarih, organizasyon]
+      // Oynanmamış maçta skor "-" (veya boş) ve tarih boş olabilir → YİNE DE yakala.
+      // (Eski kod skoru anchor alıp "-" satırlarını atıyordu → yeni sezon fikstürü boş dönüyordu.)
+      const raw = cells
+      if (raw.length < 5) return null
+      const comp = raw[raw.length - 1] || ''
+      const dateRaw = raw[raw.length - 2] || ''
+      const away = raw[raw.length - 3]
+      const scoreCell = raw[raw.length - 4] || ''
+      const home = raw[raw.length - 5]
+      const weekCell = raw[raw.length - 6]
+      if (!home || !away) return null
+
+      // Skor: "2-0" → oynandı; "-" / boş → oynanmadı (null)
+      let hs = null, as = null
+      const sm = scoreCell.replace(/\s/g, '').match(/^(\d+)-(\d+)$/)
+      if (sm) { hs = Number(sm[1]); as = Number(sm[2]) }
+      const played = hs != null && as != null
+
+      // "24 Ağustos 2025" → ISO (tarih henüz açıklanmadıysa null kalır)
       let dateISO = null
       const dm = dateRaw.match(/(\d{1,2})\s+([A-Za-zÇĞİÖŞÜçğıöşü]+)\s+(\d{4})/)
       if (dm && AYLAR[dm[2]]) dateISO = `${dm[3]}-${AYLAR[dm[2]]}-${dm[1].padStart(2, '0')}`
 
       const homeIsSfk = home.toUpperCase().includes(TEAM_KEY)
       return {
-        week: /^\d+$/.test(c[0]) ? Number(c[0]) : null,
+        week: weekCell && /^\d+$/.test(weekCell) ? Number(weekCell) : null,
         macId: macId ?? null,
         time: '',
         homeTeam: home,
@@ -346,7 +356,7 @@ async function cekFikstur(page, season = SEASON) {
         competition: comp,
         isHome: homeIsSfk,
         opponent: homeIsSfk ? away : home,
-        result: hs === as ? 'B' : (homeIsSfk ? (hs > as ? 'G' : 'M') : (as > hs ? 'G' : 'M')),
+        result: played ? (hs === as ? 'B' : (homeIsSfk ? (hs > as ? 'G' : 'M') : (as > hs ? 'G' : 'M'))) : null,
       }
     })
     .filter(Boolean)

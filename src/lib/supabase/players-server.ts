@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/server'
+import { createClient } from '@/lib/supabase/public'
 import { getLiveTff } from '@/lib/supabase/tff-server'
 
 export interface SitePlayer {
