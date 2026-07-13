@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
-import { getLiveTff } from '@/lib/supabase/tff-server'
+import { findMatchByMacId } from '@/lib/supabase/tff-server'
 import { getTeamLogoMap, applyLogosToMatches } from '@/lib/supabase/logos-server'
 import { getAllProfileSlugs } from '@/lib/supabase/player-profiles-server'
 import { formatDate } from '@/lib/utils'
@@ -23,8 +23,7 @@ interface Props { params: Promise<{ macId: string }> }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { macId } = await params
-  const { matches } = await getLiveTff()
-  const m = matches.find((x) => x.macId === macId)
+  const m = await findMatchByMacId(macId)
   if (!m) return { title: 'Maç Detayı' }
   return { title: `${m.homeTeam} - ${m.awayTeam}` }
 }
@@ -41,10 +40,10 @@ function EventIcon({ type }: { type: MatchEvent['type'] }) {
 
 export default async function MacDetayPage({ params }: Props) {
   const { macId } = await params
-  const [{ matches: raw }, logoMap] = await Promise.all([getLiveTff(), getTeamLogoMap()])
-  const matches = applyLogosToMatches(raw, logoMap)
-  const match = matches.find((m) => m.macId === macId)
-  if (!match) notFound()
+  // Güncel sezon + arşiv sezonlarında ara (geçmiş maçlar arşivde)
+  const [found, logoMap] = await Promise.all([findMatchByMacId(macId), getTeamLogoMap()])
+  if (!found) notFound()
+  const match = applyLogosToMatches([found], logoMap)[0]
 
   const urfaIsHome = match.homeTeam === 'Şanlıurfaspor'
   // Kadromuzdaki oyuncuların profil slug'ları (İlk 11'de tıklanabilir link için)
