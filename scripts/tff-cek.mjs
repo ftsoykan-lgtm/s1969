@@ -374,7 +374,7 @@ async function cekFikstur(page, season = SEASON) {
 
   // Her maçın detayını çek (saat, stadyum, hakemler, kadrolar) — pageID=29&macID
   log('Maç detayları çekiliyor (saat, stadyum, hakem, kadro)...')
-  let saatli = 0, statli = 0, detayli = 0, kadrolu = 0, logolu2 = 0
+  let saatli = 0, statli = 0, detayli = 0, kadrolu = 0, logolu2 = 0, tarihli2 = 0
   for (const f of fixtures) {
     if (!f.macId) continue
     try {
@@ -387,10 +387,13 @@ async function cekFikstur(page, season = SEASON) {
 
         // Saat + stadyum — TFF maç bilgi DOM elementlerinden (güvenilir)
         const txt0 = (sel) => { const el = document.querySelector(sel); return el ? clean(el.textContent) : '' }
-        let time = null, venue = null
-        const tarihSaat = txt0('[id$="dtMacBilgisi_lblTarih"]')   // "12.04.2026 - 15:00"
+        let time = null, venue = null, date = null
+        const tarihSaat = txt0('[id$="dtMacBilgisi_lblTarih"]')   // "6.09.2026" veya "12.04.2026 - 15:00"
         const tm = (tarihSaat || body).match(/(\d{1,2}:\d{2})/)
         if (tm) time = tm[1]
+        // TARİH detay sayfasında olabilir (grid boş olsa bile) → ISO'ya çevir
+        const dmt = tarihSaat.match(/(\d{1,2})\.(\d{1,2})\.(\d{4})/)
+        if (dmt) date = `${dmt[3]}-${dmt[2].padStart(2, '0')}-${dmt[1].padStart(2, '0')}`
         const stadRaw = txt0('[id$="dtMacBilgisi_lnkStad"]')       // "11 NİSAN STADYUMU - ŞANLIURFA - ..."
         if (stadRaw) venue = stadRaw.split(/\s+-\s+/)[0].trim()    // sadece stadyum adı
         if (!venue) {
@@ -453,11 +456,13 @@ async function cekFikstur(page, season = SEASON) {
         const clubLogos = Array.from(document.querySelectorAll('img[src*="KulupLogolari"], img[src*="kuluplogolari"]'))
           .map((i) => i.getAttribute('src')).filter(Boolean)
 
-        return { time, venue, referees, lineups: lineBlocks, events, clubLogos }
+        return { time, venue, date, referees, lineups: lineBlocks, events, clubLogos }
       }, { homeName: f.homeTeam, awayName: f.awayTeam })
 
       if (d.time) { f.time = d.time; saatli++ }
       if (d.venue) { f.venue = titleCaseTr(d.venue); statli++ }
+      // Grid'de tarih yoksa detay sayfasından al (TFF önce detaya, sonra grid'e koyuyor)
+      if (d.date && !f.date) { f.date = d.date; if (!f.dateText) f.dateText = d.date; tarihli2++ }
       if (d.referees.length) detayli++
 
       // Maç detayındaki iki kulüp logosu → ev/deplasman (sıra: ev, deplasman)
@@ -492,7 +497,7 @@ async function cekFikstur(page, season = SEASON) {
       if (hasLineup) kadrolu++
     } catch {}
   }
-  log(`✓ Saat: ${saatli}/${fixtures.length} · Stadyum: ${statli}/${fixtures.length} · Hakem: ${detayli}/${fixtures.length} · Kadro: ${kadrolu}/${fixtures.length} · Logo: ${logolu2}/${fixtures.length}`)
+  log(`✓ Saat: ${saatli}/${fixtures.length} · Stadyum: ${statli}/${fixtures.length} · Detaydan tarih: ${tarihli2} · Hakem: ${detayli}/${fixtures.length} · Kadro: ${kadrolu}/${fixtures.length} · Logo: ${logolu2}/${fixtures.length}`)
 
   // macId'yi koru (detay sayfası linki için), geçici alan yok
   return fixtures
