@@ -1,9 +1,11 @@
 import { cache } from 'react'
 import { createClient } from '@/lib/supabase/public'
 import {
-  buildStandings, buildMatches, buildMeta, buildSquad, staticRaw, type TffRaw, type TffSquad,
+  buildStandings, buildMatches, buildMeta, buildSquad, staticRaw, normTeam, type TffRaw, type TffSquad,
 } from '@/lib/tff'
 import type { Match, StandingRow } from '@/types'
+
+const US_NORM = normTeam('Şanlıurfaspor')
 import archive20252026 from '@/data/tff-2025-2026.json'
 
 /* Statik sezon arşivleri — DB arşivi bozuk/eksikse yedek olarak kullanılır.
@@ -120,4 +122,27 @@ export const findMatchByMacId = cache(async (macId: string): Promise<Match | nul
     if (m) return m
   }
   return null
+})
+
+/** Şanlıurfaspor'un belirli bir rakibe karşı TÜM karşılaşmaları (güncel + arşiv),
+ *  en yeni üstte. Sponsor öneki/isim farklarına dayanıklı (normalize eşleşme). */
+export const getMatchesVsOpponent = cache(async (opponent: string): Promise<Match[]> => {
+  const oppNorm = normTeam(opponent)
+  if (!oppNorm || oppNorm === US_NORM) return []
+  const [live, seasons] = await Promise.all([getLiveTff(), getSeasons()])
+  const archived = await Promise.all(seasons.map((s) => getTffBySeason(s)))
+  const all = [...live.matches, ...archived.flatMap((a) => a?.matches ?? [])]
+  const seen = new Set<string>()
+  const out: Match[] = []
+  for (const m of all) {
+    const hn = normTeam(m.homeTeam), an = normTeam(m.awayTeam)
+    const hasUs = hn === US_NORM || an === US_NORM
+    const other = hn === US_NORM ? an : hn
+    if (!hasUs || other !== oppNorm) continue
+    const key = m.macId || `${m.date}|${hn}|${an}`
+    if (seen.has(key)) continue
+    seen.add(key)
+    out.push(m)
+  }
+  return out.sort((a, b) => (b.date || '').localeCompare(a.date || ''))
 })

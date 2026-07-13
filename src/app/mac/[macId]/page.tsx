@@ -1,14 +1,17 @@
 import { notFound, permanentRedirect } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
-import { findMatchByMacId } from '@/lib/supabase/tff-server'
+import { findMatchByMacId, getMatchesVsOpponent } from '@/lib/supabase/tff-server'
 import { getTeamLogoMap, applyLogosToMatches } from '@/lib/supabase/logos-server'
 import { getAllProfileSlugs } from '@/lib/supabase/player-profiles-server'
+import { getNews } from '@/lib/supabase/news-server'
+import HeadToHead from '@/components/macmerkezi/HeadToHead'
+import RelatedNews from '@/components/macmerkezi/RelatedNews'
 import { formatDate } from '@/lib/utils'
 import { ArrowLeft, MapPin, Calendar, Clock, Flag, ExternalLink } from 'lucide-react'
 import type { Metadata } from 'next'
 import type { LineupPlayer, MatchEvent } from '@/types'
-import { canonicalCompetition, macIdFromParam, matchSlug } from '@/lib/tff'
+import { canonicalCompetition, macIdFromParam, matchSlug, normTeam } from '@/lib/tff'
 
 /* İsim → profil slug'ı (oyuncu profilleriyle aynı kural) */
 function slugifyName(s: string): string {
@@ -52,6 +55,16 @@ export default async function MacDetayPage({ params }: Props) {
   const match = applyLogosToMatches([found], logoMap)[0]
 
   const urfaIsHome = match.homeTeam === 'Şanlıurfaspor'
+  // Rakip/takım geçmişi — bu rakibe karşı tüm karşılaşmalar (merkezî veriden)
+  const opponent = urfaIsHome ? match.awayTeam : match.homeTeam
+  const opponentLogo = urfaIsHome ? match.awayTeamLogo : match.homeTeamLogo
+  const [meetings, allNews] = await Promise.all([getMatchesVsOpponent(opponent), getNews()])
+  // Haber ↔ maç: rakip adı başlıkta geçen haberler otomatik ilişkilendirilir
+  const oppNorm = normTeam(opponent)
+  const oppCore = oppNorm.replace(/(as|sk|kulubu)$/, '')
+  const relatedNews = allNews
+    .filter((n) => { const t = normTeam(n.title); return oppNorm.length >= 4 && (t.includes(oppNorm) || (oppCore.length >= 5 && t.includes(oppCore))) })
+    .slice(0, 4)
   // Kadromuzdaki oyuncuların profil slug'ları (İlk 11'de tıklanabilir link için)
   const profileSlugs = new Set(await getAllProfileSlugs())
   const referees = (match.referees ?? []).slice().sort(
@@ -239,6 +252,12 @@ export default async function MacDetayPage({ params }: Props) {
             <Info icon={MapPin} label="Stadyum" value={match.venue || '—'} />
           </div>
         </Card>
+
+        {/* ════ RAKİP GEÇMİŞİ (H2H) ════ */}
+        <HeadToHead meetings={meetings} currentMacId={match.macId ?? null} opponent={opponent} opponentLogo={opponentLogo} />
+
+        {/* ════ İLGİLİ HABERLER (otomatik) ════ */}
+        <RelatedNews news={relatedNews} />
 
         {match.macId && (
           <a href={`https://www.tff.org/Default.aspx?pageID=29&macID=${match.macId}`}
