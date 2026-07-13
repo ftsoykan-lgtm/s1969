@@ -1,9 +1,11 @@
 name: TFF Verisini Güncelle
 
-# Her gün 06:00 UTC (Türkiye 09:00) + elle tetikleme
+# 6 saatte bir (00/06/12/18 UTC) + elle tetikleme.
+# Maç günü skorları ve TFF'nin sonradan eklediği tarih/saatler en geç 6 saatte
+# otomatik güncellenir; tamamlanmış sezon zaten atlanır (scraper içinde).
 on:
   schedule:
-    - cron: '0 6 * * *'
+    - cron: '0 */6 * * *'
   workflow_dispatch:
     inputs:
       force:

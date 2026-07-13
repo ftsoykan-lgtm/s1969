@@ -92,7 +92,7 @@ async function oyuncuProfilleriYaz(squad) {
   }
 }
 
-async function supabaseYaz(data) {
+async function supabaseYaz(data, { archive = true } = {}) {
   if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
     console.log('[TFF] (Supabase env yok — sadece JSON yazıldı)')
     return
@@ -118,8 +118,11 @@ async function supabaseYaz(data) {
     }
 
     // 2) Sezon arşivi → tff_seasons (her sezon ayrı satır; eski sezonlar korunur)
+    //    KORUMA: yalnızca tutarlı veri arşivlenir. Fikstür önceki sezona düşmüşse
+    //    (standings güncel gruptan, fixtures eski sezondan) veri KARMA olur; bu durumda
+    //    arşivleme atlanır ki iyi bir sezon arşivi bozulmasın (bkz. main → archive flag).
     const season = data.season
-    if (season) {
+    if (season && archive) {
       const arch = await fetch(`${SUPABASE_URL}/rest/v1/tff_seasons?on_conflict=season`, {
         method: 'POST', headers,
         body: JSON.stringify({ season, data, updated_at: now }),
@@ -727,8 +730,13 @@ async function main() {
     mkdirSync(dirname(OUT_FILE), { recursive: true })
     writeFileSync(OUT_FILE, JSON.stringify(data, null, 2), 'utf-8')
 
-    // Supabase'e canlı yaz (env varsa)
-    await supabaseYaz(data)
+    // Supabase'e canlı yaz (env varsa).
+    // Arşive YALNIZCA veri tutarlıysa yaz: fikstür fallback ile önceki sezona düştüyse
+    // (actualSeason !== SEASON) standings ile fixtures farklı sezonlardan → arşivi bozmamak
+    // için o sezon arşivine yazma. (Eski hata: fallback verisi 2025-2026 arşivini bozmuştu.)
+    const coherent = actualSeason === SEASON && standings.length > 0
+    await supabaseYaz(data, { archive: coherent })
+    if (!coherent) log(`⚠ Fikstür fallback (${actualSeason}) — karma veri, ${actualSeason} arşivine yazılmadı (bozulma önlendi)`)
     // Oyuncu profillerini otomatik işle (sezon bazlı, admin verisi korunur)
     await oyuncuProfilleriYaz(data.squad)
 

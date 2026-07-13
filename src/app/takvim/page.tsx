@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { getLiveTff } from '@/lib/supabase/tff-server'
 import { getTeamLogoMap, applyLogosToMatches } from '@/lib/supabase/logos-server'
 import CalendarView, { type CalMatch } from '@/components/takvim/CalendarView'
+import FixtureWeekList from '@/components/takvim/FixtureWeekList'
 
 export const metadata: Metadata = {
   title: 'Maç Takvimi',
@@ -44,12 +45,17 @@ export default async function TakvimPage() {
           <h1 className="font-heading text-5xl md:text-7xl font-extrabold text-white tracking-[-0.03em] leading-[0.95]">
             Maç <span className="text-ugold">Takvimi</span>
           </h1>
-          <p className="mt-3 text-[11px] text-white/40">TFF fikstüründen otomatik · {items.length} maç</p>
+          <p className="mt-3 text-[11px] text-white/40">TFF fikstüründen otomatik · {matches.length} maç</p>
         </div>
       </div>
 
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-12">
-        <CalendarView items={items} season={meta.season} league={meta.league} />
+        {/* Tarihli maç varsa takvim; TFF tarih vermediyse hafta-hafta fikstür listesi */}
+        {items.length > 0 ? (
+          <CalendarView items={items} season={meta.season} league={meta.league} />
+        ) : (
+          <FixtureWeekList matches={matches} />
+        )}
       </div>
     </div>
   )

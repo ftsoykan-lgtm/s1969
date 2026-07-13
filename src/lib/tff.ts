@@ -201,6 +201,26 @@ export function buildMeta(raw: TffRaw) {
   return { updatedAt: raw.updatedAt, league: raw.league, season: raw.season }
 }
 
+/** Oynanmamış maçlar, en yakından uzağa.
+ *  Tarihli olanlar tarihe göre; tarihsizler (sezon başı TFF tarih vermeden fikstür
+ *  yayınlar) fikstür/hafta sırasında sona eklenir. Böylece tarih olmadan da çalışır. */
+export function upcomingMatches(matches: Match[]): Match[] {
+  const notPlayed = matches.filter((m) => !m.isCompleted)
+  const dated = notPlayed.filter((m) => m.date).sort((a, b) => a.date.localeCompare(b.date))
+  const undated = notPlayed.filter((m) => !m.date) // scrape sırası = hafta sırası (korunur)
+  return [...dated, ...undated]
+}
+
+/** Sıradaki (en yakın oynanmamış) maç; hiç yoksa null. Tarih gerektirmez. */
+export function nextMatch(matches: Match[]): Match | null {
+  return upcomingMatches(matches)[0] ?? null
+}
+
+/** Oynanmış maçlar, en yeni sonda (fikstür sırası). */
+export function playedMatches(matches: Match[]): Match[] {
+  return matches.filter((m) => m.isCompleted)
+}
+
 export function buildSquad(raw: TffRaw): TffSquad {
   return raw.squad ?? { season: null, players: [] }
 }

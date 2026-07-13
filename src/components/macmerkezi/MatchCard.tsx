@@ -132,10 +132,10 @@ export default function MatchCard({
         </div>
 
         <div className="px-4 pb-4">
-          {/* Tarih */}
+          {/* Tarih (TFF henüz vermediyse "Tarih yakında") */}
           <div className="flex items-center justify-center gap-1.5 text-[11px] text-[#7aab8e] font-semibold mb-4">
             <Calendar size={11} className="text-ugreen shrink-0" />
-            <span className="tabular-nums">{tarihSaat(match.date, match.time)}</span>
+            <span className="tabular-nums">{match.date ? tarihSaat(match.date, match.time) : 'Tarih yakında'}</span>
           </div>
 
           {/* Takımlar + skor */}

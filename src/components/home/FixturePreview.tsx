@@ -1,5 +1,6 @@
 import { getTeamLogoMap, applyLogosToMatches, applyLogosToStandings } from '@/lib/supabase/logos-server'
 import { getLiveTff } from '@/lib/supabase/tff-server'
+import { nextMatch, playedMatches } from '@/lib/tff'
 import NextMatchCountdown from './NextMatchCountdown'
 import StandingsTable from '@/components/standings/StandingsTable'
 import MatchCard from '@/components/macmerkezi/MatchCard'
@@ -11,15 +12,19 @@ export default async function FixturePreview() {
   const [{ matches, standings: rawStandings, meta }, logoMap] = await Promise.all([getLiveTff(), getTeamLogoMap()])
   const allMatches = applyLogosToMatches(matches, logoMap)
   const standings = applyLogosToStandings(rawStandings, logoMap)
-  const completed = allMatches.filter((m) => m.isCompleted)
-  const lastThree = completed.slice(-3)
+  const lastThree = playedMatches(allMatches).slice(-3)
 
-  // Sıradaki maç: oynanmamış, tarihe göre en yakın
-  const upcoming = allMatches
-    .filter((m) => !m.isCompleted && m.date)
-    .sort((a, b) => a.date.localeCompare(b.date))
-  const next = upcoming[0] ?? null
-  const target = next ? `${next.date}T${next.time && /^\d{1,2}:\d{2}$/.test(next.time) ? next.time : '00:00'}:00` : null
+  // Sıradaki maç: en yakın oynanmamış (tarih yoksa fikstür/hafta sırasına göre)
+  const next = nextMatch(allMatches)
+  const nextInfo = next
+    ? {
+        opponent: next.isHome ? next.awayTeam : next.homeTeam,
+        isHome: next.isHome,
+        label: next.roundLabel ?? next.competition ?? null,
+        date: next.date || null,
+        time: next.time,
+      }
+    : null
 
   return (
     <section className="reveal relative py-20 md:py-24 bg-[#f8faf9] overflow-hidden">
@@ -38,7 +43,7 @@ export default async function FixturePreview() {
             </h2>
           </div>
           <div className="sm:ml-auto bg-white border border-[#ddeae2] rounded-2xl px-4 py-3 shadow-sm">
-            <NextMatchCountdown target={target} />
+            <NextMatchCountdown match={nextInfo} />
           </div>
         </div>
 

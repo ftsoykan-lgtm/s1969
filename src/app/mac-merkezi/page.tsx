@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { getTeamLogoMap, applyLogosToStandings, applyLogosToMatches } from '@/lib/supabase/logos-server'
 import { getLiveTff } from '@/lib/supabase/tff-server'
+import { upcomingMatches, playedMatches } from '@/lib/tff'
 import MatchCard from '@/components/macmerkezi/MatchCard'
 import StandingsTable from '@/components/standings/StandingsTable'
 import MatchTabs from '@/components/macmerkezi/MatchTabs'
@@ -28,10 +29,10 @@ export default async function MacMerkeziPage() {
   const matches = applyLogosToMatches(rawMatches, logoMap)
   const standings = applyLogosToStandings(rawStandings, logoMap)
 
-  const completed = matches.filter((m) => m.isCompleted)
+  const completed = playedMatches(matches)
   const last5 = completed.slice(-5).reverse()
-  const upcoming = matches.filter((m) => !m.isCompleted && m.date)
-    .sort((a, b) => a.date.localeCompare(b.date)).slice(0, 6)
+  // Yaklaşan maçlar: tarih şartı yok — tarihsizler fikstür/hafta sırasında gelir
+  const upcoming = upcomingMatches(matches).slice(0, 6)
 
   // Şanlıurfaspor özet (puan tablosundan)
   const sfk = standings.find((s) => s.isCurrentTeam)

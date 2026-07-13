@@ -7,7 +7,7 @@ import MatchCard from './MatchCard'
 
 /* ─── Maç Merkezi ───────────────────────────────────────────── */
 export default function MacMerkezi({
-  all, standings, season, logos = {}, limit, showFilter = true,
+  all, standings, season, logos = {}, limit, showFilter = true, standingsNote,
 }: {
   all: Match[]
   standings: StandingRow[]
@@ -15,6 +15,7 @@ export default function MacMerkezi({
   logos?: Record<string, string>
   limit?: number
   showFilter?: boolean
+  standingsNote?: string   // doluysa puan tablosu yerine bu not gösterilir (bozuk/eksik arşiv)
 }) {
   const [tournament, setTournament] = useState<string>('hepsi')
 
@@ -67,7 +68,14 @@ export default function MacMerkezi({
         </div>
 
         <div className="lg:sticky lg:top-24 self-start">
-          <StandingsTable standings={standings} />
+          {standingsNote ? (
+            <div className="panel-premium p-6 text-center">
+              <p className="font-heading text-lg font-extrabold text-ugreenm mb-1">Puan Tablosu</p>
+              <p className="text-[12px] text-[#7aab8e] leading-relaxed">{standingsNote}</p>
+            </div>
+          ) : (
+            <StandingsTable standings={standings} />
+          )}
         </div>
       </div>
     </div>

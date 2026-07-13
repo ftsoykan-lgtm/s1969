@@ -28,6 +28,15 @@ export default async function TumMaclarPage({ searchParams }: Props) {
   const allSeasons = Array.from(new Set([live.meta.season, ...seasons])).filter(Boolean)
   const activeSeason = archived ? sezon! : live.meta.season
 
+  // Arşiv puan durumu koruması: maçlar oynanmış ama tablo tümüyle sıfırsa arşiv bozuk/eksiktir
+  // (eski scraper hatası bazı arşivlerin standings'ini boş bırakmış olabilir) → yanıltıcı sıfır
+  // tablo yerine not göster. Güncel sezon başındaki gerçek sıfır tablo bundan etkilenmez.
+  const hasPlayed = matches.some((m) => m.isCompleted)
+  const standingsHasData = standings.some((s) => s.played > 0 || s.points > 0)
+  const standingsNote = archived && hasPlayed && !standingsHasData
+    ? `${activeSeason} sezonunun puan tablosu arşivde bulunmuyor. Maç sonuçları aşağıda eksiksiz yer alıyor.`
+    : undefined
+
   return (
     <div className="min-h-screen bg-[#f5f9f6]">
       <div className="page-hero py-14">
@@ -47,23 +56,29 @@ export default async function TumMaclarPage({ searchParams }: Props) {
         <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
           <MatchTabs />
           {allSeasons.length > 1 && (
-            <div className="flex items-center gap-1.5 bg-white border border-[#ddeae2] rounded-full p-1.5 shadow-sm">
-              {allSeasons.map((s) => {
-                const isCurrent = s === live.meta.season
-                const active = s === activeSeason
-                return (
-                  <Link key={s} href={isCurrent ? '/mac-merkezi/gecmis-maclar' : `/mac-merkezi/gecmis-maclar?sezon=${s}`}
-                    className={`px-4 py-2 rounded-full text-[12px] font-extrabold tracking-wide transition-all ${
-                      active ? 'bg-ugreend text-white' : 'text-utxt2 hover:bg-[#f5f9f6]'
-                    }`}>
-                    {s}{isCurrent ? '' : ''}
-                  </Link>
-                )
-              })}
+            <div className="flex items-center gap-2">
+              <span className="hidden sm:block text-[10px] font-extrabold tracking-[0.2em] uppercase text-[#7aab8e]">Sezon</span>
+              <div className="flex items-center gap-1 bg-white border border-[#ddeae2] rounded-full p-1 shadow-sm">
+                {allSeasons.map((s) => {
+                  const isCurrent = s === live.meta.season
+                  const active = s === activeSeason
+                  return (
+                    <Link key={s} href={isCurrent ? '/mac-merkezi/gecmis-maclar' : `/mac-merkezi/gecmis-maclar?sezon=${s}`}
+                      className={`relative px-4 py-2 rounded-full text-[12px] font-extrabold tracking-wide tabular-nums transition-all ${
+                        active
+                          ? 'bg-gradient-to-b from-ugreen to-ugreend text-white shadow-[0_4px_12px_-4px_rgba(12,46,34,0.5)]'
+                          : 'text-utxt2 hover:bg-[#f5f9f6] hover:text-ugreenm'
+                      }`}>
+                      {s}
+                      {isCurrent && <span className={`ml-1.5 inline-block w-1.5 h-1.5 rounded-full align-middle ${active ? 'bg-ugold' : 'bg-ugreen/50'}`} />}
+                    </Link>
+                  )
+                })}
+              </div>
             </div>
           )}
         </div>
-        <MacMerkezi all={matches} standings={standings} season={activeSeason} logos={logoMap} />
+        <MacMerkezi all={matches} standings={standings} season={activeSeason} logos={logoMap} standingsNote={standingsNote} />
       </div>
     </div>
   )
