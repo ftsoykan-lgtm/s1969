@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation'
+import { notFound, permanentRedirect } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { findMatchByMacId } from '@/lib/supabase/tff-server'
@@ -8,7 +8,7 @@ import { formatDate } from '@/lib/utils'
 import { ArrowLeft, MapPin, Calendar, Clock, Flag, ExternalLink } from 'lucide-react'
 import type { Metadata } from 'next'
 import type { LineupPlayer, MatchEvent } from '@/types'
-import { canonicalCompetition } from '@/lib/tff'
+import { canonicalCompetition, macIdFromParam, matchSlug } from '@/lib/tff'
 
 /* İsim → profil slug'ı (oyuncu profilleriyle aynı kural) */
 function slugifyName(s: string): string {
@@ -22,10 +22,11 @@ export const revalidate = 60
 interface Props { params: Promise<{ macId: string }> }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { macId } = await params
-  const m = await findMatchByMacId(macId)
+  const { macId: param } = await params
+  const id = macIdFromParam(param)
+  const m = id ? await findMatchByMacId(id) : null
   if (!m) return { title: 'Maç Detayı' }
-  return { title: `${m.homeTeam} - ${m.awayTeam}` }
+  return { title: `${m.homeTeam} - ${m.awayTeam}`, alternates: { canonical: `/mac/${matchSlug(m)}` } }
 }
 
 const ROLE_ORDER = ['Hakem', '1. Yardımcı Hakem', '2. Yardımcı Hakem', 'Dördüncü Hakem']
@@ -39,10 +40,15 @@ function EventIcon({ type }: { type: MatchEvent['type'] }) {
 }
 
 export default async function MacDetayPage({ params }: Props) {
-  const { macId } = await params
+  const { macId: param } = await params
+  const id = macIdFromParam(param)
+  if (!id) notFound()
   // Güncel sezon + arşiv sezonlarında ara (geçmiş maçlar arşivde)
-  const [found, logoMap] = await Promise.all([findMatchByMacId(macId), getTeamLogoMap()])
+  const [found, logoMap] = await Promise.all([findMatchByMacId(id), getTeamLogoMap()])
   if (!found) notFound()
+  // Kanonik premium URL değilse (eski /mac/<id> ya da eskimiş slug) → kalıcı yönlendir (SEO)
+  const canonical = matchSlug(found)
+  if (decodeURIComponent(param).replace(/\/+$/, '') !== canonical) permanentRedirect(`/mac/${canonical}`)
   const match = applyLogosToMatches([found], logoMap)[0]
 
   const urfaIsHome = match.homeTeam === 'Şanlıurfaspor'

@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { CalendarClock, MapPin } from 'lucide-react'
 import type { Match } from '@/types'
+import { matchHref } from '@/lib/tff'
 
 /* Tarih henüz açıklanmadığında (sezon başı TFF fikstür sırasını yayınlar,
    tarihleri sonra ekler) takvim yerine gösterilen premium hafta-hafta liste.
@@ -75,7 +76,7 @@ export default function FixtureWeekList({ matches }: { matches: Match[] }) {
             </div>
           )
           return m.macId
-            ? <Link key={m.id} href={`/mac/${m.macId}`} className="block">{row}</Link>
+            ? <Link key={m.id} href={matchHref(m)} className="block">{row}</Link>
             : <div key={m.id}>{row}</div>
         })}
       </div>

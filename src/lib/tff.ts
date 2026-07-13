@@ -221,6 +221,40 @@ export function playedMatches(matches: Match[]): Match[] {
   return matches.filter((m) => m.isCompleted)
 }
 
+/* ─── Premium maç URL'leri (SEO + benzersiz + kalıcı) ─────────────────
+   Slug:  <ev>-vs-<deplasman>[-<YYYY-MM-DD>]-<macId>
+   Çözümleme HER ZAMAN sondaki macId ile yapılır → takım adı/tarih değişse
+   veya sonradan tarih eklense bile eski URL çalışır (kanonik URL'e 308).
+   Eski /mac/<macId> (sadece sayı) de çalışmaya devam eder. Çakışma imkânsız. */
+type SluggableMatch = { homeTeam: string; awayTeam: string; date?: string | null; macId?: string | null }
+
+export function urlSlugPart(s: string): string {
+  return (s || '').toLocaleLowerCase('tr-TR')
+    .replace(/ı/g, 'i').replace(/İ/g, 'i').replace(/ş/g, 's').replace(/ğ/g, 'g')
+    .replace(/ü/g, 'u').replace(/ö/g, 'o').replace(/ç/g, 'c')
+    .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
+}
+
+/** Bir maçın kanonik slug'ı. macId varsa çakışmasız ve kalıcıdır. */
+export function matchSlug(m: SluggableMatch): string {
+  const parts = [urlSlugPart(m.homeTeam), 'vs', urlSlugPart(m.awayTeam)]
+  if (m.date) parts.push(m.date)                 // YYYY-MM-DD (varsa)
+  if (m.macId) parts.push(String(m.macId))       // benzersiz + kalıcı anahtar
+  return parts.filter(Boolean).join('-')
+}
+
+/** Maç detay linki (premium URL). */
+export function matchHref(m: SluggableMatch): string {
+  return `/mac/${matchSlug(m)}`
+}
+
+/** URL parametresinden macId çıkar: slug'ın sonundaki sayı ya da (eski URL) tamamı sayı. */
+export function macIdFromParam(param: string): string | null {
+  const p = decodeURIComponent(param || '').replace(/\/+$/, '')
+  const m = p.match(/(\d+)$/)
+  return m ? m[1] : (p || null)
+}
+
 export function buildSquad(raw: TffRaw): TffSquad {
   return raw.squad ?? { season: null, players: [] }
 }

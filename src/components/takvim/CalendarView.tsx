@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence, MotionConfig } from 'framer-motion'
 import { ChevronLeft, ChevronRight, CalendarPlus, Download, Copy, Check, MapPin, Bell, RefreshCw, Smartphone, Clock, CalendarDays } from 'lucide-react'
+import { matchHref } from '@/lib/tff'
 
 export interface CalMatch {
   date: string
@@ -195,7 +196,7 @@ export default function CalendarView({ items, season, league }: { items: CalMatc
             )
             return (
               <motion.div key={i} variants={cellV} className="aspect-square sm:aspect-[1.1] border-b border-r border-[#dde9e2] overflow-hidden">
-                {m && m.macId ? <Link href={`/mac/${m.macId}`} className="block h-full">{cell}</Link> : cell}
+                {m && m.macId ? <Link href={matchHref(m)} className="block h-full">{cell}</Link> : cell}
               </motion.div>
             )
           })}
@@ -276,7 +277,7 @@ export default function CalendarView({ items, season, league }: { items: CalMatc
               )
               return (
                 <motion.div key={idx} variants={rowV} whileHover={{ scale: 1.01 }} transition={{ duration: 0.2 }}>
-                  {m.macId ? <Link href={`/mac/${m.macId}`} className="block">{inner}</Link> : inner}
+                  {m.macId ? <Link href={matchHref(m)} className="block">{inner}</Link> : inner}
                 </motion.div>
               )
             })}

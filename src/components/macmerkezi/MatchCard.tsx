@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { MapPin, Calendar } from 'lucide-react'
 import { motion, useInView, useReducedMotion } from 'framer-motion'
 import type { Match } from '@/types'
-import { competitionLogo } from '@/lib/tff'
+import { competitionLogo, matchHref } from '@/lib/tff'
 import { useMounted } from '@/lib/use-mounted'
 
 /* Tarih + saat → "24.08.2025 19:00" */
@@ -171,7 +171,7 @@ export default function MatchCard({
   )
 
   const linked = match.macId
-    ? <Link href={`/mac/${match.macId}`} className="group block h-full">{card}</Link>
+    ? <Link href={matchHref(match)} className="group block h-full">{card}</Link>
     : <div className="group h-full">{card}</div>
 
   // Mount öncesi (SSR + ilk paint) ve reduced-motion: animasyonsuz, görünür — hydration güvenli.
