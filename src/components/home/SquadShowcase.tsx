@@ -30,8 +30,9 @@ export default function SquadShowcase({ players }: { players: CardPlayer[] }) {
   const parts = p.name.split(' ').filter(Boolean)
   const first = parts[0] ?? p.name
   const rest = parts.slice(1).join(' ')
-  const surname = parts.length > 1 ? parts[parts.length - 1] : p.name
   const initials = parts.slice(0, 2).map((w) => w[0]).join('').toLocaleUpperCase('tr-TR')
+  // Arka plan kayan yazı — isim tekrarlı (iki özdeş yarım = seamless -50% döngü)
+  const marqueeText = `${p.name}  •  ${p.name}  •  ${p.name}  •  `
 
   return (
     <div
@@ -39,25 +40,27 @@ export default function SquadShowcase({ players }: { players: CardPlayer[] }) {
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      {/* Dev soyisim filigranı */}
-      <span aria-hidden className="pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 text-center font-heading text-[26vw] lg:text-[18rem] font-extrabold uppercase leading-none text-white/[0.04] select-none whitespace-nowrap overflow-hidden">
-        {surname}
-      </span>
+      {/* Arka planda yatay KAYAN dev isim (ibfk tarzı seamless marquee) */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 flex items-center overflow-hidden">
+        <div key={idx} className="squad-marquee font-heading font-extrabold uppercase leading-none text-ugold/[0.07] text-[clamp(7rem,24vw,22rem)] whitespace-nowrap">
+          <span className="pr-[0.1em]">{marqueeText}</span>
+          <span className="pr-[0.1em]">{marqueeText}</span>
+        </div>
+      </div>
 
       <div className="relative grid lg:grid-cols-[minmax(0,460px)_1fr] items-center gap-8 lg:gap-12 py-4">
-        {/* ── Fotoğraf + marka patlaması ── */}
+        {/* ── Fotoğraf ── */}
         <div className="relative mx-auto w-full max-w-[420px]">
-          <span aria-hidden className="pointer-events-none absolute -inset-3 rounded-[28px] bg-ugold/15 blur-2xl" />
-          <div className="relative aspect-[4/5] rounded-[24px] overflow-hidden ring-1 ring-white/12 shadow-[0_30px_70px_-30px_rgba(0,0,0,0.8)]">
-            {/* açısal marka patlaması (foto arkası) */}
-            <div aria-hidden className="absolute inset-0 bg-[conic-gradient(from_210deg_at_50%_40%,#1b5e44,#f5c400_25%,#ffffff_45%,#1b5e44_70%,#0c2e22_100%)] opacity-90" />
-            <div aria-hidden className="absolute inset-0 bg-[radial-gradient(120%_90%_at_50%_120%,rgba(12,46,34,0.85),transparent_60%)]" />
+          <span aria-hidden className="pointer-events-none absolute -inset-4 rounded-[32px] bg-ugold/12 blur-3xl" />
+          <div className="relative aspect-[4/5] rounded-[24px] overflow-hidden ring-1 ring-white/12 shadow-[0_40px_80px_-30px_rgba(0,0,0,0.85)] bg-gradient-to-b from-ugreen to-ugreendd">
             {p.photoUrl ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img src={p.photoUrl} alt={p.name} className="relative h-full w-full object-cover object-top" />
             ) : (
-              <span className="relative flex h-full w-full items-center justify-center font-heading text-8xl font-extrabold text-white/25">{initials}</span>
+              <span className="relative flex h-full w-full items-center justify-center font-heading text-8xl font-extrabold text-white/20">{initials}</span>
             )}
+            {/* alt yumuşak koyulaştırma */}
+            <div aria-hidden className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-ugreendd/70 to-transparent" />
           </div>
           {/* sayaç */}
           {n > 1 && (

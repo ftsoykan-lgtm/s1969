@@ -23,10 +23,9 @@ export default async function SquadPreview() {
   }
 
   return (
-    <section className="reveal relative py-20 md:py-24 overflow-hidden bg-[linear-gradient(160deg,var(--c-ugreendd)_0%,var(--c-ugreend)_55%,var(--c-ugreenm)_100%)]">
+    <section className="reveal relative py-20 md:py-24 overflow-hidden bg-[radial-gradient(circle_at_50%_38%,var(--c-ugreend)_0%,var(--c-ugreendd)_72%)]">
       {/* atmosfer */}
-      <div className="pointer-events-none absolute -top-24 -right-24 w-[460px] h-[460px] rounded-full bg-ugreen/40 blur-[130px]" />
-      <div className="pointer-events-none absolute -bottom-32 -left-24 w-[460px] h-[460px] rounded-full bg-ugold/[0.08] blur-[130px]" />
+      <div className="pointer-events-none absolute -bottom-32 -left-24 w-[460px] h-[460px] rounded-full bg-ugold/[0.06] blur-[130px]" />
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-ugold/50 to-transparent" />
 
       <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 mb-8">

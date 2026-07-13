@@ -310,6 +310,11 @@ img {
 @keyframes hKenBurns { from { transform: scale(1.05) } to { transform: scale(1.12) } }
 .hero-kb { animation: hKenBurns 7s ease-out both; }
 
+/* Kadro vitrini — arkada yatay kayan dev isim (ibfk tarzı seamless marquee) */
+@keyframes squadMarquee { from { transform: translate3d(0,0,0); } to { transform: translate3d(-50%,0,0); } }
+.squad-marquee { display: inline-flex; width: max-content; will-change: transform; animation: squadMarquee 55s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .squad-marquee { animation: none; } }
+
 /* Mobil menü — büyük tipografi öğelerinin kademeli belirişi (açılışta) */
 @keyframes navItemIn {
   from { opacity: 0; transform: translateX(22px); }

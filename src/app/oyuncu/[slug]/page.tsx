@@ -47,7 +47,7 @@ export default async function OyuncuProfil({ params, searchParams }: Props) {
   const age = ageFrom(player.birthDate)
   const nameParts = player.name.split(' ').filter(Boolean)
   const initials = nameParts.slice(0, 2).map((w) => w[0]).join('').toLocaleUpperCase('tr-TR')
-  const surname = nameParts.length > 1 ? nameParts[nameParts.length - 1] : player.name
+  const marqueeText = `${player.name}  •  ${player.name}  •  ${player.name}  •  `
 
   const stats: Stat[] = ([
     player.position ? { icon: Shirt, label: 'Mevki', value: player.position } : null,
@@ -63,11 +63,15 @@ export default async function OyuncuProfil({ params, searchParams }: Props) {
   return (
     <div className="min-h-screen bg-[#f5f9f6]">
       {/* ════ HERO — ortalanmış foto + dev isim filigranı (ibfk tarzı) ════ */}
-      <div className="relative overflow-hidden bg-[linear-gradient(160deg,var(--c-ugreendd)_0%,var(--c-ugreend)_58%,var(--c-ugreenm)_100%)]">
+      <div className="relative overflow-hidden bg-[radial-gradient(circle_at_50%_40%,var(--c-ugreend)_0%,var(--c-ugreendd)_74%)]">
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-ugold/50 to-transparent" />
-        <div className="pointer-events-none absolute -top-32 -left-20 w-[480px] h-[480px] rounded-full bg-ugreen/40 blur-[130px]" />
-        {/* dev soyisim filigranı */}
-        <span aria-hidden className="pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 text-center font-heading text-[26vw] md:text-[22rem] font-extrabold uppercase leading-none text-white/[0.045] select-none whitespace-nowrap overflow-hidden">{surname}</span>
+        {/* arka planda yatay KAYAN dev isim (ibfk tarzı seamless marquee) */}
+        <div aria-hidden className="pointer-events-none absolute inset-0 flex items-center overflow-hidden">
+          <div className="squad-marquee font-heading font-extrabold uppercase leading-none text-ugold/[0.06] text-[clamp(6rem,22vw,20rem)] whitespace-nowrap">
+            <span className="pr-[0.1em]">{marqueeText}</span>
+            <span className="pr-[0.1em]">{marqueeText}</span>
+          </div>
+        </div>
 
         <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 pt-6 pb-12">
           <Link href="/kadro" className="inline-flex items-center gap-2 text-sm text-white/55 hover:text-white transition-colors mb-4">
