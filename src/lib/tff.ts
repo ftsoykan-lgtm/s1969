@@ -44,7 +44,7 @@ export type TffFixture = {
   competition: string
   isHome: boolean
   opponent: string
-  result: 'G' | 'M' | 'B'
+  result: 'G' | 'M' | 'B' | null   // oynanmamış maçta (skor yok) null
 }
 
 export type TffSquadPlayer = {
