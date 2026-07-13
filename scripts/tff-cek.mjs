@@ -364,7 +364,13 @@ async function cekFikstur(page, season = SEASON) {
     })
     .filter(Boolean)
 
-  log(`✓ ${fixtures.length} maç çekildi (sezon: ${season})`)
+  // Veri-kaybı denetimi: ham satır → ayrıştırılan maç (kaç satır düştü?)
+  const dropped = rawRows.length - fixtures.length
+  const played = fixtures.filter((f) => f.homeScore != null).length
+  const dated = fixtures.filter((f) => f.date).length
+  log(`✓ Fikstür: ${rawRows.length} ham satır → ${fixtures.length} maç (oynanan: ${played}, tarihli: ${dated})`)
+  if (dropped > 0) log(`⚠ Fikstür: ${dropped} ham satır ayrıştırılamadı — parser/kolon değişmiş olabilir, kontrol et`)
+  if (rawRows.length === 0) log(`⚠ Fikstür: TFF grid'inden hiç satır gelmedi (sezon ${season} yayınlanmadı ya da selector değişti)`)
 
   // Her maçın detayını çek (saat, stadyum, hakemler, kadrolar) — pageID=29&macID
   log('Maç detayları çekiliyor (saat, stadyum, hakem, kadro)...')
@@ -726,6 +732,36 @@ async function main() {
       squad: kadro,
     }
     if (complete) log(`🏁 Sezon ${actualSeason} tamamlandı olarak işaretlendi (sonraki çalıştırmalarda atlanır)`)
+
+    // ─── VERİ DENETİM RAPORU (her aşamada ne geldi + anomali/veri-kaybı uyarıları) ───
+    const rf = data.sanliurfasporFixtures
+    const rapor = {
+      sezon: data.season,
+      standings: data.standings.length,
+      standingsToplamPuan: data.standings.reduce((a, s) => a + (s.points || 0), 0),
+      logo: Object.keys(data.logos).length,
+      fikstur: rf.length,
+      oynanan: rf.filter((f) => f.homeScore != null).length,
+      tarihli: rf.filter((f) => f.date).length,
+      saatli: rf.filter((f) => f.time).length,
+      stadyumlu: rf.filter((f) => f.venue).length,
+      macLogolu: rf.filter((f) => f.homeTeamLogo && f.awayTeamLogo).length,
+      kadro: data.squad?.players?.length || 0,
+      kadroSezon: data.squad?.season || null,
+    }
+    const uyarilar = []
+    if (rapor.standings === 0) uyarilar.push('Puan tablosu BOŞ — grup bulunamadı veya standings selector değişti')
+    if (rapor.oynanan > 0 && rapor.standingsToplamPuan === 0) uyarilar.push('Oynanmış maç var ama puan tablosu sıfır — KARMA/BOZUK veri (arşive yazma engellendi)')
+    if (rapor.fikstur === 0) uyarilar.push('Fikstür BOŞ — sezon yayınlanmadı ya da fikstür selector değişti')
+    if (rapor.fikstur > 0 && rapor.tarihli === 0) uyarilar.push('Fikstür var ama HİÇ tarih yok — TFF henüz tarih/saat yayınlamamış (normal olabilir, sezon başı)')
+    if (rapor.fikstur > 0 && rapor.macLogolu < rapor.fikstur) uyarilar.push(`${rapor.fikstur - rapor.macLogolu} maçta kulüp logosu eksik`)
+    if (rapor.kadro === 0) uyarilar.push('Kadro BOŞ — hiçbir sezonda oyuncu bulunamadı')
+
+    console.log('\n════════════ VERİ DENETİM RAPORU ════════════')
+    console.table(rapor)
+    if (uyarilar.length) { console.log('⚠ ANOMALİLER:'); uyarilar.forEach((u) => console.log('   • ' + u)) }
+    else console.log('✓ Anomali yok — tüm aşamalar sağlıklı.')
+    console.log('═════════════════════════════════════════════\n')
 
     mkdirSync(dirname(OUT_FILE), { recursive: true })
     writeFileSync(OUT_FILE, JSON.stringify(data, null, 2), 'utf-8')
