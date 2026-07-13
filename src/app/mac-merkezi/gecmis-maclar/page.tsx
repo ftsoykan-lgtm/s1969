@@ -4,6 +4,7 @@ import { getLiveTff, getSeasons, getTffBySeason } from '@/lib/supabase/tff-serve
 import MacMerkezi from '@/components/macmerkezi/MacMerkezi'
 import MatchTabs from '@/components/macmerkezi/MatchTabs'
 import SeasonPills from '@/components/macmerkezi/SeasonPills'
+import SeasonStats from '@/components/macmerkezi/SeasonStats'
 
 export const metadata: Metadata = {
   title: 'Tüm Maçlar — Maç Merkezi',
@@ -56,6 +57,9 @@ export default async function TumMaclarPage({ searchParams }: Props) {
         <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
           <MatchTabs />
           <SeasonPills seasons={allSeasons} active={activeSeason} current={live.meta.season} basePath="/mac-merkezi/gecmis-maclar" />
+        </div>
+        <div className="mb-8">
+          <SeasonStats matches={matches} season={activeSeason} />
         </div>
         <MacMerkezi all={matches} standings={standings} season={activeSeason} logos={logoMap} standingsNote={standingsNote} />
       </div>
