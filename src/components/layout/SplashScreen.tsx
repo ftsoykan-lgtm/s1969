@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import type { ClubInfo } from '@/data/club'
+import ClubLogo from '@/components/ui/ClubLogo'
 
 export default function SplashScreen({ club }: { club: ClubInfo }) {
   const [show, setShow] = useState(false)
@@ -37,8 +38,8 @@ export default function SplashScreen({ club }: { club: ClubInfo }) {
 
       <div className="flex flex-col items-center gap-5 animate-[sfkpop_0.6s_ease-out]">
         {hasLogo ? (
-          <img src={club.logoUrl} alt={club.name}
-            className="h-28 w-28 object-contain drop-shadow-2xl" />
+          <ClubLogo src={club.logoUrl} alt={club.name} size={112} priority
+            className="object-contain drop-shadow-2xl" />
         ) : (
           <div className="flex h-28 w-28 items-center justify-center rounded-full bg-ugold text-ugreend font-extrabold text-3xl shadow-2xl">
             {club.shortCode}

@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { clubInfo as defaultClub, defaultFooter } from '@/data/club'
 import type { ClubInfo } from '@/data/club'
 import NewsletterForm from './NewsletterForm'
+import ClubLogo from '@/components/ui/ClubLogo'
 
 /* ─── Sosyal medya SVG ikonları (Navbar ile aynı dil) ────────────────────── */
 const SocialIcons = {
@@ -80,8 +81,8 @@ export default function Footer({ club = defaultClub }: { club?: ClubInfo }) {
         <div className="col-span-2 lg:col-span-1">
           <Link href="/" className="inline-flex items-center gap-3.5 group mb-5">
             {hasLogo ? (
-              <img src={club.logoUrl} alt={club.name}
-                className="h-14 w-14 rounded-2xl object-contain bg-white/5 ring-1 ring-white/15 shrink-0" />
+              <ClubLogo src={club.logoUrl} alt={club.name} size={56}
+                className="rounded-2xl object-contain bg-white/5 ring-1 ring-white/15 shrink-0" />
             ) : (
               <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-ugold to-ugoldd text-ugreenm font-extrabold text-base shadow-lg">
                 {club.shortCode}
