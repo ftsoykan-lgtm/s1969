@@ -5,8 +5,9 @@ import { matchHref } from '@/lib/tff'
 
 /* Rakip/takım geçmişi — Şanlıurfaspor'un bu rakibe karşı tüm karşılaşmaları.
    Merkezî veriden (güncel + arşiv) otomatik; mevcut maç hariç tutulur.
-   Premium/kurumsal: koyu yeşil başlık kapağı, iki arma karşılaşması,
-   oransal G/B/M segment barı, gol & galibiyet oranı, rafine maç listesi. */
+   Premium/kurumsal + anlaşılır: koyu yeşil başlık kapağı, iki arma, ETİKETLİ
+   G/B/M (net), oransal segment barı, detay mini-kartlar (attığı/yediği/averaj/
+   galibiyet oranı), son form dizisi, rafine maç listesi. */
 
 const TEAM = 'Şanlıurfaspor'
 
@@ -19,13 +20,31 @@ function fmtDate(iso: string): string {
 function Crest({ name, logo, highlight }: { name: string; logo?: string | null; highlight?: boolean }) {
   const initials = name.split(' ').filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toLocaleUpperCase('tr-TR')
   return (
-    <div className="flex w-20 shrink-0 flex-col items-center gap-2 text-center">
+    <div className="flex w-16 shrink-0 flex-col items-center gap-2 text-center sm:w-20">
       <div className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-[#f5f9f6] ring-1 ${highlight ? 'ring-2 ring-ugold' : 'ring-[#e6efe9]'}`}>
         {logo
           ? <img src={logo} alt="" className="h-10 w-10 object-contain" />
           : <span className="text-[13px] font-extrabold text-[#7aab8e]">{initials}</span>}
       </div>
       <span className={`line-clamp-2 text-[11px] font-extrabold leading-tight ${highlight ? 'text-ugreen' : 'text-ugreenm'}`}>{name}</span>
+    </div>
+  )
+}
+
+function Tally({ value, label, color }: { value: number; label: string; color: string }) {
+  return (
+    <div className="text-center">
+      <span className={`block font-heading text-[28px] font-extrabold leading-none tabular-nums sm:text-[34px] ${color}`}>{value}</span>
+      <span className="mt-1.5 block text-[9px] font-extrabold uppercase tracking-wide text-[#7aab8e]">{label}</span>
+    </div>
+  )
+}
+
+function MiniStat({ value, label, accent }: { value: string | number; label: string; accent?: boolean }) {
+  return (
+    <div className="rounded-xl bg-[#f5f9f6] py-2.5 text-center ring-1 ring-[#e6efe9]">
+      <p className={`text-base font-extrabold tabular-nums ${accent ? 'text-ugold' : 'text-ugreenm'}`}>{value}</p>
+      <p className="mt-0.5 text-[9px] font-extrabold uppercase tracking-wide text-[#7aab8e]">{label}</p>
     </div>
   )
 }
@@ -49,15 +68,26 @@ export default function HeadToHead({
     if (us > them) W++; else if (us < them) L++; else D++
   }
 
-  // Listede mevcut maç hariç, geçmiş (oynanmış) karşılaşmalar
+  // Listede mevcut maç hariç, geçmiş (oynanmış) karşılaşmalar (en yeni üstte)
   const others = meetings.filter((m) => m.macId !== currentMacId && m.isCompleted && m.homeScore != null)
   if (others.length === 0) return null
+
+  const resultOf = (m: Match): 'G' | 'B' | 'M' => {
+    const isHome = m.homeTeam === TEAM
+    const us = (isHome ? m.homeScore : m.awayScore) as number
+    const them = (isHome ? m.awayScore : m.homeScore) as number
+    return us > them ? 'G' : us < them ? 'M' : 'B'
+  }
+  const badgeCls = (r: string) => (r === 'G' ? 'bg-ugreen text-white' : r === 'M' ? 'bg-[#d01b2a] text-white' : 'bg-ugold text-ugreend')
 
   // Şanlıurfaspor arması — herhangi bir karşılaşmadan çıkar
   const teamLogo = meetings.map((m) => (m.homeTeam === TEAM ? m.homeTeamLogo : m.awayTeamLogo)).find(Boolean)
   const totalPlayed = W + D + L
   const pct = (n: number) => (totalPlayed ? (n / totalPlayed) * 100 : 0)
   const winRate = totalPlayed ? Math.round((W / totalPlayed) * 100) : 0
+  const av = GF - GA
+  // Son form — en son oynanan 5 maç, eskiden yeniye (soldan sağa)
+  const form = others.slice(0, 5).reverse().map(resultOf)
 
   return (
     <div
@@ -75,57 +105,70 @@ export default function HeadToHead({
       </div>
 
       <div className="p-5 sm:p-6">
-        {/* Karşılaşma özeti — armalar + G/B/M */}
-        <div className="flex items-center justify-between gap-3">
+        {/* Karşılaşma özeti — armalar + ETİKETLİ G/B/M */}
+        <div className="flex items-center justify-between gap-2 sm:gap-3">
           <Crest name={TEAM} logo={teamLogo} highlight />
-          <div className="text-center">
-            <div className="flex items-baseline justify-center gap-1.5 font-heading leading-none">
-              <span className="text-[32px] font-extrabold tabular-nums text-ugreen">{W}</span>
-              <span className="text-lg font-extrabold text-[#c8d6cf]">-</span>
-              <span className="text-[32px] font-extrabold tabular-nums text-ugoldd">{D}</span>
-              <span className="text-lg font-extrabold text-[#c8d6cf]">-</span>
-              <span className="text-[32px] font-extrabold tabular-nums text-[#d01b2a]">{L}</span>
-            </div>
-            <p className="mt-1.5 text-[9px] font-extrabold uppercase tracking-[0.2em] text-[#7aab8e]">Galibiyet · Beraberlik · Mağlubiyet</p>
+          <div className="flex items-start gap-4 sm:gap-6">
+            <Tally value={W} label="Galibiyet" color="text-ugreen" />
+            <Tally value={D} label="Beraberlik" color="text-ugoldd" />
+            <Tally value={L} label="Mağlubiyet" color="text-[#d01b2a]" />
           </div>
           <Crest name={opponent} logo={opponentLogo} />
         </div>
+        <p className="mt-3 text-center text-[10px] font-bold uppercase tracking-wide text-[#9bb5a8]">Şanlıurfaspor açısından</p>
 
         {/* Oransal G/B/M barı */}
-        <div className="mt-4 flex h-2.5 overflow-hidden rounded-full bg-[#eef5f0]">
+        <div className="mt-3 flex h-2.5 overflow-hidden rounded-full bg-[#eef5f0]">
           {W > 0 && <span className="bg-ugreen" style={{ width: `${pct(W)}%` }} />}
           {D > 0 && <span className="bg-ugold" style={{ width: `${pct(D)}%` }} />}
           {L > 0 && <span className="bg-[#d01b2a]" style={{ width: `${pct(L)}%` }} />}
         </div>
-        <div className="mt-2.5 flex items-center justify-between text-[11px] font-bold text-[#5b8771]">
-          <span className="tabular-nums">Şanlıurfaspor <span className="text-ugreenm">{GF}-{GA}</span> gol</span>
-          <span className="tabular-nums">%{winRate} galibiyet</span>
+
+        {/* Detay mini-kartlar */}
+        <div className="mt-4 grid grid-cols-4 gap-2">
+          <MiniStat value={GF} label="Attığı" />
+          <MiniStat value={GA} label="Yediği" />
+          <MiniStat value={av > 0 ? `+${av}` : av} label="Averaj" />
+          <MiniStat value={`%${winRate}`} label="Galibiyet" accent />
         </div>
 
+        {/* Son form */}
+        {form.length > 0 && (
+          <div className="mt-5 flex items-center justify-between gap-3">
+            <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#7aab8e]">Son Form</span>
+            <div className="flex items-center gap-1.5">
+              {form.map((r, i) => (
+                <span key={i} className={`flex h-7 w-7 items-center justify-center rounded-lg text-[12px] font-extrabold ${badgeCls(r)}`}>{r}</span>
+              ))}
+              <span className="ml-1 text-[9px] font-bold uppercase tracking-wide text-[#b6cdc0]">yeni →</span>
+            </div>
+          </div>
+        )}
+
         {/* Geçmiş maç listesi */}
-        <div className="mt-5 space-y-1.5">
-          {others.map((m) => {
-            const isHome = m.homeTeam === TEAM
-            const us = (isHome ? m.homeScore : m.awayScore) as number
-            const them = (isHome ? m.awayScore : m.homeScore) as number
-            const r = us > them ? 'G' : us < them ? 'M' : 'B'
-            const badge = r === 'G' ? 'bg-ugreen text-white' : r === 'M' ? 'bg-[#d01b2a] text-white' : 'bg-ugold text-ugreend'
-            const row = (
-              <div className="flex items-center gap-3 rounded-xl border border-[#edf7f2] px-3 py-2.5 transition-all hover:border-ugreen/30 hover:bg-[#f8faf9]">
-                <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-[12px] font-extrabold ${badge}`}>{r}</span>
-                <div className="min-w-0 flex-1">
-                  <p className="truncate text-[13px] font-bold text-ugreenm">
-                    {m.homeTeam} <span className="font-extrabold tabular-nums text-ugreen">{m.homeScore}-{m.awayScore}</span> {m.awayTeam}
-                  </p>
-                  <p className="mt-0.5 text-[10px] text-[#7aab8e]">{fmtDate(m.date)}{m.roundLabel ? ` · ${m.roundLabel}` : ''}</p>
+        <div className="mt-4 border-t border-[#edf7f2] pt-4">
+          <p className="mb-2.5 text-[10px] font-extrabold uppercase tracking-widest text-[#7aab8e]">Tüm Karşılaşmalar</p>
+          <div className="space-y-1.5">
+            {others.map((m) => {
+              const isHome = m.homeTeam === TEAM
+              const r = resultOf(m)
+              const row = (
+                <div className="flex items-center gap-3 rounded-xl border border-[#edf7f2] px-3 py-2.5 transition-all hover:border-ugreen/30 hover:bg-[#f8faf9]">
+                  <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-[12px] font-extrabold ${badgeCls(r)}`}>{r}</span>
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-[13px] font-bold text-ugreenm">
+                      {m.homeTeam} <span className="font-extrabold tabular-nums text-ugreen">{m.homeScore}-{m.awayScore}</span> {m.awayTeam}
+                    </p>
+                    <p className="mt-0.5 text-[10px] text-[#7aab8e]">{fmtDate(m.date)}{m.roundLabel ? ` · ${m.roundLabel}` : ''}</p>
+                  </div>
+                  <span className="shrink-0 rounded-md bg-[#f5f9f6] px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-wide text-[#7aab8e]">{isHome ? 'Ev' : 'Dep'}</span>
                 </div>
-                <span className="shrink-0 rounded-md bg-[#f5f9f6] px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-wide text-[#7aab8e]">{isHome ? 'Ev' : 'Dep'}</span>
-              </div>
-            )
-            return m.macId
-              ? <Link key={m.id} href={matchHref(m)} className="block">{row}</Link>
-              : <div key={m.id}>{row}</div>
-          })}
+              )
+              return m.macId
+                ? <Link key={m.id} href={matchHref(m)} className="block">{row}</Link>
+                : <div key={m.id}>{row}</div>
+            })}
+          </div>
         </div>
       </div>
     </div>
