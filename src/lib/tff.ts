@@ -1,14 +1,5 @@
 import { Match, StandingRow } from '@/types'
 import tffLive from '@/data/tff-live.json'
-import { TEAM_ALIASES } from '@/data/team-aliases'
-
-/** İsim → harita anahtarı (küçük harf · Türkçe→ascii · yalnız harf-rakam) */
-function nameKey(x: string): string {
-  return (x || '').toLocaleLowerCase('tr-TR')
-    .replace(/ı/g, 'i').replace(/İ/g, 'i').replace(/ş/g, 's').replace(/ğ/g, 'g')
-    .replace(/ü/g, 'u').replace(/ö/g, 'o').replace(/ç/g, 'c')
-    .replace(/[^a-z0-9]+/g, '')
-}
 
 /**
  * TFF ham verisini (scripts/tff-cek.mjs çıktısı) sitenin Match[] / StandingRow[]
@@ -116,25 +107,19 @@ export function temizTakimAdi(raw: string): string {
   for (const onek of sponsorOnekleri) {
     if (s.toUpperCase().startsWith(onek)) { s = s.slice(onek.length).trim(); break }
   }
-  // Akıllı isim haritası — bilinen kulüp için doğru/kısa ad (varsa)
-  const mapped = TEAM_ALIASES[nameKey(s)]
-  if (mapped) return mapped
-  // Haritada yoksa: algoritma yedeği (title-case + ek temizleme)
+  // Büyük harf ham adı başlık-biçimine çevir (her kelimenin ilk HARFİ büyük;
+  // rakamla başlayan kelimede de ilk harf büyür → "24Erzincanspor")
   s = s
     .toLocaleLowerCase('tr-TR')
     .split(' ')
-    .map((w) => (w ? w.charAt(0).toLocaleUpperCase('tr-TR') + w.slice(1) : w))
+    .map((w) => w.replace(/[a-zçğıöşü]/, (c) => c.toLocaleUpperCase('tr-TR')))
     .join(' ')
     .trim()
-  // "... Futbol Kulübü / Futbol A.Ş. / Futbol S.K." → "... FK"
-  // (yalnız "Futbol" kalması saçma olur — Aliağa Futbol Kulübü → Aliağa FK)
-  s = s.replace(/\s+Futbol\s+(kul[üu]b[üu]|a\.?\s?ş\.?|s\.?\s?k\.?)$/i, ' FK').trim()
-  // Diğer kurumsal ekleri sondan temizle: A.Ş. / Kulübü / S.K. → kısa, okunur isim
-  let prev = ''
-  while (prev !== s) {
-    prev = s
-    s = s.replace(/\s+(a\.?\s?ş\.?|kul[üu]b[üu]|s\.?\s?k\.?)$/i, '').trim()
-  }
+  // Sadece iki kural — gerisi orijinal kalır:
+  // 1) "... Futbol Kulübü" / "... Futbol A.Ş." → "... FK"
+  s = s.replace(/\s+Futbol\s+(kul[üu]b[üu]|a\.?\s?ş\.?)$/i, ' FK').trim()
+  // 2) Sonu "A.Ş." ile bitenlerde A.Ş.'yi kaldır
+  s = s.replace(/\s+a\.?\s?ş\.?$/i, '').trim()
   return s
 }
 
