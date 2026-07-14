@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-13T21:34:31.948Z",
+  "updatedAt": "2026-07-14T07:28:10.431Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -1375,7 +1375,13 @@
         "name": "Sadık Çiftpınar",
         "tffId": "827547",
         "number": null,
-        "position": null
+        "position": null,
+        "birthPlace": "Seyhan",
+        "birthDate": "01.01.1993",
+        "nationality": "Türkiye",
+        "flagCode": "tr",
+        "licenseNo": "1413632",
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "Sadık Arda Yılmaztürk",
