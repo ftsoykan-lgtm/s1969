@@ -257,8 +257,8 @@ export default function CalendarView({ items, season, league }: { items: CalMatc
                       </span>
                       <p className="truncate text-[15px] font-extrabold leading-tight text-ugreenm sm:text-base">{m.opponent}</p>
                       <div className="mt-1 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[11px] font-medium text-[#5b8771]">
-                        {m.roundLabel && <span className="inline-flex items-center gap-1"><CalendarDays size={12} className="shrink-0 text-ugold" /> {m.roundLabel}</span>}
-                        {m.venue && <span className="inline-flex min-w-0 items-center gap-1"><MapPin size={12} className="shrink-0 text-ugold" /> <span className="truncate">{m.venue}</span></span>}
+                        {m.roundLabel && <span className="inline-flex items-center gap-1"><CalendarDays size={12} className="shrink-0 text-[#8a6d00]" /> {m.roundLabel}</span>}
+                        {m.venue && <span className="inline-flex min-w-0 items-center gap-1"><MapPin size={12} className="shrink-0 text-[#8a6d00]" /> <span className="truncate">{m.venue}</span></span>}
                       </div>
                     </div>
 
