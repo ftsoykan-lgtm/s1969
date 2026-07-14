@@ -12,6 +12,36 @@ interface Props {
   label?: string
 }
 
+// Logo master boyutu — yükleme anında bu boyuta yüksek kaliteyle küçültülür
+// (büyütülmez). Kayıpsız PNG → keskin kenarlar + şeffaflık korunur. Sitede
+// next/image bu master'dan gösterime uygun (retina) sürümleri üretir.
+const MAX_LOGO_DIM = 512
+
+/** Yüklenen görseli yüksek kaliteyle yeniden boyutlandırıp PNG'ye çevirir.
+ *  SVG (vektör) dokunulmadan geçer; hata olursa orijinal dosya kullanılır. */
+async function resizeToPng(file: File, maxDim: number): Promise<File> {
+  if (file.type === 'image/svg+xml') return file
+  try {
+    const bmp = await createImageBitmap(file)
+    const scale = Math.min(1, maxDim / Math.max(bmp.width, bmp.height)) // yalnız küçült
+    const w = Math.max(1, Math.round(bmp.width * scale))
+    const h = Math.max(1, Math.round(bmp.height * scale))
+    const canvas = document.createElement('canvas')
+    canvas.width = w; canvas.height = h
+    const ctx = canvas.getContext('2d')
+    if (!ctx) { bmp.close?.(); return file }
+    ctx.imageSmoothingEnabled = true
+    ctx.imageSmoothingQuality = 'high'
+    ctx.drawImage(bmp, 0, 0, w, h)
+    bmp.close?.()
+    const blob = await new Promise<Blob | null>((res) => canvas.toBlob(res, 'image/png'))
+    if (!blob) return file
+    return new File([blob], file.name.replace(/\.[^.]+$/, '') + '.png', { type: 'image/png' })
+  } catch {
+    return file
+  }
+}
+
 export default function LogoUpload({ value, onChange, folder = 'logos', label = 'Logo' }: Props) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [state, setState] = useState<'idle' | 'uploading' | 'ok' | 'error'>('idle')
@@ -21,7 +51,9 @@ export default function LogoUpload({ value, onChange, folder = 'logos', label = 
   const handleFile = async (file: File) => {
     setState('uploading')
     setError(null)
-    const res = await uploadImage(file, { folder, original: true })
+    // Yükleme anında yüksek kaliteyle uygun boyuta getir (SVG hariç)
+    const prepared = await resizeToPng(file, MAX_LOGO_DIM)
+    const res = await uploadImage(prepared, { folder, original: true })
     if (res.ok && res.url) {
       onChange(res.url)
       setState('ok')
@@ -81,7 +113,7 @@ export default function LogoUpload({ value, onChange, folder = 'logos', label = 
                   : <Upload size={14} />}
                 {state === 'uploading' ? 'Yükleniyor...' : state === 'ok' ? 'Yüklendi' : 'Görsel Yükle'}
               </button>
-              <p className="text-[11px] text-[#7aab8e] mt-1.5">PNG / JPG / WEBP / SVG — orijinal kalitesinde yüklenir</p>
+              <p className="text-[11px] text-[#7aab8e] mt-1.5">PNG / JPG / WEBP / SVG — yüksek kaliteyle otomatik boyutlandırılır. En net sonuç için yüksek çözünürlüklü ya da SVG (vektör) yükleyin.</p>
             </>
           )}
           {state === 'error' && error && (

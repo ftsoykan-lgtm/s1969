@@ -214,7 +214,7 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
             {/* SOL — arma + kulüp adı (kurumsal kimlik bloğu) */}
             <Link href="/" aria-label={club.name} className="flex items-center gap-3 min-w-0 group">
               {hasLogo ? (
-                <ClubLogo src={club.logoUrl} size={emblemPx} optSize={160} priority
+                <ClubLogo src={club.logoUrl} size={emblemPx} optSize={64} priority
                   className="logo-emblem shrink-0 rounded-full object-contain bg-white ring-2 ring-ugold/70 shadow-[0_6px_18px_-6px_rgba(0,0,0,0.55),0_0_20px_-6px_rgba(245,196,0,0.55)] transition-all duration-300" />
               ) : (
                 <div style={{ height: emblemPx, width: emblemPx }}
