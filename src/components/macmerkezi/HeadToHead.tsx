@@ -152,14 +152,21 @@ export default function HeadToHead({
             {others.map((m) => {
               const isHome = m.homeTeam === TEAM
               const r = resultOf(m)
-              const oppLogo = isHome ? m.awayTeamLogo : m.homeTeamLogo
+              const initialsOf = (n: string) => n.split(' ').filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toLocaleUpperCase('tr-TR')
               const row = (
                 <div className="flex items-center gap-3 rounded-xl border border-[#e6efe9] px-3 py-3 transition-all hover:border-ugreen/30 hover:bg-[#f8faf9] hover:shadow-sm">
-                  {/* Rakip arması */}
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white shadow-sm ring-1 ring-[#e6efe9]">
-                    {oppLogo
-                      ? <img src={oppLogo} alt="" className="h-8 w-8 object-contain" />
-                      : <span className="text-[11px] font-extrabold text-[#7aab8e]">{opponent.slice(0, 2).toLocaleUpperCase('tr-TR')}</span>}
+                  {/* Her iki takımın arması */}
+                  <div className="flex shrink-0 items-center">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-white shadow-sm ring-1 ring-[#e6efe9]">
+                      {m.homeTeamLogo
+                        ? <img src={m.homeTeamLogo} alt="" className="h-6 w-6 object-contain" />
+                        : <span className="text-[9px] font-extrabold text-[#7aab8e]">{initialsOf(m.homeTeam)}</span>}
+                    </span>
+                    <span className="-ml-2 flex h-9 w-9 items-center justify-center rounded-lg bg-white shadow-sm ring-1 ring-[#e6efe9]">
+                      {m.awayTeamLogo
+                        ? <img src={m.awayTeamLogo} alt="" className="h-6 w-6 object-contain" />
+                        : <span className="text-[9px] font-extrabold text-[#7aab8e]">{initialsOf(m.awayTeam)}</span>}
+                    </span>
                   </div>
                   {/* Takımlar + tarih/hafta */}
                   <div className="min-w-0 flex-1">

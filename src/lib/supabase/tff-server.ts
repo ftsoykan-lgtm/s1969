@@ -1,7 +1,7 @@
 import { cache } from 'react'
 import { createClient } from '@/lib/supabase/public'
 import {
-  buildStandings, buildMatches, buildMeta, buildSquad, staticRaw, normTeam, type TffRaw, type TffSquad,
+  buildStandings, buildMatches, buildMeta, buildSquad, staticRaw, normTeam, matchSlug, type TffRaw, type TffSquad,
 } from '@/lib/tff'
 import type { Match, StandingRow } from '@/types'
 
@@ -120,6 +120,25 @@ export const findMatchByMacId = cache(async (macId: string): Promise<Match | nul
     const arch = await getTffBySeason(s)
     const m = arch?.matches.find((x) => x.macId === macId)
     if (m) return m
+  }
+  return null
+})
+
+/** URL slug ile maçı bul (güncel + arşiv). Yeni kanonik slug (takım-vs-takım-tarih)
+ *  ile tam eşleşme; bulunamazsa eski ID'li URL'ler için sondaki sayıyı macId olarak
+ *  dener (geriye dönük uyumluluk → sayfa kanonik URL'e yönlendirir). */
+export const findMatchBySlug = cache(async (param: string): Promise<Match | null> => {
+  const slug = decodeURIComponent(param || '').replace(/\/+$/, '')
+  const live = await getLiveTff()
+  const seasons = await getSeasons()
+  const archived = await Promise.all(seasons.map((s) => getTffBySeason(s)))
+  const all = [...live.matches, ...archived.flatMap((a) => a?.matches ?? [])]
+  const bySlug = all.find((m) => matchSlug(m) === slug)
+  if (bySlug) return bySlug
+  const idMatch = slug.match(/(\d+)$/)
+  if (idMatch) {
+    const byId = all.find((m) => m.macId === idMatch[1])
+    if (byId) return byId
   }
   return null
 })

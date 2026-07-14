@@ -1,17 +1,17 @@
 import { notFound, permanentRedirect } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
-import { findMatchByMacId, getMatchesVsOpponent } from '@/lib/supabase/tff-server'
+import { findMatchBySlug, getMatchesVsOpponent } from '@/lib/supabase/tff-server'
 import { getTeamLogoMap, applyLogosToMatches } from '@/lib/supabase/logos-server'
 import { getAllProfileSlugs } from '@/lib/supabase/player-profiles-server'
 import { getNews } from '@/lib/supabase/news-server'
 import HeadToHead from '@/components/macmerkezi/HeadToHead'
 import RelatedNews from '@/components/macmerkezi/RelatedNews'
 import { formatDate } from '@/lib/utils'
-import { ArrowLeft, MapPin, Calendar, Clock, Flag, ExternalLink } from 'lucide-react'
+import { ArrowLeft, MapPin, Calendar, Clock, Flag } from 'lucide-react'
 import type { Metadata } from 'next'
 import type { LineupPlayer, MatchEvent } from '@/types'
-import { canonicalCompetition, macIdFromParam, matchSlug, normTeam } from '@/lib/tff'
+import { canonicalCompetition, matchSlug, normTeam } from '@/lib/tff'
 
 /* İsim → profil slug'ı (oyuncu profilleriyle aynı kural) */
 function slugifyName(s: string): string {
@@ -26,8 +26,7 @@ interface Props { params: Promise<{ macId: string }> }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { macId: param } = await params
-  const id = macIdFromParam(param)
-  const m = id ? await findMatchByMacId(id) : null
+  const m = await findMatchBySlug(param)
   if (!m) return { title: 'Maç Detayı' }
   return { title: `${m.homeTeam} - ${m.awayTeam}`, alternates: { canonical: `/mac/${matchSlug(m)}` } }
 }
@@ -44,10 +43,8 @@ function EventIcon({ type }: { type: MatchEvent['type'] }) {
 
 export default async function MacDetayPage({ params }: Props) {
   const { macId: param } = await params
-  const id = macIdFromParam(param)
-  if (!id) notFound()
-  // Güncel sezon + arşiv sezonlarında ara (geçmiş maçlar arşivde)
-  const [found, logoMap] = await Promise.all([findMatchByMacId(id), getTeamLogoMap()])
+  // Slug ile çöz (güncel + arşiv); eski ID'li URL'ler de çözülür, kanoniğe yönlenir
+  const [found, logoMap] = await Promise.all([findMatchBySlug(param), getTeamLogoMap()])
   if (!found) notFound()
   // Kanonik premium URL değilse (eski /mac/<id> ya da eskimiş slug) → kalıcı yönlendir (SEO)
   const canonical = matchSlug(found)
@@ -107,7 +104,7 @@ export default async function MacDetayPage({ params }: Props) {
             <span className="flex h-6 w-6 items-center justify-center rounded-full bg-ugold text-ugreend group-hover:bg-ugreend group-hover:text-ugold transition-colors">
               <ArrowLeft size={14} />
             </span>
-            <span className="text-[12px] font-extrabold tracking-wide uppercase text-white group-hover:text-ugreend transition-colors">Maç Merkezi</span>
+            <span className="text-[12px] font-extrabold tracking-wide uppercase text-white group-hover:text-ugreend transition-colors">Maç Merkezine Dön</span>
           </Link>
 
           <div className="flex justify-center mb-7">
@@ -258,15 +255,6 @@ export default async function MacDetayPage({ params }: Props) {
 
         {/* ════ İLGİLİ HABERLER (otomatik) ════ */}
         <RelatedNews news={relatedNews} />
-
-        {match.macId && (
-          <a href={`https://www.tff.org/Default.aspx?pageID=29&macID=${match.macId}`}
-            target="_blank" rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 bg-white border border-[#ddeae2] hover:border-ugreen/40 text-ugreenm font-bold text-sm px-6 py-3.5 rounded-2xl transition-all">
-            {"TFF'de Resmi Maç Sayfası"}
-            <ExternalLink size={15} className="text-ugreen" />
-          </a>
-        )}
       </div>
     </div>
   )

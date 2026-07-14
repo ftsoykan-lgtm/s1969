@@ -107,12 +107,19 @@ export function temizTakimAdi(raw: string): string {
   for (const onek of sponsorOnekleri) {
     if (s.toUpperCase().startsWith(onek)) { s = s.slice(onek.length).trim(); break }
   }
-  return s
+  s = s
     .toLocaleLowerCase('tr-TR')
     .split(' ')
     .map((w) => (w ? w.charAt(0).toLocaleUpperCase('tr-TR') + w.slice(1) : w))
     .join(' ')
     .trim()
+  // Kurumsal ekleri sondan temizle: A.Ş. / Kulübü / S.K. → kısa, okunur isim
+  let prev = ''
+  while (prev !== s) {
+    prev = s
+    s = s.replace(/\s+(a\.?\s?ş\.?|kul[üu]b[üu]|s\.?\s?k\.?)$/i, '').trim()
+  }
+  return s
 }
 
 /* ─── Ham veriden site tiplerine dönüştürücüler ────────────── */
@@ -221,11 +228,10 @@ export function playedMatches(matches: Match[]): Match[] {
   return matches.filter((m) => m.isCompleted)
 }
 
-/* ─── Premium maç URL'leri (SEO + benzersiz + kalıcı) ─────────────────
-   Slug:  <ev>-vs-<deplasman>[-<YYYY-MM-DD>]-<macId>
-   Çözümleme HER ZAMAN sondaki macId ile yapılır → takım adı/tarih değişse
-   veya sonradan tarih eklense bile eski URL çalışır (kanonik URL'e 308).
-   Eski /mac/<macId> (sadece sayı) de çalışmaya devam eder. Çakışma imkânsız. */
+/* ─── Premium maç URL'leri (SEO + temiz) ──────────────────────────────
+   Slug:  <ev>-vs-<deplasman>-<YYYY-MM-DD>   (macId YOK — takım+tarih benzersiz)
+   Çözümleme slug ile yapılır (findMatchBySlug). Eski ID'li URL'ler (sondaki
+   sayı macId) geriye dönük çözülür ve kanonik yeni URL'e kalıcı yönlendirilir. */
 type SluggableMatch = { homeTeam: string; awayTeam: string; date?: string | null; macId?: string | null }
 
 export function urlSlugPart(s: string): string {
@@ -238,8 +244,7 @@ export function urlSlugPart(s: string): string {
 /** Bir maçın kanonik slug'ı. macId varsa çakışmasız ve kalıcıdır. */
 export function matchSlug(m: SluggableMatch): string {
   const parts = [urlSlugPart(m.homeTeam), 'vs', urlSlugPart(m.awayTeam)]
-  if (m.date) parts.push(m.date)                 // YYYY-MM-DD (varsa)
-  if (m.macId) parts.push(String(m.macId))       // benzersiz + kalıcı anahtar
+  if (m.date) parts.push(m.date)                 // YYYY-MM-DD — takım + tarih benzersiz
   return parts.filter(Boolean).join('-')
 }
 
