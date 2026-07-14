@@ -25,6 +25,17 @@ export default async function TakvimPage({ searchParams }: Props) {
   const activeSeason = archived ? sezon! : live.meta.season
   const allSeasons = Array.from(new Set([live.meta.season, ...seasons])).filter(Boolean)
 
+  // Sezon özeti — hero istatistik bandı için (takvim odaklı: fikstür kompozisyonu)
+  const playedCount = matches.filter((m) => m.isCompleted).length
+  const homeCount = matches.filter((m) => m.isHome).length
+  const stats: { label: string; value: number | string; accent?: boolean }[] = [
+    { label: 'Toplam Maç', value: matches.length },
+    { label: 'Oynanan', value: playedCount },
+    { label: 'Kalan', value: matches.length - playedCount, accent: true },
+    { label: 'İç Saha', value: homeCount },
+    { label: 'Deplasman', value: matches.length - homeCount },
+  ]
+
   const items: CalMatch[] = matches.filter((m) => m.date).map((m) => {
     const urfaHome = m.homeTeam === 'Şanlıurfaspor'
     return {
@@ -51,7 +62,17 @@ export default async function TakvimPage({ searchParams }: Props) {
           <h1 className="font-heading text-5xl md:text-7xl font-extrabold text-white tracking-[-0.03em] leading-[0.95]">
             Maç <span className="text-ugold">Takvimi</span>
           </h1>
-          <p className="mt-3 text-[11px] text-white/40">TFF fikstüründen otomatik · {matches.length} maç{archived ? ' · Arşiv' : ''}</p>
+          <p className="mt-3 text-[11px] font-bold tracking-wide uppercase text-white/45">{meta.league} · {activeSeason}{archived ? ' · Arşiv' : ''}</p>
+
+          {/* Sezon özeti — premium istatistik bandı */}
+          <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-3">
+            {stats.map((s) => (
+              <div key={s.label} className="rounded-2xl border border-white/10 bg-white/[0.07] px-4 py-3 backdrop-blur-sm">
+                <p className="mb-1 text-[10px] font-extrabold uppercase tracking-widest text-white/40">{s.label}</p>
+                <p className={`text-2xl font-extrabold tabular-nums ${s.accent ? 'text-ugold' : 'text-white'}`}>{s.value}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
