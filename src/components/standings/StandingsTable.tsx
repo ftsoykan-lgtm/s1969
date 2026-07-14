@@ -1,9 +1,13 @@
 import Image from 'next/image'
+import { Trophy } from 'lucide-react'
 import type { StandingRow } from '@/types'
 
 /* ════════════════════════════════════════════════════════════════
    Tek kaynak — sitenin HER yerinde aynı puan durumu tasarımı
-   (ana sayfa, maç merkezi, fikstür …). Yeşil-altın kurumsal kimlik.
+   (ana sayfa, maç merkezi, fikstür …). Premium yeşil-altın kimlik.
+   `title` verilirse panelin üstüne koyu-yeşil premium başlık kapağı
+   (kupa + PUAN DURUMU + altın sezon rozeti) gelir; verilmezse tüketici
+   kendi bölüm başlığını kullanır (çakışma olmaz).
    ════════════════════════════════════════════════════════════════ */
 
 const COLS = 'grid-cols-[26px_1fr_24px_24px_24px_24px_34px_30px]'
@@ -36,25 +40,32 @@ export default function StandingsTable({
 
   return (
     <div>
-      {/* Başlık — eyebrow sezon + büyük LİG TABLOSU */}
-      {title && (
-        <div className="mb-4">
-          <p className="text-[11px] font-extrabold tracking-[0.18em] uppercase text-ugreenm">
-            Sezon {season ? <span className="text-ugold bg-ugreen px-1.5 py-0.5 rounded">{season}</span> : ''}
-          </p>
-          <h3 className="font-heading text-3xl md:text-4xl font-extrabold text-ugreenm tracking-tight leading-none mt-2">LİG TABLOSU</h3>
-        </div>
-      )}
+      <div
+        className="overflow-hidden rounded-2xl border border-[#dce9e2] bg-white"
+        style={{ boxShadow: '0 2px 6px rgba(12, 46, 34, 0.05), 0 28px 56px -28px rgba(12, 46, 34, 0.32)' }}
+      >
+        {/* Premium başlık kapağı — yalnız title verildiğinde */}
+        {title && (
+          <div className="relative flex items-center justify-between gap-2 overflow-hidden bg-gradient-to-r from-ugreen to-ugreend px-4 py-3.5">
+            <div aria-hidden className="pointer-events-none absolute -top-8 -right-6 h-24 w-24 rounded-full bg-ugold/10 blur-2xl" />
+            <span className="relative inline-flex items-center gap-2">
+              <Trophy size={17} className="text-ugold" />
+              <span className="font-heading text-lg font-extrabold uppercase tracking-wide text-white">Puan Durumu</span>
+            </span>
+            {season && (
+              <span className="relative rounded-full bg-ugold px-2.5 py-1 text-[11px] font-extrabold tabular-nums text-ugreend">{season}</span>
+            )}
+          </div>
+        )}
 
-      <div className="panel-premium overflow-hidden">
-        {/* Başlık şeridi — yeşil */}
-        <div className={`grid ${COLS} gap-1 items-center px-3 py-3 bg-ugreen`}>
-          <span className="text-[11px] font-extrabold text-white/50 text-center">#</span>
-          <span className="text-[11px] font-extrabold tracking-wide uppercase text-white pl-1">Kulüpler</span>
+        {/* Sütun başlıkları — kapak varsa açık, yoksa yeşil */}
+        <div className={`grid ${COLS} items-center gap-1 px-3 py-2.5 ${title ? 'border-b border-[#e6efe9] bg-[#eef5f0]' : 'bg-gradient-to-r from-ugreen to-ugreend'}`}>
+          <span className={`text-center text-[11px] font-extrabold ${title ? 'text-[#7aab8e]' : 'text-white/50'}`}>#</span>
+          <span className={`pl-1 text-[11px] font-extrabold uppercase tracking-wide ${title ? 'text-ugreenm' : 'text-white'}`}>Kulüpler</span>
           {['O', 'G', 'B', 'M', 'AV'].map((c) => (
-            <span key={c} className="text-[11px] font-extrabold text-white/60 text-center">{c}</span>
+            <span key={c} className={`text-center text-[11px] font-extrabold ${title ? 'text-[#7aab8e]' : 'text-white/60'}`}>{c}</span>
           ))}
-          <span className="text-[11px] font-extrabold text-ugold text-center">P</span>
+          <span className={`text-center text-[11px] font-extrabold ${title ? 'text-ugreen' : 'text-ugold'}`}>P</span>
         </div>
 
         {shown.map((row, i) => {
@@ -62,28 +73,28 @@ export default function StandingsTable({
           const cur = row.isCurrentTeam
           return (
             <div key={row.rank}
-              className={`relative grid ${COLS} gap-1 items-center px-3 py-2.5 transition-colors ${
+              className={`relative grid ${COLS} items-center gap-1 px-3 py-2.5 transition-colors ${
                 cur ? 'bg-ugreenm' : i % 2 === 1 ? 'bg-[#f5f9f6] hover:bg-[#eef5f0]' : 'bg-white hover:bg-[#f5f9f6]'
               }`}>
               <span className={`absolute left-0 top-0 bottom-0 w-1 ${barColor(row.rank, total)}`} />
-              <span className={`text-xs font-extrabold text-center tabular-nums ${cur ? 'text-ugold' : 'text-ugreenm'}`}>{row.rank}</span>
-              <div className="flex items-center gap-2 min-w-0 pl-1">
-                <div className="relative w-5 h-5 shrink-0"><Image src={row.teamLogo} alt={row.team} fill unoptimized sizes="20px" className="object-contain" /></div>
-                <span className={`text-[12px] font-bold truncate ${cur ? 'text-white' : 'text-ugreenm'}`}>{row.team}</span>
+              <span className={`text-center text-xs font-extrabold tabular-nums ${cur ? 'text-ugold' : 'text-ugreenm'}`}>{row.rank}</span>
+              <div className="flex min-w-0 items-center gap-2 pl-1">
+                <div className="relative h-5 w-5 shrink-0"><Image src={row.teamLogo} alt={row.team} fill unoptimized sizes="20px" className="object-contain" /></div>
+                <span className={`truncate text-[12px] font-bold ${cur ? 'text-white' : 'text-ugreenm'}`}>{row.team}</span>
               </div>
-              <span className={`text-[11px] text-center tabular-nums ${cur ? 'text-white/70' : 'text-utxt2'}`}>{row.played}</span>
-              <span className={`text-[11px] text-center tabular-nums ${cur ? 'text-white/70' : 'text-utxt2'}`}>{row.won}</span>
-              <span className={`text-[11px] text-center tabular-nums ${cur ? 'text-white/70' : 'text-utxt2'}`}>{row.drawn}</span>
-              <span className={`text-[11px] text-center tabular-nums ${cur ? 'text-white/70' : 'text-utxt2'}`}>{row.lost}</span>
-              <span className={`text-[11px] text-center tabular-nums ${cur ? 'text-white/80' : 'text-utxt2'}`}>{av > 0 ? `+${av}` : av}</span>
-              <span className={`text-[13px] font-extrabold text-center tabular-nums ${cur ? 'text-ugold' : 'text-ugreenm'}`}>{row.points}</span>
+              <span className={`text-center text-[11px] tabular-nums ${cur ? 'text-white/70' : 'text-utxt2'}`}>{row.played}</span>
+              <span className={`text-center text-[11px] tabular-nums ${cur ? 'text-white/70' : 'text-utxt2'}`}>{row.won}</span>
+              <span className={`text-center text-[11px] tabular-nums ${cur ? 'text-white/70' : 'text-utxt2'}`}>{row.drawn}</span>
+              <span className={`text-center text-[11px] tabular-nums ${cur ? 'text-white/70' : 'text-utxt2'}`}>{row.lost}</span>
+              <span className={`text-center text-[11px] tabular-nums ${cur ? 'text-white/80' : 'text-utxt2'}`}>{av > 0 ? `+${av}` : av}</span>
+              <span className={`text-center text-[13px] font-extrabold tabular-nums ${cur ? 'text-ugold' : 'text-ugreen'}`}>{row.points}</span>
             </div>
           )
         })}
       </div>
 
       {/* Açıklama — renk barı anlamları */}
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 mt-3 px-1">
+      <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 px-1">
         <Legend color="bg-ugreen" label="Şampiyon" />
         <Legend color="bg-ugold" label="Play-Off" />
         <Legend color="bg-[#d01b2a]" label="Küme Düşme" />
@@ -95,7 +106,7 @@ export default function StandingsTable({
 function Legend({ color, label }: { color: string; label: string }) {
   return (
     <span className="inline-flex items-center gap-1.5 text-[10px] font-bold text-[#7aab8e]">
-      <span className={`w-2.5 h-2.5 rounded-sm ${color}`} />{label}
+      <span className={`h-2.5 w-2.5 rounded-sm ${color}`} />{label}
     </span>
   )
 }
