@@ -59,6 +59,7 @@ export default function AdminAyarlarPage() {
   const [footerText, setFooterText] = useState(clubInfo.footerText)
   const [footer, setFooter] = useState<FooterConfig>(clubInfo.footer)
   const [theme, setTheme] = useState<'emerald' | 'classic'>(clubInfo.theme)
+  const [font, setFont] = useState<'montserrat' | 'bt706'>(clubInfo.font)
 
   // Supabase'den mevcut ayarları yükle
   useEffect(() => {
@@ -78,6 +79,7 @@ export default function AdminAyarlarPage() {
       setFooterText(s.footerText ?? clubInfo.footerText)
       setFooter(s.footer ?? clubInfo.footer)
       setTheme(s.theme === 'classic' ? 'classic' : 'emerald')
+      setFont(s.font === 'bt706' ? 'bt706' : 'montserrat')
       setLoading(false)
     })
   }, [])
@@ -100,6 +102,7 @@ export default function AdminAyarlarPage() {
       footerText,
       footer,
       theme,
+      font,
     }
     const res = await saveSettings(payload)
     setSaving(false)
@@ -167,6 +170,26 @@ export default function AdminAyarlarPage() {
                 ))}
               </div>
               <p className="text-[11px] text-[#7aab8e] mt-2">Kaydedince tüm site seçilen renk paletine geçer.</p>
+            </div>
+
+            {/* Yazı tipi (font) seçimi — canlı önizleme */}
+            <div className="pb-4 border-b border-[#edf7f2]">
+              <label className="block text-xs font-extrabold text-[#356152] mb-2 uppercase tracking-wide">Yazı Tipi</label>
+              <div className="grid grid-cols-2 gap-3">
+                {([
+                  { key: 'montserrat', label: 'Montserrat (Mevcut)', family: 'var(--font-montserrat), system-ui, sans-serif' },
+                  { key: 'bt706', label: 'BT Geometric 706', family: 'var(--font-bt706), system-ui, sans-serif' },
+                ] as const).map((f) => (
+                  <button key={f.key} type="button" onClick={() => setFont(f.key)}
+                    className={`relative text-left rounded-xl border-2 p-3 transition-all ${font === f.key ? 'border-[#1b5e44] ring-2 ring-[#1b5e44]/20' : 'border-[#ddeae2] hover:border-[#1b5e44]/40'}`}>
+                    <div className="text-lg font-extrabold text-[#154836] leading-tight mb-1 truncate uppercase" style={{ fontFamily: f.family }}>Şanlıurfaspor</div>
+                    <div className="text-[11px] text-[#7aab8e] mb-2 truncate" style={{ fontFamily: f.family }}>Aa Bb Çç · 0123456789</div>
+                    <p className="text-[13px] font-extrabold text-[#154836]">{f.label}</p>
+                    {font === f.key && <span className="absolute top-2 right-2 text-[#1b5e44]"><Check size={16} /></span>}
+                  </button>
+                ))}
+              </div>
+              <p className="text-[11px] text-[#7aab8e] mt-2">Kaydedince tüm site (başlık, menü, gövde) seçilen yazı tipine geçer. BT Geometric 706 lisanslı olarak self-host edilir.</p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
