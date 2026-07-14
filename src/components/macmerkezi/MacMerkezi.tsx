@@ -20,14 +20,12 @@ export default function MacMerkezi({
   const [tournament, setTournament] = useState<string>('hepsi')
 
   const tournaments = Array.from(new Set(all.map((m) => m.competition).filter(Boolean)))
-  let matches = all
-    .filter((m) => tournament === 'hepsi' || m.competition === tournament)
-    .slice()
-    .reverse() // en yeni maç üstte
+  // 1. hafta üstte → son hafta altta (kaynak fikstür sırası korunur; ters çevirme YOK)
+  let matches = all.filter((m) => tournament === 'hepsi' || m.competition === tournament)
   if (limit) {
-    // Son N maç: önce oynanmışlar, yoksa fikstürden
+    // Son N maç: önce oynanmışlar, yoksa fikstürden (kronolojik sonun)
     const played = matches.filter((m) => m.isCompleted)
-    matches = (played.length >= limit ? played : matches).slice(0, limit)
+    matches = (played.length >= limit ? played : matches).slice(-limit)
   }
 
   return (

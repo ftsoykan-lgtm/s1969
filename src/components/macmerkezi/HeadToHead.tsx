@@ -1,10 +1,12 @@
 import Link from 'next/link'
-import Image from 'next/image'
+import { Swords } from 'lucide-react'
 import type { Match } from '@/types'
 import { matchHref } from '@/lib/tff'
 
 /* Rakip/takım geçmişi — Şanlıurfaspor'un bu rakibe karşı tüm karşılaşmaları.
-   Merkezî veriden (güncel + arşiv) otomatik; mevcut maç hariç tutulur. */
+   Merkezî veriden (güncel + arşiv) otomatik; mevcut maç hariç tutulur.
+   Premium/kurumsal: koyu yeşil başlık kapağı, iki arma karşılaşması,
+   oransal G/B/M segment barı, gol & galibiyet oranı, rafine maç listesi. */
 
 const TEAM = 'Şanlıurfaspor'
 
@@ -12,6 +14,20 @@ function fmtDate(iso: string): string {
   if (!iso) return ''
   const [y, m, d] = iso.split('-')
   return d && m && y ? `${d}.${m}.${y}` : iso
+}
+
+function Crest({ name, logo, highlight }: { name: string; logo?: string | null; highlight?: boolean }) {
+  const initials = name.split(' ').filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toLocaleUpperCase('tr-TR')
+  return (
+    <div className="flex w-20 shrink-0 flex-col items-center gap-2 text-center">
+      <div className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-[#f5f9f6] ring-1 ${highlight ? 'ring-2 ring-ugold' : 'ring-[#e6efe9]'}`}>
+        {logo
+          ? <img src={logo} alt="" className="h-10 w-10 object-contain" />
+          : <span className="text-[13px] font-extrabold text-[#7aab8e]">{initials}</span>}
+      </div>
+      <span className={`line-clamp-2 text-[11px] font-extrabold leading-tight ${highlight ? 'text-ugreen' : 'text-ugreenm'}`}>{name}</span>
+    </div>
+  )
 }
 
 export default function HeadToHead({
@@ -37,74 +53,81 @@ export default function HeadToHead({
   const others = meetings.filter((m) => m.macId !== currentMacId && m.isCompleted && m.homeScore != null)
   if (others.length === 0) return null
 
+  // Şanlıurfaspor arması — herhangi bir karşılaşmadan çıkar
+  const teamLogo = meetings.map((m) => (m.homeTeam === TEAM ? m.homeTeamLogo : m.awayTeamLogo)).find(Boolean)
+  const totalPlayed = W + D + L
+  const pct = (n: number) => (totalPlayed ? (n / totalPlayed) * 100 : 0)
+  const winRate = totalPlayed ? Math.round((W / totalPlayed) * 100) : 0
+
   return (
-    <div className="bg-white rounded-2xl border border-[#ddeae2] shadow-sm p-6">
-      <h2 className="text-xs font-extrabold tracking-widest uppercase text-[#7aab8e] mb-5 flex items-center gap-2">
-        <span className="inline-block w-1 h-4 bg-ugold rounded-full" />Geçmiş Karşılaşmalar
-      </h2>
-
-      {/* H2H özeti */}
-      <div className="flex items-center justify-center gap-4 sm:gap-8 mb-6">
-        <TeamMini name={TEAM} highlight />
-        <div className="flex items-center gap-3 sm:gap-5 text-center">
-          <HtStat value={W} label="Galibiyet" tone="green" />
-          <span className="text-[#ddeae2] font-extrabold">·</span>
-          <HtStat value={D} label="Beraberlik" tone="gold" />
-          <span className="text-[#ddeae2] font-extrabold">·</span>
-          <HtStat value={L} label={`${opponent} G.`} tone="red" />
-        </div>
-        <TeamMini name={opponent} logo={opponentLogo} />
+    <div
+      className="overflow-hidden rounded-2xl border border-[#dce9e2] bg-white"
+      style={{ boxShadow: '0 2px 6px rgba(12, 46, 34, 0.05), 0 22px 46px -26px rgba(12, 46, 34, 0.28)' }}
+    >
+      {/* Başlık kapağı — koyu yeşil */}
+      <div className="relative flex items-center justify-between gap-2 overflow-hidden bg-gradient-to-r from-ugreen to-ugreend px-5 py-3.5">
+        <div aria-hidden className="pointer-events-none absolute -top-8 -right-6 h-24 w-24 rounded-full bg-ugold/10 blur-2xl" />
+        <span className="relative inline-flex items-center gap-2">
+          <Swords size={16} className="text-ugold" />
+          <span className="font-heading text-base font-extrabold uppercase tracking-wide text-white">Geçmiş Karşılaşmalar</span>
+        </span>
+        <span className="relative rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-extrabold tabular-nums text-white ring-1 ring-white/15">{played.length} maç</span>
       </div>
-      <p className="text-center text-[11px] text-[#7aab8e] -mt-4 mb-6">
-        {played.length} karşılaşma · Şanlıurfaspor {GF}-{GA} gol
-      </p>
 
-      {/* Geçmiş maç listesi */}
-      <div className="divide-y divide-[#edf7f2] border-t border-[#edf7f2]">
-        {others.map((m) => {
-          const isHome = m.homeTeam === TEAM
-          const us = (isHome ? m.homeScore : m.awayScore) as number
-          const them = (isHome ? m.awayScore : m.homeScore) as number
-          const r = us > them ? 'G' : us < them ? 'M' : 'B'
-          const badge = r === 'G' ? 'bg-ugreen text-white' : r === 'M' ? 'bg-[#d01b2a] text-white' : 'bg-ugold text-ugreend'
-          const row = (
-            <div className="grid grid-cols-[auto_1fr_auto] items-center gap-3 py-2.5 hover:bg-[#f5f9f6] transition-colors -mx-2 px-2 rounded-lg">
-              <span className={`flex h-6 w-6 items-center justify-center rounded-full text-[11px] font-extrabold ${badge}`}>{r}</span>
-              <div className="min-w-0">
-                <p className="text-[13px] font-bold text-ugreenm truncate">
-                  {m.homeTeam} <span className="tabular-nums text-ugreen">{m.homeScore}-{m.awayScore}</span> {m.awayTeam}
-                </p>
-                <p className="text-[10px] text-[#7aab8e]">{fmtDate(m.date)}{m.roundLabel ? ` · ${m.roundLabel}` : ''}</p>
-              </div>
-              <span className="text-[10px] font-bold text-[#7aab8e] shrink-0">{isHome ? 'İç Saha' : 'Deplasman'}</span>
+      <div className="p-5 sm:p-6">
+        {/* Karşılaşma özeti — armalar + G/B/M */}
+        <div className="flex items-center justify-between gap-3">
+          <Crest name={TEAM} logo={teamLogo} highlight />
+          <div className="text-center">
+            <div className="flex items-baseline justify-center gap-1.5 font-heading leading-none">
+              <span className="text-[32px] font-extrabold tabular-nums text-ugreen">{W}</span>
+              <span className="text-lg font-extrabold text-[#c8d6cf]">-</span>
+              <span className="text-[32px] font-extrabold tabular-nums text-ugoldd">{D}</span>
+              <span className="text-lg font-extrabold text-[#c8d6cf]">-</span>
+              <span className="text-[32px] font-extrabold tabular-nums text-[#d01b2a]">{L}</span>
             </div>
-          )
-          return m.macId
-            ? <Link key={m.id} href={matchHref(m)} className="block">{row}</Link>
-            : <div key={m.id}>{row}</div>
-        })}
-      </div>
-    </div>
-  )
-}
+            <p className="mt-1.5 text-[9px] font-extrabold uppercase tracking-[0.2em] text-[#7aab8e]">Galibiyet · Beraberlik · Mağlubiyet</p>
+          </div>
+          <Crest name={opponent} logo={opponentLogo} />
+        </div>
 
-function HtStat({ value, label, tone }: { value: number; label: string; tone: 'green' | 'gold' | 'red' }) {
-  const color = tone === 'green' ? 'text-ugreen' : tone === 'gold' ? 'text-ugoldd' : 'text-[#d01b2a]'
-  return (
-    <div>
-      <p className={`font-heading text-3xl font-extrabold tabular-nums ${color}`}>{value}</p>
-      <p className="text-[9px] font-extrabold tracking-wide uppercase text-[#7aab8e] mt-0.5 max-w-[64px] leading-tight">{label}</p>
-    </div>
-  )
-}
+        {/* Oransal G/B/M barı */}
+        <div className="mt-4 flex h-2.5 overflow-hidden rounded-full bg-[#eef5f0]">
+          {W > 0 && <span className="bg-ugreen" style={{ width: `${pct(W)}%` }} />}
+          {D > 0 && <span className="bg-ugold" style={{ width: `${pct(D)}%` }} />}
+          {L > 0 && <span className="bg-[#d01b2a]" style={{ width: `${pct(L)}%` }} />}
+        </div>
+        <div className="mt-2.5 flex items-center justify-between text-[11px] font-bold text-[#5b8771]">
+          <span className="tabular-nums">Şanlıurfaspor <span className="text-ugreenm">{GF}-{GA}</span> gol</span>
+          <span className="tabular-nums">%{winRate} galibiyet</span>
+        </div>
 
-function TeamMini({ name, logo, highlight }: { name: string; logo?: string; highlight?: boolean }) {
-  return (
-    <div className="flex flex-col items-center gap-1.5 w-16 shrink-0">
-      <div className="relative w-9 h-9">
-        {logo ? <Image src={logo} alt={name} fill unoptimized sizes="36px" className="object-contain" /> : <span className="flex h-full w-full items-center justify-center rounded-full bg-ugreen/10 text-ugreen text-[11px] font-extrabold">{name.slice(0, 3).toUpperCase()}</span>}
+        {/* Geçmiş maç listesi */}
+        <div className="mt-5 space-y-1.5">
+          {others.map((m) => {
+            const isHome = m.homeTeam === TEAM
+            const us = (isHome ? m.homeScore : m.awayScore) as number
+            const them = (isHome ? m.awayScore : m.homeScore) as number
+            const r = us > them ? 'G' : us < them ? 'M' : 'B'
+            const badge = r === 'G' ? 'bg-ugreen text-white' : r === 'M' ? 'bg-[#d01b2a] text-white' : 'bg-ugold text-ugreend'
+            const row = (
+              <div className="flex items-center gap-3 rounded-xl border border-[#edf7f2] px-3 py-2.5 transition-all hover:border-ugreen/30 hover:bg-[#f8faf9]">
+                <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-[12px] font-extrabold ${badge}`}>{r}</span>
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-[13px] font-bold text-ugreenm">
+                    {m.homeTeam} <span className="font-extrabold tabular-nums text-ugreen">{m.homeScore}-{m.awayScore}</span> {m.awayTeam}
+                  </p>
+                  <p className="mt-0.5 text-[10px] text-[#7aab8e]">{fmtDate(m.date)}{m.roundLabel ? ` · ${m.roundLabel}` : ''}</p>
+                </div>
+                <span className="shrink-0 rounded-md bg-[#f5f9f6] px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-wide text-[#7aab8e]">{isHome ? 'Ev' : 'Dep'}</span>
+              </div>
+            )
+            return m.macId
+              ? <Link key={m.id} href={matchHref(m)} className="block">{row}</Link>
+              : <div key={m.id}>{row}</div>
+          })}
+        </div>
       </div>
-      <span className={`text-[10px] font-bold text-center leading-tight line-clamp-2 ${highlight ? 'text-ugreen' : 'text-ugreenm'}`}>{name}</span>
     </div>
   )
 }
