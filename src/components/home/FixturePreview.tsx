@@ -23,6 +23,8 @@ export default async function FixturePreview() {
         label: next.roundLabel ?? next.competition ?? null,
         date: next.date || null,
         time: next.time,
+        opponentLogo: next.isHome ? next.awayTeamLogo : next.homeTeamLogo,
+        venue: next.venue || null,
       }
     : null
 
@@ -38,7 +40,7 @@ export default async function FixturePreview() {
               MAÇ <span className="text-ugreen">MERKEZİ</span>
             </h2>
           </div>
-          <div className="sm:ml-auto bg-white border border-[#ddeae2] rounded-2xl px-4 py-3 shadow-sm">
+          <div className="w-full sm:w-auto sm:ml-auto">
             <NextMatchCountdown match={nextInfo} />
           </div>
         </div>
