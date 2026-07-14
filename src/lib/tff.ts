@@ -1,5 +1,14 @@
 import { Match, StandingRow } from '@/types'
 import tffLive from '@/data/tff-live.json'
+import { TEAM_ALIASES } from '@/data/team-aliases'
+
+/** İsim → harita anahtarı (küçük harf · Türkçe→ascii · yalnız harf-rakam) */
+function nameKey(x: string): string {
+  return (x || '').toLocaleLowerCase('tr-TR')
+    .replace(/ı/g, 'i').replace(/İ/g, 'i').replace(/ş/g, 's').replace(/ğ/g, 'g')
+    .replace(/ü/g, 'u').replace(/ö/g, 'o').replace(/ç/g, 'c')
+    .replace(/[^a-z0-9]+/g, '')
+}
 
 /**
  * TFF ham verisini (scripts/tff-cek.mjs çıktısı) sitenin Match[] / StandingRow[]
@@ -107,6 +116,10 @@ export function temizTakimAdi(raw: string): string {
   for (const onek of sponsorOnekleri) {
     if (s.toUpperCase().startsWith(onek)) { s = s.slice(onek.length).trim(); break }
   }
+  // Akıllı isim haritası — bilinen kulüp için doğru/kısa ad (varsa)
+  const mapped = TEAM_ALIASES[nameKey(s)]
+  if (mapped) return mapped
+  // Haritada yoksa: algoritma yedeği (title-case + ek temizleme)
   s = s
     .toLocaleLowerCase('tr-TR')
     .split(' ')
