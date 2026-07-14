@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-14T07:28:10.431Z",
+  "updatedAt": "2026-07-14T16:47:11.336Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -597,6 +597,29 @@
       }
     },
     {
+      "week": 14,
+      "macId": "318503",
+      "time": "",
+      "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
+      "awayTeam": "SOMASPOR",
+      "homeScore": null,
+      "awayScore": null,
+      "date": "2026-12-29",
+      "dateText": "2026-12-29",
+      "competition": "Nesine 2. Lig Beyaz",
+      "isHome": true,
+      "opponent": "SOMASPOR",
+      "result": null,
+      "venue": "11 Nisan Stadyumu",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012210_120x120.jpg",
+      "detail": {
+        "referees": [],
+        "lineups": null,
+        "events": []
+      }
+    },
+    {
       "week": 15,
       "macId": "318518",
       "time": "",
@@ -659,29 +682,6 @@
       "venue": "Muş Şehir Stadı",
       "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/017249_120x120.jpg",
       "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
-      "detail": {
-        "referees": [],
-        "lineups": null,
-        "events": []
-      }
-    },
-    {
-      "week": 14,
-      "macId": "318503",
-      "time": "",
-      "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
-      "awayTeam": "SOMASPOR",
-      "homeScore": null,
-      "awayScore": null,
-      "date": "2026-12-29",
-      "dateText": "2026-12-29",
-      "competition": "Nesine 2. Lig Beyaz",
-      "isHome": true,
-      "opponent": "SOMASPOR",
-      "result": null,
-      "venue": "11 Nisan Stadyumu",
-      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
-      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012210_120x120.jpg",
       "detail": {
         "referees": [],
         "lineups": null,
@@ -850,6 +850,29 @@
       }
     },
     {
+      "week": 25,
+      "macId": "318608",
+      "time": "",
+      "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
+      "awayTeam": "ARNAVUTKÖY BELEDİYESİ FUTBOL SK",
+      "homeScore": null,
+      "awayScore": null,
+      "date": "2027-03-28",
+      "dateText": "2027-03-28",
+      "competition": "Nesine 2. Lig Beyaz",
+      "isHome": true,
+      "opponent": "ARNAVUTKÖY BELEDİYESİ FUTBOL SK",
+      "result": null,
+      "venue": "11 Nisan Stadyumu",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015675_120x120.jpg",
+      "detail": {
+        "referees": [],
+        "lineups": null,
+        "events": []
+      }
+    },
+    {
       "week": 26,
       "macId": "318615",
       "time": "",
@@ -958,29 +981,6 @@
       "venue": "11 Nisan Stadyumu",
       "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
       "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012893_120x120.jpg",
-      "detail": {
-        "referees": [],
-        "lineups": null,
-        "events": []
-      }
-    },
-    {
-      "week": 25,
-      "macId": "318608",
-      "time": "",
-      "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
-      "awayTeam": "ARNAVUTKÖY BELEDİYESİ FUTBOL SK",
-      "homeScore": null,
-      "awayScore": null,
-      "date": "2027-03-28",
-      "dateText": "2027-03-28",
-      "competition": "Nesine 2. Lig Beyaz",
-      "isHome": true,
-      "opponent": "ARNAVUTKÖY BELEDİYESİ FUTBOL SK",
-      "result": null,
-      "venue": "11 Nisan Stadyumu",
-      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
-      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015675_120x120.jpg",
       "detail": {
         "referees": [],
         "lineups": null,
