@@ -11,15 +11,19 @@
 @font-face { font-family: 'Mesopotamia Sans'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/msa-700.woff2') format('woff2'); }
 /* ═══ Marka tipografisi — admin panelden seçilir (data-font) ═══
    İki font da next/font ile <html>'e yüklenir (layout.tsx): --font-montserrat
-   ve --font-bt706. Aktif gövde fontu (--font-body) data-font ile seçilir;
-   varsayılan Montserrat. Yüklenene kadar Mesopotamia -> system yedeği. */
+   ve --font-bt706. Aktif font DOĞRUDAN --font-sans/--font-display'e bağlanır
+   (ara --font-body değişkeni YOK — Tailwind v4 --font-* namespace'i onu
+   boşaltıp tüm font zincirini geçersiz kılıyor, bu da Times New Roman'a
+   düşürüyordu). var() içine 'Mesopotamia Sans' fallback konur; değişken
+   herhangi bir sebeple boş kalırsa bile serif yerine self-host sans yedeği. */
 :root {
-  --font-body: var(--font-montserrat);
-  --font-sans: var(--font-body), 'Mesopotamia Sans', system-ui, -apple-system, sans-serif;
-  --font-display: var(--font-body), 'Mesopotamia Sans', system-ui, sans-serif;
+  --font-sans: var(--font-montserrat, 'Mesopotamia Sans'), 'Mesopotamia Sans', system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-montserrat, 'Mesopotamia Sans'), 'Mesopotamia Sans', system-ui, sans-serif;
 }
-html[data-font="montserrat"] { --font-body: var(--font-montserrat); }
-html[data-font="bt706"] { --font-body: var(--font-bt706); }
+html[data-font="bt706"] {
+  --font-sans: var(--font-bt706, 'Mesopotamia Sans'), 'Mesopotamia Sans', system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-bt706, 'Mesopotamia Sans'), 'Mesopotamia Sans', system-ui, sans-serif;
+}
 
 @theme inline {
   --color-background: var(--background);
