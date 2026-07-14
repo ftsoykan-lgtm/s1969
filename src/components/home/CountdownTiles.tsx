@@ -13,9 +13,8 @@ function calc(target: string) {
 }
 const pad = (n?: number) => String(n ?? 0).padStart(2, '0')
 
-/* Geri sayım karoları — sıradaki maç bandında kullanılır.
-   İlk render (SSR) "00" gösterir; mount sonrası saniye saniye güncellenir
-   (hydration uyumlu). */
+/* Geri sayım karoları — açık/kurumsal kart için (açık zemin, koyu rakam).
+   İlk render (SSR) "00" gösterir; mount sonrası saniye saniye güncellenir. */
 export default function CountdownTiles({ target }: { target: string }) {
   const [t, setT] = useState<ReturnType<typeof calc> | null>(null)
 
@@ -32,9 +31,9 @@ export default function CountdownTiles({ target }: { target: string }) {
   return (
     <div className="grid grid-cols-4 gap-2">
       {boxes.map(([label, val]) => (
-        <div key={label} className="rounded-xl bg-white/[0.07] py-2.5 text-center ring-1 ring-white/10">
-          <div className="font-heading text-2xl md:text-3xl font-extrabold leading-none text-white tabular-nums">{pad(val)}</div>
-          <div className="mt-1.5 text-[9px] font-extrabold uppercase tracking-wider text-white/40">{label}</div>
+        <div key={label} className="rounded-xl bg-[#f5f9f6] py-2.5 text-center ring-1 ring-[#e6efe9]">
+          <div className="font-heading text-2xl md:text-3xl font-extrabold leading-none text-ugreenm tabular-nums">{pad(val)}</div>
+          <div className="mt-1.5 text-[9px] font-extrabold uppercase tracking-wider text-[#7aab8e]">{label}</div>
         </div>
       ))}
     </div>
