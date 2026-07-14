@@ -10,7 +10,7 @@ import type { StandingRow } from '@/types'
    kendi bölüm başlığını kullanır (çakışma olmaz).
    ════════════════════════════════════════════════════════════════ */
 
-const COLS = 'grid-cols-[26px_1fr_24px_24px_24px_24px_34px_30px]'
+const COLS = 'grid-cols-[24px_1fr_22px_22px_22px_22px_32px_30px]'
 
 // Sıra renk barı: 1 şampiyon · 2–5 play-off · son 3 küme düşme
 function barColor(rank: number, total: number) {
@@ -78,9 +78,11 @@ export default function StandingsTable({
               }`}>
               <span className={`absolute left-0 top-0 bottom-0 w-1 ${barColor(row.rank, total)}`} />
               <span className={`text-center text-xs font-extrabold tabular-nums ${cur ? 'text-ugold' : 'text-ugreenm'}`}>{row.rank}</span>
-              <div className="flex min-w-0 items-center gap-2 pl-1">
-                <div className="relative h-5 w-5 shrink-0"><Image src={row.teamLogo} alt={row.team} fill unoptimized sizes="20px" className="object-contain" /></div>
-                <span className={`truncate text-[12px] font-bold ${cur ? 'text-white' : 'text-ugreenm'}`}>{row.team}</span>
+              <div className="flex min-w-0 items-center gap-2.5 pl-0.5">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-black/[0.06]">
+                  <span className="relative h-[22px] w-[22px]"><Image src={row.teamLogo} alt={row.team} fill unoptimized sizes="22px" className="object-contain" /></span>
+                </span>
+                <span className={`truncate text-[13.5px] font-bold ${cur ? 'text-white' : 'text-ugreenm'}`}>{row.team}</span>
               </div>
               <span className={`text-center text-[11px] tabular-nums ${cur ? 'text-white/70' : 'text-utxt2'}`}>{row.played}</span>
               <span className={`text-center text-[11px] tabular-nums ${cur ? 'text-white/70' : 'text-utxt2'}`}>{row.won}</span>
