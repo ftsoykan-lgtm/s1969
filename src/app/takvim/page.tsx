@@ -50,7 +50,7 @@ export default async function TakvimPage({ searchParams }: Props) {
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-3">
             <span className="block w-8 h-0.5 bg-ugold" />
-            <p className="text-xs font-extrabold tracking-widest uppercase text-ugold/60">{meta.league} · {meta.season}</p>
+            <p className="text-xs font-extrabold tracking-widest uppercase text-ugold">{meta.league} · {meta.season}</p>
           </div>
           <h1 className="font-heading text-5xl md:text-7xl font-extrabold text-white tracking-[-0.03em] leading-[0.95]">
             Maç <span className="text-ugold">Takvimi</span>

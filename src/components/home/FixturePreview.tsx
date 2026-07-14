@@ -34,9 +34,9 @@ export default async function FixturePreview() {
         {/* Başlık + sıradaki maç geri sayımı */}
         <div className="flex flex-col sm:flex-row sm:items-end gap-5 mb-10">
           <div>
-            <span className="inline-flex items-center gap-2 mb-3">
-              <span className="block h-2.5 w-2.5 rounded-full bg-ugold" />
-              <span className="text-[12px] font-extrabold tracking-[0.25em] uppercase text-[#8a6d00]">{meta.league} · {meta.season}</span>
+            <span className="inline-flex items-center gap-2 mb-4 rounded-md bg-ugreend px-3 py-1.5">
+              <span className="block h-1.5 w-1.5 rounded-full bg-ugold" />
+              <span className="text-[11px] font-extrabold tracking-[0.2em] uppercase text-ugold">{meta.league} · {meta.season}</span>
             </span>
             <h2 className="font-heading text-5xl md:text-7xl font-extrabold text-ugreenm tracking-[-0.03em] leading-[0.92]">
               MAÇ <span className="text-ugreen">MERKEZİ</span>

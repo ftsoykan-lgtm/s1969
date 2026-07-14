@@ -49,7 +49,7 @@ export default async function KadroPage({ searchParams }: Props) {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-3">
             <span className="block w-8 h-0.5 bg-ugold" />
-            <p className="text-xs font-extrabold tracking-widest uppercase text-ugold/60">
+            <p className="text-xs font-extrabold tracking-widest uppercase text-ugold">
               Profesyonel Takım{season ? ` · ${season}` : ''}
             </p>
           </div>
