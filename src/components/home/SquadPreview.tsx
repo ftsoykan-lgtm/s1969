@@ -8,18 +8,15 @@ export default async function SquadPreview() {
   // Önce sezon bazlı profiller; yoksa eski TFF canlı kadrosuna düş
   const profileSeasons = await getProfileSeasonsServer()
   let players: CardPlayer[] = []
-  let season: string | null = null
 
   if (profileSeasons.length > 0) {
     const res = await getSeasonPlayers(profileSeasons[0])
     players = res.players.map((p) => ({
       name: p.name, slug: p.slug, photoUrl: p.photoUrl, number: p.number, position: p.position, flagCode: p.flagCode,
     }))
-    season = res.season
   } else {
     const res = await getSitePlayers()
     players = res.players
-    season = res.season
   }
 
   return (
@@ -32,10 +29,6 @@ export default async function SquadPreview() {
       <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 mb-10">
         <div className="flex items-end justify-between gap-4">
           <div>
-            <span className="inline-flex items-center gap-2 mb-4 rounded-md bg-ugreend px-3 py-1.5">
-              <span className="block h-1.5 w-1.5 rounded-full bg-ugold" />
-              <span className="text-[11px] font-extrabold tracking-[0.2em] uppercase text-ugold">Profesyonel Takım{season ? ` · ${season}` : ''}</span>
-            </span>
             <h2 className="font-heading text-5xl md:text-7xl font-extrabold text-ugreenm tracking-[-0.03em] leading-[0.92]">
               TAKIM <span className="text-ugreen">KADROSU</span>
             </h2>

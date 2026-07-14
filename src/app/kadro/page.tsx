@@ -47,12 +47,6 @@ export default async function KadroPage({ searchParams }: Props) {
     <div className="min-h-screen bg-[#f5f9f6]">
       <div className="page-hero py-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-3 mb-3">
-            <span className="block w-8 h-0.5 bg-ugold" />
-            <p className="text-xs font-extrabold tracking-widest uppercase text-ugold">
-              Profesyonel Takım{season ? ` · ${season}` : ''}
-            </p>
-          </div>
           <h1 className="font-heading text-5xl md:text-7xl font-extrabold text-white tracking-[-0.03em] leading-[0.95]">
             Takım <span className="text-ugold">Kadrosu</span>
           </h1>
