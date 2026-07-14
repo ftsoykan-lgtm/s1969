@@ -232,47 +232,50 @@ export default function CalendarView({ items, season, league }: { items: CalMatc
               const shortMonth = AYLAR[Number(mmStr) - 1]?.slice(0, 3) ?? ''
               const wd = GUNLER[(new Date(Number(yy), Number(mmStr) - 1, Number(dd)).getDay() + 6) % 7]
               const inner = (
-                <div className="group/row relative flex items-center gap-3 sm:gap-4 pl-4 pr-3 sm:pr-4 py-3.5 rounded-2xl bg-white border border-[#e0eee7] hover:border-ugreen/40 hover:shadow-[0_14px_32px_-18px_rgba(15,74,40,0.5)] transition-all overflow-hidden">
-                  <span className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-ugold to-ugreen" />
-
-                  {/* Tarih */}
-                  <div className="flex flex-col items-center justify-center w-12 sm:w-14 shrink-0 leading-none">
-                    <span className="text-2xl sm:text-[28px] font-extrabold text-ugreend tabular-nums">{Number(dd)}</span>
-                    <span className="text-[10px] font-extrabold uppercase tracking-[0.12em] text-ugoldd mt-1">{shortMonth}</span>
-                    <span className="text-[9px] font-bold uppercase tracking-wide text-[#9bb5a8] mt-0.5">{wd}</span>
+                <div className="group/row relative flex items-stretch overflow-hidden rounded-2xl border border-[#e3efe8] bg-white transition-all hover:-translate-y-0.5 hover:border-ugreen/40 hover:shadow-[0_18px_40px_-20px_rgba(15,74,40,0.45)]">
+                  {/* Tarih bloğu — koyu yeşil koçan (takvim yaprağı) */}
+                  <div className="relative flex w-[64px] shrink-0 flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-ugreen to-ugreend py-3 leading-none text-white sm:w-[76px]">
+                    <span aria-hidden className="pointer-events-none absolute -top-6 -right-4 h-16 w-16 rounded-full bg-ugold/10 blur-xl" />
+                    <span className="relative text-[26px] font-extrabold tabular-nums sm:text-[32px]">{Number(dd)}</span>
+                    <span className="relative mt-1 text-[10px] font-extrabold uppercase tracking-[0.16em] text-ugold">{shortMonth}</span>
+                    <span className="relative mt-0.5 text-[9px] font-bold uppercase tracking-wide text-white/45">{wd}</span>
+                    <span aria-hidden className="pointer-events-none absolute inset-y-0 right-0 w-px bg-ugold/35" />
                   </div>
 
-                  <span className="w-px self-stretch bg-[#e9f3ed] shrink-0" />
+                  {/* İçerik */}
+                  <div className="flex min-w-0 flex-1 items-center gap-3 py-3 pl-3 pr-3 sm:gap-4 sm:pl-4 sm:pr-4">
+                    {/* Rakip arma */}
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-[#e6efe9] transition-transform group-hover/row:scale-105 sm:h-14 sm:w-14">
+                      <img src={m.opponentLogo} alt="" className="h-9 w-9 object-contain sm:h-11 sm:w-11" />
+                    </div>
 
-                  {/* Rakip logo */}
-                  <div className="relative h-11 w-11 sm:h-12 sm:w-12 shrink-0 bg-white rounded-xl p-1.5 ring-1 ring-ugold/30 shadow-sm transition-transform group-hover/row:scale-105">
-                    <img src={m.opponentLogo} alt="" className="w-full h-full object-contain" />
-                  </div>
-
-                  {/* Bilgi */}
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-2 mb-1.5">
-                      <span className={`inline-flex items-center gap-1 text-[9px] font-extrabold uppercase tracking-wide rounded-md px-1.5 py-0.5 shrink-0 ${m.isHome ? 'bg-ugreen/10 text-ugreen' : 'bg-ugold/15 text-ugoldd'}`}>
-                        {m.isHome ? <IconHome className="w-3 h-3" /> : <IconPlane className="w-3 h-3" />}
+                    {/* Bilgi */}
+                    <div className="min-w-0 flex-1">
+                      <span className={`mb-1 inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[9px] font-extrabold uppercase tracking-wide ${m.isHome ? 'bg-ugreen/10 text-ugreen' : 'bg-ugold/15 text-ugoldd'}`}>
+                        {m.isHome ? <IconHome className="h-3 w-3" /> : <IconPlane className="h-3 w-3" />}
                         {m.isHome ? 'Ev' : 'Deplasman'}
                       </span>
-                      <p className="text-sm sm:text-[15px] font-extrabold text-ugreenm truncate">{m.opponent}</p>
+                      <p className="truncate text-[15px] font-extrabold leading-tight text-ugreenm sm:text-base">{m.opponent}</p>
+                      <div className="mt-1 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[11px] font-medium text-[#5b8771]">
+                        {m.roundLabel && <span className="inline-flex items-center gap-1"><CalendarDays size={12} className="shrink-0 text-ugold" /> {m.roundLabel}</span>}
+                        {m.venue && <span className="inline-flex min-w-0 items-center gap-1"><MapPin size={12} className="shrink-0 text-ugold" /> <span className="truncate">{m.venue}</span></span>}
+                      </div>
                     </div>
-                    <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[11px] font-medium text-[#5b8771]">
-                      {m.roundLabel && <span className="inline-flex items-center gap-1"><CalendarDays size={12} className="text-ugold shrink-0" /> {m.roundLabel}</span>}
-                      {m.venue && <span className="inline-flex items-center gap-1 min-w-0"><MapPin size={12} className="text-ugold shrink-0" /> <span className="truncate">{m.venue}</span></span>}
-                    </div>
-                  </div>
 
-                  {/* Sonuç / saat */}
-                  {m.isCompleted && m.homeScore != null ? (
-                    <span className={`shrink-0 text-base font-extrabold tabular-nums px-3 py-1.5 rounded-xl ${r === 'G' ? 'bg-ugreen text-white' : r === 'M' ? 'bg-[#d01b2a] text-white' : 'bg-ugold text-ugreend'}`}>{m.homeScore}-{m.awayScore}</span>
-                  ) : (
-                    <span className="shrink-0 inline-flex flex-col items-center justify-center rounded-xl bg-[#f3f9f5] ring-1 ring-[#dceae3] px-3 py-1.5 leading-none">
-                      <span className="inline-flex items-center gap-0.5 text-[8px] font-bold uppercase tracking-wider text-[#9bb5a8]"><Clock size={9} /> Saat</span>
-                      <span className="text-sm font-extrabold text-ugreend tabular-nums mt-1">{m.time || '—'}</span>
-                    </span>
-                  )}
+                    {/* Sonuç / saat / detay */}
+                    {m.isCompleted && m.homeScore != null ? (
+                      <span className={`shrink-0 rounded-xl px-3 py-1.5 text-base font-extrabold tabular-nums ${r === 'G' ? 'bg-ugreen text-white' : r === 'M' ? 'bg-[#d01b2a] text-white' : 'bg-ugold text-ugreend'}`}>{m.homeScore}-{m.awayScore}</span>
+                    ) : m.time ? (
+                      <span className="inline-flex shrink-0 flex-col items-center justify-center rounded-xl bg-[#f3f9f5] px-3 py-1.5 leading-none ring-1 ring-[#dceae3]">
+                        <span className="inline-flex items-center gap-0.5 text-[8px] font-bold uppercase tracking-wider text-[#9bb5a8]"><Clock size={9} /> Saat</span>
+                        <span className="mt-1 text-sm font-extrabold text-ugreend tabular-nums">{m.time}</span>
+                      </span>
+                    ) : (
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#f3f9f5] text-ugreen ring-1 ring-[#e0eee7] transition-colors group-hover/row:bg-ugold group-hover/row:text-ugreend">
+                        <ChevronRight size={18} />
+                      </span>
+                    )}
+                  </div>
                 </div>
               )
               return (
