@@ -1,6 +1,7 @@
 import { getTeamLogoMap, applyLogosToMatches, applyLogosToStandings } from '@/lib/supabase/logos-server'
 import { getLiveTff } from '@/lib/supabase/tff-server'
-import { playedMatches } from '@/lib/tff'
+import { nextMatch, playedMatches } from '@/lib/tff'
+import NextMatchBanner from './NextMatchBanner'
 import StandingsTable from '@/components/standings/StandingsTable'
 import MatchCard from '@/components/macmerkezi/MatchCard'
 import MatchCenterCta from '@/components/ui/MatchCenterCta'
@@ -12,6 +13,7 @@ export default async function FixturePreview() {
   const allMatches = applyLogosToMatches(matches, logoMap)
   const standings = applyLogosToStandings(rawStandings, logoMap)
   const lastThree = playedMatches(allMatches).slice(-3)
+  const next = nextMatch(allMatches)
 
   return (
     <section className="reveal relative py-20 md:py-24 bg-[#f8faf9] overflow-hidden">
@@ -24,6 +26,9 @@ export default async function FixturePreview() {
             MAÇ <span className="text-ugreen">MERKEZİ</span>
           </h2>
         </div>
+
+        {/* Sıradaki maç kartı — Maç Merkezi başlığının altında */}
+        <NextMatchBanner next={next} league={meta.league} />
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_410px] gap-7">
           {/* Sol: son 3 maç */}

@@ -1,5 +1,4 @@
 import HeroSlider, { type HeroItem } from '@/components/home/HeroSlider'
-import NextMatchBanner from '@/components/home/NextMatchBanner'
 import NewsHeroGrid from '@/components/home/NewsHeroGrid'
 import FixturePreview from '@/components/home/FixturePreview'
 import SquadPreview from '@/components/home/SquadPreview'
@@ -29,7 +28,6 @@ export default async function HomePage() {
   return (
     <>
       <HeroSlider items={heroItems} />
-      <NextMatchBanner />
       <FixturePreview />
       <NewsHeroGrid news={news} catName={catName} />
       <SquadPreview />
