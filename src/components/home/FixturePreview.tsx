@@ -1,7 +1,6 @@
 import { getTeamLogoMap, applyLogosToMatches, applyLogosToStandings } from '@/lib/supabase/logos-server'
 import { getLiveTff } from '@/lib/supabase/tff-server'
-import { nextMatch, playedMatches } from '@/lib/tff'
-import NextMatchCountdown from './NextMatchCountdown'
+import { playedMatches } from '@/lib/tff'
 import StandingsTable from '@/components/standings/StandingsTable'
 import MatchCard from '@/components/macmerkezi/MatchCard'
 import MatchCenterCta from '@/components/ui/MatchCenterCta'
@@ -14,35 +13,16 @@ export default async function FixturePreview() {
   const standings = applyLogosToStandings(rawStandings, logoMap)
   const lastThree = playedMatches(allMatches).slice(-3)
 
-  // Sıradaki maç: en yakın oynanmamış (tarih yoksa fikstür/hafta sırasına göre)
-  const next = nextMatch(allMatches)
-  const nextInfo = next
-    ? {
-        opponent: next.isHome ? next.awayTeam : next.homeTeam,
-        isHome: next.isHome,
-        label: next.roundLabel ?? next.competition ?? null,
-        date: next.date || null,
-        time: next.time,
-        opponentLogo: next.isHome ? next.awayTeamLogo : next.homeTeamLogo,
-        venue: next.venue || null,
-      }
-    : null
-
   return (
     <section className="reveal relative py-20 md:py-24 bg-[#f8faf9] overflow-hidden">
       <span aria-hidden className="pointer-events-none absolute -top-6 left-0 font-heading text-[18vw] leading-none font-extrabold text-ugreen/[0.06] select-none hidden md:block">MAÇ</span>
       <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
 
-        {/* Başlık + sıradaki maç geri sayımı */}
-        <div className="flex flex-col sm:flex-row sm:items-end gap-5 mb-10">
-          <div>
-            <h2 className="font-heading text-5xl md:text-7xl font-extrabold text-ugreenm tracking-[-0.03em] leading-[0.92]">
-              MAÇ <span className="text-ugreen">MERKEZİ</span>
-            </h2>
-          </div>
-          <div className="w-full sm:w-auto sm:ml-auto">
-            <NextMatchCountdown match={nextInfo} />
-          </div>
+        {/* Başlık */}
+        <div className="mb-10">
+          <h2 className="font-heading text-5xl md:text-7xl font-extrabold text-ugreenm tracking-[-0.03em] leading-[0.92]">
+            MAÇ <span className="text-ugreen">MERKEZİ</span>
+          </h2>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_410px] gap-7">
