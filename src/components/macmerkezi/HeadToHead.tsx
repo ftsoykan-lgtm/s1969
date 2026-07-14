@@ -152,16 +152,30 @@ export default function HeadToHead({
             {others.map((m) => {
               const isHome = m.homeTeam === TEAM
               const r = resultOf(m)
+              const oppLogo = isHome ? m.awayTeamLogo : m.homeTeamLogo
               const row = (
-                <div className="flex items-center gap-3 rounded-xl border border-[#edf7f2] px-3 py-2.5 transition-all hover:border-ugreen/30 hover:bg-[#f8faf9]">
-                  <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-[12px] font-extrabold ${badgeCls(r)}`}>{r}</span>
+                <div className="flex items-center gap-3 rounded-xl border border-[#e6efe9] px-3 py-3 transition-all hover:border-ugreen/30 hover:bg-[#f8faf9] hover:shadow-sm">
+                  {/* Rakip arması */}
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white shadow-sm ring-1 ring-[#e6efe9]">
+                    {oppLogo
+                      ? <img src={oppLogo} alt="" className="h-8 w-8 object-contain" />
+                      : <span className="text-[11px] font-extrabold text-[#7aab8e]">{opponent.slice(0, 2).toLocaleUpperCase('tr-TR')}</span>}
+                  </div>
+                  {/* Takımlar + tarih/hafta */}
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-[13px] font-bold text-ugreenm">
+                    <p className="truncate text-[13.5px] font-bold text-ugreenm">
                       {m.homeTeam} <span className="font-extrabold tabular-nums text-ugreen">{m.homeScore}-{m.awayScore}</span> {m.awayTeam}
                     </p>
-                    <p className="mt-0.5 text-[10px] text-[#7aab8e]">{fmtDate(m.date)}{m.roundLabel ? ` · ${m.roundLabel}` : ''}</p>
+                    <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1">
+                      <span className="text-[11px] font-bold tabular-nums text-[#4a6b5a]">{fmtDate(m.date)}</span>
+                      {m.roundLabel && <span className="rounded bg-[#eef5f0] px-1.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wide text-ugreen">{m.roundLabel}</span>}
+                    </div>
                   </div>
-                  <span className="shrink-0 rounded-md bg-[#f5f9f6] px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-wide text-[#7aab8e]">{isHome ? 'Ev' : 'Dep'}</span>
+                  {/* Sonuç + saha */}
+                  <div className="flex shrink-0 flex-col items-center gap-1">
+                    <span className={`flex h-7 w-7 items-center justify-center rounded-lg text-[12px] font-extrabold ${badgeCls(r)}`}>{r}</span>
+                    <span className="text-[9px] font-extrabold uppercase tracking-wide text-[#9bb5a8]">{isHome ? 'Ev' : 'Dep'}</span>
+                  </div>
                 </div>
               )
               return m.macId
