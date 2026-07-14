@@ -113,7 +113,10 @@ export function temizTakimAdi(raw: string): string {
     .map((w) => (w ? w.charAt(0).toLocaleUpperCase('tr-TR') + w.slice(1) : w))
     .join(' ')
     .trim()
-  // Kurumsal ekleri sondan temizle: A.Ş. / Kulübü / S.K. → kısa, okunur isim
+  // "... Futbol Kulübü / Futbol A.Ş. / Futbol S.K." → "... FK"
+  // (yalnız "Futbol" kalması saçma olur — Aliağa Futbol Kulübü → Aliağa FK)
+  s = s.replace(/\s+Futbol\s+(kul[üu]b[üu]|a\.?\s?ş\.?|s\.?\s?k\.?)$/i, ' FK').trim()
+  // Diğer kurumsal ekleri sondan temizle: A.Ş. / Kulübü / S.K. → kısa, okunur isim
   let prev = ''
   while (prev !== s) {
     prev = s
