@@ -6,7 +6,7 @@ import { matchHref } from '@/lib/tff'
 /* Rakip/takım geçmişi — Şanlıurfaspor'un bu rakibe karşı tüm karşılaşmaları.
    Merkezî veriden (güncel + arşiv) otomatik; mevcut maç hariç tutulur.
    Premium/kurumsal + anlaşılır: koyu yeşil başlık kapağı, iki arma, ETİKETLİ
-   G/B/M (net), oransal segment barı, detay mini-kartlar (attığı/yediği/averaj/
+   G/B/M (net), oransal segment barı, detay mini-kartlar (atılan/yenilen/averaj/
    galibiyet oranı), son form dizisi, rafine maç listesi. */
 
 const TEAM = 'Şanlıurfaspor'
@@ -126,8 +126,8 @@ export default function HeadToHead({
 
         {/* Detay mini-kartlar */}
         <div className="mt-4 grid grid-cols-4 gap-2">
-          <MiniStat value={GF} label="Attığı" />
-          <MiniStat value={GA} label="Yediği" />
+          <MiniStat value={GF} label="Atılan Gol" />
+          <MiniStat value={GA} label="Yenilen Gol" />
           <MiniStat value={av > 0 ? `+${av}` : av} label="Averaj" />
           <MiniStat value={`%${winRate}`} label="Galibiyet" accent />
         </div>

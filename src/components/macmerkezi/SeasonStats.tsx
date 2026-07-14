@@ -131,10 +131,10 @@ export default function SeasonStats({ matches, season }: { matches: Match[]; sea
           <div className="rounded-xl bg-[#f5f9f6] p-3.5 ring-1 ring-[#e6efe9]">
             <p className="mb-2 text-[10px] font-extrabold uppercase tracking-widest text-[#7aab8e]">Goller</p>
             <div className="flex items-baseline gap-4">
-              <span className="text-[13px] font-bold text-ugreenm">Attığı <b className="text-base tabular-nums text-ugreen">{s.GF}</b></span>
-              <span className="text-[13px] font-bold text-ugreenm">Yediği <b className="text-base tabular-nums text-[#d01b2a]">{s.GA}</b></span>
+              <span className="text-[13px] font-bold text-ugreenm">Atılan Gol <b className="text-base tabular-nums text-ugreen">{s.GF}</b></span>
+              <span className="text-[13px] font-bold text-ugreenm">Yenilen Gol <b className="text-base tabular-nums text-[#d01b2a]">{s.GA}</b></span>
             </div>
-            <p className="mt-1.5 text-[11px] text-[#7aab8e]">Maç başı {s.gfAvg.toFixed(2)} gol</p>
+            <p className="mt-1.5 text-[11px] text-[#7aab8e]">Maç başına {s.gfAvg.toFixed(2)} gol ortalaması</p>
           </div>
           {bw && (
             <div className="rounded-xl bg-gradient-to-br from-ugreen/[0.07] to-transparent p-3.5 ring-1 ring-ugreen/15">
