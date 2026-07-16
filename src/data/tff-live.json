@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-15T21:35:44.809Z",
+  "updatedAt": "2026-07-16T07:44:16.225Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -1087,13 +1087,7 @@
         "name": "Abdulkadir Sünger",
         "tffId": "1474032",
         "number": null,
-        "position": null,
-        "birthPlace": "Denizli",
-        "birthDate": "24.05.2000",
-        "nationality": "Türkiye",
-        "flagCode": "tr",
-        "licenseNo": "1891464",
-        "club": "Kızılkaya Tarım Şanlıurfaspor"
+        "position": null
       },
       {
         "name": "Ahmet Güneş",
@@ -1207,13 +1201,7 @@
         "name": "Çınar Tarhan",
         "tffId": "1051697",
         "number": null,
-        "position": null,
-        "birthPlace": "Beykoz",
-        "birthDate": "20.05.1997",
-        "nationality": "Türkiye",
-        "flagCode": "tr",
-        "licenseNo": "981004",
-        "club": "Kızılkaya Tarım Şanlıurfaspor"
+        "position": null
       },
       {
         "name": "Emircan Altıntaş",
@@ -1435,13 +1423,7 @@
         "name": "Turan Çalhanoğlu",
         "tffId": "2824658",
         "number": null,
-        "position": null,
-        "birthPlace": "Mannheım",
-        "birthDate": "26.09.2003",
-        "nationality": "Türkiye",
-        "flagCode": "tr",
-        "licenseNo": "19578",
-        "club": "Kızılkaya Tarım Şanlıurfaspor"
+        "position": null
       },
       {
         "name": "Vedat Bora",
