@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-20T17:15:59.253Z",
+  "updatedAt": "2026-07-20T21:55:20.886Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -1159,7 +1159,13 @@
         "name": "Berk İsmail Ünsal",
         "tffId": "1023707",
         "number": null,
-        "position": null
+        "position": null,
+        "birthPlace": "Gaziosmanpaşa",
+        "birthDate": "06.08.1994",
+        "nationality": "Türkiye",
+        "flagCode": "tr",
+        "licenseNo": "973290",
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "Berke Kılıç",
@@ -1237,7 +1243,13 @@
         "name": "Eyüpcan Delibalta",
         "tffId": "1369129",
         "number": null,
-        "position": null
+        "position": null,
+        "birthPlace": "Seyhan",
+        "birthDate": "11.11.1996",
+        "nationality": "Türkiye",
+        "flagCode": "tr",
+        "licenseNo": "1457494",
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "Güney Tutcuoğlu",
@@ -1435,7 +1447,13 @@
         "name": "Vedat Bora",
         "tffId": "1153697",
         "number": null,
-        "position": null
+        "position": null,
+        "birthPlace": "Gebze",
+        "birthDate": "27.01.1995",
+        "nationality": "Türkiye",
+        "flagCode": "tr",
+        "licenseNo": "1139974",
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "Yılmaz Ceylan",
