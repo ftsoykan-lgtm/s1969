@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-21T17:03:18.288Z",
+  "updatedAt": "2026-07-21T21:51:07.739Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -1357,7 +1357,7 @@
         "nationality": "Türkiye",
         "flagCode": "tr",
         "licenseNo": "1675853",
-        "club": "Muğlaspor Kulübü"
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "Recep Yemişci",
@@ -1387,13 +1387,7 @@
         "name": "Sadık Arda Yılmaztürk",
         "tffId": "1024824",
         "number": null,
-        "position": null,
-        "birthPlace": "Avcılar",
-        "birthDate": "24.12.1997",
-        "nationality": "Türkiye",
-        "flagCode": "tr",
-        "licenseNo": "973770",
-        "club": "Kızılkaya Tarım Şanlıurfaspor"
+        "position": null
       },
       {
         "name": "Safa Kınalı",
@@ -1435,13 +1429,7 @@
         "name": "Turan Çalhanoğlu",
         "tffId": "2824658",
         "number": null,
-        "position": null,
-        "birthPlace": "Mannheım",
-        "birthDate": "26.09.2003",
-        "nationality": "Türkiye",
-        "flagCode": "tr",
-        "licenseNo": "19578",
-        "club": "Kızılkaya Tarım Şanlıurfaspor"
+        "position": null
       },
       {
         "name": "Vedat Bora",
@@ -1459,13 +1447,7 @@
         "name": "Yılmaz Ceylan",
         "tffId": "1586388",
         "number": null,
-        "position": null,
-        "birthPlace": "Karşıyaka",
-        "birthDate": "30.09.2000",
-        "nationality": "Türkiye",
-        "flagCode": "tr",
-        "licenseNo": "3504963",
-        "club": "Kızılkaya Tarım Şanlıurfaspor"
+        "position": null
       }
     ]
   }
