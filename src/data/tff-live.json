@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-30T02:49:35.494Z",
+  "updatedAt": "2026-07-30T08:38:00.463Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -22,6 +22,21 @@
     },
     {
       "rank": 2,
+      "team": "ADANA DEMİRSPOR A.Ş.",
+      "kulupId": "3603",
+      "isSanliurfaspor": false,
+      "played": 0,
+      "won": 0,
+      "drawn": 0,
+      "lost": 0,
+      "goalsFor": 0,
+      "goalsAgainst": 0,
+      "goalDiff": 0,
+      "points": 0,
+      "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000161_120x120.png"
+    },
+    {
+      "rank": 3,
       "team": "ALİAĞA FUTBOL A.Ş.",
       "kulupId": "2720",
       "isSanliurfaspor": false,
@@ -36,7 +51,7 @@
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/014755_120x120.jpg"
     },
     {
-      "rank": 3,
+      "rank": 4,
       "team": "ANKARASPOR",
       "kulupId": "4355",
       "isSanliurfaspor": false,
@@ -51,7 +66,7 @@
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/010779_120x120.jpg"
     },
     {
-      "rank": 4,
+      "rank": 5,
       "team": "ARNAVUTKÖY BELEDİYESİ FUTBOL SK",
       "kulupId": "6039",
       "isSanliurfaspor": false,
@@ -66,7 +81,7 @@
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015675_120x120.jpg"
     },
     {
-      "rank": 5,
+      "rank": 6,
       "team": "ÇORLU SPOR 1947",
       "kulupId": "5044",
       "isSanliurfaspor": false,
@@ -81,7 +96,7 @@
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/011578_120x120.jpg"
     },
     {
-      "rank": 6,
+      "rank": 7,
       "team": "ELAZIĞSPOR",
       "kulupId": "37",
       "isSanliurfaspor": false,
@@ -94,21 +109,6 @@
       "goalDiff": 0,
       "points": 0,
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000036_120x120.png"
-    },
-    {
-      "rank": 7,
-      "team": "ERBAASPOR",
-      "kulupId": "3641",
-      "isSanliurfaspor": false,
-      "played": 0,
-      "won": 0,
-      "drawn": 0,
-      "lost": 0,
-      "goalsFor": 0,
-      "goalsAgainst": 0,
-      "goalDiff": 0,
-      "points": 0,
-      "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000203_120x120.jpg"
     },
     {
       "rank": 8,
@@ -217,6 +217,21 @@
     },
     {
       "rank": 15,
+      "team": "ERBAASPOR",
+      "kulupId": "3641",
+      "isSanliurfaspor": false,
+      "played": 0,
+      "won": 0,
+      "drawn": 0,
+      "lost": 0,
+      "goalsFor": 0,
+      "goalsAgainst": 0,
+      "goalDiff": 0,
+      "points": 0,
+      "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000203_120x120.jpg"
+    },
+    {
+      "rank": 16,
       "team": "MUŞ SPOR KULÜBÜ",
       "kulupId": "8722",
       "isSanliurfaspor": false,
@@ -231,7 +246,7 @@
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/017249_120x120.jpg"
     },
     {
-      "rank": 16,
+      "rank": 17,
       "team": "SEBAT GENÇLİK SPOR",
       "kulupId": "10300",
       "isSanliurfaspor": false,
@@ -246,7 +261,7 @@
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/017989_120x120.jpg"
     },
     {
-      "rank": 17,
+      "rank": 18,
       "team": "SOMASPOR",
       "kulupId": "497",
       "isSanliurfaspor": false,
@@ -259,31 +274,16 @@
       "goalDiff": 0,
       "points": 0,
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012210_120x120.jpg"
-    },
-    {
-      "rank": 18,
-      "team": "ADANA DEMİRSPOR A.Ş.",
-      "kulupId": "3603",
-      "isSanliurfaspor": false,
-      "played": 0,
-      "won": 0,
-      "drawn": 0,
-      "lost": 0,
-      "goalsFor": 0,
-      "goalsAgainst": 0,
-      "goalDiff": 0,
-      "points": -6,
-      "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000161_120x120.png"
     }
   ],
   "logos": {
     "68 AKSARAY BELEDİYE SPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015868_120x120.jpg",
+    "ADANA DEMİRSPOR A.Ş.": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000161_120x120.png",
     "ALİAĞA FUTBOL A.Ş.": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/014755_120x120.jpg",
     "ANKARASPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/010779_120x120.jpg",
     "ARNAVUTKÖY BELEDİYESİ FUTBOL SK": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015675_120x120.jpg",
     "ÇORLU SPOR 1947": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/011578_120x120.jpg",
     "ELAZIĞSPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000036_120x120.png",
-    "ERBAASPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000203_120x120.jpg",
     "GMG KASTAMONUSPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/010766_120x120.jpg",
     "GÜZİDE GEBZE SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012493_120x120.jpg",
     "HATAYSPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000122_120x120.png",
@@ -291,10 +291,10 @@
     "İNEGÖL KAFKAS SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015360_120x120.jpg",
     "KIZILKAYA TARIM ŞANLIURFASPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
     "MENEMEN FUTBOL KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012893_120x120.jpg",
+    "ERBAASPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000203_120x120.jpg",
     "MUŞ SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/017249_120x120.jpg",
     "SEBAT GENÇLİK SPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/017989_120x120.jpg",
-    "SOMASPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012210_120x120.jpg",
-    "ADANA DEMİRSPOR A.Ş.": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000161_120x120.png"
+    "SOMASPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012210_120x120.jpg"
   },
   "sanliurfasporFixtures": [
     {
@@ -1231,7 +1231,13 @@
         "name": "Erhan Çelenk",
         "tffId": "231495",
         "number": null,
-        "position": null
+        "position": null,
+        "birthPlace": "Akçaabat",
+        "birthDate": "16.03.1989",
+        "nationality": "Türkiye",
+        "flagCode": "tr",
+        "licenseNo": "340428",
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "Eyüpcan Delibalta",
@@ -1417,7 +1423,13 @@
         "name": "Sinan Kurumuş",
         "tffId": "950263",
         "number": null,
-        "position": null
+        "position": null,
+        "birthPlace": "İnegöl",
+        "birthDate": "02.08.1994",
+        "nationality": "Türkiye",
+        "flagCode": "tr",
+        "licenseNo": "1625020",
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "Turan Çalhanoğlu",
@@ -1447,7 +1459,13 @@
         "name": "Yılmaz Ceylan",
         "tffId": "1586388",
         "number": null,
-        "position": null
+        "position": null,
+        "birthPlace": "Karşıyaka",
+        "birthDate": "30.09.2000",
+        "nationality": "Türkiye",
+        "flagCode": "tr",
+        "licenseNo": "3504963",
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       }
     ]
   }
