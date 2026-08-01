@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-01T03:28:19.127Z",
+  "updatedAt": "2026-08-01T08:30:35.749Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -217,7 +217,7 @@
     },
     {
       "rank": 15,
-      "team": "SEBAT GENÇLİK SPOR",
+      "team": "SEBAT SPOR KULÜBÜ",
       "kulupId": "10300",
       "isSanliurfaspor": false,
       "played": 0,
@@ -291,7 +291,7 @@
     "KIZILKAYA TARIM ŞANLIURFASPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
     "MENEMEN FUTBOL KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012893_120x120.jpg",
     "MUŞ SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/017249_120x120.jpg",
-    "SEBAT GENÇLİK SPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/017989_120x120.jpg",
+    "SEBAT SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/017989_120x120.jpg",
     "SOMASPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012210_120x120.jpg",
     "ADANA DEMİRSPOR A.Ş.": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000161_120x120.png",
     "HATAYSPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000122_120x120.png"
