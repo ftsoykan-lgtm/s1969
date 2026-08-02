@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-02T03:27:59.862Z",
+  "updatedAt": "2026-08-02T08:35:35.175Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -142,21 +142,6 @@
     },
     {
       "rank": 10,
-      "team": "HATAYSPOR",
-      "kulupId": "121",
-      "isSanliurfaspor": false,
-      "played": 0,
-      "won": 0,
-      "drawn": 0,
-      "lost": 0,
-      "goalsFor": 0,
-      "goalsAgainst": 0,
-      "goalDiff": 0,
-      "points": 0,
-      "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000122_120x120.png"
-    },
-    {
-      "rank": 11,
       "team": "ISPARTA 32 SPOR KULÜBÜ",
       "kulupId": "1484",
       "isSanliurfaspor": false,
@@ -171,7 +156,7 @@
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/013315_120x120.jpg"
     },
     {
-      "rank": 12,
+      "rank": 11,
       "team": "İNEGÖL KAFKAS SPOR KULÜBÜ",
       "kulupId": "3276",
       "isSanliurfaspor": false,
@@ -186,7 +171,7 @@
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015360_120x120.jpg"
     },
     {
-      "rank": 13,
+      "rank": 12,
       "team": "KIZILKAYA TARIM ŞANLIURFASPOR",
       "kulupId": "31",
       "isSanliurfaspor": true,
@@ -201,7 +186,7 @@
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png"
     },
     {
-      "rank": 14,
+      "rank": 13,
       "team": "MENEMEN FUTBOL KULÜBÜ",
       "kulupId": "1120",
       "isSanliurfaspor": false,
@@ -216,7 +201,7 @@
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012893_120x120.jpg"
     },
     {
-      "rank": 15,
+      "rank": 14,
       "team": "MUŞ SPOR KULÜBÜ",
       "kulupId": "8722",
       "isSanliurfaspor": false,
@@ -231,8 +216,8 @@
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/017249_120x120.jpg"
     },
     {
-      "rank": 16,
-      "team": "SEBAT GENÇLİK SPOR",
+      "rank": 15,
+      "team": "SEBAT SPOR KULÜBÜ",
       "kulupId": "10300",
       "isSanliurfaspor": false,
       "played": 0,
@@ -246,7 +231,7 @@
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/017989_120x120.jpg"
     },
     {
-      "rank": 17,
+      "rank": 16,
       "team": "SOMASPOR",
       "kulupId": "497",
       "isSanliurfaspor": false,
@@ -261,7 +246,7 @@
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012210_120x120.jpg"
     },
     {
-      "rank": 18,
+      "rank": 17,
       "team": "ADANA DEMİRSPOR A.Ş.",
       "kulupId": "3603",
       "isSanliurfaspor": false,
@@ -274,6 +259,21 @@
       "goalDiff": 0,
       "points": -6,
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000161_120x120.png"
+    },
+    {
+      "rank": 18,
+      "team": "HATAYSPOR",
+      "kulupId": "121",
+      "isSanliurfaspor": false,
+      "played": 0,
+      "won": 0,
+      "drawn": 0,
+      "lost": 0,
+      "goalsFor": 0,
+      "goalsAgainst": 0,
+      "goalDiff": 0,
+      "points": -6,
+      "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000122_120x120.png"
     }
   ],
   "logos": {
@@ -286,15 +286,15 @@
     "ERBAASPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000203_120x120.jpg",
     "GMG KASTAMONUSPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/010766_120x120.jpg",
     "GÜZİDE GEBZE SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012493_120x120.jpg",
-    "HATAYSPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000122_120x120.png",
     "ISPARTA 32 SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/013315_120x120.jpg",
     "İNEGÖL KAFKAS SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015360_120x120.jpg",
     "KIZILKAYA TARIM ŞANLIURFASPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
     "MENEMEN FUTBOL KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012893_120x120.jpg",
     "MUŞ SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/017249_120x120.jpg",
-    "SEBAT GENÇLİK SPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/017989_120x120.jpg",
+    "SEBAT SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/017989_120x120.jpg",
     "SOMASPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012210_120x120.jpg",
-    "ADANA DEMİRSPOR A.Ş.": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000161_120x120.png"
+    "ADANA DEMİRSPOR A.Ş.": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000161_120x120.png",
+    "HATAYSPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000122_120x120.png"
   },
   "sanliurfasporFixtures": [
     {
@@ -1135,25 +1135,13 @@
         "name": "Anıl Gözütok",
         "tffId": "2560738",
         "number": null,
-        "position": null,
-        "birthPlace": "Almanya",
-        "birthDate": "27.10.2000",
-        "nationality": "Türkiye",
-        "flagCode": "tr",
-        "licenseNo": "18742",
-        "club": "Kızılkaya Tarım Şanlıurfaspor"
+        "position": null
       },
       {
         "name": "Berk Yıldız",
         "tffId": "1024258",
         "number": null,
-        "position": null,
-        "birthPlace": "Konak",
-        "birthDate": "09.01.1996",
-        "nationality": "Türkiye",
-        "flagCode": "tr",
-        "licenseNo": "1841525",
-        "club": "Kızılkaya Tarım Şanlıurfaspor"
+        "position": null
       },
       {
         "name": "Berk İsmail Ünsal",
@@ -1363,13 +1351,7 @@
         "name": "Recep Yemişci",
         "tffId": "1349471",
         "number": null,
-        "position": null,
-        "birthPlace": "Konak",
-        "birthDate": "01.01.1999",
-        "nationality": "Türkiye",
-        "flagCode": "tr",
-        "licenseNo": "1877273",
-        "club": "Kızılkaya Tarım Şanlıurfaspor"
+        "position": null
       },
       {
         "name": "Sadık Çiftpınar",
