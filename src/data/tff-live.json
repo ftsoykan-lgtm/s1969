@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-02T08:35:35.175Z",
+  "updatedAt": "2026-08-02T13:41:31.315Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -1135,13 +1135,25 @@
         "name": "Anıl Gözütok",
         "tffId": "2560738",
         "number": null,
-        "position": null
+        "position": null,
+        "birthPlace": "Almanya",
+        "birthDate": "27.10.2000",
+        "nationality": "Türkiye",
+        "flagCode": "tr",
+        "licenseNo": "18742",
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "Berk Yıldız",
         "tffId": "1024258",
         "number": null,
-        "position": null
+        "position": null,
+        "birthPlace": "Konak",
+        "birthDate": "09.01.1996",
+        "nationality": "Türkiye",
+        "flagCode": "tr",
+        "licenseNo": "1841525",
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "Berk İsmail Ünsal",
@@ -1351,7 +1363,13 @@
         "name": "Recep Yemişci",
         "tffId": "1349471",
         "number": null,
-        "position": null
+        "position": null,
+        "birthPlace": "Konak",
+        "birthDate": "01.01.1999",
+        "nationality": "Türkiye",
+        "flagCode": "tr",
+        "licenseNo": "1877273",
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "Sadık Çiftpınar",
