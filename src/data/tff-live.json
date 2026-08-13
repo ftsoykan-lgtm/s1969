@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-13T13:26:46.506Z",
+  "updatedAt": "2026-08-13T19:10:40.510Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -1279,7 +1279,13 @@
         "name": "Levent Gülen",
         "tffId": "1671625",
         "number": null,
-        "position": null
+        "position": null,
+        "birthPlace": "Aarau İsviçre",
+        "birthDate": "24.02.1994",
+        "nationality": "Türkiye",
+        "flagCode": "tr",
+        "licenseNo": "15904",
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "Mahmut Küçük",
@@ -1357,7 +1363,13 @@
         "name": "Recep Yemişci",
         "tffId": "1349471",
         "number": null,
-        "position": null
+        "position": null,
+        "birthPlace": "Konak",
+        "birthDate": "01.01.1999",
+        "nationality": "Türkiye",
+        "flagCode": "tr",
+        "licenseNo": "1877273",
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "Sadık Çiftpınar",
