@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-15T18:38:44.767Z",
+  "updatedAt": "2026-08-16T01:44:39.339Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -1123,13 +1123,7 @@
         "name": "Ali Sühan Demirel",
         "tffId": "2151894",
         "number": null,
-        "position": null,
-        "birthPlace": "Lunen",
-        "birthDate": "02.01.2003",
-        "nationality": "Türkiye",
-        "flagCode": "tr",
-        "licenseNo": "17109",
-        "club": "Kızılkaya Tarım Şanlıurfaspor"
+        "position": null
       },
       {
         "name": "Anıl Gözütok",
@@ -1279,13 +1273,7 @@
         "name": "Levent Gülen",
         "tffId": "1671625",
         "number": null,
-        "position": null,
-        "birthPlace": "Aarau İsviçre",
-        "birthDate": "24.02.1994",
-        "nationality": "Türkiye",
-        "flagCode": "tr",
-        "licenseNo": "15904",
-        "club": "Kızılkaya Tarım Şanlıurfaspor"
+        "position": null
       },
       {
         "name": "Mahmut Küçük",
@@ -1303,13 +1291,7 @@
         "name": "Mazlum Demir",
         "tffId": "877034",
         "number": null,
-        "position": null,
-        "birthPlace": "Mazgirt",
-        "birthDate": "01.04.1991",
-        "nationality": "Türkiye",
-        "flagCode": "tr",
-        "licenseNo": "1810021",
-        "club": "Kızılkaya Tarım Şanlıurfaspor"
+        "position": null
       },
       {
         "name": "Mehmet İlhan",
@@ -1399,25 +1381,13 @@
         "name": "Safa Kınalı",
         "tffId": "1498833",
         "number": null,
-        "position": null,
-        "birthPlace": "Trabzon",
-        "birthDate": "23.04.1999",
-        "nationality": "Türkiye",
-        "flagCode": "tr",
-        "licenseNo": "1734239",
-        "club": "1461 Trabzon Fk"
+        "position": null
       },
       {
         "name": "Salih Şen",
         "tffId": "2687348",
         "number": null,
-        "position": null,
-        "birthPlace": "Almanya",
-        "birthDate": "10.01.2005",
-        "nationality": "Türkiye",
-        "flagCode": "tr",
-        "licenseNo": "19058",
-        "club": "Kızılkaya Tarım Şanlıurfaspor"
+        "position": null
       },
       {
         "name": "Sinan Kurumuş",
