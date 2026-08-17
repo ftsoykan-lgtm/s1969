@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-17T12:56:44.151Z",
+  "updatedAt": "2026-08-17T18:48:50.766Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -1315,7 +1315,13 @@
         "name": "Mehmet İlhan",
         "tffId": "1701692",
         "number": null,
-        "position": null
+        "position": null,
+        "birthPlace": "Şanlıurfa",
+        "birthDate": "20.07.2004",
+        "nationality": "Türkiye",
+        "flagCode": "tr",
+        "licenseNo": "2024383",
+        "club": "Gmg Kastamonuspor"
       },
       {
         "name": "Mert Çölgeçen",
