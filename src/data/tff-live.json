@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-28T10:46:04.923Z",
+  "updatedAt": "2026-08-28T22:02:14.808Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -1086,7 +1086,13 @@
         "name": "Abdulkadir Sünger",
         "tffId": "1474032",
         "number": null,
-        "position": null
+        "position": null,
+        "birthPlace": "Denizli",
+        "birthDate": "24.05.2000",
+        "nationality": "Türkiye",
+        "flagCode": "tr",
+        "licenseNo": "1891464",
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "Sinan Kurumuş",
