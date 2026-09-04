@@ -125,8 +125,8 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
 
   // Logo görünüm boyutu — sol kimlik bloğu bar yüksekliğine sığmalı;
   // admin logoSize eski ortalanmış tasarım için büyük olabilir, 68px ile sınırla.
-  const logoBase = Math.min(club.logoSize || 72, 68)
-  const emblemPx = Math.round((scrolled ? 0.78 : 1) * logoBase)
+  const logoBase = Math.min(club.logoSize || 76, 76)
+  const emblemPx = Math.round((scrolled ? 0.76 : 1) * logoBase)
 
   // Resmi kulüp menüsü — düz BÜYÜK HARF öğeler, aktif/hover'da ince altın alt-çizgi.
   const goldUnderline = (on: boolean) =>
@@ -213,7 +213,7 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
 
             <Link href="/" className="justify-self-center flex items-center gap-2 min-w-0" aria-label={club.name}>
               {hasLogo ? (
-                <ClubLogo src={club.logoUrl} size={36} priority className="rounded-full object-contain bg-white ring-2 ring-ugold/55 shadow-[0_0_18px_-6px_rgba(245,196,0,0.8)] shrink-0" />
+                <ClubLogo src={club.logoUrl} size={42} priority className="object-contain drop-shadow-[0_2px_6px_rgba(0,0,0,0.45)] shrink-0" />
               ) : (
                 <div className="h-9 w-9 rounded-full bg-ugold flex items-center justify-center shrink-0">
                   <span className="font-heading font-extrabold text-[10px] text-ugreend">{club.shortCode}</span>
@@ -236,8 +236,9 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
             {/* SOL — arma + sponsor öneki (ÜSTTE) + kulüp adı */}
             <Link href="/" aria-label={club.name} className="flex items-center gap-3 min-w-0 group">
               {hasLogo ? (
-                <ClubLogo src={club.logoUrl} size={emblemPx} optSize={64} priority
-                  className="logo-emblem shrink-0 rounded-full object-contain bg-white ring-2 ring-ugold/70 shadow-[0_6px_18px_-6px_rgba(0,0,0,0.55),0_0_20px_-6px_rgba(245,196,0,0.55)] transition-all duration-300" />
+                // Arma KOYU ZEMİNE DİREKT oturur (görseldeki gibi) — beyaz daire/halka yok
+                <ClubLogo src={club.logoUrl} size={emblemPx} optSize={80} priority
+                  className="logo-emblem shrink-0 object-contain drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] transition-all duration-300" />
               ) : (
                 <div style={{ height: emblemPx, width: emblemPx }}
                   className="shrink-0 rounded-full bg-ugold flex items-center justify-center">
@@ -324,7 +325,7 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
           <div className="relative flex items-center justify-between h-16 px-4 border-b border-white/12 shrink-0">
             <Link href="/" onClick={() => setMobileOpen(false)} className="flex items-center gap-2.5">
               {hasLogo ? (
-                <ClubLogo src={club.logoUrl} size={40} className="rounded-full object-contain bg-white ring-2 ring-ugold/60 shadow-[0_0_20px_-8px_rgba(245,196,0,0.9)]" />
+                <ClubLogo src={club.logoUrl} size={44} className="object-contain drop-shadow-[0_2px_6px_rgba(0,0,0,0.45)]" />
               ) : (
                 <div className="h-10 w-10 rounded-full bg-ugold flex items-center justify-center"><span className="font-heading font-extrabold text-[11px] text-ugreend">{club.shortCode}</span></div>
               )}
