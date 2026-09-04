@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Montserrat } from 'next/font/google'
+import { Montserrat, Archivo, Inter } from 'next/font/google'
 import localFont from 'next/font/local'
 import './globals.css'
 import SiteShell from '@/components/layout/SiteShell'
@@ -7,10 +7,24 @@ import ScrollReveal from '@/components/layout/ScrollReveal'
 import { getClubInfo } from '@/lib/supabase/club-server'
 import { getSponsors } from '@/lib/supabase/sponsors-server'
 
-// Marka tipografisi — iki seçenek admin panelden seçilebilir (data-font):
-//  • Montserrat: futbol kulübü kurumsal standardı (varsayılan)
+// Marka tipografisi — admin panelden seçilebilir (data-font). Üç seçenek de
+// <html>'e yüklenir; aktif olan globals.css'te --font-sans/--font-display ile seçilir:
+//  • Archivo (başlık) + Inter (gövde): sivasspor.org.tr ile aynı çift — VARSAYILAN
+//  • Montserrat: futbol kulübü kurumsal standardı
 //  • BT Geometric 706: lisanslı, self-host (ibfk.com.tr ile birebir geometrik sans)
-// Her ikisi de <html>'e yüklenir; aktif olan globals.css'te --font-body ile seçilir.
+// Archivo: display/başlık fontu (800, uppercase). Inter: gövde/UI fontu.
+const archivo = Archivo({
+  subsets: ['latin', 'latin-ext'],
+  weight: ['400', '500', '600', '700', '800', '900'],
+  variable: '--font-archivo',
+  display: 'swap',
+})
+const inter = Inter({
+  subsets: ['latin', 'latin-ext'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-inter',
+  display: 'swap',
+})
 const montserrat = Montserrat({
   subsets: ['latin', 'latin-ext'],
   weight: ['400', '500', '600', '700', '800', '900'],
@@ -56,7 +70,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const [club, sponsors] = await Promise.all([getClubInfo(), getSponsors()])
   return (
-    <html lang="tr" data-theme={club.theme === 'classic' ? 'classic' : 'emerald'} data-font={club.font === 'bt706' ? 'bt706' : 'montserrat'} className={`h-full ${montserrat.variable} ${btGeometric706.variable}`}>
+    <html lang="tr" data-theme={club.theme === 'classic' ? 'classic' : 'emerald'} data-font={club.font === 'bt706' ? 'bt706' : club.font === 'montserrat' ? 'montserrat' : 'archivo'} className={`h-full ${archivo.variable} ${inter.variable} ${montserrat.variable} ${btGeometric706.variable}`}>
       <body className="min-h-full flex flex-col bg-[#f8faf9] antialiased">
         <ScrollReveal />
         <SiteShell club={club} sponsors={sponsors}>{children}</SiteShell>

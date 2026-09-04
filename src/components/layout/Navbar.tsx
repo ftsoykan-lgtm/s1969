@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState, useRef, useEffect } from 'react'
-import { Menu, X, Search, ChevronDown, Ticket, Globe } from 'lucide-react'
+import { Menu, X, Search, ChevronDown, Ticket, Globe, Phone, Store } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { clubInfo as defaultClub } from '@/data/club'
 import type { ClubInfo } from '@/data/club'
@@ -58,6 +58,13 @@ const navLinks: { label: string; href: string; hasMega?: boolean }[] = [
   { label: 'MAÇ MERKEZİ', href: '/mac-merkezi' },
   { label: 'TAKVİM', href: '/takvim' },
   { label: 'İLETİŞİM', href: '/iletisim' },
+]
+
+// Üst yardımcı çubuk — sol taraf hızlı linkler (sivasspor.org.tr tarzı)
+const topLinks = [
+  { label: 'Kadro', href: '/kadro' },
+  { label: 'Fikstür', href: '/takvim' },
+  { label: 'Puan Durumu', href: '/mac-merkezi' },
 ]
 
 export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
@@ -153,11 +160,33 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
       {/* En üst altın şerit — tam altın, kimlik vurgusu */}
       <div className="h-[3px] bg-[linear-gradient(90deg,var(--c-ugoldd),var(--c-ugold)_25%,var(--c-ugoldl)_50%,var(--c-ugold)_75%,var(--c-ugoldd))]" />
 
-      {/* ── İnce üst kimlik bandı (scroll'da gizlenir) ─────────────────── */}
-      <div className={cn('hidden lg:block bg-ugreenm border-b border-ugold/25 overflow-hidden transition-all duration-300',
+      {/* ── Üst yardımcı çubuk — İKİ TARAFLI (sivasspor.org.tr tarzı), scroll'da gizlenir ── */}
+      <div className={cn('hidden lg:block bg-ugreendd border-b border-ugold/15 overflow-hidden transition-all duration-300',
         scrolled ? 'max-h-0 opacity-0 pointer-events-none' : 'max-h-10 opacity-100')}>
-        <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 flex items-center justify-end h-10">
+        <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 flex items-center justify-between h-9">
+          {/* SOL — hızlı linkler + telefon */}
           <div className="flex items-center gap-3.5">
+            {topLinks.map((l, i) => (
+              <div key={l.href} className="flex items-center gap-3.5">
+                <Link href={l.href} className="text-[11.5px] font-semibold tracking-wide text-white/62 hover:text-white transition-colors">{l.label}</Link>
+                {i < topLinks.length - 1 && <span className="w-px h-3 bg-white/12" />}
+              </div>
+            ))}
+            {club.phone && (
+              <>
+                <span className="w-px h-3.5 bg-ugold/30" />
+                <a href={`tel:${club.phone.replace(/[^+\d]/g, '')}`} className="flex items-center gap-1.5 text-[11.5px] font-bold text-ugold/85 hover:text-ugoldl transition-colors">
+                  <Phone size={12} className="shrink-0" /> {club.phone}
+                </a>
+              </>
+            )}
+          </div>
+          {/* SAĞ — mağaza + sosyal */}
+          <div className="flex items-center gap-3.5">
+            <Link href="/magaza" className="flex items-center gap-1.5 text-[10.5px] font-extrabold tracking-[0.16em] uppercase text-white/68 hover:text-ugold transition-colors">
+              <Store size={12} className="shrink-0" /> Mağaza
+            </Link>
+            <span className="w-px h-4 bg-ugold/30" />
             <div className="flex items-center gap-1.5">
               {socials.map(({ icon: Icon, href, label, cls }) => (
                 <a key={label} href={href} aria-label={label} target="_blank" rel="noopener noreferrer"
@@ -166,20 +195,19 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
                 </a>
               ))}
             </div>
-            <span className="w-px h-4 bg-ugold/35" />
-            <Link href="/magaza" className="text-[10px] font-extrabold tracking-[0.2em] uppercase text-ugold/85 hover:text-ugoldl transition-colors">Mağaza</Link>
           </div>
         </div>
       </div>
 
-      {/* ── Ana bar (scroll'da camlaşır + güçlü gölge) ─────────────────── */}
-      <div className={cn('relative overflow-visible transition-all duration-300',
+      {/* ── Ana bar — KOYU YEŞİL CAM (sivasspor.org.tr tarzı: blur + saturate) ── */}
+      <div className={cn('relative overflow-visible backdrop-blur-xl backdrop-saturate-150 transition-all duration-300',
         scrolled
-          ? 'bg-ugreen/85 backdrop-blur-xl shadow-[0_18px_44px_-18px_rgba(0,0,0,0.62)]'
-          : 'bg-[linear-gradient(180deg,var(--c-ugreenm)_0%,var(--c-ugreens)_45%,var(--c-ugreen)_100%)] shadow-[0_14px_34px_-18px_rgba(0,0,0,0.46)]')}>
+          ? 'bg-ugreendd/92 shadow-[0_18px_44px_-18px_rgba(0,0,0,0.72)]'
+          : 'bg-ugreendd/85 shadow-[0_14px_34px_-18px_rgba(0,0,0,0.52)]')}>
+        {/* atmosfer: köşe altın parıltı + hafif üst sheen */}
+        <div aria-hidden className="absolute inset-0 pointer-events-none bg-[radial-gradient(58%_130%_at_14%_-40%,rgba(245,196,0,0.15),transparent_60%),radial-gradient(40%_110%_at_100%_40%,rgba(245,196,0,0.10),transparent_72%),linear-gradient(180deg,rgba(255,255,255,0.05),transparent_30%)]" />
         {/* alt altın saç çizgisi */}
-        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(60%_130%_at_18%_-30%,rgba(245,196,0,0.2),transparent_58%),radial-gradient(45%_110%_at_100%_50%,rgba(245,196,0,0.14),transparent_70%),linear-gradient(90deg,rgba(255,255,255,0.05),transparent_25%)]" />
-        <div className="absolute bottom-0 inset-x-0 h-[2px] bg-gradient-to-r from-ugold/25 via-ugold/80 to-ugold/25" />
+        <div className="absolute bottom-0 inset-x-0 h-[2px] bg-gradient-to-r from-ugold/20 via-ugold/75 to-ugold/20" />
         <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
 
           {/* ── MOBİL BAR (menü · logo · dil) ───────────────────────── */}
@@ -222,10 +250,11 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
                   <span className="font-heading font-extrabold text-sm text-ugreend">{club.shortCode}</span>
                 </div>
               )}
-              {/* Dar masaüstünde (lg) yalnız arma; isim xl ve üstünde */}
+              {/* Dar masaüstünde (lg) yalnız arma; isim xl ve üstünde.
+                  Sivasspor tarzı: sponsor/öneki küçük ÜSTTE, büyük kulüp adı ALTTA */}
               <span className="hidden xl:flex flex-col leading-none min-w-0">
-                <span className="font-heading font-extrabold text-[19px] tracking-tight uppercase text-white whitespace-nowrap">{club.name}</span>
-                {club.brandTagline && <span className="mt-1 text-[9px] font-bold tracking-[0.22em] uppercase text-ugold/80 whitespace-nowrap">{club.brandTagline}</span>}
+                {club.brandTagline && <span className="mb-1 text-[9px] font-extrabold tracking-[0.3em] uppercase text-ugold/75 whitespace-nowrap">{club.brandTagline}</span>}
+                <span className="font-heading font-extrabold text-[22px] leading-[0.95] tracking-[-0.01em] uppercase text-white whitespace-nowrap">{club.name}</span>
               </span>
             </Link>
 

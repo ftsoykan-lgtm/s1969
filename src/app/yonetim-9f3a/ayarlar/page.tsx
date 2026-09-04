@@ -59,7 +59,7 @@ export default function AdminAyarlarPage() {
   const [footerText, setFooterText] = useState(clubInfo.footerText)
   const [footer, setFooter] = useState<FooterConfig>(clubInfo.footer)
   const [theme, setTheme] = useState<'emerald' | 'classic'>(clubInfo.theme)
-  const [font, setFont] = useState<'montserrat' | 'bt706'>(clubInfo.font)
+  const [font, setFont] = useState<'archivo' | 'montserrat' | 'bt706'>(clubInfo.font)
 
   // Supabase'den mevcut ayarları yükle
   useEffect(() => {
@@ -79,7 +79,7 @@ export default function AdminAyarlarPage() {
       setFooterText(s.footerText ?? clubInfo.footerText)
       setFooter(s.footer ?? clubInfo.footer)
       setTheme(s.theme === 'classic' ? 'classic' : 'emerald')
-      setFont(s.font === 'bt706' ? 'bt706' : 'montserrat')
+      setFont(s.font === 'bt706' ? 'bt706' : s.font === 'montserrat' ? 'montserrat' : 'archivo')
       setLoading(false)
     })
   }, [])
@@ -177,7 +177,8 @@ export default function AdminAyarlarPage() {
               <label className="block text-xs font-extrabold text-[#356152] mb-2 uppercase tracking-wide">Yazı Tipi</label>
               <div className="grid grid-cols-2 gap-3">
                 {([
-                  { key: 'montserrat', label: 'Montserrat (Mevcut)', family: 'var(--font-montserrat), system-ui, sans-serif' },
+                  { key: 'archivo', label: 'Archivo + Inter (Önerilen)', family: 'var(--font-archivo), system-ui, sans-serif' },
+                  { key: 'montserrat', label: 'Montserrat', family: 'var(--font-montserrat), system-ui, sans-serif' },
                   { key: 'bt706', label: 'BT Geometric 706', family: 'var(--font-bt706), system-ui, sans-serif' },
                 ] as const).map((f) => (
                   <button key={f.key} type="button" onClick={() => setFont(f.key)}
