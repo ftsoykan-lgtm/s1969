@@ -200,7 +200,7 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
       </div>
 
       {/* ── Ana bar — KATI KOYU YEŞİL (sivasspor.org.tr tarzı koyu menü alanı) ── */}
-      <div className={cn('relative overflow-visible bg-ugreendd transition-all duration-300',
+      <div className={cn('relative overflow-visible bg-ugreend transition-all duration-300',
         scrolled
           ? 'shadow-[0_18px_44px_-18px_rgba(0,0,0,0.72)]'
           : 'shadow-[0_14px_34px_-18px_rgba(0,0,0,0.5)]')}>
@@ -258,7 +258,7 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
                 {club.brandTagline && (
                   <span className="font-heading text-[14.5px] font-semibold tracking-[0.11em] uppercase text-white/90 whitespace-nowrap">{club.brandTagline}</span>
                 )}
-                <span className="mt-[3px] font-heading text-[31px] font-bold leading-none tracking-[0.015em] uppercase text-white whitespace-nowrap">{club.name}</span>
+                <span className="mt-[3px] font-heading text-[31px] font-bold leading-none tracking-[0.015em] uppercase text-ugold whitespace-nowrap">{club.name}</span>
               </span>
             </Link>
 
