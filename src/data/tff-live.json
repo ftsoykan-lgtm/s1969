@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-04T11:06:22.134Z",
+  "updatedAt": "2026-09-04T16:05:53.062Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -52,7 +52,7 @@
     },
     {
       "rank": 4,
-      "team": "ARNAVUTKÖY BELEDİYESİ FUTBOL SK",
+      "team": "ARKENT ARNAVUTKÖY BELEDİYESİ FUTBOL SK",
       "kulupId": "6039",
       "isSanliurfaspor": false,
       "played": 0,
@@ -280,7 +280,7 @@
     "68 AKSARAY BELEDİYE SPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015868_120x120.jpg",
     "ALİAĞA FUTBOL A.Ş.": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/014755_120x120.jpg",
     "ANKARASPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/010779_120x120.jpg",
-    "ARNAVUTKÖY BELEDİYESİ FUTBOL SK": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015675_120x120.jpg",
+    "ARKENT ARNAVUTKÖY BELEDİYESİ FUTBOL SK": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015675_120x120.jpg",
     "ÇORLU SPOR 1947": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/011578_120x120.jpg",
     "EFOR ÇAY ERBAASPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000203_120x120.jpg",
     "GMG KASTAMONUSPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/010766_120x120.jpg",
@@ -315,7 +315,24 @@
       "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
       "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/010779_120x120.jpg",
       "detail": {
-        "referees": [],
+        "referees": [
+          {
+            "name": "Feridun Daldaş",
+            "role": "Hakem"
+          },
+          {
+            "name": "Emirhan Durmaz",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Melih Tan",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Eşref Kurban",
+            "role": "Dördüncü Hakem"
+          }
+        ],
         "lineups": null,
         "events": []
       }
@@ -462,7 +479,7 @@
       "week": 8,
       "macId": "318743",
       "time": "15:00",
-      "homeTeam": "ARNAVUTKÖY BELEDİYESİ FUTBOL SK",
+      "homeTeam": "ARKENT ARNAVUTKÖY BELEDİYESİ FUTBOL SK",
       "awayTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
       "homeScore": null,
       "awayScore": null,
@@ -470,7 +487,7 @@
       "dateText": "2026-10-24",
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": false,
-      "opponent": "ARNAVUTKÖY BELEDİYESİ FUTBOL SK",
+      "opponent": "ARKENT ARNAVUTKÖY BELEDİYESİ FUTBOL SK",
       "result": null,
       "venue": "Bolluca",
       "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015675_120x120.jpg",
@@ -541,7 +558,7 @@
       "isHome": false,
       "opponent": "GMG KASTAMONUSPOR",
       "result": null,
-      "venue": "Maç Kodu: 3008",
+      "venue": "Gazi Stadı",
       "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/010766_120x120.jpg",
       "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
       "detail": {
@@ -853,14 +870,14 @@
       "macId": "318608",
       "time": "",
       "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
-      "awayTeam": "ARNAVUTKÖY BELEDİYESİ FUTBOL SK",
+      "awayTeam": "ARKENT ARNAVUTKÖY BELEDİYESİ FUTBOL SK",
       "homeScore": null,
       "awayScore": null,
       "date": "2027-02-28",
       "dateText": "2027-02-28",
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": true,
-      "opponent": "ARNAVUTKÖY BELEDİYESİ FUTBOL SK",
+      "opponent": "ARKENT ARNAVUTKÖY BELEDİYESİ FUTBOL SK",
       "result": null,
       "venue": "11 Nisan Stadyumu",
       "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
@@ -1116,7 +1133,7 @@
         "nationality": "Türkiye",
         "flagCode": "tr",
         "licenseNo": "3022658",
-        "club": "Orfa Yapı Pendikspor Futbol A.ş."
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "Ali Aydemir",
@@ -1176,7 +1193,7 @@
         "nationality": "Türkiye",
         "flagCode": "tr",
         "licenseNo": "1046179",
-        "club": "Bodrum Fk"
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "Cebrail İrtürk",
@@ -1188,7 +1205,7 @@
         "nationality": "Türkiye",
         "flagCode": "tr",
         "licenseNo": "1934935",
-        "club": "Muğlaspor Kulübü"
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "Çekdar Orhan",
@@ -1212,7 +1229,7 @@
         "nationality": "Türkiye",
         "flagCode": "tr",
         "licenseNo": "3063388",
-        "club": "Keçtaş Ankara Keçiörengücü"
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "Eyüp Can Özel",
@@ -1287,10 +1304,40 @@
         "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
+        "name": "İbrahim Burak Işık",
+        "tffId": "1963489",
+        "number": null,
+        "position": null,
+        "birthPlace": "Bodrum",
+        "birthDate": "11.07.2007",
+        "nationality": "Türkiye",
+        "flagCode": "tr",
+        "licenseNo": "3547820",
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
+      },
+      {
+        "name": "İbrahim Egemen Uğurlu",
+        "tffId": "1851743",
+        "number": null,
+        "position": null,
+        "birthPlace": "Şişli",
+        "birthDate": "28.04.2005",
+        "nationality": "Türkiye",
+        "flagCode": "tr",
+        "licenseNo": "2626589",
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
+      },
+      {
         "name": "İlker Günaslan",
         "tffId": "1283090",
         "number": null,
-        "position": null
+        "position": null,
+        "birthPlace": "Oğuzeli",
+        "birthDate": "15.01.1997",
+        "nationality": "Türkiye",
+        "flagCode": "tr",
+        "licenseNo": "1449412",
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "Mahmut Küçük",
@@ -1326,7 +1373,7 @@
         "nationality": "Türkiye",
         "flagCode": "tr",
         "licenseNo": "848981",
-        "club": "68 Aksaray Belediye Spor"
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "Özcan Aydın",
@@ -1338,7 +1385,7 @@
         "nationality": "Türkiye",
         "flagCode": "tr",
         "licenseNo": "1647811",
-        "club": "Sultan Su İnegölspor"
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "Özgür Sert",
@@ -1374,6 +1421,18 @@
         "nationality": "Türkiye",
         "flagCode": "tr",
         "licenseNo": "1625020",
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
+      },
+      {
+        "name": "Tahsin Bülbül",
+        "tffId": "2021942",
+        "number": null,
+        "position": null,
+        "birthPlace": "Amasya",
+        "birthDate": "09.06.2006",
+        "nationality": "Türkiye",
+        "flagCode": "tr",
+        "licenseNo": "1054760",
         "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
