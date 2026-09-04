@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState, useRef, useEffect } from 'react'
-import { Menu, X, Search, ChevronDown, Ticket, Globe, Phone, Store } from 'lucide-react'
+import { Menu, X, Search, ChevronDown, Ticket, Globe, Phone, Store, MessageSquare } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { clubInfo as defaultClub } from '@/data/club'
 import type { ClubInfo } from '@/data/club'
@@ -123,37 +123,36 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
   const isActive = (href: string) =>
     pathname === href || (href !== '/' && href !== '#' && pathname.startsWith(href + '/'))
 
-  // Logo boyutu admin panelden (club.logoSize) belirlenir. Bar YÜKSEKLİĞİ SABİT
-  // kalır (menü hiç etkilenmez) — logo bardan büyük olduğu için görseldeki gibi
-  // DOĞAL OLARAK bar'ın dışına (altına) taşar (flex öğesi container'ı büyütmez,
-  // sadece görsel olarak taşar; header'da overflow-hidden yok). MİNİMUM (LOGO_MIN)
-  // barın kendisinden büyük — yani en küçük ayarda bile referans gibi taşar.
-  const LOGO_MIN = 92
-  const logoBase = Math.max(LOGO_MIN, Math.min(club.logoSize || 92, 150))
-  const emblemPx = scrolled ? Math.round(logoBase * 0.6) : logoBase
+  // ═══ sivasspor.org.tr birebir ölçüleri (1600px viewport'ta ölçüldü) ═══
+  //  üst şerit 38px · ana bar 89px · container max-w 1400 / padding 0 32px
+  //  logo 104px, bar üstünden 5px içerde → bar'ın 20px ALTINA taşar
+  const BAR_H = 89
+  const BAR_H_SCROLLED = 68
+  const LOGO_MIN = 104            // referans boyut — bardan büyük, alttan taşar (üst içerlek: top-[5px])
+  const logoBase = Math.max(LOGO_MIN, Math.min(club.logoSize || LOGO_MIN, 150))
+  const emblemPx = scrolled ? Math.round(logoBase * 0.62) : logoBase
 
   // Resmi kulüp menüsü — düz BÜYÜK HARF öğeler, aktif/hover'da ince altın alt-çizgi.
   const goldUnderline = (on: boolean) =>
     cn('pointer-events-none absolute left-3 right-3 bottom-1.5 h-[2px] bg-ugold origin-center transition-transform duration-300 ease-out',
       on ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100')
 
+  // Menü linki — sivasspor ölçüsü: Inter 13.76px / 700 / ls .62px / uppercase,
+  // tam bar yüksekliği, yatay padding 13px, ikon boşluğu 6px
+  const navItemCls = 'group relative flex h-full items-center gap-1.5 px-[13px] text-[13.8px] font-bold tracking-[0.045em] uppercase whitespace-nowrap transition-colors duration-200'
+
   const renderNavItem = (link: (typeof navLinks)[number]) =>
     link.hasMega ? (
-      <div key={link.label} className="relative flex items-center" onMouseEnter={openMega} onMouseLeave={closeMega}>
-        <button className={cn(
-          'group relative flex items-center gap-1.5 text-[12px] font-bold tracking-[0.16em] uppercase whitespace-nowrap px-3 py-3.5 transition-colors duration-200',
-          megaOpen ? 'text-ugold' : 'text-white/85 hover:text-white',
-        )}>
+      <div key={link.label} className="relative flex h-full items-center" onMouseEnter={openMega} onMouseLeave={closeMega}>
+        <button className={cn(navItemCls, megaOpen ? 'text-ugold' : 'text-white/85 hover:text-white')}>
           {link.label}
-          <ChevronDown size={12} className={cn('text-ugold/80 transition-transform duration-200', megaOpen && 'rotate-180')} />
+          <ChevronDown size={13} className={cn('text-ugold/80 transition-transform duration-200', megaOpen && 'rotate-180')} />
           <span aria-hidden className={goldUnderline(megaOpen)} />
         </button>
       </div>
     ) : (
-      <Link key={link.href} href={link.href} className={cn(
-        'group relative flex items-center text-[12px] font-bold tracking-[0.16em] uppercase whitespace-nowrap px-3 py-3.5 transition-colors duration-200',
-        isActive(link.href) ? 'text-ugold' : 'text-white/85 hover:text-white',
-      )}>
+      <Link key={link.href} href={link.href} className={cn(navItemCls,
+        isActive(link.href) ? 'text-ugold' : 'text-white/85 hover:text-white')}>
         {link.label}
         <span aria-hidden className={goldUnderline(isActive(link.href))} />
       </Link>
@@ -164,31 +163,34 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
       {/* En üst altın şerit — tam altın, kimlik vurgusu */}
       <div className="h-[3px] bg-[linear-gradient(90deg,var(--c-ugoldd),var(--c-ugold)_25%,var(--c-ugoldl)_50%,var(--c-ugold)_75%,var(--c-ugoldd))]" />
 
-      {/* ── Üst yardımcı çubuk — İKİ TARAFLI (sivasspor.org.tr tarzı), scroll'da gizlenir ── */}
-      <div className={cn('hidden lg:block bg-ugreendd border-b border-white/[0.07] overflow-hidden transition-all duration-300',
-        scrolled ? 'max-h-0 opacity-0 pointer-events-none' : 'max-h-10 opacity-100')}>
-        <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 flex items-center justify-between h-9">
-          {/* SOL — hızlı linkler (sade, ayraçsız) + telefon */}
-          <div className="flex items-center gap-5">
+      {/* ── ÜST ŞERİT — sivasspor `.serit` birebir: h38, ana bardan KOYU zemin ── */}
+      <div className={cn('hidden lg:block bg-ugreendd overflow-hidden transition-all duration-300',
+        scrolled ? 'max-h-0 opacity-0 pointer-events-none' : 'max-h-[38px] opacity-100')}>
+        <div className="mx-auto max-w-[1400px] px-8 flex items-center justify-between h-[38px]">
+          {/* SOL — hızlı linkler (12.6px/500, gap 22px) + telefon (700) */}
+          <div className="flex items-center gap-[22px]">
             {topLinks.map((l) => (
-              <Link key={l.href} href={l.href} className="text-[12px] font-medium tracking-wide text-white/60 hover:text-white transition-colors">{l.label}</Link>
+              <Link key={l.href} href={l.href} className="text-[12.6px] font-medium text-white/55 hover:text-white transition-colors">{l.label}</Link>
             ))}
             {club.phone && (
-              <a href={`tel:${club.phone.replace(/[^+\d]/g, '')}`} className="flex items-center gap-1.5 text-[12px] font-bold text-white hover:text-ugold transition-colors">
+              <a href={`tel:${club.phone.replace(/[^+\d]/g, '')}`} className="flex items-center gap-1.5 text-[12.6px] font-bold text-white/80 hover:text-ugold transition-colors">
                 <Phone size={12} className="shrink-0 text-ugold" /> {club.phone}
               </a>
             )}
           </div>
-          {/* SAĞ — mağaza + sosyal (monokrom, sade beyaz) */}
-          <div className="flex items-center gap-4">
-            <Link href="/magaza" className="flex items-center gap-1.5 text-[12px] font-medium text-white/60 hover:text-white transition-colors">
-              <Store size={13} className="shrink-0 text-ugold" /> Mağaza
+          {/* SAĞ — Mağaza (altın) · Forum · sosyal 30x30 (monokrom) */}
+          <div className="flex items-center gap-1.5">
+            <Link href="/magaza" className="flex items-center gap-[7px] px-3 py-[5px] rounded text-[11.5px] font-bold tracking-[0.06em] text-ugold hover:brightness-110 transition">
+              <Store size={13} className="shrink-0" /> Mağaza
             </Link>
-            <span className="w-px h-3.5 bg-white/15" />
-            <div className="flex items-center gap-2.5">
+            <Link href="/sayfa/taraftar" className="flex items-center gap-[7px] px-3 py-[5px] rounded text-[11.5px] font-bold tracking-[0.06em] text-white/70 hover:text-white transition-colors">
+              <MessageSquare size={13} className="shrink-0" /> Taraftar
+            </Link>
+            <span className="w-px h-4 bg-white/15 mx-1.5" />
+            <div className="flex items-center gap-0.5">
               {socials.map(({ icon: Icon, href, label }) => (
                 <a key={label} href={href} aria-label={label} target="_blank" rel="noopener noreferrer"
-                  className="text-white/55 hover:text-ugold transition-colors">
+                  className="h-[30px] w-[30px] flex items-center justify-center rounded-[9px] text-white/55 hover:text-ugold hover:bg-white/[0.06] transition-colors">
                   <Icon />
                 </a>
               ))}
@@ -206,7 +208,7 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
         <div aria-hidden className="absolute inset-0 pointer-events-none bg-[linear-gradient(180deg,rgba(255,255,255,0.04),transparent_35%)]" />
         {/* alt altın saç çizgisi */}
         <div className="absolute bottom-0 inset-x-0 h-[2px] bg-gradient-to-r from-ugold/15 via-ugold/70 to-ugold/15" />
-        <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
+        <div className="relative mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
 
           {/* ── MOBİL BAR (menü · logo · dil) ───────────────────────── */}
           <div className="lg:hidden grid grid-cols-[1fr_auto_1fr] items-center h-16">
@@ -234,42 +236,45 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
             </button>
           </div>
 
-          {/* ── MASAÜSTÜ BAR — 3 BÖLGE: sol kimlik · orta menü · sağ aksiyon.
-              Yükseklik SABİT — logo boyutu bunu etkilemez, sadece dışına taşar. ── */}
-          <div className={cn('hidden lg:grid grid-cols-[auto_1fr_auto] items-center gap-4 transition-all duration-300', scrolled ? 'h-16' : 'h-[78px]')}>
+          {/* ── MASAÜSTÜ BAR — sivasspor `.kap` birebir: h89 (scroll'da 68), gap 22 ── */}
+          <div className="hidden lg:flex items-center gap-[22px] transition-all duration-300"
+            style={{ height: scrolled ? BAR_H_SCROLLED : BAR_H }}>
 
-            {/* SOL — arma + sponsor öneki (ÜSTTE) + kulüp adı */}
-            <Link href="/" aria-label={club.name} className="flex items-center gap-3 min-w-0 group">
+            {/* SOL — arma (MUTLAK: bar üstünden 5px, bardan büyük → alttan taşar) + sponsor/isim */}
+            <Link href="/" aria-label={club.name} className="relative flex h-full items-center shrink-0"
+              style={{ paddingLeft: emblemPx + 7 }}>
               {hasLogo ? (
-                // Arma KOYU ZEMİNE DİREKT oturur (görseldeki gibi) — beyaz daire/halka yok
-                <ClubLogo src={club.logoUrl} size={emblemPx} optSize={80} priority
-                  className="logo-emblem shrink-0 object-contain drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] transition-all duration-300" />
+                <ClubLogo src={club.logoUrl} size={emblemPx} optSize={120} priority
+                  className={cn('logo-emblem absolute left-0 object-contain drop-shadow-[0_3px_12px_rgba(0,0,0,0.55)] transition-all duration-300',
+                    scrolled ? 'top-1' : 'top-[5px]')} />
               ) : (
                 <div style={{ height: emblemPx, width: emblemPx }}
-                  className="shrink-0 rounded-full bg-ugold flex items-center justify-center">
+                  className={cn('absolute left-0 rounded-full bg-ugold flex items-center justify-center', scrolled ? 'top-1' : 'top-[5px]')}>
                   <span className="font-heading font-extrabold text-sm text-ugreend">{club.shortCode}</span>
                 </div>
               )}
-              {/* Dar masaüstünde (lg) yalnız arma; isim xl ve üstünde */}
+              {/* Sponsor öneki (14.5px/600/ls1.6) ÜSTTE · kulüp adı (31px/700) ALTTA */}
               <span className="hidden xl:flex flex-col leading-none min-w-0">
-                {club.brandTagline && <span className="mb-1 text-[9px] font-bold tracking-[0.28em] uppercase text-ugold/70 whitespace-nowrap">{club.brandTagline}</span>}
-                <span className="font-heading font-extrabold text-[21px] leading-[0.95] tracking-[-0.01em] uppercase text-white whitespace-nowrap">{club.name}</span>
+                {club.brandTagline && (
+                  <span className="font-heading text-[14.5px] font-semibold tracking-[0.11em] uppercase text-white/90 whitespace-nowrap">{club.brandTagline}</span>
+                )}
+                <span className="mt-[3px] font-heading text-[31px] font-bold leading-none tracking-[0.015em] uppercase text-white whitespace-nowrap">{club.name}</span>
               </span>
             </Link>
 
-            {/* ORTA — menü (ortalanmış) */}
-            <nav className="flex items-center justify-center">
+            {/* ORTA — menü (tam bar yüksekliği, sağa yaslı blok) */}
+            <nav className="flex h-full items-center justify-end flex-1 min-w-0">
               {navLinks.map(renderNavItem)}
             </nav>
 
-            {/* SAĞ — arama (kutulu) + Bilet Al (dikdörtgen accent buton) */}
-            <div className="flex items-center gap-2.5 justify-end">
+            {/* SAĞ — arama 44x44 r13 · CTA h42 px18 r6 (gap 10) */}
+            <div className="flex items-center gap-[10px] shrink-0">
               <button onClick={() => setSearchOpen(!searchOpen)} aria-label="Ara"
-                className="h-10 w-10 flex items-center justify-center rounded-xl text-white/75 bg-white/[0.06] ring-1 ring-white/10 hover:text-ugold hover:bg-white/[0.1] transition-all">
+                className="h-11 w-11 flex items-center justify-center rounded-[13px] text-white/80 bg-white/[0.055] hover:text-ugold hover:bg-white/[0.1] transition-all">
                 <Search size={17} />
               </button>
               <Link href="/bilet"
-                className="group relative inline-flex items-center gap-1.5 text-ugreend font-extrabold text-[12px] tracking-wide uppercase whitespace-nowrap px-4 py-2.5 rounded-lg overflow-hidden
+                className="group relative inline-flex h-[42px] items-center gap-2 px-[18px] rounded-md overflow-hidden text-ugreend text-[11.8px] font-extrabold tracking-[0.08em] uppercase whitespace-nowrap
                            bg-gradient-to-b from-ugoldl to-ugold shadow-[0_10px_24px_-12px_rgba(245,196,0,0.9),inset_0_1px_0_rgba(255,255,255,0.5)] transition-all hover:-translate-y-0.5 hover:shadow-[0_16px_30px_-14px_rgba(245,196,0,1),inset_0_1px_0_rgba(255,255,255,0.6)]">
                 <span className="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-white/25" />
                 <Ticket size={14} className="relative" />
