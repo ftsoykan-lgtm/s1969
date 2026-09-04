@@ -5,15 +5,10 @@ import AdminSidebar from './AdminSidebar'
 
 export default function AdminShell({ children, logoUrl }: { children: React.ReactNode; logoUrl?: string | null }) {
   const pathname = usePathname()
-  const isLogin = pathname === '/admin/login'
+  const isLogin = pathname === '/yonetim-9f3a/login'
 
-  if (isLogin) {
-    return (
-      <div className="min-h-screen bg-ugreend">
-        {children}
-      </div>
-    )
-  }
+  // Login sayfası kendi tam-ekran düzenini kurar (sidebar/topbar yok)
+  if (isLogin) return <>{children}</>
 
   return (
     <div className="min-h-screen bg-[#f5f9f6] flex">

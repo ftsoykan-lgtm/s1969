@@ -32,7 +32,7 @@ export default function AdminKategorilerPage() {
   return (
     <div className="space-y-6 max-w-2xl">
       <div className="flex items-center gap-3">
-        <Link href="/admin/haberler" className="p-2 text-[#7aab8e] hover:text-ugreen hover:bg-[#edf7f2] rounded-xl transition-all"><ArrowLeft size={18} /></Link>
+        <Link href="/yonetim-9f3a/haberler" className="p-2 text-[#7aab8e] hover:text-ugreen hover:bg-[#edf7f2] rounded-xl transition-all"><ArrowLeft size={18} /></Link>
         <h1 className="text-2xl font-extrabold text-ugreenm">Haber Kategorileri</h1>
       </div>
 

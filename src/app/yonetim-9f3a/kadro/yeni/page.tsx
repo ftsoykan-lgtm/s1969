@@ -42,13 +42,13 @@ export default function YeniOyuncuPage() {
     setLoading(true)
     await new Promise(r => setTimeout(r, 600))
     setLoading(false)
-    router.push('/admin/kadro')
+    router.push('/yonetim-9f3a/kadro')
   }
 
   return (
     <div className="space-y-6 max-w-3xl">
       <div className="flex items-center gap-3">
-        <Link href="/admin/kadro" className="p-2 text-[#7aab8e] hover:text-ugreen hover:bg-[#edf7f2] rounded-xl transition-all">
+        <Link href="/yonetim-9f3a/kadro" className="p-2 text-[#7aab8e] hover:text-ugreen hover:bg-[#edf7f2] rounded-xl transition-all">
           <ArrowLeft size={18} />
         </Link>
         <h1 className="text-2xl font-extrabold text-ugreenm">Yeni Oyuncu</h1>
@@ -101,7 +101,7 @@ export default function YeniOyuncuPage() {
         </div>
 
         <div className="flex gap-3">
-          <Link href="/admin/kadro" className="px-5 py-2.5 border border-[#ddeae2] text-utxt2 font-bold text-sm rounded-xl hover:bg-[#f5f9f6] transition-colors">İptal</Link>
+          <Link href="/yonetim-9f3a/kadro" className="px-5 py-2.5 border border-[#ddeae2] text-utxt2 font-bold text-sm rounded-xl hover:bg-[#f5f9f6] transition-colors">İptal</Link>
           <button type="submit" disabled={loading}
             className="inline-flex items-center gap-2 bg-ugreen hover:bg-ugreend disabled:opacity-60 text-white font-extrabold px-5 py-2.5 rounded-xl text-sm transition-colors shadow-sm">
             <Save size={15} />

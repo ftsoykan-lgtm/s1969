@@ -17,7 +17,7 @@ export default function SiteShell({
   children: React.ReactNode
 }) {
   const pathname = usePathname()
-  const isAdmin = pathname.startsWith('/admin')
+  const isAdmin = pathname.startsWith('/yonetim-9f3a')
 
   if (isAdmin) return <>{children}</>
 

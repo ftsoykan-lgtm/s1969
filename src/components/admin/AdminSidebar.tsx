@@ -15,30 +15,30 @@ const navGroups = [
   {
     label: 'GENEL',
     items: [
-      { label: 'Dashboard', href: '/admin', icon: LayoutDashboard, exact: true },
+      { label: 'Dashboard', href: '/yonetim-9f3a', icon: LayoutDashboard, exact: true },
     ],
   },
   {
     label: 'İÇERİK',
     items: [
-      { label: 'Haberler', href: '/admin/haberler', icon: Newspaper },
-      { label: 'Kategoriler', href: '/admin/kategoriler', icon: FolderOpen },
-      { label: 'Sayfalar', href: '/admin/sayfalar', icon: FileText },
+      { label: 'Haberler', href: '/yonetim-9f3a/haberler', icon: Newspaper },
+      { label: 'Kategoriler', href: '/yonetim-9f3a/kategoriler', icon: FolderOpen },
+      { label: 'Sayfalar', href: '/yonetim-9f3a/sayfalar', icon: FileText },
     ],
   },
   {
     label: 'KULÜP',
     items: [
-      { label: 'Kadro & Oyuncular', href: '/admin/kadro', icon: Users },
-      { label: 'Sponsorlar', href: '/admin/sponsorlar', icon: Star },
-      { label: 'Takım Logoları', href: '/admin/logolar', icon: Image },
+      { label: 'Kadro & Oyuncular', href: '/yonetim-9f3a/kadro', icon: Users },
+      { label: 'Sponsorlar', href: '/yonetim-9f3a/sponsorlar', icon: Star },
+      { label: 'Takım Logoları', href: '/yonetim-9f3a/logolar', icon: Image },
     ],
   },
   {
     label: 'SİSTEM',
     items: [
-      { label: 'Aboneler', href: '/admin/aboneler', icon: Mail },
-      { label: 'Site Ayarları', href: '/admin/ayarlar', icon: Settings },
+      { label: 'Aboneler', href: '/yonetim-9f3a/aboneler', icon: Mail },
+      { label: 'Site Ayarları', href: '/yonetim-9f3a/ayarlar', icon: Settings },
     ],
   },
 ]
@@ -56,7 +56,7 @@ export default function AdminSidebar({ logoUrl }: { logoUrl?: string | null }) {
   const handleLogout = async () => {
     setLoggingOut(true)
     await supabase.auth.signOut()
-    router.push('/admin/login')
+    router.push('/yonetim-9f3a/login')
     router.refresh()
   }
 

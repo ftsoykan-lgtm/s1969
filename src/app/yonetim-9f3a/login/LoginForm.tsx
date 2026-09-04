@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createBrowserClient } from '@supabase/ssr'
-import { Eye, EyeOff, Lock, Mail, AlertCircle, ArrowRight, Loader2, HelpCircle } from 'lucide-react'
+import { Eye, EyeOff, Lock, Mail, AlertCircle, ArrowRight, Loader2 } from 'lucide-react'
 
 export default function LoginForm() {
   const router = useRouter()
@@ -12,7 +12,6 @@ export default function LoginForm() {
   const [showPw, setShowPw] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [showHelp, setShowHelp] = useState(false)
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -31,19 +30,19 @@ export default function LoginForm() {
         if (authError.message.includes('Invalid login') || authError.message.includes('invalid_credentials')) {
           setError('E-posta veya şifre hatalı. Lütfen tekrar deneyin.')
         } else if (authError.message.includes('Email not confirmed')) {
-          setError('E-posta adresiniz onaylanmamış. Supabase panelinden kullanıcıyı onaylayın.')
+          setError('Hesabınız henüz etkinleştirilmemiş. Sistem yöneticinize başvurun.')
         } else {
-          setError(`Hata: ${authError.message}`)
+          setError('Giriş yapılamadı. Lütfen tekrar deneyin.')
         }
         setLoading(false)
         return
       }
       if (data.user) {
-        router.push('/admin')
+        router.push('/yonetim-9f3a')
         router.refresh()
       }
     } catch {
-      setError('Bağlantı hatası. .env.local dosyasındaki Supabase bilgilerini kontrol edin.')
+      setError('Bağlantı kurulamadı. Lütfen daha sonra tekrar deneyin.')
       setLoading(false)
     }
   }
@@ -66,7 +65,7 @@ export default function LoginForm() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="admin@sanliurfaspor.org"
+            placeholder="ornek@sanliurfaspor.org"
             required
             autoComplete="email"
             className="h-12 w-full rounded-xl border border-[#dce9e2] bg-white pl-11 pr-4 text-sm font-medium text-ugreenm placeholder-[#9bb5a8] transition-all focus:border-ugreen focus:outline-none focus:ring-4 focus:ring-ugreen/10"
@@ -112,24 +111,9 @@ export default function LoginForm() {
         )}
       </button>
 
-      {/* Yardım */}
-      <div className="pt-1">
-        <button
-          type="button"
-          onClick={() => setShowHelp((v) => !v)}
-          className="inline-flex items-center gap-1.5 text-[12px] font-bold text-[#7aab8e] transition-colors hover:text-ugreen"
-        >
-          <HelpCircle size={13} /> Giriş yapamıyor musun?
-        </button>
-        {showHelp && (
-          <div className="mt-3 space-y-1.5 rounded-xl border border-[#e6efe9] bg-[#f5f9f6] p-4 text-[11px] leading-relaxed text-[#7aab8e]">
-            <p><b className="text-ugreenm">1.</b> supabase.com → projene gir</p>
-            <p><b className="text-ugreenm">2.</b> Authentication → Users → Add user</p>
-            <p><b className="text-ugreenm">3.</b> E-posta ve şifreni gir, <span className="text-ugreen">Auto Confirm User</span> seç</p>
-            <p><b className="text-ugreenm">4.</b> Settings → API → anon public anahtarını <span className="text-ugreen">.env.local</span>'a yapıştır</p>
-          </div>
-        )}
-      </div>
+      <p className="pt-1 text-center text-[11px] text-[#9bb5a8]">
+        Erişim sorununda sistem yöneticinize başvurun.
+      </p>
     </form>
   )
 }

@@ -123,7 +123,7 @@ export default function AdminHaberlerPage() {
           <p className="text-sm text-utxt2 mt-1">{rows.length} haber</p>
         </div>
         <div className="flex gap-2">
-          <Link href="/admin/kategoriler" className="inline-flex items-center gap-2 border border-[#ddeae2] text-utxt2 font-extrabold px-4 py-2.5 rounded-xl text-sm hover:bg-[#f5f9f6]">Kategoriler</Link>
+          <Link href="/yonetim-9f3a/kategoriler" className="inline-flex items-center gap-2 border border-[#ddeae2] text-utxt2 font-extrabold px-4 py-2.5 rounded-xl text-sm hover:bg-[#f5f9f6]">Kategoriler</Link>
           <button onClick={() => setEditing({ ...empty, published_at: new Date().toISOString().slice(0, 10) })}
             className="inline-flex items-center gap-2 bg-ugreen hover:bg-ugreend text-white font-extrabold px-4 py-2.5 rounded-xl text-sm transition-colors shadow-sm">
             <Plus size={15} /> Yeni Haber

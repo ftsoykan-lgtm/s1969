@@ -6,8 +6,8 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        // Admin paneli ve API uçları aramaya kapalı
-        disallow: ['/admin', '/admin/'],
+        // Yönetim paneli robots.txt'te listelenmez (yolu ifşa etmemek için);
+        // panel zaten layout'ta noindex + middleware ile auth korumalı.
       },
     ],
   }
