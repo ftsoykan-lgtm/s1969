@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState, useRef, useEffect } from 'react'
-import { Menu, X, Search, ChevronDown, Ticket, Globe } from 'lucide-react'
+import { Menu, X, Search, ChevronDown, Ticket, Globe, Phone, Store } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { clubInfo as defaultClub } from '@/data/club'
 import type { ClubInfo } from '@/data/club'
@@ -52,12 +52,19 @@ const kulupMenu = [
 ]
 
 const navLinks: { label: string; href: string; hasMega?: boolean }[] = [
-  { label: 'HABERLER', href: '/haberler' },
   { label: 'KULÜP', href: '#', hasMega: true },
   { label: 'KADRO', href: '/kadro' },
+  { label: 'HABERLER', href: '/haberler' },
   { label: 'MAÇ MERKEZİ', href: '/mac-merkezi' },
   { label: 'TAKVİM', href: '/takvim' },
   { label: 'İLETİŞİM', href: '/iletisim' },
+]
+
+// Üst yardımcı çubuk — sol taraf hızlı linkler (sivasspor.org.tr tarzı)
+const topLinks = [
+  { label: 'Kadro', href: '/kadro' },
+  { label: 'Fikstür', href: '/takvim' },
+  { label: 'Puan Durumu', href: '/mac-merkezi' },
 ]
 
 export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
@@ -153,33 +160,48 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
       {/* En üst altın şerit — tam altın, kimlik vurgusu */}
       <div className="h-[3px] bg-[linear-gradient(90deg,var(--c-ugoldd),var(--c-ugold)_25%,var(--c-ugoldl)_50%,var(--c-ugold)_75%,var(--c-ugoldd))]" />
 
-      {/* ── İnce üst kimlik bandı (scroll'da gizlenir) ─────────────────── */}
-      <div className={cn('hidden lg:block bg-ugreenm border-b border-ugold/25 overflow-hidden transition-all duration-300',
+      {/* ── Üst yardımcı çubuk — İKİ TARAFLI (sivasspor.org.tr tarzı), scroll'da gizlenir ── */}
+      <div className={cn('hidden lg:block bg-ugreendd border-b border-white/[0.07] overflow-hidden transition-all duration-300',
         scrolled ? 'max-h-0 opacity-0 pointer-events-none' : 'max-h-10 opacity-100')}>
-        <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 flex items-center justify-end h-10">
-          <div className="flex items-center gap-3.5">
-            <div className="flex items-center gap-1.5">
-              {socials.map(({ icon: Icon, href, label, cls }) => (
+        <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 flex items-center justify-between h-9">
+          {/* SOL — hızlı linkler (sade, ayraçsız) + telefon */}
+          <div className="flex items-center gap-5">
+            {topLinks.map((l) => (
+              <Link key={l.href} href={l.href} className="text-[12px] font-medium tracking-wide text-white/60 hover:text-white transition-colors">{l.label}</Link>
+            ))}
+            {club.phone && (
+              <a href={`tel:${club.phone.replace(/[^+\d]/g, '')}`} className="flex items-center gap-1.5 text-[12px] font-bold text-white hover:text-ugold transition-colors">
+                <Phone size={12} className="shrink-0 text-ugold" /> {club.phone}
+              </a>
+            )}
+          </div>
+          {/* SAĞ — mağaza + sosyal (monokrom, sade beyaz) */}
+          <div className="flex items-center gap-4">
+            <Link href="/magaza" className="flex items-center gap-1.5 text-[12px] font-medium text-white/60 hover:text-white transition-colors">
+              <Store size={13} className="shrink-0 text-ugold" /> Mağaza
+            </Link>
+            <span className="w-px h-3.5 bg-white/15" />
+            <div className="flex items-center gap-2.5">
+              {socials.map(({ icon: Icon, href, label }) => (
                 <a key={label} href={href} aria-label={label} target="_blank" rel="noopener noreferrer"
-                  className={`flex h-6 w-6 items-center justify-center rounded-md text-white shadow-sm ring-1 ring-white/10 transition-transform duration-200 hover:-translate-y-0.5 hover:scale-105 ${cls}`}>
+                  className="text-white/55 hover:text-ugold transition-colors">
                   <Icon />
                 </a>
               ))}
             </div>
-            <span className="w-px h-4 bg-ugold/35" />
-            <Link href="/magaza" className="text-[10px] font-extrabold tracking-[0.2em] uppercase text-ugold/85 hover:text-ugoldl transition-colors">Mağaza</Link>
           </div>
         </div>
       </div>
 
-      {/* ── Ana bar (scroll'da camlaşır + güçlü gölge) ─────────────────── */}
-      <div className={cn('relative overflow-visible transition-all duration-300',
+      {/* ── Ana bar — KATI KOYU YEŞİL (sivasspor.org.tr tarzı koyu menü alanı) ── */}
+      <div className={cn('relative overflow-visible bg-ugreendd transition-all duration-300',
         scrolled
-          ? 'bg-ugreen/85 backdrop-blur-xl shadow-[0_18px_44px_-18px_rgba(0,0,0,0.62)]'
-          : 'bg-[linear-gradient(180deg,var(--c-ugreenm)_0%,var(--c-ugreens)_45%,var(--c-ugreen)_100%)] shadow-[0_14px_34px_-18px_rgba(0,0,0,0.46)]')}>
+          ? 'shadow-[0_18px_44px_-18px_rgba(0,0,0,0.72)]'
+          : 'shadow-[0_14px_34px_-18px_rgba(0,0,0,0.5)]')}>
+        {/* çok hafif üst sheen — düz koyu zemine derinlik */}
+        <div aria-hidden className="absolute inset-0 pointer-events-none bg-[linear-gradient(180deg,rgba(255,255,255,0.04),transparent_35%)]" />
         {/* alt altın saç çizgisi */}
-        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(60%_130%_at_18%_-30%,rgba(245,196,0,0.2),transparent_58%),radial-gradient(45%_110%_at_100%_50%,rgba(245,196,0,0.14),transparent_70%),linear-gradient(90deg,rgba(255,255,255,0.05),transparent_25%)]" />
-        <div className="absolute bottom-0 inset-x-0 h-[2px] bg-gradient-to-r from-ugold/25 via-ugold/80 to-ugold/25" />
+        <div className="absolute bottom-0 inset-x-0 h-[2px] bg-gradient-to-r from-ugold/15 via-ugold/70 to-ugold/15" />
         <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
 
           {/* ── MOBİL BAR (menü · logo · dil) ───────────────────────── */}
@@ -208,10 +230,10 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
             </button>
           </div>
 
-          {/* ── MASAÜSTÜ BAR — resmi kulüp düzeni: solda arma + isim, sağda menü ── */}
-          <div className={cn('hidden lg:flex items-center justify-between gap-6 transition-all duration-300', scrolled ? 'h-[64px]' : 'h-[78px]')}>
+          {/* ── MASAÜSTÜ BAR — 3 BÖLGE (görseldeki gibi): sol kimlik · orta menü · sağ aksiyon ── */}
+          <div className={cn('hidden lg:grid grid-cols-[auto_1fr_auto] items-center gap-4 transition-all duration-300', scrolled ? 'h-[64px]' : 'h-[80px]')}>
 
-            {/* SOL — arma + kulüp adı (kurumsal kimlik bloğu) */}
+            {/* SOL — arma + sponsor öneki (ÜSTTE) + kulüp adı */}
             <Link href="/" aria-label={club.name} className="flex items-center gap-3 min-w-0 group">
               {hasLogo ? (
                 <ClubLogo src={club.logoUrl} size={emblemPx} optSize={64} priority
@@ -224,29 +246,29 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
               )}
               {/* Dar masaüstünde (lg) yalnız arma; isim xl ve üstünde */}
               <span className="hidden xl:flex flex-col leading-none min-w-0">
-                <span className="font-heading font-extrabold text-[19px] tracking-tight uppercase text-white whitespace-nowrap">{club.name}</span>
-                {club.brandTagline && <span className="mt-1 text-[9px] font-bold tracking-[0.22em] uppercase text-ugold/80 whitespace-nowrap">{club.brandTagline}</span>}
+                {club.brandTagline && <span className="mb-1 text-[9px] font-bold tracking-[0.28em] uppercase text-ugold/70 whitespace-nowrap">{club.brandTagline}</span>}
+                <span className="font-heading font-extrabold text-[21px] leading-[0.95] tracking-[-0.01em] uppercase text-white whitespace-nowrap">{club.name}</span>
               </span>
             </Link>
 
-            {/* SAĞ — menü + aksiyonlar */}
-            <div className="flex items-center min-w-0">
-              <nav className="flex items-center">
-                {navLinks.map(renderNavItem)}
-              </nav>
-              <div className="flex items-center gap-2 pl-4 ml-3 border-l border-ugold/35">
-                <button onClick={() => setSearchOpen(!searchOpen)} aria-label="Ara"
-                  className="h-10 w-10 flex items-center justify-center rounded-full text-white/72 hover:text-ugold hover:bg-white/[0.07] transition-all">
-                  <Search size={17} />
-                </button>
-                <Link href="/bilet"
-                  className="group relative inline-flex items-center gap-1.5 text-ugreend font-extrabold text-[11.5px] tracking-wide uppercase whitespace-nowrap pl-3.5 pr-4 py-2.5 rounded-full overflow-hidden
-                             bg-gradient-to-b from-ugoldl to-ugold shadow-[0_10px_24px_-12px_rgba(245,196,0,0.95),inset_0_1px_0_rgba(255,255,255,0.55)] transition-all hover:-translate-y-0.5 hover:shadow-[0_16px_30px_-14px_rgba(245,196,0,1),inset_0_1px_0_rgba(255,255,255,0.65)]">
-                  <span className="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-white/30" />
-                  <Ticket size={14} className="relative" />
-                  <span className="relative">Bilet Al</span>
-                </Link>
-              </div>
+            {/* ORTA — menü (ortalanmış) */}
+            <nav className="flex items-center justify-center">
+              {navLinks.map(renderNavItem)}
+            </nav>
+
+            {/* SAĞ — arama (kutulu) + Bilet Al (dikdörtgen accent buton) */}
+            <div className="flex items-center gap-2.5 justify-end">
+              <button onClick={() => setSearchOpen(!searchOpen)} aria-label="Ara"
+                className="h-10 w-10 flex items-center justify-center rounded-xl text-white/75 bg-white/[0.06] ring-1 ring-white/10 hover:text-ugold hover:bg-white/[0.1] transition-all">
+                <Search size={17} />
+              </button>
+              <Link href="/bilet"
+                className="group relative inline-flex items-center gap-1.5 text-ugreend font-extrabold text-[12px] tracking-wide uppercase whitespace-nowrap px-4 py-2.5 rounded-lg overflow-hidden
+                           bg-gradient-to-b from-ugoldl to-ugold shadow-[0_10px_24px_-12px_rgba(245,196,0,0.9),inset_0_1px_0_rgba(255,255,255,0.5)] transition-all hover:-translate-y-0.5 hover:shadow-[0_16px_30px_-14px_rgba(245,196,0,1),inset_0_1px_0_rgba(255,255,255,0.6)]">
+                <span className="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-white/25" />
+                <Ticket size={14} className="relative" />
+                <span className="relative">Bilet Al</span>
+              </Link>
             </div>
           </div>
         </div>
