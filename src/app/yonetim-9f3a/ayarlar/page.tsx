@@ -219,20 +219,20 @@ export default function AdminAyarlarPage() {
               <div className="mt-4">
                 <label className="block text-[13px] font-bold text-utxt2 mb-2">
                   Logo Görünüm Boyutu
-                  <span className="ml-2 text-[11px] font-semibold text-[#7aab8e]">Navbar&apos;da logonun görüneceği boyut</span>
+                  <span className="ml-2 text-[11px] font-semibold text-[#7aab8e]">Navbar&apos;da logonun görüneceği boyut (min 64px — bar buna göre büyür)</span>
                 </label>
                 <div className="flex items-center gap-4">
                   <input
-                    type="range" min={40} max={150} step={2}
+                    type="range" min={64} max={100} step={2}
                     value={club.logoSize}
                     onChange={(e) => setClub(p => ({ ...p, logoSize: Number(e.target.value) }))}
                     className="flex-1 accent-ugreen"
                   />
                   <div className="flex items-center gap-1 shrink-0">
                     <input
-                      type="number" min={40} max={150}
+                      type="number" min={64} max={100}
                       value={club.logoSize}
-                      onChange={(e) => setClub(p => ({ ...p, logoSize: Math.max(40, Math.min(150, Number(e.target.value) || 72)) }))}
+                      onChange={(e) => setClub(p => ({ ...p, logoSize: Math.max(64, Math.min(100, Number(e.target.value) || 72)) }))}
                       className="w-16 bg-[#f5f9f6] border border-[#ddeae2] rounded-lg px-2 py-1.5 text-sm text-ugreenm text-center focus:outline-none focus:border-ugreen"
                     />
                     <span className="text-[12px] text-[#7aab8e]">px</span>

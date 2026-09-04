@@ -123,10 +123,13 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
   const isActive = (href: string) =>
     pathname === href || (href !== '/' && href !== '#' && pathname.startsWith(href + '/'))
 
-  // Logo görünüm boyutu — sol kimlik bloğu bar yüksekliğine sığmalı;
-  // admin logoSize eski ortalanmış tasarım için büyük olabilir, 68px ile sınırla.
-  const logoBase = Math.min(club.logoSize || 76, 76)
-  const emblemPx = Math.round((scrolled ? 0.76 : 1) * logoBase)
+  // Logo boyutu admin panelden (club.logoSize) belirlenir. MİNİMUM görseldeki
+  // kadar (LOGO_MIN) — bunun altına inmez; admin daha büyük yapabilir (üst sınır
+  // 120). Ana bar yüksekliği logoya göre büyür ki arma her zaman tam sığsın.
+  const LOGO_MIN = 64
+  const logoBase = Math.max(LOGO_MIN, Math.min(club.logoSize || 72, 100))
+  const emblemPx = scrolled ? Math.min(logoBase, 50) : logoBase
+  const desktopBarH = scrolled ? 62 : Math.max(82, logoBase + 16)
 
   // Resmi kulüp menüsü — düz BÜYÜK HARF öğeler, aktif/hover'da ince altın alt-çizgi.
   const goldUnderline = (on: boolean) =>
@@ -231,7 +234,7 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
           </div>
 
           {/* ── MASAÜSTÜ BAR — 3 BÖLGE (görseldeki gibi): sol kimlik · orta menü · sağ aksiyon ── */}
-          <div className={cn('hidden lg:grid grid-cols-[auto_1fr_auto] items-center gap-4 transition-all duration-300', scrolled ? 'h-[64px]' : 'h-[80px]')}>
+          <div className="hidden lg:grid grid-cols-[auto_1fr_auto] items-center gap-4 transition-all duration-300" style={{ height: desktopBarH }}>
 
             {/* SOL — arma + sponsor öneki (ÜSTTE) + kulüp adı */}
             <Link href="/" aria-label={club.name} className="flex items-center gap-3 min-w-0 group">
