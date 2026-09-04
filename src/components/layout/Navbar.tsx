@@ -123,13 +123,14 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
   const isActive = (href: string) =>
     pathname === href || (href !== '/' && href !== '#' && pathname.startsWith(href + '/'))
 
-  // Logo boyutu admin panelden (club.logoSize) belirlenir. MİNİMUM görseldeki
-  // kadar (LOGO_MIN) — bunun altına inmez; admin daha büyük yapabilir (üst sınır
-  // 120). Ana bar yüksekliği logoya göre büyür ki arma her zaman tam sığsın.
-  const LOGO_MIN = 64
-  const logoBase = Math.max(LOGO_MIN, Math.min(club.logoSize || 72, 100))
-  const emblemPx = scrolled ? Math.min(logoBase, 50) : logoBase
-  const desktopBarH = scrolled ? 62 : Math.max(82, logoBase + 16)
+  // Logo boyutu admin panelden (club.logoSize) belirlenir. Bar YÜKSEKLİĞİ SABİT
+  // kalır (menü hiç etkilenmez) — logo bardan büyük olduğu için görseldeki gibi
+  // DOĞAL OLARAK bar'ın dışına (altına) taşar (flex öğesi container'ı büyütmez,
+  // sadece görsel olarak taşar; header'da overflow-hidden yok). MİNİMUM (LOGO_MIN)
+  // barın kendisinden büyük — yani en küçük ayarda bile referans gibi taşar.
+  const LOGO_MIN = 92
+  const logoBase = Math.max(LOGO_MIN, Math.min(club.logoSize || 92, 150))
+  const emblemPx = scrolled ? Math.round(logoBase * 0.6) : logoBase
 
   // Resmi kulüp menüsü — düz BÜYÜK HARF öğeler, aktif/hover'da ince altın alt-çizgi.
   const goldUnderline = (on: boolean) =>
@@ -233,8 +234,9 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
             </button>
           </div>
 
-          {/* ── MASAÜSTÜ BAR — 3 BÖLGE (görseldeki gibi): sol kimlik · orta menü · sağ aksiyon ── */}
-          <div className="hidden lg:grid grid-cols-[auto_1fr_auto] items-center gap-4 transition-all duration-300" style={{ height: desktopBarH }}>
+          {/* ── MASAÜSTÜ BAR — 3 BÖLGE: sol kimlik · orta menü · sağ aksiyon.
+              Yükseklik SABİT — logo boyutu bunu etkilemez, sadece dışına taşar. ── */}
+          <div className={cn('hidden lg:grid grid-cols-[auto_1fr_auto] items-center gap-4 transition-all duration-300', scrolled ? 'h-16' : 'h-[78px]')}>
 
             {/* SOL — arma + sponsor öneki (ÜSTTE) + kulüp adı */}
             <Link href="/" aria-label={club.name} className="flex items-center gap-3 min-w-0 group">
