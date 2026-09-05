@@ -337,17 +337,19 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
           </div>
         </div>
 
-        {/* ── MOBİL ÖRTÜ (perde) — sivasspor: rgba(9,7,6,.74), z190 ── */}
+        {/* ── MOBİL ÖRTÜ (perde) — sivasspor `.perde` birebir:
+            rgba(9,7,6,.74) + backdrop blur(6px) → ARKA PLAN BULANIKLAŞIR, z190 ── */}
         <div aria-hidden onClick={() => setMobileOpen(false)}
-          className={cn('lg:hidden fixed inset-0 z-[190] bg-[rgba(6,16,10,0.76)] transition-opacity duration-300',
-            mobileOpen ? 'opacity-100' : 'opacity-0 pointer-events-none')} />
+          className={cn('lg:hidden fixed inset-0 z-[190] bg-[rgba(6,16,10,0.74)] transition-opacity duration-300',
+            mobileOpen ? 'opacity-100' : 'opacity-0 pointer-events-none')}
+          style={{ backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)' }} />
 
         {/* ── MOBİL ÇEKMECE — sivasspor `.cekmece` birebir: 345px sağdan, z200,
             padding 16/20/22, kendi içinde kaydırılır ── */}
         {/* NOT: transform/transition INLINE — Tailwind v4 virgüllü arbitrary değeri
             (ease-[cubic-bezier(...)]) kuralı bozup translate'i uygulamıyordu. */}
         <aside
-          className="lg:hidden fixed right-0 top-0 bottom-0 z-[200] w-[345px] max-w-[92vw] overflow-y-auto overscroll-contain px-5 pt-4 pb-[22px] bg-[linear-gradient(180deg,var(--c-ugreend)_0%,var(--c-ugreendd)_100%)]"
+          className="lg:hidden fixed right-0 top-0 bottom-0 z-[200] w-[345px] max-w-[92vw] overflow-y-auto overscroll-contain px-5 pt-4 pb-[22px] border-l border-white/[0.11] bg-[linear-gradient(180deg,var(--c-ugreend)_0%,var(--c-ugreendd)_100%)]"
           style={{
             transform: mobileOpen ? 'translateX(0)' : 'translateX(100%)',
             // visibility gecikmeli: kapanış animasyonu bitince gizlensin (klavye odağı dışarıda kalsın)
@@ -385,16 +387,26 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
               <li key={link.label} className="border-b border-white/[0.08]">
                 {link.hasMega ? (
                   <>
+                    {/* Açık satır altın renge döner, chevron 180° (sivasspor birebir) */}
                     <button onClick={() => setMobileSubOpen((v) => !v)} aria-expanded={mobileSubOpen}
-                      className="flex w-full items-center justify-between gap-3 h-14 px-1.5 font-heading text-[17.6px] font-bold tracking-[0.035em] uppercase text-white">
+                      className={cn('flex w-full items-center justify-between gap-3 h-14 px-1.5 font-heading text-[17.6px] font-bold tracking-[0.035em] uppercase transition-colors',
+                        mobileSubOpen ? 'text-ugold' : 'text-white')}>
                       {link.label}
                       <ChevronDown size={12} className={cn('shrink-0 text-ugold transition-transform duration-200', mobileSubOpen && 'rotate-180')} />
                     </button>
+                    {/* Alt menü — sol accent çizgi (2px altın/40), grup başlıkları + linkler */}
                     {mobileSubOpen && (
-                      <div className="grid gap-0.5 pb-3 pl-1.5">
-                        {kulupMenu.flatMap((col) => col.linkler).map((item) => (
-                          <Link key={item.label} href={item.href} onClick={() => setMobileOpen(false)}
-                            className="rounded-lg px-2 py-2 text-[14px] text-white/65 hover:bg-white/[0.06] hover:text-ugold transition-colors">{item.label}</Link>
+                      <div className="ml-2 border-l-2 border-ugold/40 pt-0.5 pb-3 pl-3.5">
+                        {kulupMenu.map((col) => (
+                          <div key={col.baslik}>
+                            <div className="mt-3 mb-1 text-[10.5px] font-extrabold uppercase tracking-[0.13em] text-ugold">{col.baslik}</div>
+                            {col.linkler.map((item) => (
+                              <Link key={item.label} href={item.href} onClick={() => setMobileOpen(false)}
+                                className="flex h-10 items-center px-1 text-[14.7px] font-semibold text-white/60 hover:text-ugold transition-colors">
+                                {item.label}
+                              </Link>
+                            ))}
+                          </div>
                         ))}
                       </div>
                     )}
