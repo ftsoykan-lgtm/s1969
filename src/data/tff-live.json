@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-05T03:51:17.022Z",
+  "updatedAt": "2026-09-05T10:20:10.876Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -1193,7 +1193,7 @@
         "nationality": "Türkiye",
         "flagCode": "tr",
         "licenseNo": "1046179",
-        "club": "Bodrum Fk"
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "Cebrail İrtürk",
@@ -1319,7 +1319,13 @@
         "name": "İbrahim Egemen Uğurlu",
         "tffId": "1851743",
         "number": null,
-        "position": null
+        "position": null,
+        "birthPlace": "Şişli",
+        "birthDate": "28.04.2005",
+        "nationality": "Türkiye",
+        "flagCode": "tr",
+        "licenseNo": "2626589",
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "İlker Günaslan",
@@ -1391,7 +1397,7 @@
         "nationality": "Türkiye",
         "flagCode": "tr",
         "licenseNo": "239531",
-        "club": "Erzurumspor Fk"
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "Sedat Dursun",
