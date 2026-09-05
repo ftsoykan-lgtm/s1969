@@ -133,29 +133,25 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
   const logoBase = Math.max(LOGO_MIN, Math.min(club.logoSize || LOGO_MIN, 150))
   const emblemPx = scrolled ? Math.round(logoBase * 0.62) : logoBase
 
-  // Resmi kulüp menüsü — düz BÜYÜK HARF öğeler, aktif/hover'da ince altın alt-çizgi.
-  const goldUnderline = (on: boolean) =>
-    cn('pointer-events-none absolute left-3 right-3 bottom-1.5 h-[2px] bg-ugold origin-center transition-transform duration-300 ease-out',
-      on ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100')
-
   // Menü linki — sivasspor ölçüsü: Inter 13.76px / 700 / ls .62px / uppercase,
-  // tam bar yüksekliği, yatay padding 13px, ikon boşluğu 6px
-  const navItemCls = 'group relative flex h-full items-center gap-1.5 px-[13px] text-[13.8px] font-bold tracking-[0.045em] uppercase whitespace-nowrap transition-colors duration-200'
+  // tam bar yüksekliği, yatay padding 13px. Gösterge (.nav-ind) globals.css'te:
+  // ortadan açılan altın çizgi + yumuşak hâle.
+  const navItemCls = 'nav-item group relative flex h-full items-center gap-1.5 px-[13px] text-[13.8px] font-bold tracking-[0.045em] uppercase whitespace-nowrap transition-colors duration-200'
 
   const renderNavItem = (link: (typeof navLinks)[number]) =>
     link.hasMega ? (
       <div key={link.label} className="relative flex h-full items-center" onMouseEnter={openMega} onMouseLeave={closeMega}>
         <button className={cn(navItemCls, megaOpen ? 'text-ugold' : 'text-white/85 hover:text-white')}>
           {link.label}
-          <ChevronDown size={13} className={cn('text-ugold/80 transition-transform duration-200', megaOpen && 'rotate-180')} />
-          <span aria-hidden className={goldUnderline(megaOpen)} />
+          <ChevronDown size={13} className={cn('text-ugold/80 transition-transform duration-300', megaOpen && 'rotate-180')} />
+          <span aria-hidden className="nav-ind" data-on={megaOpen ? 'true' : 'false'} />
         </button>
       </div>
     ) : (
       <Link key={link.href} href={link.href} className={cn(navItemCls,
         isActive(link.href) ? 'text-ugold' : 'text-white/85 hover:text-white')}>
         {link.label}
-        <span aria-hidden className={goldUnderline(isActive(link.href))} />
+        <span aria-hidden className="nav-ind" data-on={isActive(link.href) ? 'true' : 'false'} />
       </Link>
     )
 
@@ -200,13 +196,21 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
         </div>
       </div>
 
-      {/* ── Ana bar — KATI KOYU YEŞİL (sivasspor.org.tr tarzı koyu menü alanı) ── */}
-      <div className={cn('relative overflow-visible bg-ugreend transition-all duration-300',
-        scrolled
-          ? 'shadow-[0_18px_44px_-18px_rgba(0,0,0,0.72)]'
-          : 'shadow-[0_14px_34px_-18px_rgba(0,0,0,0.5)]')}>
-        {/* çok hafif üst sheen — düz koyu zemine derinlik */}
-        <div aria-hidden className="absolute inset-0 pointer-events-none bg-[linear-gradient(180deg,rgba(255,255,255,0.04),transparent_35%)]" />
+      {/* ── Ana bar — KATI KOYU YEŞİL + premium derinlik katmanları ── */}
+      <div className="relative overflow-visible bg-ugreend transition-all duration-300"
+        style={{
+          // çok katmanlı gölge + üst iç ışık çizgisi (virgüllü → inline zorunlu)
+          boxShadow: scrolled
+            ? '0 1px 0 rgba(255,255,255,0.06) inset, 0 18px 44px -18px rgba(0,0,0,0.72), 0 2px 10px rgba(0,0,0,0.28)'
+            : '0 1px 0 rgba(255,255,255,0.06) inset, 0 14px 34px -18px rgba(0,0,0,0.50)',
+        }}>
+        {/* atmosfer: üst sheen + armanın arkasında yumuşak altın hâle */}
+        <div aria-hidden className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              'linear-gradient(180deg, rgba(255,255,255,0.045), transparent 38%),' +
+              'radial-gradient(46% 150% at 6% 15%, color-mix(in srgb, var(--c-ugold) 13%, transparent), transparent 70%)',
+          }} />
         {/* alt altın saç çizgisi */}
         <div className="absolute bottom-0 inset-x-0 h-[2px] bg-gradient-to-r from-ugold/15 via-ugold/70 to-ugold/15" />
         <div className="relative mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
@@ -285,13 +289,15 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
             {/* SAĞ — arama 44x44 r13 · CTA h42 px18 r6 (gap 10) */}
             <div className="flex items-center gap-[10px] shrink-0">
               <button onClick={() => setSearchOpen(!searchOpen)} aria-label="Ara"
-                className="h-11 w-11 flex items-center justify-center rounded-[13px] text-white/80 bg-white/[0.055] hover:text-ugold hover:bg-white/[0.1] transition-all">
+                className="h-11 w-11 flex items-center justify-center rounded-[13px] text-white/80 bg-white/[0.055] ring-1 ring-white/10 hover:text-ugold hover:bg-white/[0.1] hover:ring-ugold/40 transition-all duration-300">
                 <Search size={17} />
               </button>
               <Link href="/bilet"
-                className="group relative inline-flex h-[42px] items-center gap-2 px-[18px] rounded-md overflow-hidden text-ugreend text-[11.8px] font-extrabold tracking-[0.08em] uppercase whitespace-nowrap
-                           bg-gradient-to-b from-ugoldl to-ugold shadow-[0_10px_24px_-12px_rgba(245,196,0,0.9),inset_0_1px_0_rgba(255,255,255,0.5)] transition-all hover:-translate-y-0.5 hover:shadow-[0_16px_30px_-14px_rgba(245,196,0,1),inset_0_1px_0_rgba(255,255,255,0.6)]">
-                <span className="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-white/25" />
+                className="cta-premium group relative inline-flex h-[42px] items-center gap-2 px-[18px] rounded-md overflow-hidden text-ugreend text-[11.8px] font-extrabold tracking-[0.08em] uppercase whitespace-nowrap
+                           bg-gradient-to-b from-ugoldl to-ugold transition-all duration-300 hover:-translate-y-0.5"
+                style={{ boxShadow: '0 10px 24px -12px rgba(245,196,0,0.9), inset 0 1px 0 rgba(255,255,255,0.55)' }}>
+                <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-white/25" />
+                <span aria-hidden className="cta-sweep" />
                 <Ticket size={14} className="relative" />
                 <span className="relative">Bilet Al</span>
               </Link>
@@ -311,14 +317,16 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
               <div className="relative p-8 grid grid-cols-[1fr_1fr_1fr_1.1fr] gap-10">
                 {kulupMenu.map((col) => (
                   <div key={col.baslik}>
-                    <p className="text-ugold text-[10px] font-extrabold tracking-[0.25em] mb-4 pb-3 border-b border-white/12">{col.baslik}</p>
+                    <p className="mb-4 pb-3 border-b border-white/12 text-[10px] font-extrabold tracking-[0.25em] text-ugold">{col.baslik}</p>
                     <ul className="space-y-0.5">
                       {col.linkler.map((item) => (
                         <li key={item.label}>
+                          {/* Hover'da soldan açılan altın ray + metin sağa kayar */}
                           <Link href={item.href}
-                            className="flex items-center gap-2.5 text-sm font-medium text-white/66 hover:text-white hover:bg-white/[0.07] rounded-xl px-3 py-2 -mx-3 transition-all group">
-                            <span className="w-1.5 h-1.5 rounded-full bg-ugold/30 group-hover:bg-ugold transition-colors shrink-0" />
-                            {item.label}
+                            className="group/row relative flex items-center rounded-xl -mx-3 px-3 py-2.5 text-sm font-medium text-white/65 transition-colors duration-300 hover:text-white hover:bg-white/[0.06]">
+                            <span aria-hidden
+                              className="absolute left-0 top-1/2 h-5 w-[2px] -translate-y-1/2 origin-center scale-y-0 rounded-full bg-ugold opacity-0 transition-all duration-300 group-hover/row:scale-y-100 group-hover/row:opacity-100" />
+                            <span className="transition-transform duration-300 group-hover/row:translate-x-1.5">{item.label}</span>
                           </Link>
                         </li>
                       ))}
@@ -381,18 +389,25 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
             </button>
           </div>
 
-          {/* Menü — satır 56px, Archivo 17.6px uppercase, chevron 12px */}
+          {/* Menü — satır 56px, Archivo 17.6px uppercase, chevron 12px.
+              Premium: açılışta kademeli beliriş + aktif sayfada altın ray. */}
           <ul className="flex flex-col">
-            {navLinks.map((link) => (
-              <li key={link.label} className="border-b border-white/[0.08]">
+            {navLinks.map((link, i) => (
+              <li key={link.label}
+                className={cn('relative border-b border-white/[0.08]', mobileOpen && 'drawer-item')}
+                style={mobileOpen ? { animationDelay: `${60 + i * 45}ms` } : undefined}>
+                {/* aktif sayfa göstergesi — sol altın ray */}
+                {!link.hasMega && isActive(link.href) && (
+                  <span aria-hidden className="absolute left-0 top-1/2 h-7 w-[3px] -translate-y-1/2 rounded-full bg-ugold" />
+                )}
                 {link.hasMega ? (
                   <>
                     {/* Açık satır altın renge döner, chevron 180° (sivasspor birebir) */}
                     <button onClick={() => setMobileSubOpen((v) => !v)} aria-expanded={mobileSubOpen}
-                      className={cn('flex w-full items-center justify-between gap-3 h-14 px-1.5 font-heading text-[17.6px] font-bold tracking-[0.035em] uppercase transition-colors',
+                      className={cn('flex w-full items-center justify-between gap-3 h-14 px-1.5 font-heading text-[17.6px] font-bold tracking-[0.035em] uppercase transition-colors duration-300 active:opacity-70',
                         mobileSubOpen ? 'text-ugold' : 'text-white')}>
                       {link.label}
-                      <ChevronDown size={12} className={cn('shrink-0 text-ugold transition-transform duration-200', mobileSubOpen && 'rotate-180')} />
+                      <ChevronDown size={12} className={cn('shrink-0 text-ugold transition-transform duration-300', mobileSubOpen && 'rotate-180')} />
                     </button>
                     {/* Alt menü — sol accent çizgi (2px altın/40), grup başlıkları + linkler */}
                     {mobileSubOpen && (
@@ -413,7 +428,7 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
                   </>
                 ) : (
                   <Link href={link.href} onClick={() => setMobileOpen(false)}
-                    className={cn('flex items-center h-14 px-1.5 font-heading text-[17.6px] font-bold tracking-[0.035em] uppercase transition-colors',
+                    className={cn('flex items-center h-14 px-1.5 font-heading text-[17.6px] font-bold tracking-[0.035em] uppercase transition-colors duration-300 active:opacity-70',
                       isActive(link.href) ? 'text-ugold' : 'text-white hover:text-ugold')}>
                     {link.label}
                   </Link>
@@ -423,7 +438,8 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
           </ul>
 
           {/* Alt — Mağaza/Taraftar (48px) · Bilet Al (50px r6) · telefon + sosyal */}
-          <div className="flex flex-col gap-3 pt-5">
+          <div className={cn('flex flex-col gap-3 pt-5', mobileOpen && 'drawer-item')}
+            style={mobileOpen ? { animationDelay: `${60 + navLinks.length * 45}ms` } : undefined}>
             <div className="grid grid-cols-2 gap-2.5">
               <Link href="/magaza" onClick={() => setMobileOpen(false)}
                 className="flex h-12 items-center justify-center gap-2 rounded-lg border border-ugold/35 bg-ugold/[0.06] text-[12px] font-extrabold tracking-[0.06em] uppercase text-ugold">
@@ -436,8 +452,10 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
             </div>
 
             <Link href="/bilet" onClick={() => setMobileOpen(false)}
-              className="flex h-[50px] items-center justify-center gap-2 rounded-[6px] text-[11.8px] font-extrabold tracking-[0.08em] uppercase text-ugreend bg-gradient-to-b from-ugoldl to-ugold shadow-[0_12px_28px_-14px_rgba(245,196,0,0.95)]">
-              <Ticket size={16} /> Bilet Al
+              className="cta-premium relative flex h-[50px] items-center justify-center gap-2 overflow-hidden rounded-[6px] text-[11.8px] font-extrabold tracking-[0.08em] uppercase text-ugreend bg-gradient-to-b from-ugoldl to-ugold"
+              style={{ boxShadow: '0 12px 28px -14px rgba(245,196,0,0.95), inset 0 1px 0 rgba(255,255,255,0.55)' }}>
+              <span aria-hidden className="cta-sweep" />
+              <Ticket size={16} className="relative" /> <span className="relative">Bilet Al</span>
             </Link>
 
             <div className="flex flex-col gap-2.5 pt-1">
