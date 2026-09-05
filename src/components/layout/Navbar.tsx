@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState, useRef, useEffect } from 'react'
-import { Menu, X, Search, ChevronDown, Ticket, Globe, Phone, Store, MessageSquare } from 'lucide-react'
+import { X, Search, ChevronDown, Ticket, Phone, Store, MessageSquare } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { clubInfo as defaultClub } from '@/data/club'
 import type { ClubInfo } from '@/data/club'
@@ -129,6 +129,7 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
   const BAR_H = 89
   const BAR_H_SCROLLED = 68
   const LOGO_MIN = 104            // referans boyut — bardan büyük, alttan taşar (üst içerlek: top-[5px])
+  const MOBILE_LOGO = 62          // mobil bar 71px → 12px içerlek, 3px alttan taşar
   const logoBase = Math.max(LOGO_MIN, Math.min(club.logoSize || LOGO_MIN, 150))
   const emblemPx = scrolled ? Math.round(logoBase * 0.62) : logoBase
 
@@ -210,30 +211,44 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
         <div className="absolute bottom-0 inset-x-0 h-[2px] bg-gradient-to-r from-ugold/15 via-ugold/70 to-ugold/15" />
         <div className="relative mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
 
-          {/* ── MOBİL BAR (menü · logo · dil) ───────────────────────── */}
-          <div className="lg:hidden grid grid-cols-[1fr_auto_1fr] items-center h-16">
-            <button onClick={() => setMobileOpen(!mobileOpen)} aria-label="Menü"
-              className="justify-self-start h-10 w-10 flex items-center justify-center rounded-full text-white bg-white/[0.06] ring-1 ring-white/10 -ml-1">
-              {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-
-            <Link href="/" className="justify-self-center flex items-center gap-2 min-w-0" aria-label={club.name}>
+          {/* ── MOBİL BAR — sivasspor birebir: h71, logo 62px (12px içerlek → 3px taşar),
+              solda marka · sağda arama + hamburger (38x38, r11, gap 6) ── */}
+          <div className="lg:hidden flex items-center justify-between gap-[9px] h-[71px]">
+            {/* SOL — arma + sponsor öneki + kulüp adı */}
+            <Link href="/" aria-label={club.name} className="relative flex h-full items-center min-w-0"
+              style={{ paddingLeft: MOBILE_LOGO + 7 }}>
               {hasLogo ? (
-                <ClubLogo src={club.logoUrl} size={42} priority className="object-contain drop-shadow-[0_2px_6px_rgba(0,0,0,0.45)] shrink-0" />
+                <ClubLogo src={club.logoUrl} size={MOBILE_LOGO} optSize={80} priority
+                  className="absolute left-0 top-3 object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]" />
               ) : (
-                <div className="h-9 w-9 rounded-full bg-ugold flex items-center justify-center shrink-0">
-                  <span className="font-heading font-extrabold text-[10px] text-ugreend">{club.shortCode}</span>
+                <div style={{ height: MOBILE_LOGO, width: MOBILE_LOGO }}
+                  className="absolute left-0 top-3 rounded-full bg-ugold flex items-center justify-center">
+                  <span className="font-heading font-extrabold text-[11px] text-ugreend">{club.shortCode}</span>
                 </div>
               )}
               <span className="flex flex-col leading-none min-w-0">
-                <span className="font-heading font-extrabold text-[15px] tracking-tight uppercase text-white truncate">{club.name}</span>
-                {club.brandTagline && <span className="text-[8px] font-semibold tracking-[0.16em] uppercase text-ugold/75 truncate">{club.brandTagline}</span>}
+                {club.brandTagline && (
+                  <span className="font-heading text-[9px] font-semibold tracking-[0.16em] uppercase text-white/70 truncate">{club.brandTagline}</span>
+                )}
+                <span className="mt-[3px] font-heading text-[18px] font-bold leading-none tracking-[0.01em] uppercase text-ugold truncate">{club.name}</span>
               </span>
             </Link>
 
-            <button aria-label="Dil" className="justify-self-end h-10 w-10 flex items-center justify-center rounded-full text-white/80 bg-white/[0.04] ring-1 ring-white/10 hover:text-ugold hover:bg-white/[0.08] transition-colors -mr-1">
-              <Globe size={22} />
-            </button>
+            {/* SAĞ — arama + hamburger */}
+            <div className="flex items-center gap-1.5 shrink-0">
+              <button onClick={() => setSearchOpen(!searchOpen)} aria-label="Ara"
+                className="h-[38px] w-[38px] flex items-center justify-center rounded-[11px] text-white/85 bg-white/[0.055] hover:text-ugold transition-colors">
+                <Search size={17} />
+              </button>
+              <button onClick={() => setMobileOpen(true)} aria-label="Menü" aria-expanded={mobileOpen}
+                className="h-[38px] w-[38px] flex items-center justify-center rounded-[11px] text-white bg-white/[0.055] hover:text-ugold transition-colors">
+                <span aria-hidden className="grid w-5 gap-[5px]">
+                  <span className="h-[2px] w-full rounded-full bg-current" />
+                  <span className="h-[2px] w-full rounded-full bg-current" />
+                  <span className="h-[2px] w-full rounded-full bg-current" />
+                </span>
+              </button>
+            </div>
           </div>
 
           {/* ── MASAÜSTÜ BAR — sivasspor `.kap` birebir: h89 (scroll'da 68), gap 22 ── */}
@@ -322,88 +337,115 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
           </div>
         </div>
 
-        {/* ── MOBİL MENÜ — TAM EKRAN + BÜYÜK TİPOGRAFİ ──────────────────── */}
-        <div className={cn(
-          'lg:hidden fixed inset-0 z-[60] flex flex-col transition-transform duration-300 ease-out bg-[linear-gradient(180deg,var(--c-ugreendd)_0%,var(--c-ugreens)_52%,var(--c-ugreenb)_100%)]',
-          mobileOpen ? 'translate-x-0' : 'translate-x-full pointer-events-none'
-        )}>
-          <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(85%_55%_at_80%_0%,rgba(245,196,0,0.18),transparent_62%),linear-gradient(90deg,rgba(255,255,255,0.06),transparent_26%)]" />
-          {/* dev arma filigranı */}
-          <div aria-hidden className="pointer-events-none absolute -right-16 -bottom-10 font-heading text-[16rem] font-extrabold text-white/[0.03] leading-none select-none">{club.shortCode}</div>
+        {/* ── MOBİL ÖRTÜ (perde) — sivasspor: rgba(9,7,6,.74), z190 ── */}
+        <div aria-hidden onClick={() => setMobileOpen(false)}
+          className={cn('lg:hidden fixed inset-0 z-[190] bg-[rgba(6,16,10,0.76)] transition-opacity duration-300',
+            mobileOpen ? 'opacity-100' : 'opacity-0 pointer-events-none')} />
 
-          {/* Panel başlığı */}
-          <div className="relative flex items-center justify-between h-16 px-4 border-b border-white/12 shrink-0">
-            <Link href="/" onClick={() => setMobileOpen(false)} className="flex items-center gap-2.5">
+        {/* ── MOBİL ÇEKMECE — sivasspor `.cekmece` birebir: 345px sağdan, z200,
+            padding 16/20/22, kendi içinde kaydırılır ── */}
+        {/* NOT: transform/transition INLINE — Tailwind v4 virgüllü arbitrary değeri
+            (ease-[cubic-bezier(...)]) kuralı bozup translate'i uygulamıyordu. */}
+        <aside
+          className="lg:hidden fixed right-0 top-0 bottom-0 z-[200] w-[345px] max-w-[92vw] overflow-y-auto overscroll-contain px-5 pt-4 pb-[22px] bg-[linear-gradient(180deg,var(--c-ugreend)_0%,var(--c-ugreendd)_100%)]"
+          style={{
+            transform: mobileOpen ? 'translateX(0)' : 'translateX(100%)',
+            // visibility gecikmeli: kapanış animasyonu bitince gizlensin (klavye odağı dışarıda kalsın)
+            transition: `transform 300ms cubic-bezier(0.22, 1, 0.36, 1), visibility 0s linear ${mobileOpen ? '0s' : '300ms'}`,
+            visibility: mobileOpen ? 'visible' : 'hidden',
+          }}
+          aria-hidden={!mobileOpen}>
+
+          {/* Tepe — arma 46px + sponsor/isim + kapat 44x44 r13 */}
+          <div className="flex items-center justify-between gap-3 pb-3.5 border-b border-white/[0.11]">
+            <Link href="/" onClick={() => setMobileOpen(false)} className="flex items-center gap-2.5 min-w-0">
               {hasLogo ? (
-                <ClubLogo src={club.logoUrl} size={44} className="object-contain drop-shadow-[0_2px_6px_rgba(0,0,0,0.45)]" />
+                <ClubLogo src={club.logoUrl} size={46} optSize={80} className="shrink-0 object-contain" />
               ) : (
-                <div className="h-10 w-10 rounded-full bg-ugold flex items-center justify-center"><span className="font-heading font-extrabold text-[11px] text-ugreend">{club.shortCode}</span></div>
+                <div className="h-[46px] w-[46px] shrink-0 rounded-full bg-ugold flex items-center justify-center">
+                  <span className="font-heading font-extrabold text-[11px] text-ugreend">{club.shortCode}</span>
+                </div>
               )}
-              <span className="font-heading font-extrabold text-base tracking-tight uppercase text-white">{club.name}</span>
+              <span className="flex flex-col leading-none min-w-0">
+                {club.brandTagline && (
+                  <span className="text-[9px] font-extrabold tracking-[0.16em] uppercase text-white/70 truncate">{club.brandTagline}</span>
+                )}
+                <span className="mt-1 font-heading text-[20.8px] font-bold leading-none tracking-[0.01em] uppercase text-ugold truncate">{club.name}</span>
+              </span>
             </Link>
             <button onClick={() => setMobileOpen(false)} aria-label="Kapat"
-              className="h-11 w-11 flex items-center justify-center rounded-full text-white bg-white/[0.08] hover:bg-white/15 transition-colors">
-              <X size={22} />
+              className="h-11 w-11 shrink-0 flex items-center justify-center rounded-[13px] text-white bg-white/[0.055] border border-white/[0.11] hover:bg-white/10 transition-colors">
+              <X size={20} />
             </button>
           </div>
 
-          {/* İçerik (kaydırılabilir) — açılışta kademeli beliren büyük öğeler */}
-          <div className="relative flex-1 overflow-y-auto overscroll-contain px-5 py-6">
-            {mobileOpen && (
-              <>
-                <nav className="flex flex-col">
-                  {navLinks.map((link, i) =>
-                    link.hasMega ? (
-                      <div key={link.label} className="nav-mitem border-b border-white/[0.09]" style={{ animationDelay: `${i * 55}ms` }}>
-                        <button onClick={() => setMobileSubOpen((v) => !v)}
-                          className="w-full flex items-center justify-between gap-3 py-4">
-                          <span className="flex items-baseline gap-3">
-                            <span className="font-heading text-[9px] font-extrabold tracking-[0.25em] text-ugold/50 tabular-nums">0{i + 1}</span>
-                            <span className="font-heading text-[26px] font-extrabold tracking-tight uppercase text-white leading-none">{link.label}</span>
-                          </span>
-                          <ChevronDown size={22} className={cn('text-ugold/70 transition-transform duration-200', mobileSubOpen && 'rotate-180')} />
-                        </button>
-                        {mobileSubOpen && (
-                          <div className="pb-4 pl-7 grid grid-cols-2 gap-x-4 gap-y-1">
-                            {kulupMenu.flatMap((col) => col.linkler).map((item) => (
-                              <Link key={item.label} href={item.href} onClick={() => setMobileOpen(false)}
-                                className="block rounded-lg px-2 py-1.5 text-[14px] text-white/68 hover:bg-white/[0.06] hover:text-ugold transition-colors">{item.label}</Link>
-                            ))}
-                          </div>
-                        )}
+          {/* Menü — satır 56px, Archivo 17.6px uppercase, chevron 12px */}
+          <ul className="flex flex-col">
+            {navLinks.map((link) => (
+              <li key={link.label} className="border-b border-white/[0.08]">
+                {link.hasMega ? (
+                  <>
+                    <button onClick={() => setMobileSubOpen((v) => !v)} aria-expanded={mobileSubOpen}
+                      className="flex w-full items-center justify-between gap-3 h-14 px-1.5 font-heading text-[17.6px] font-bold tracking-[0.035em] uppercase text-white">
+                      {link.label}
+                      <ChevronDown size={12} className={cn('shrink-0 text-ugold transition-transform duration-200', mobileSubOpen && 'rotate-180')} />
+                    </button>
+                    {mobileSubOpen && (
+                      <div className="grid gap-0.5 pb-3 pl-1.5">
+                        {kulupMenu.flatMap((col) => col.linkler).map((item) => (
+                          <Link key={item.label} href={item.href} onClick={() => setMobileOpen(false)}
+                            className="rounded-lg px-2 py-2 text-[14px] text-white/65 hover:bg-white/[0.06] hover:text-ugold transition-colors">{item.label}</Link>
+                        ))}
                       </div>
-                    ) : (
-                      <Link key={link.href} href={link.href === '#' ? '#' : link.href} onClick={() => setMobileOpen(false)}
-                        style={{ animationDelay: `${i * 55}ms` }}
-                        className={cn('nav-mitem group flex items-baseline gap-3 py-4 border-b border-white/[0.09]',
-                          isActive(link.href) ? 'text-ugold' : 'text-white')}>
-                        <span className={cn('font-heading text-[9px] font-extrabold tracking-[0.25em] tabular-nums', isActive(link.href) ? 'text-ugold/70' : 'text-ugold/50')}>0{i + 1}</span>
-                        <span className="font-heading text-[26px] font-extrabold tracking-tight uppercase leading-none">{link.label}</span>
-                      </Link>
-                    )
-                  )}
-                </nav>
+                    )}
+                  </>
+                ) : (
+                  <Link href={link.href} onClick={() => setMobileOpen(false)}
+                    className={cn('flex items-center h-14 px-1.5 font-heading text-[17.6px] font-bold tracking-[0.035em] uppercase transition-colors',
+                      isActive(link.href) ? 'text-ugold' : 'text-white hover:text-ugold')}>
+                    {link.label}
+                  </Link>
+                )}
+              </li>
+            ))}
+          </ul>
 
-                <Link href="/bilet" onClick={() => setMobileOpen(false)}
-                  style={{ animationDelay: `${navLinks.length * 55}ms` }}
-                  className="nav-mitem flex items-center justify-center gap-2 mt-7 py-4 text-sm font-extrabold tracking-widest text-ugreend bg-gradient-to-b from-ugoldl to-ugold rounded-2xl uppercase shadow-[0_16px_34px_-16px_rgba(245,196,0,1),inset_0_1px_0_rgba(255,255,255,0.55)]">
-                  <Ticket size={16} /> Bilet Al
-                </Link>
+          {/* Alt — Mağaza/Taraftar (48px) · Bilet Al (50px r6) · telefon + sosyal */}
+          <div className="flex flex-col gap-3 pt-5">
+            <div className="grid grid-cols-2 gap-2.5">
+              <Link href="/magaza" onClick={() => setMobileOpen(false)}
+                className="flex h-12 items-center justify-center gap-2 rounded-lg border border-ugold/35 bg-ugold/[0.06] text-[12px] font-extrabold tracking-[0.06em] uppercase text-ugold">
+                <Store size={15} /> Mağaza
+              </Link>
+              <Link href="/sayfa/taraftar" onClick={() => setMobileOpen(false)}
+                className="flex h-12 items-center justify-center gap-2 rounded-lg border border-white/[0.14] bg-white/[0.04] text-[12px] font-extrabold tracking-[0.06em] uppercase text-white/85">
+                <MessageSquare size={15} /> Taraftar
+              </Link>
+            </div>
 
-                <div className="nav-mitem flex items-center justify-between gap-3 mt-6" style={{ animationDelay: `${(navLinks.length + 1) * 55}ms` }}>
-                  <Link href="/magaza" onClick={() => setMobileOpen(false)}
-                    className="text-[11px] font-extrabold tracking-[0.2em] uppercase text-white/55 hover:text-ugold transition-colors">Mağaza</Link>
-                  <div className="flex items-center gap-2.5">
-                    {socials.map(({ icon: Icon, href, label, cls }) => (
-                      <a key={label} href={href} aria-label={label} target="_blank" rel="noopener noreferrer"
-                        className={`flex h-9 w-9 items-center justify-center rounded-xl text-white shadow-sm ${cls}`}><Icon /></a>
-                    ))}
-                  </div>
-                </div>
-              </>
-            )}
+            <Link href="/bilet" onClick={() => setMobileOpen(false)}
+              className="flex h-[50px] items-center justify-center gap-2 rounded-[6px] text-[11.8px] font-extrabold tracking-[0.08em] uppercase text-ugreend bg-gradient-to-b from-ugoldl to-ugold shadow-[0_12px_28px_-14px_rgba(245,196,0,0.95)]">
+              <Ticket size={16} /> Bilet Al
+            </Link>
+
+            <div className="flex flex-col gap-2.5 pt-1">
+              {club.phone && (
+                <a href={`tel:${club.phone.replace(/[^+\d]/g, '')}`}
+                  className="flex items-center justify-center gap-2 text-[12.5px] font-bold text-white/80 hover:text-ugold transition-colors">
+                  <Phone size={13} className="text-ugold" /> {club.phone}
+                </a>
+              )}
+              <div className="flex items-center justify-center gap-2.5">
+                {socials.map(({ icon: Icon, href, label }) => (
+                  <a key={label} href={href} aria-label={label} target="_blank" rel="noopener noreferrer"
+                    className="h-[34px] w-[34px] flex items-center justify-center rounded-[10px] text-white/60 hover:text-ugold hover:bg-white/[0.06] transition-colors">
+                    <Icon />
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
+        </aside>
 
         {/* ── Arama ────────────────────────────────────────────────── */}
         {searchOpen && (
