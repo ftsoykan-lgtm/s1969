@@ -260,22 +260,11 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
             style={{ height: scrolled ? BAR_H_SCROLLED : BAR_H }}>
 
             {/* SOL — arma (MUTLAK: bar üstünden 5px, bardan büyük → alttan taşar) + sponsor/isim */}
-            {/* ── MARKA KİLİDİ (lockup) — hanedan/madalya dili ──────────
-                Altın hâle armayı aydınlatır · ortasında baklava olan heraldik
-                ayraç iki parçayı tek amblem yapar · kuruluş yılı altın rozet ·
-                kulüp adı KABARTMA (letterpress: altta koyu, üstte ince ışık). */}
-            <Link href="/" aria-label={club.name} className="group/brand relative flex h-full shrink-0 items-center gap-[18px]"
-              style={{ paddingLeft: emblemPx + 16 }}>
-              {/* armayı saran yumuşak altın hâle */}
-              <span aria-hidden className="pointer-events-none absolute top-1/2 -translate-y-1/2 rounded-full transition-opacity duration-500 opacity-80 group-hover/brand:opacity-100"
-                style={{
-                  width: emblemPx * 1.3, height: emblemPx * 1.3, left: emblemPx * -0.15,
-                  background: 'radial-gradient(circle, color-mix(in srgb, var(--c-ugold) 20%, transparent) 0%, transparent 65%)',
-                }} />
-
+            <Link href="/" aria-label={club.name} className="relative flex h-full items-center shrink-0"
+              style={{ paddingLeft: emblemPx + 7 }}>
               {hasLogo ? (
                 <ClubLogo src={club.logoUrl} size={emblemPx} optSize={120} priority
-                  className={cn('logo-emblem absolute left-0 object-contain drop-shadow-[0_4px_16px_rgba(0,0,0,0.6)] transition-transform duration-500 group-hover/brand:scale-[1.04]',
+                  className={cn('logo-emblem absolute left-0 object-contain drop-shadow-[0_3px_12px_rgba(0,0,0,0.55)] transition-all duration-300',
                     scrolled ? 'top-1' : 'top-[5px]')} />
               ) : (
                 <div style={{ height: emblemPx, width: emblemPx }}
@@ -283,31 +272,12 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
                   <span className="font-heading font-extrabold text-sm text-ugreend">{club.shortCode}</span>
                 </div>
               )}
-
-              {/* heraldik ayraç — altın kural + merkezinde baklava */}
-              <span aria-hidden className="relative hidden h-[58px] w-px shrink-0 xl:block"
-                style={{ background: 'linear-gradient(to bottom, transparent, var(--c-ugold) 24%, var(--c-ugold) 76%, transparent)', opacity: 0.5 }}>
-                <span className="absolute left-1/2 top-1/2 h-[5px] w-[5px] -translate-x-1/2 -translate-y-1/2 rotate-45 bg-ugold" />
-              </span>
-
-              <span className="hidden min-w-0 flex-col xl:flex">
-                {/* kuruluş rozeti + sponsor */}
-                <span className="flex items-center gap-2.5 whitespace-nowrap">
-                  {club.founded && (
-                    <span className="rounded-[3px] bg-ugold px-1.5 py-[2px] font-heading text-[9.5px] font-extrabold tracking-[0.1em] text-ugreend">
-                      {club.founded}
-                    </span>
-                  )}
-                  {club.brandTagline && (
-                    <span className="font-heading text-[11px] font-bold uppercase tracking-[0.26em] text-white/65">{club.brandTagline}</span>
-                  )}
-                </span>
-
-                {/* kabartmalı kulüp adı */}
-                <span className="mt-[7px] whitespace-nowrap font-heading text-[32px] font-bold uppercase leading-none tracking-[0.012em] text-ugold"
-                  style={{ textShadow: '0 1px 0 rgba(0,0,0,0.55), 0 -1px 0 rgba(255,255,255,0.10), 0 4px 16px rgba(0,0,0,0.45)' }}>
-                  {club.name}
-                </span>
+              {/* Sponsor öneki (14.5px/600/ls1.6) ÜSTTE · kulüp adı (31px/700) ALTTA */}
+              <span className="hidden xl:flex flex-col leading-none min-w-0">
+                {club.brandTagline && (
+                  <span className="font-heading text-[14.5px] font-semibold tracking-[0.11em] uppercase text-white/90 whitespace-nowrap">{club.brandTagline}</span>
+                )}
+                <span className="mt-[3px] font-heading text-[31px] font-bold leading-none tracking-[0.015em] uppercase text-ugold whitespace-nowrap">{club.name}</span>
               </span>
             </Link>
 
