@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-06T20:15:51.157Z",
+  "updatedAt": "2026-09-07T03:56:05.413Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -1115,13 +1115,7 @@
         "name": "Ahmet Güneş",
         "tffId": "2088408",
         "number": null,
-        "position": null,
-        "birthPlace": "Şanlıurfa",
-        "birthDate": "16.01.2006",
-        "nationality": "Türkiye",
-        "flagCode": "tr",
-        "licenseNo": "1946441",
-        "club": "Kızılkaya Tarım Şanlıurfaspor"
+        "position": null
       },
       {
         "name": "Ahmet Karademir",
@@ -1391,13 +1385,7 @@
         "name": "Özgür Sert",
         "tffId": "1510665",
         "number": null,
-        "position": null,
-        "birthPlace": "Erzurum",
-        "birthDate": "11.01.2001",
-        "nationality": "Türkiye",
-        "flagCode": "tr",
-        "licenseNo": "239531",
-        "club": "Kızılkaya Tarım Şanlıurfaspor"
+        "position": null
       },
       {
         "name": "Sedat Dursun",
@@ -1415,13 +1403,7 @@
         "name": "Sinan Kurumuş",
         "tffId": "950263",
         "number": null,
-        "position": null,
-        "birthPlace": "İnegöl",
-        "birthDate": "02.08.1994",
-        "nationality": "Türkiye",
-        "flagCode": "tr",
-        "licenseNo": "1625020",
-        "club": "Kızılkaya Tarım Şanlıurfaspor"
+        "position": null
       },
       {
         "name": "Tahsin Bülbül",
