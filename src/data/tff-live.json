@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-07T03:56:05.413Z",
+  "updatedAt": "2026-09-07T12:05:16.758Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -321,11 +321,11 @@
             "role": "Hakem"
           },
           {
-            "name": "Emirhan Durmaz",
+            "name": "Melih Tan",
             "role": "1. Yardımcı Hakem"
           },
           {
-            "name": "Melih Tan",
+            "name": "Emirhan Durmaz",
             "role": "2. Yardımcı Hakem"
           },
           {
@@ -333,8 +333,228 @@
             "role": "Dördüncü Hakem"
           }
         ],
-        "lineups": null,
-        "events": []
+        "lineups": {
+          "home": {
+            "starters": [
+              {
+                "number": 20,
+                "name": "Abdulkadir Sünger"
+              },
+              {
+                "number": 4,
+                "name": "Muhammed Gönülaçar"
+              },
+              {
+                "number": 5,
+                "name": "Hasan Hatipoğlu"
+              },
+              {
+                "number": 6,
+                "name": "Umut Mert Toy"
+              },
+              {
+                "number": 7,
+                "name": "Oğuzhan Doğan"
+              },
+              {
+                "number": 11,
+                "name": "Ali Aydemir"
+              },
+              {
+                "number": 16,
+                "name": "Yiğitali Bayrak"
+              },
+              {
+                "number": 25,
+                "name": "Özgür Sert"
+              },
+              {
+                "number": 39,
+                "name": "İbrahim Sürgülü"
+              },
+              {
+                "number": 70,
+                "name": "Fatih Mehmet Ekinci"
+              },
+              {
+                "number": 99,
+                "name": "Sinan Kurumuş"
+              }
+            ],
+            "subs": [
+              {
+                "number": 1,
+                "name": "Ahmet Güneş"
+              },
+              {
+                "number": 8,
+                "name": "Ferhan Evren"
+              },
+              {
+                "number": 9,
+                "name": "İbrahim Burak Işık"
+              },
+              {
+                "number": 14,
+                "name": "Özcan Aydın"
+              },
+              {
+                "number": 17,
+                "name": "Ahmet Karademir"
+              },
+              {
+                "number": 27,
+                "name": "İlker Günaslan"
+              },
+              {
+                "number": 52,
+                "name": "Hüsamettin Yener"
+              },
+              {
+                "number": 55,
+                "name": "Emin Metehan Ataşsalar"
+              },
+              {
+                "number": 66,
+                "name": "Cebrail İrtürk"
+              },
+              {
+                "number": 75,
+                "name": "Eyüp Can Özel"
+              }
+            ],
+            "coach": "Gürses Kılıç"
+          },
+          "away": {
+            "starters": [
+              {
+                "number": 1,
+                "name": "Muhammet Can Tuncer"
+              },
+              {
+                "number": 3,
+                "name": "Emre Batuhan Adıgüzel"
+              },
+              {
+                "number": 7,
+                "name": "Alaaddin Okumuş"
+              },
+              {
+                "number": 9,
+                "name": "Yusuf Buğra Koşal"
+              },
+              {
+                "number": 10,
+                "name": "Serdarcan Eralp"
+              },
+              {
+                "number": 17,
+                "name": "Erdem Onur Beytaş"
+              },
+              {
+                "number": 19,
+                "name": "Doğukan Efe"
+              },
+              {
+                "number": 20,
+                "name": "Mehmet Burak Tarlabölen"
+              },
+              {
+                "number": 22,
+                "name": "Ömer Alper Tatlısu"
+              },
+              {
+                "number": 25,
+                "name": "Halil İbrahim Esen"
+              },
+              {
+                "number": 54,
+                "name": "Ömer Faruk Yılmaz"
+              }
+            ],
+            "subs": [
+              {
+                "number": 27,
+                "name": "Emirhan Küçüksolak"
+              },
+              {
+                "number": 5,
+                "name": "Enes Subaşı"
+              },
+              {
+                "number": 6,
+                "name": "Selman Enes Canlı"
+              },
+              {
+                "number": 8,
+                "name": "Samet Emre Gündüz"
+              },
+              {
+                "number": 11,
+                "name": "Batuhan Kırdaroğlu"
+              },
+              {
+                "number": 12,
+                "name": "Oğuzhan Çapar"
+              },
+              {
+                "number": 23,
+                "name": "Emre Can Örme"
+              },
+              {
+                "number": 36,
+                "name": "İsmail Yahşi"
+              },
+              {
+                "number": 41,
+                "name": "Emre Kaya"
+              },
+              {
+                "number": 66,
+                "name": "Berkant Gündem"
+              }
+            ],
+            "coach": "Ufuk Uysal"
+          }
+        },
+        "events": [
+          {
+            "minute": 85,
+            "type": "goal",
+            "team": "home",
+            "player": "Sinan Kurumuş"
+          },
+          {
+            "minute": 90,
+            "type": "yellow",
+            "team": "home",
+            "player": "Özcan Aydın"
+          },
+          {
+            "minute": 55,
+            "type": "yellow",
+            "team": "home",
+            "player": "Özgür Sert"
+          },
+          {
+            "minute": 37,
+            "type": "yellow",
+            "team": "away",
+            "player": "Erdem Onur Beytaş"
+          },
+          {
+            "minute": 72,
+            "type": "yellow",
+            "team": "away",
+            "player": "Doğukan Efe"
+          },
+          {
+            "minute": 87,
+            "type": "yellow",
+            "team": "away",
+            "player": "Yusuf Buğra Koşal"
+          }
+        ]
       }
     },
     {
@@ -1115,7 +1335,13 @@
         "name": "Ahmet Güneş",
         "tffId": "2088408",
         "number": null,
-        "position": null
+        "position": null,
+        "birthPlace": "Şanlıurfa",
+        "birthDate": "16.01.2006",
+        "nationality": "Türkiye",
+        "flagCode": "tr",
+        "licenseNo": "1946441",
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "Ahmet Karademir",
@@ -1385,7 +1611,13 @@
         "name": "Özgür Sert",
         "tffId": "1510665",
         "number": null,
-        "position": null
+        "position": null,
+        "birthPlace": "Erzurum",
+        "birthDate": "11.01.2001",
+        "nationality": "Türkiye",
+        "flagCode": "tr",
+        "licenseNo": "239531",
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "Sedat Dursun",
@@ -1403,7 +1635,13 @@
         "name": "Sinan Kurumuş",
         "tffId": "950263",
         "number": null,
-        "position": null
+        "position": null,
+        "birthPlace": "İnegöl",
+        "birthDate": "02.08.1994",
+        "nationality": "Türkiye",
+        "flagCode": "tr",
+        "licenseNo": "1625020",
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "Tahsin Bülbül",
