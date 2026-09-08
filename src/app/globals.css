@@ -228,9 +228,13 @@ html[data-font="bt706"] {
     @apply font-sans;
     scroll-behavior: smooth;
   }
-  /* Mobilde yatay kaymayı engelle (%100 mobil uyum) */
+  /* Mobilde yatay kaymayı engelle (%100 mobil uyum).
+     `clip`, `hidden` DEĞİL: `overflow-x: hidden` gövdeyi bir kaydırma
+     konteynerine çevirir ve navbar'ın `position: sticky` davranışını
+     tamamen kırar (başlık sayfayla birlikte yukarı kayar). `clip` aynı
+     yatay taşma korumasını verir ama kaydırma konteyneri oluşturmaz. */
   html, body {
-    overflow-x: hidden;
+    overflow-x: clip;
     max-width: 100%;
   }
   /* Başlıklar: Rubik — modern, sıkı harf aralığı (kurumsal his) */
@@ -345,23 +349,65 @@ img {
 @media (prefers-reduced-motion: reduce) { .logo-emblem { animation: none; } }
 
 /* ═══════════════════════════════════════════════════════════════
-   NAVBAR PREMIUM CİLA — kurumsal lüks (derin yeşil + altın)
-   Not: cubic-bezier/çok katmanlı gölge virgül içerdiği için Tailwind
-   arbitrary değeri olarak YAZILAMAZ (kuralı bozuyor) → burada CSS.
+   NAVBAR PREMIUM CİLA v2 — kurumsal lüks, tek panel, gerçek derinlik
+   Yön: Aston Martin Aramco F1 (koyu yarış yeşili + altın hairline) ×
+   Rolex.com (altın kütle değil hairline/tek detay) × üst düzey kulüp
+   header'ları (arma ölçeği). Yeşil KALDIRILMADI — mevcut 6 adımlı
+   token rampası (ugreendd→ugreen) gerçek yükselti katmanı olarak
+   kullanılıyor (bkz. colorize.md: "3 adımlı yüzey skalası, aynı hue,
+   sadece lightness değişir" — burada hazır token'larla karşılanıyor,
+   yeni hex icat edilmedi → site geneliyle tutarlı kalır).
+   Not: cubic-bezier/çok katmanlı gölge/renk virgül içerdiği için
+   Tailwind arbitrary değeri olarak YAZILAMAZ (kuralı bozuyor) → burada CSS.
    ═══════════════════════════════════════════════════════════════ */
 
-/* Menü göstergesi — ortadan açılan altın çizgi + yumuşak hâle */
+:root {
+  --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);   /* ease-out-expo — kararlı, kendinden emin */
+  --ease-snap: cubic-bezier(0.22, 1, 0.36, 1);      /* ease-out-quint — küçük UI geçişleri */
+}
+
+/* Ana panel yüzeyi — tek kaynaşık gradient (iki ayrı renkli blok yok).
+   Köşegen akış + merkez-sol hafif yükselti (crest'in oturduğu yer). */
+.nav-surface {
+  background: linear-gradient(150deg,
+    var(--c-ugreendd) 0%,
+    var(--c-ugreenb) 38%,
+    var(--c-ugreend) 72%,
+    var(--c-ugreendd) 100%);
+}
+
+/* Menü göstergesi — iki katman: keskin altın çizgi + arkasında yumuşak
+   hâle. "Kütle değil ışık kaynağı" — ince ve kesin, dolgun değil. */
 .nav-ind {
   position: absolute; left: 13px; right: 13px; bottom: 14px; height: 2px;
   background: linear-gradient(90deg, transparent, var(--c-ugold) 18%, var(--c-ugoldl) 50%, var(--c-ugold) 82%, transparent);
-  box-shadow: 0 0 10px -1px color-mix(in srgb, var(--c-ugold) 65%, transparent);
+  box-shadow:
+    0 0 1px 0 color-mix(in srgb, var(--c-ugoldl) 90%, transparent),
+    0 0 12px -1px color-mix(in srgb, var(--c-ugold) 60%, transparent);
   transform: scaleX(0); transform-origin: center; opacity: 0;
-  transition: transform 460ms cubic-bezier(0.22, 1, 0.36, 1), opacity 260ms ease;
+  transition: transform 460ms var(--ease-snap), opacity 260ms ease;
   pointer-events: none;
 }
 .nav-item:hover .nav-ind,
 .nav-item:focus-visible .nav-ind,
 .nav-ind[data-on="true"] { transform: scaleX(1); opacity: 1; }
+
+/* Arma bezeli — Rolex tarzı tek ince altın halka (heraldik yığın değil).
+   Crest'ten biraz büyük, ortalanmış; hover'da hafifçe parlaklaşır. */
+.crest-ring {
+  position: absolute; border-radius: 9999px; pointer-events: none;
+  border: 1px solid color-mix(in srgb, var(--c-ugoldl) 55%, transparent);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--c-ugreendd) 35%, transparent) inset,
+    0 0 18px -4px color-mix(in srgb, var(--c-ugold) 75%, transparent);
+  transition: box-shadow 400ms var(--ease-snap), border-color 400ms var(--ease-snap);
+}
+.group\/brand:hover .crest-ring {
+  border-color: color-mix(in srgb, var(--c-ugoldl) 85%, transparent);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--c-ugreendd) 35%, transparent) inset,
+    0 0 26px -4px color-mix(in srgb, var(--c-ugold) 95%, transparent);
+}
 
 /* Aksiyon butonu — hover'da ışık süpürmesi */
 @keyframes ctaSweep {
@@ -373,19 +419,66 @@ img {
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent);
   transform: translateX(-160%) skewX(-18deg); pointer-events: none;
 }
-.cta-premium:hover .cta-sweep { animation: ctaSweep 900ms cubic-bezier(0.22, 1, 0.36, 1); }
+.cta-premium:hover .cta-sweep { animation: ctaSweep 900ms var(--ease-snap); }
 
-/* Mobil çekmece — öğelerin kademeli belirişi */
-@keyframes drawerItemIn {
-  from { opacity: 0; transform: translateX(16px); }
-  to   { opacity: 1; transform: none; }
+/* Üst yardımcı satır — scroll'da GERÇEK yükseklik yerine grid-track
+   daralması ile katlanır (height animasyonu değil; bkz. animate.md
+   "grid-template-rows... expanding/collapsing without animating height").
+   Sert renk dikişi yok: aynı .nav-surface panelinin içinde bir satır. */
+/* DİKKAT: burada `display` TANIMLANMAZ. Tanımlansaydı (display:grid) bu kural
+   Tailwind'in `.hidden{display:none}` kuralını cascade'de ezer (aynı özgüllük,
+   sonra geldiği için kazanır) ve şerit mobilde de görünürdü. Display'i
+   JSX tarafındaki `hidden lg:grid` yönetir. */
+.util-row {
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 480ms var(--ease-premium);
 }
-.drawer-item { animation: drawerItemIn 460ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+.util-row[data-collapsed="true"] { grid-template-rows: 0fr; }
+.util-row > div { overflow: hidden; min-height: 0; }
+
+/* ── Sahne açılışı (yalnız bir kez, sayfa yüklenişinde) ──────────────
+   KRİTİK: bu sınıflar yalnızca mount SONRASI React state ile eklenir.
+   Sınıf yokken (SSR/no-JS/ilk boya) öğeler normal/tam-görünür halinde
+   render olur — "to" keyframe değeri o normal haliyle birebir aynı,
+   yani animasyon yalnızca JS+motion açık istemcide bir kerelik cila
+   ekler, görünürlüğü asla bir sınıfa bağlamaz (bkz. animate.md). */
+@keyframes hairlineDraw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.hairline-draw { transform-origin: left center; animation: hairlineDraw 900ms var(--ease-premium) both; }
+
+@keyframes crestSettle {
+  from { transform: scale(0.93); }
+  to   { transform: scale(1); }
+}
+.crest-settle { animation: crestSettle 620ms var(--ease-premium) 90ms both; }
+
+/* KRİTİK: kademeli belirişler SADECE transform animasyonudur — opaklık asla
+   0'dan başlatılmaz. Gecikmeli `opacity: 0` + `fill-mode: both` kombinasyonu,
+   animasyon zaman çizelgesi ilerlemediği her durumda (gizli sekme, headless
+   render, düşük güç modu) içeriği KALICI olarak görünmez bırakır — mobil
+   çekmecede bu hatayı bizzat gördük. Kayma efekti kademelemeyi zaten
+   taşıyor; görünürlük hiçbir animasyona bağlı değil. */
+@keyframes navStaggerIn {
+  from { transform: translateY(-7px); }
+  to   { transform: none; }
+}
+.nav-stagger { animation: navStaggerIn 420ms var(--ease-premium) both;
+  animation-delay: calc(220ms + var(--i, 0) * 40ms); }
+
+/* Mobil çekmece — öğelerin kademeli kayması (opaklık daima 1) */
+@keyframes drawerItemIn {
+  from { transform: translateX(22px); }
+  to   { transform: none; }
+}
+.drawer-item { animation: drawerItemIn 460ms var(--ease-snap) both; }
 
 @media (prefers-reduced-motion: reduce) {
-  .nav-ind { transition: none !important; }
+  .nav-ind, .crest-ring { transition: none !important; }
   .cta-premium:hover .cta-sweep { animation: none !important; }
   .drawer-item { animation: none !important; opacity: 1 !important; transform: none !important; }
+  .hairline-draw, .crest-settle, .nav-stagger {
+    animation: none !important; opacity: 1 !important; transform: none !important;
+  }
+  .util-row { transition: none !important; }
 }
 
 /* Maç Merkezi CTA — gol animasyonu: file titremesi + gol parlaması (yalnız hover) */
