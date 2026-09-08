@@ -349,16 +349,20 @@ img {
 @media (prefers-reduced-motion: reduce) { .logo-emblem { animation: none; } }
 
 /* ═══════════════════════════════════════════════════════════════
-   NAVBAR PREMIUM CİLA v2 — kurumsal lüks, tek panel, gerçek derinlik
-   Yön: Aston Martin Aramco F1 (koyu yarış yeşili + altın hairline) ×
-   Rolex.com (altın kütle değil hairline/tek detay) × üst düzey kulüp
-   header'ları (arma ölçeği). Yeşil KALDIRILMADI — mevcut 6 adımlı
-   token rampası (ugreendd→ugreen) gerçek yükselti katmanı olarak
-   kullanılıyor (bkz. colorize.md: "3 adımlı yüzey skalası, aynı hue,
-   sadece lightness değişir" — burada hazır token'larla karşılanıyor,
-   yeni hex icat edilmedi → site geneliyle tutarlı kalır).
-   Not: cubic-bezier/çok katmanlı gölge/renk virgül içerdiği için
-   Tailwind arbitrary değeri olarak YAZILAMAZ (kuralı bozuyor) → burada CSS.
+   NAVBAR — FOOTER İLE KARDEŞ PANEL (v3)
+   Tek referans: kendi footer'ımız (`Footer.tsx`). Menü ve footer
+   sayfanın iki ucunda duruyor; aynı aileden görünmeleri gerekiyor.
+   Footer'dan BİREBİR alınan dil:
+     · zemin  → --c-ugreenm (orta ton, canlı yeşil; koyu değil)
+     · atmosfer → büyük yumuşak ışık huzmeleri (ugreen/30 + ugold/5)
+     · yüzeyler → white/5 dolgu + white/10 kenarlık
+     · formlar → rounded-full / rounded-2xl (hap dili)
+     · altın → küçük aksan: hairline, nokta işaretçi, dolgulu aktif hap
+   Not: footer huzmeleri `blur()` uygulanmış div'ler; navbar'da bu
+   `overflow-hidden` gerektirir ve taşan armayı keserdi. Aynı görsel
+   sonuç radial-gradient katmanlarıyla üretiliyor → kırpma yok.
+   Not: cubic-bezier/çok katmanlı gölge virgül içerdiği için Tailwind
+   arbitrary değeri olarak YAZILAMAZ (kuralı bozuyor) → burada CSS.
    ═══════════════════════════════════════════════════════════════ */
 
 :root {
@@ -366,47 +370,42 @@ img {
   --ease-snap: cubic-bezier(0.22, 1, 0.36, 1);      /* ease-out-quint — küçük UI geçişleri */
 }
 
-/* Ana panel yüzeyi — tek kaynaşık gradient (iki ayrı renkli blok yok).
-   Köşegen akış + merkez-sol hafif yükselti (crest'in oturduğu yer). */
+/* Panel yüzeyi — footer zemini + footer'ın iki ışık huzmesi */
 .nav-surface {
-  background: linear-gradient(150deg,
-    var(--c-ugreendd) 0%,
-    var(--c-ugreenb) 38%,
-    var(--c-ugreend) 72%,
-    var(--c-ugreendd) 100%);
+  background-color: var(--c-ugreenm);
+  background-image:
+    radial-gradient(58% 210% at 6% 0%,
+      color-mix(in srgb, var(--c-ugreen) 42%, transparent), transparent 68%),
+    radial-gradient(46% 190% at 94% 100%,
+      color-mix(in srgb, var(--c-ugold) 7%, transparent), transparent 70%);
 }
 
-/* Menü göstergesi — iki katman: keskin altın çizgi + arkasında yumuşak
-   hâle. "Kütle değil ışık kaynağı" — ince ve kesin, dolgun değil. */
-.nav-ind {
-  position: absolute; left: 13px; right: 13px; bottom: 14px; height: 2px;
-  background: linear-gradient(90deg, transparent, var(--c-ugold) 18%, var(--c-ugoldl) 50%, var(--c-ugold) 82%, transparent);
-  box-shadow:
-    0 0 1px 0 color-mix(in srgb, var(--c-ugoldl) 90%, transparent),
-    0 0 12px -1px color-mix(in srgb, var(--c-ugold) 60%, transparent);
-  transform: scaleX(0); transform-origin: center; opacity: 0;
-  transition: transform 460ms var(--ease-snap), opacity 260ms ease;
+/* Menü hapı — footer'ın rounded-full sosyal/rozet dili menüye taşındı.
+   Hover: white/5 hap belirir (footer yüzey dili). Aktif/açık: ALTIN
+   dolgu + koyu yeşil metin (footer sosyal hover'ının aynısı). */
+.nav-pill { position: relative; }
+.nav-pill::before {
+  content: ''; position: absolute; inset: 0; border-radius: 9999px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  opacity: 0; transform: scale(0.94);
+  transition: opacity 260ms var(--ease-snap), transform 320ms var(--ease-snap);
   pointer-events: none;
 }
-.nav-item:hover .nav-ind,
-.nav-item:focus-visible .nav-ind,
-.nav-ind[data-on="true"] { transform: scaleX(1); opacity: 1; }
+.nav-pill:hover::before,
+.nav-pill:focus-visible::before { opacity: 1; transform: scale(1); }
+/* aktif hap altın dolguludur → arkasındaki white/5 hap gizlenir */
+.nav-pill[data-active="true"]::before { opacity: 0; }
 
-/* Arma bezeli — Rolex tarzı tek ince altın halka (heraldik yığın değil).
-   Crest'ten biraz büyük, ortalanmış; hover'da hafifçe parlaklaşır. */
-.crest-ring {
-  position: absolute; border-radius: 9999px; pointer-events: none;
-  border: 1px solid color-mix(in srgb, var(--c-ugoldl) 55%, transparent);
-  box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--c-ugreendd) 35%, transparent) inset,
-    0 0 18px -4px color-mix(in srgb, var(--c-ugold) 75%, transparent);
-  transition: box-shadow 400ms var(--ease-snap), border-color 400ms var(--ease-snap);
+/* Footer'ın link nokta işaretçisi — hover'da altına döner ve büyür */
+.dot-marker {
+  width: 6px; height: 6px; border-radius: 9999px; flex: none;
+  background: rgba(255,255,255,0.15);
+  transition: background 300ms var(--ease-snap), transform 300ms var(--ease-snap);
 }
-.group\/brand:hover .crest-ring {
-  border-color: color-mix(in srgb, var(--c-ugoldl) 85%, transparent);
-  box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--c-ugreendd) 35%, transparent) inset,
-    0 0 26px -4px color-mix(in srgb, var(--c-ugold) 95%, transparent);
+.group\/row:hover .dot-marker,
+.group\/row:focus-visible .dot-marker {
+  background: var(--c-ugold); transform: scale(1.3);
 }
 
 /* Aksiyon butonu — hover'da ışık süpürmesi */
@@ -464,15 +463,16 @@ img {
 .nav-stagger { animation: navStaggerIn 420ms var(--ease-premium) both;
   animation-delay: calc(220ms + var(--i, 0) * 40ms); }
 
-/* Mobil çekmece — öğelerin kademeli kayması (opaklık daima 1) */
+/* Tam ekran mobil menü — öğelerin kademeli yükselmesi (opaklık daima 1) */
 @keyframes drawerItemIn {
-  from { transform: translateX(22px); }
+  from { transform: translateY(14px); }
   to   { transform: none; }
 }
-.drawer-item { animation: drawerItemIn 460ms var(--ease-snap) both; }
+.drawer-item { animation: drawerItemIn 460ms var(--ease-snap) both;
+  animation-delay: calc(40ms + var(--i, 0) * 45ms); }
 
 @media (prefers-reduced-motion: reduce) {
-  .nav-ind, .crest-ring { transition: none !important; }
+  .nav-pill::before, .dot-marker { transition: none !important; }
   .cta-premium:hover .cta-sweep { animation: none !important; }
   .drawer-item { animation: none !important; opacity: 1 !important; transform: none !important; }
   .hairline-draw, .crest-settle, .nav-stagger {
