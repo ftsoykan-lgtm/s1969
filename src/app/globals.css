@@ -420,21 +420,6 @@ img {
 }
 .cta-premium:hover .cta-sweep { animation: ctaSweep 900ms var(--ease-snap); }
 
-/* Üst yardımcı satır — scroll'da GERÇEK yükseklik yerine grid-track
-   daralması ile katlanır (height animasyonu değil; bkz. animate.md
-   "grid-template-rows... expanding/collapsing without animating height").
-   Sert renk dikişi yok: aynı .nav-surface panelinin içinde bir satır. */
-/* DİKKAT: burada `display` TANIMLANMAZ. Tanımlansaydı (display:grid) bu kural
-   Tailwind'in `.hidden{display:none}` kuralını cascade'de ezer (aynı özgüllük,
-   sonra geldiği için kazanır) ve şerit mobilde de görünürdü. Display'i
-   JSX tarafındaki `hidden lg:grid` yönetir. */
-.util-row {
-  grid-template-rows: 1fr;
-  transition: grid-template-rows 480ms var(--ease-premium);
-}
-.util-row[data-collapsed="true"] { grid-template-rows: 0fr; }
-.util-row > div { overflow: hidden; min-height: 0; }
-
 /* ── Sahne açılışı (yalnız bir kez, sayfa yüklenişinde) ──────────────
    KRİTİK: bu sınıflar yalnızca mount SONRASI React state ile eklenir.
    Sınıf yokken (SSR/no-JS/ilk boya) öğeler normal/tam-görünür halinde
@@ -478,7 +463,6 @@ img {
   .hairline-draw, .crest-settle, .nav-stagger {
     animation: none !important; opacity: 1 !important; transform: none !important;
   }
-  .util-row { transition: none !important; }
 }
 
 /* Maç Merkezi CTA — gol animasyonu: file titremesi + gol parlaması (yalnız hover) */

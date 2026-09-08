@@ -60,12 +60,6 @@ const navLinks: { label: string; href: string; hasMega?: boolean }[] = [
   { label: 'İLETİŞİM', href: '/iletisim' },
 ]
 
-const topLinks = [
-  { label: 'Kadro', href: '/kadro' },
-  { label: 'Fikstür', href: '/takvim' },
-  { label: 'Puan Durumu', href: '/mac-merkezi' },
-]
-
 // Mobil tam ekran menünün alt (başparmak) bölgesindeki hızlı erişim
 const quickLinks = [
   { label: 'Fikstür', href: '/takvim', Icon: CalendarDays },
@@ -221,48 +215,6 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
         {/* footer alt bar ayrımı gibi ince beyaz hat */}
         <div className="absolute bottom-0 inset-x-0 h-px bg-white/10" />
 
-        {/* ── ÜST YARDIMCI SATIR — scroll'da grid-track ile katlanır ── */}
-        <div className="hidden lg:grid util-row" data-collapsed={scrolled ? 'true' : 'false'}>
-          <div>
-            <div className="mx-auto max-w-[1400px] px-8 flex items-center justify-between h-[38px] border-b border-white/[0.07]">
-              <div className="flex items-center gap-[22px]">
-                {topLinks.map((l) => (
-                  <Link key={l.href} href={l.href}
-                    className={cn('group/row flex items-center gap-2 rounded text-[12.5px] font-medium text-white/80 hover:text-white transition-colors', focusOnDark)}>
-                    <span aria-hidden className="dot-marker" />{l.label}
-                  </Link>
-                ))}
-                {club.phone && (
-                  <a href={`tel:${club.phone.replace(/[^+\d]/g, '')}`}
-                    className={cn('flex items-center gap-1.5 rounded text-[12.5px] font-bold text-white/80 hover:text-ugold transition-colors', focusOnDark)}>
-                    <Phone size={12} className="shrink-0 text-ugold" /> {club.phone}
-                  </a>
-                )}
-              </div>
-              <div className="flex items-center gap-2">
-                <Link href="/magaza"
-                  className={cn('flex items-center gap-[7px] rounded-full px-3.5 py-[5px] text-[11.5px] font-bold tracking-[0.06em] text-ugold hover:bg-white/[0.06] transition-colors', focusOnDark)}>
-                  <Store size={13} className="shrink-0" /> Mağaza
-                </Link>
-                <Link href="/sayfa/taraftar"
-                  className={cn('flex items-center gap-[7px] rounded-full px-3.5 py-[5px] text-[11.5px] font-bold tracking-[0.06em] text-white/70 hover:text-white hover:bg-white/[0.06] transition-colors', focusOnDark)}>
-                  <MessageSquare size={13} className="shrink-0" /> Taraftar
-                </Link>
-                <span className="w-px h-4 bg-white/10 mx-1" />
-                {/* footer'ın yuvarlak sosyal rozetleri (küçük ölçekte) */}
-                <div className="flex items-center gap-1.5">
-                  {socials.map(({ icon: Icon, href, label }) => (
-                    <a key={label} href={href} aria-label={label} target="_blank" rel="noopener noreferrer"
-                      className={cn('h-[26px] w-[26px] flex items-center justify-center rounded-full text-white/60 hover:text-ugreenm hover:bg-ugold hover:border-ugold transition-all duration-300', surfacePill, focusOnDark)}>
-                      <Icon />
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <div className="relative mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
 
           {/* ── MOBİL BAR ── */}
@@ -336,12 +288,20 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
               {navLinks.map(renderNavItem)}
             </nav>
 
-            {/* SAĞ — arama (yuvarlak) + Bilet Al */}
+            {/* SAĞ — arama · Mağaza · Bilet Al.
+                Mağaza yüzey dilinde (white/5 hap), Bilet Al tek altın
+                birincil aksiyon olarak kalsın diye altın dolgulu değil. */}
             <div className="flex items-center justify-self-end gap-2.5">
               <button onClick={() => setSearchOpen(!searchOpen)} aria-label="Ara"
                 className={cn('h-[42px] w-[42px] flex items-center justify-center rounded-full text-white/80 hover:text-ugreenm hover:bg-ugold transition-all duration-300', surfacePill, focusOnDark, pressFeedback)}>
                 <Search size={17} />
               </button>
+              <Link href="/magaza"
+                className={cn('group inline-flex h-[42px] items-center gap-2 px-[17px] rounded-full text-[11.8px] font-extrabold tracking-[0.08em] uppercase whitespace-nowrap text-white/90 hover:text-ugreenm hover:bg-ugold transition-all duration-300',
+                  surfacePill, focusOnDark, pressFeedback)}>
+                <Store size={14} className="shrink-0 text-ugold transition-colors group-hover:text-ugreenm" />
+                Mağaza
+              </Link>
               <Link href="/bilet"
                 className={cn('cta-premium group relative inline-flex h-[42px] items-center gap-2 px-[20px] rounded-full overflow-hidden text-ugreenm text-[11.8px] font-extrabold tracking-[0.08em] uppercase whitespace-nowrap',
                   'bg-gradient-to-b from-ugoldl to-ugold transition-all duration-300 hover:-translate-y-0.5', focusOnGold, pressFeedback,
