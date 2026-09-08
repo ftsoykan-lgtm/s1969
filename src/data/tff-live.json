@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-08T03:57:18.808Z",
+  "updatedAt": "2026-09-08T10:58:59.795Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -341,12 +341,8 @@
                 "name": "Abdulkadir Sünger"
               },
               {
-                "number": 70,
-                "name": "Fatih Mehmet Ekinci"
-              },
-              {
-                "number": 39,
-                "name": "İbrahim Sürgülü"
+                "number": 4,
+                "name": "Muhammed Gönülaçar"
               },
               {
                 "number": 5,
@@ -357,12 +353,8 @@
                 "name": "Umut Mert Toy"
               },
               {
-                "number": 4,
-                "name": "Muhammed Gönülaçar"
-              },
-              {
-                "number": 25,
-                "name": "Özgür Sert"
+                "number": 7,
+                "name": "Oğuzhan Doğan"
               },
               {
                 "number": 11,
@@ -373,8 +365,16 @@
                 "name": "Yiğitali Bayrak"
               },
               {
-                "number": 7,
-                "name": "Oğuzhan Doğan"
+                "number": 25,
+                "name": "Özgür Sert"
+              },
+              {
+                "number": 39,
+                "name": "İbrahim Sürgülü"
+              },
+              {
+                "number": 70,
+                "name": "Fatih Mehmet Ekinci"
               },
               {
                 "number": 99,
@@ -517,7 +517,44 @@
             "coach": "Ufuk Uysal"
           }
         },
-        "events": []
+        "events": [
+          {
+            "minute": 85,
+            "type": "goal",
+            "team": "home",
+            "player": "Sinan Kurumuş"
+          },
+          {
+            "minute": 90,
+            "type": "yellow",
+            "team": "home",
+            "player": "Özcan Aydın"
+          },
+          {
+            "minute": 55,
+            "type": "yellow",
+            "team": "home",
+            "player": "Özgür Sert"
+          },
+          {
+            "minute": 37,
+            "type": "yellow",
+            "team": "away",
+            "player": "Erdem Onur Beytaş"
+          },
+          {
+            "minute": 72,
+            "type": "yellow",
+            "team": "away",
+            "player": "Doğukan Efe"
+          },
+          {
+            "minute": 87,
+            "type": "yellow",
+            "team": "away",
+            "player": "Yusuf Buğra Koşal"
+          }
+        ]
       }
     },
     {
