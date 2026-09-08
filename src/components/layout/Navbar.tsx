@@ -8,6 +8,7 @@ import { cn } from '@/lib/utils'
 import { clubInfo as defaultClub } from '@/data/club'
 import type { ClubInfo } from '@/data/club'
 import ClubLogo from '@/components/ui/ClubLogo'
+import SearchOverlay from './SearchOverlay'
 
 /* ─── Sosyal medya SVG ikonları (Footer ile aynı dil) ────────────────────── */
 const SocialIcons = {
@@ -94,11 +95,7 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
   // Sahne açılışı — yalnız bir kerelik giriş cilası. Varsayılan false:
   // hiçbir öğe bu class olmadan gizli değildir (SSR/no-JS'te tam görünür).
   const [mounted, setMounted] = useState(false)
-  // Mobilde ayrı arama paneli yok: arama tam ekran menünün en üstünde.
-  // Arama butonu menüyü açar ve odağı doğrudan arama alanına verir.
-  const [focusSearch, setFocusSearch] = useState(false)
   const megaTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const mobileSearchRef = useRef<HTMLInputElement | null>(null)
 
   // eslint-disable-next-line react-hooks/set-state-in-effect -- route değişiminde açık menüleri kapat (kasıtlı senkronizasyon)
   useEffect(() => { setMobileOpen(false); setMegaOpen(false); setMobileSubOpen(false) }, [pathname])
@@ -145,15 +142,24 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
     return () => window.removeEventListener('keydown', onKey)
   }, [mobileOpen])
 
-  // Menü açılış geçişi bittikten sonra arama alanına odaklan (geçiş sırasında
-  // focus() vermek iOS'ta kaydırmayı bozuyor)
-  useEffect(() => {
-    if (!mobileOpen || !focusSearch) return
-    const id = setTimeout(() => { mobileSearchRef.current?.focus(); setFocusSearch(false) }, 340)
-    return () => clearTimeout(id)
-  }, [mobileOpen, focusSearch])
+  // Arama tam ekran SearchOverlay'de; açarken menü açıksa onu kapat
+  const openSearch = () => { setMobileOpen(false); setSearchOpen(true) }
 
-  const openMobileSearch = () => { setMobileOpen(true); setFocusSearch(true) }
+  // Ctrl/⌘+K ile her yerden arama (yazı alanındayken devreye girmez)
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key.toLowerCase() !== 'k' || !(e.ctrlKey || e.metaKey)) return
+      const el = document.activeElement
+      const yaziyor = el instanceof HTMLElement &&
+        (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.isContentEditable)
+      if (yaziyor) return
+      e.preventDefault()
+      setMobileOpen(false)
+      setSearchOpen(true)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
   const openMega = () => { if (megaTimer.current) clearTimeout(megaTimer.current); setMegaOpen(true) }
   const closeMega = () => { megaTimer.current = setTimeout(() => setMegaOpen(false), 120) }
   const isActive = (href: string) =>
@@ -241,7 +247,7 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
             </Link>
 
             <div className="flex items-center gap-2 shrink-0">
-              <button onClick={openMobileSearch} aria-label="Ara" aria-controls="mobil-menu"
+              <button onClick={openSearch} aria-label="Ara" aria-haspopup="dialog" aria-expanded={searchOpen}
                 className={cn('h-11 w-11 flex items-center justify-center rounded-full text-white/85 hover:text-ugreenm hover:bg-ugold transition-all duration-300', surfacePill, focusOnDark, pressFeedback)}>
                 <Search size={18} />
               </button>
@@ -292,7 +298,7 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
                 Mağaza yüzey dilinde (white/5 hap), Bilet Al tek altın
                 birincil aksiyon olarak kalsın diye altın dolgulu değil. */}
             <div className="flex items-center justify-self-end gap-2.5">
-              <button onClick={() => setSearchOpen(!searchOpen)} aria-label="Ara"
+              <button onClick={openSearch} aria-label="Ara" aria-haspopup="dialog" aria-expanded={searchOpen}
                 className={cn('h-[42px] w-[42px] flex items-center justify-center rounded-full text-white/80 hover:text-ugreenm hover:bg-ugold transition-all duration-300', surfacePill, focusOnDark, pressFeedback)}>
                 <Search size={17} />
               </button>
@@ -410,16 +416,9 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
             </button>
           </div>
 
-          {/* Kaydırılabilir orta bölge — arama + menü */}
+          {/* Kaydırılabilir orta bölge — menü.
+              Arama buraya değil, ayrı tam ekran SearchOverlay'e taşındı. */}
           <div className="flex-1 overflow-y-auto overscroll-contain px-5 pt-4 pb-2">
-            {/* Arama üstte (kullanışlılık: ilk iş arama) */}
-            <div className={cn('relative rounded-full mb-4', mobileOpen && 'drawer-item')}
-              style={mobileOpen ? ({ '--i': 0 } as React.CSSProperties) : undefined}>
-              <Search size={17} aria-hidden className="absolute left-4 top-1/2 -translate-y-1/2 text-white/45 pointer-events-none" />
-              <input ref={mobileSearchRef} type="search" placeholder="Haber, oyuncu, maç ara..." aria-label="Sitede ara"
-                className={cn('w-full h-12 rounded-full pl-11 pr-4 text-[15px] text-white placeholder-white/45 transition-colors focus:outline-none focus:border-ugold/55', surfacePill)} />
-            </div>
-
             <ul className="flex flex-col">
               {navLinks.map((link, i) => {
                 const active = !link.hasMega && isActive(link.href)
@@ -512,20 +511,10 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
           </div>
         </div>
 
-        {/* ── Masaüstü arama paneli ────────────────────────────────── */}
-        {searchOpen && (
-          <div className="hidden lg:block absolute left-0 right-0 top-full nav-surface border-b border-white/10 px-4 py-4 z-40 shadow-[0_18px_40px_-24px_rgba(0,0,0,0.6)]">
-            <div className="mx-auto max-w-[1280px]">
-              <div className="relative">
-                <Search size={16} aria-hidden className="absolute left-5 top-1/2 -translate-y-1/2 text-white/45 pointer-events-none" />
-                <input autoFocus type="search" placeholder="Haber, oyuncu, maç ara..." aria-label="Sitede ara"
-                  className={cn('w-full rounded-full pl-12 pr-5 py-3.5 text-[15px] text-white placeholder-white/45 focus:outline-none focus:border-ugold/55 transition-colors', surfacePill)}
-                  onBlur={() => setSearchOpen(false)} />
-              </div>
-            </div>
-          </div>
-        )}
       </div>
+
+      {/* ── Tam ekran arama (masaüstü + mobil ortak) ── */}
+      <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} />
     </header>
   )
 }
