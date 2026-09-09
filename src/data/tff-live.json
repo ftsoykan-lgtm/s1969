@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-08T21:01:23.377Z",
+  "updatedAt": "2026-09-09T04:02:21.378Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -1539,7 +1539,13 @@
         "name": "İbrahim Egemen Uğurlu",
         "tffId": "1851743",
         "number": null,
-        "position": null
+        "position": null,
+        "birthPlace": "Şişli",
+        "birthDate": "28.04.2005",
+        "nationality": "Türkiye",
+        "flagCode": "tr",
+        "licenseNo": "2626589",
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "İlker Günaslan",
