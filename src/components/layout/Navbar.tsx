@@ -97,6 +97,47 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
   const [mounted, setMounted] = useState(false)
   const megaTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
+  /* ── Kayan hover göstergesi ────────────────────────────────────────
+     Tek bir hap, imlecin bulunduğu menü öğesinin konum/genişliğine
+     kayar. `gecis` bayrağı ilk girişte kapalı: menüye dışarıdan
+     girildiğinde hap uzaktan süzülerek gelmez, doğru yerde belirip
+     sonraki hareketlerde akar. */
+  const navRef = useRef<HTMLElement | null>(null)
+  const itemRefs = useRef<(HTMLElement | null)[]>([])
+  const [glider, setGlider] = useState({ x: 0, w: 0 })
+  const [gliderAcik, setGliderAcik] = useState(false)
+  const [gliderGecis, setGliderGecis] = useState(false)
+  const [hoverIdx, setHoverIdx] = useState<number | null>(null)
+
+  const olcuAl = (i: number) => {
+    const nav = navRef.current
+    const el = itemRefs.current[i]
+    if (!nav || !el) return null
+    const nr = nav.getBoundingClientRect()
+    const er = el.getBoundingClientRect()
+    return { x: er.left - nr.left, w: er.width }
+  }
+
+  const gliderGir = (i: number) => {
+    const p = olcuAl(i)
+    if (!p) return
+    setHoverIdx(i)
+    if (gliderAcik) { setGliderGecis(true); setGlider(p); return }
+    setGliderGecis(false)
+    setGlider(p)
+    setGliderAcik(true)
+    requestAnimationFrame(() => setGliderGecis(true))
+  }
+  const gliderCik = () => { setGliderAcik(false); setHoverIdx(null) }
+
+  // Genişlik değişiminde (pencere/scroll ile bar daralması) konumu tazele
+  useEffect(() => {
+    if (hoverIdx === null) return
+    const yenile = () => { const p = olcuAl(hoverIdx); if (p) setGlider(p) }
+    window.addEventListener('resize', yenile)
+    return () => window.removeEventListener('resize', yenile)
+  }, [hoverIdx, scrolled])
+
   // eslint-disable-next-line react-hooks/set-state-in-effect -- route değişiminde açık menüleri kapat (kasıtlı senkronizasyon)
   useEffect(() => { setMobileOpen(false); setMegaOpen(false); setMobileSubOpen(false) }, [pathname])
 
@@ -182,18 +223,23 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
       active ? 'bg-ugold text-ugreenm shadow-[0_6px_18px_-8px_rgba(0,0,0,0.55)]' : 'text-white/80 hover:text-white',
       mounted && 'nav-stagger')
     const style = mounted ? ({ '--i': i } as React.CSSProperties) : undefined
+    // Klavyeyle gezerken de gösterge takip etsin (yalnız fare değil)
+    const takip = { onMouseEnter: () => gliderGir(i), onFocus: () => gliderGir(i) }
 
     return link.hasMega ? (
-      <div key={link.label} className="relative flex items-center" onMouseEnter={openMega} onMouseLeave={closeMega}>
-        <button className={cls} style={style} data-active={active} aria-expanded={megaOpen} aria-haspopup="true">
+      <div key={link.label} className="relative flex items-center"
+        onMouseEnter={openMega} onMouseLeave={closeMega}>
+        <button ref={(el) => { itemRefs.current[i] = el }} className={cls} style={style}
+          data-active={active} aria-expanded={megaOpen} aria-haspopup="true" {...takip}>
           <span className="relative">{link.label}</span>
           <ChevronDown size={13} className={cn('relative transition-transform duration-300',
             active ? 'text-ugreenm' : 'text-ugold/80', megaOpen && 'rotate-180')} />
         </button>
       </div>
     ) : (
-      <Link key={link.href} href={link.href} className={cls} style={style} data-active={active}
-        aria-current={active ? 'page' : undefined}>
+      <Link key={link.href} href={link.href} ref={(el) => { itemRefs.current[i] = el }}
+        className={cls} style={style} data-active={active}
+        aria-current={active ? 'page' : undefined} {...takip}>
         <span className="relative">{link.label}</span>
       </Link>
     )
@@ -290,7 +336,19 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
             </Link>
 
             {/* ORTA — hap menü */}
-            <nav className="flex items-center gap-1">
+            <nav ref={navRef} className="relative flex items-center gap-1"
+              onMouseLeave={gliderCik} onBlur={gliderCik}>
+              {/* Kayan hover göstergesi — öğelerin ARKASINDA (DOM'da önce).
+                  Aktif öğe altın dolgulu olduğu için üstünde kaybolur. */}
+              <span aria-hidden className="nav-glider"
+                style={{
+                  width: glider.w,
+                  transform: `translateX(${glider.x}px)`,
+                  opacity: gliderAcik ? 1 : 0,
+                  transition: gliderGecis
+                    ? 'transform 420ms var(--ease-premium), width 420ms var(--ease-premium), opacity 200ms ease'
+                    : 'opacity 200ms ease',
+                }} />
               {navLinks.map(renderNavItem)}
             </nav>
 
