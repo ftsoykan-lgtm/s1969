@@ -383,23 +383,19 @@ img {
 /* Menü hapı — footer'ın rounded-full sosyal/rozet dili menüye taşındı.
    Hover: white/5 hap belirir (footer yüzey dili). Aktif/açık: ALTIN
    dolgu + koyu yeşil metin (footer sosyal hover'ının aynısı). */
-/* Menü hapı — hover göstergesi TEK bir hap olup öğeler arasında KAYAR
-   (bkz. .nav-glider, konumu JS ile ölçülür). Her öğenin kendi hapını
-   scale(0.94)'ten "pop" ettirmesi amatör duruyordu: altı ayrı öğe altı
-   ayrı zıplama üretiyordu. Kayan tek gösterge sürekliliği korur ve
-   imleci takip eden fiziksel bir his verir. */
 .nav-pill { position: relative; }
-
-.nav-glider {
-  position: absolute; top: 50%; left: 0; margin-top: -19px; height: 38px;
-  border-radius: 9999px; pointer-events: none;
-  /* Statik yüzeylerden (white/5) bir tık belirgin: hover göstergesi
-     okunabilir olmalı ama altın aktif hapla yarışmamalı. */
-  background: rgba(255,255,255,0.10);
-  border: 1px solid rgba(255,255,255,0.16);
-  box-shadow: 0 1px 0 rgba(255,255,255,0.07) inset,
-              0 6px 16px -10px rgba(0,0,0,0.5);
+.nav-pill::before {
+  content: ''; position: absolute; inset: 0; border-radius: 9999px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  opacity: 0; transform: scale(0.94);
+  transition: opacity 260ms var(--ease-snap), transform 320ms var(--ease-snap);
+  pointer-events: none;
 }
+.nav-pill:hover::before,
+.nav-pill:focus-visible::before { opacity: 1; transform: scale(1); }
+/* aktif hap altın dolguludur → arkasındaki white/5 hap gizlenir */
+.nav-pill[data-active="true"]::before { opacity: 0; }
 
 /* Footer'ın link nokta işaretçisi — hover'da altına döner ve büyür */
 .dot-marker {
