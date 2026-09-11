@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-11T10:59:21.520Z",
+  "updatedAt": "2026-09-11T16:13:57.427Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -575,7 +575,24 @@
       "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/017989_120x120.jpg",
       "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
       "detail": {
-        "referees": [],
+        "referees": [
+          {
+            "name": "Enver Aydın",
+            "role": "Hakem"
+          },
+          {
+            "name": "Okan Delier",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Anıl Gökberk Sarı",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Giray Şaylan",
+            "role": "Dördüncü Hakem"
+          }
+        ],
         "lineups": null,
         "events": []
       }
