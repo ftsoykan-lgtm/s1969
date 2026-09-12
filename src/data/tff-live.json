@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-12T10:26:12.308Z",
+  "updatedAt": "2026-09-12T15:21:19.545Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -575,24 +575,7 @@
       "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/017989_120x120.jpg",
       "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
       "detail": {
-        "referees": [
-          {
-            "name": "Enver Aydın",
-            "role": "Hakem"
-          },
-          {
-            "name": "Okan Delier",
-            "role": "1. Yardımcı Hakem"
-          },
-          {
-            "name": "Anıl Gökberk Sarı",
-            "role": "2. Yardımcı Hakem"
-          },
-          {
-            "name": "Giray Şaylan",
-            "role": "Dördüncü Hakem"
-          }
-        ],
+        "referees": [],
         "lineups": null,
         "events": []
       }
@@ -651,8 +634,8 @@
       "awayTeam": "GÜZİDE GEBZE SPOR KULÜBÜ",
       "homeScore": null,
       "awayScore": null,
-      "date": "2026-10-05",
-      "dateText": "2026-10-05",
+      "date": "2026-10-04",
+      "dateText": "2026-10-04",
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": true,
       "opponent": "GÜZİDE GEBZE SPOR KULÜBÜ",
