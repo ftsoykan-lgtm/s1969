@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-12T15:21:19.545Z",
+  "updatedAt": "2026-09-12T20:30:43.360Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -7,6 +7,51 @@
   "standings": [
     {
       "rank": 1,
+      "team": "SEZA ÇİMENTO ELAZIĞSPOR",
+      "kulupId": "37",
+      "isSanliurfaspor": false,
+      "played": 2,
+      "won": 2,
+      "drawn": 0,
+      "lost": 0,
+      "goalsFor": 5,
+      "goalsAgainst": 1,
+      "goalDiff": 4,
+      "points": 6,
+      "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000036_120x120.png"
+    },
+    {
+      "rank": 2,
+      "team": "GÜZİDE GEBZE SPOR KULÜBÜ",
+      "kulupId": "746",
+      "isSanliurfaspor": false,
+      "played": 2,
+      "won": 2,
+      "drawn": 0,
+      "lost": 0,
+      "goalsFor": 3,
+      "goalsAgainst": 0,
+      "goalDiff": 3,
+      "points": 6,
+      "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012493_120x120.jpg"
+    },
+    {
+      "rank": 3,
+      "team": "SOMASPOR",
+      "kulupId": "497",
+      "isSanliurfaspor": false,
+      "played": 2,
+      "won": 1,
+      "drawn": 1,
+      "lost": 0,
+      "goalsFor": 6,
+      "goalsAgainst": 4,
+      "goalDiff": 2,
+      "points": 4,
+      "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012210_120x120.jpg"
+    },
+    {
+      "rank": 4,
       "team": "ÇORLU SPOR 1947",
       "kulupId": "5044",
       "isSanliurfaspor": false,
@@ -21,7 +66,7 @@
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/011578_120x120.jpg"
     },
     {
-      "rank": 2,
+      "rank": 5,
       "team": "ALİAĞA FUTBOL A.Ş.",
       "kulupId": "2720",
       "isSanliurfaspor": false,
@@ -34,51 +79,6 @@
       "goalDiff": 3,
       "points": 3,
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/014755_120x120.jpg"
-    },
-    {
-      "rank": 3,
-      "team": "İNEGÖL KAFKAS SPOR KULÜBÜ",
-      "kulupId": "3276",
-      "isSanliurfaspor": false,
-      "played": 1,
-      "won": 1,
-      "drawn": 0,
-      "lost": 0,
-      "goalsFor": 3,
-      "goalsAgainst": 1,
-      "goalDiff": 2,
-      "points": 3,
-      "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015360_120x120.jpg"
-    },
-    {
-      "rank": 4,
-      "team": "SEZA ÇİMENTO ELAZIĞSPOR",
-      "kulupId": "37",
-      "isSanliurfaspor": false,
-      "played": 1,
-      "won": 1,
-      "drawn": 0,
-      "lost": 0,
-      "goalsFor": 3,
-      "goalsAgainst": 1,
-      "goalDiff": 2,
-      "points": 3,
-      "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000036_120x120.png"
-    },
-    {
-      "rank": 5,
-      "team": "GÜZİDE GEBZE SPOR KULÜBÜ",
-      "kulupId": "746",
-      "isSanliurfaspor": false,
-      "played": 1,
-      "won": 1,
-      "drawn": 0,
-      "lost": 0,
-      "goalsFor": 2,
-      "goalsAgainst": 0,
-      "goalDiff": 2,
-      "points": 3,
-      "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012493_120x120.jpg"
     },
     {
       "rank": 6,
@@ -97,6 +97,21 @@
     },
     {
       "rank": 7,
+      "team": "İNEGÖL KAFKAS SPOR KULÜBÜ",
+      "kulupId": "3276",
+      "isSanliurfaspor": false,
+      "played": 2,
+      "won": 1,
+      "drawn": 0,
+      "lost": 1,
+      "goalsFor": 4,
+      "goalsAgainst": 4,
+      "goalDiff": 0,
+      "points": 3,
+      "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015360_120x120.jpg"
+    },
+    {
+      "rank": 8,
       "team": "EFOR ÇAY ERBAASPOR",
       "kulupId": "3641",
       "isSanliurfaspor": false,
@@ -111,7 +126,7 @@
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000203_120x120.jpg"
     },
     {
-      "rank": 8,
+      "rank": 9,
       "team": "MUŞ SPOR KULÜBÜ",
       "kulupId": "8722",
       "isSanliurfaspor": false,
@@ -126,7 +141,7 @@
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/017249_120x120.jpg"
     },
     {
-      "rank": 9,
+      "rank": 10,
       "team": "68 AKSARAY BELEDİYE SPOR",
       "kulupId": "6496",
       "isSanliurfaspor": false,
@@ -139,21 +154,6 @@
       "goalDiff": 0,
       "points": 1,
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015868_120x120.jpg"
-    },
-    {
-      "rank": 10,
-      "team": "SOMASPOR",
-      "kulupId": "497",
-      "isSanliurfaspor": false,
-      "played": 1,
-      "won": 0,
-      "drawn": 1,
-      "lost": 0,
-      "goalsFor": 3,
-      "goalsAgainst": 3,
-      "goalDiff": 0,
-      "points": 1,
-      "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012210_120x120.jpg"
     },
     {
       "rank": 11,
@@ -220,13 +220,13 @@
       "team": "ARKENT ARNAVUTKÖY BELEDİYESİ FUTBOL SK",
       "kulupId": "6039",
       "isSanliurfaspor": false,
-      "played": 1,
+      "played": 2,
       "won": 0,
       "drawn": 0,
-      "lost": 1,
+      "lost": 2,
       "goalsFor": 1,
-      "goalsAgainst": 4,
-      "goalDiff": -3,
+      "goalsAgainst": 5,
+      "goalDiff": -4,
       "points": 0,
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015675_120x120.jpg"
     },
@@ -265,28 +265,28 @@
       "team": "ADANA DEMİRSPOR A.Ş.",
       "kulupId": "3603",
       "isSanliurfaspor": false,
-      "played": 1,
+      "played": 2,
       "won": 1,
       "drawn": 0,
-      "lost": 0,
+      "lost": 1,
       "goalsFor": 2,
-      "goalsAgainst": 1,
-      "goalDiff": 1,
+      "goalsAgainst": 3,
+      "goalDiff": -1,
       "points": -45,
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000161_120x120.png"
     }
   ],
   "logos": {
-    "ÇORLU SPOR 1947": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/011578_120x120.jpg",
-    "ALİAĞA FUTBOL A.Ş.": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/014755_120x120.jpg",
-    "İNEGÖL KAFKAS SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015360_120x120.jpg",
     "SEZA ÇİMENTO ELAZIĞSPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000036_120x120.png",
     "GÜZİDE GEBZE SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012493_120x120.jpg",
+    "SOMASPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012210_120x120.jpg",
+    "ÇORLU SPOR 1947": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/011578_120x120.jpg",
+    "ALİAĞA FUTBOL A.Ş.": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/014755_120x120.jpg",
     "KIZILKAYA TARIM ŞANLIURFASPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
+    "İNEGÖL KAFKAS SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015360_120x120.jpg",
     "EFOR ÇAY ERBAASPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000203_120x120.jpg",
     "MUŞ SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/017249_120x120.jpg",
     "68 AKSARAY BELEDİYE SPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015868_120x120.jpg",
-    "SOMASPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012210_120x120.jpg",
     "ISBAŞ ISPARTA 32 SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/013315_120x120.jpg",
     "ANKARASPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/010779_120x120.jpg",
     "MENEMEN FUTBOL KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012893_120x120.jpg",
@@ -575,7 +575,24 @@
       "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/017989_120x120.jpg",
       "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
       "detail": {
-        "referees": [],
+        "referees": [
+          {
+            "name": "Enver Aydın",
+            "role": "Hakem"
+          },
+          {
+            "name": "Okan Delier",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Anıl Gökberk Sarı",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Giray Şaylan",
+            "role": "Dördüncü Hakem"
+          }
+        ],
         "lineups": null,
         "events": []
       }
@@ -634,8 +651,8 @@
       "awayTeam": "GÜZİDE GEBZE SPOR KULÜBÜ",
       "homeScore": null,
       "awayScore": null,
-      "date": "2026-10-04",
-      "dateText": "2026-10-04",
+      "date": "2026-10-05",
+      "dateText": "2026-10-05",
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": true,
       "opponent": "GÜZİDE GEBZE SPOR KULÜBÜ",
