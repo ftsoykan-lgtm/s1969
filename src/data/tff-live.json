@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-14T04:17:35.953Z",
+  "updatedAt": "2026-09-14T12:21:35.881Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -777,95 +777,7 @@
             "coach": "Gürses Kılıç"
           }
         },
-        "events": [
-          {
-            "minute": 14,
-            "type": "goal",
-            "team": "home",
-            "player": "Veysel Sönmezsoy",
-            "detail": "Penaltı"
-          },
-          {
-            "minute": 44,
-            "type": "goal",
-            "team": "home",
-            "player": "Harun Özcan"
-          },
-          {
-            "minute": 78,
-            "type": "goal",
-            "team": "home",
-            "player": "Yasin Dülger",
-            "detail": "Penaltı"
-          },
-          {
-            "minute": 23,
-            "type": "goal",
-            "team": "away",
-            "player": "Sinan Kurumuş",
-            "detail": "Penaltı"
-          },
-          {
-            "minute": 27,
-            "type": "goal",
-            "team": "away",
-            "player": "Cebrail İrtürk"
-          },
-          {
-            "minute": 83,
-            "type": "goal",
-            "team": "away",
-            "player": "İbrahim Burak Işık"
-          },
-          {
-            "minute": 43,
-            "type": "yellow",
-            "team": "home",
-            "player": "Burak Asan"
-          },
-          {
-            "minute": 69,
-            "type": "yellow",
-            "team": "home",
-            "player": "Harun Özcan"
-          },
-          {
-            "minute": 80,
-            "type": "yellow",
-            "team": "home",
-            "player": "Mert Önal"
-          },
-          {
-            "minute": 88,
-            "type": "yellow",
-            "team": "away",
-            "player": "Hasan Hatipoğlu"
-          },
-          {
-            "minute": 77,
-            "type": "yellow",
-            "team": "away",
-            "player": "Sinan Kurumuş"
-          },
-          {
-            "minute": 47,
-            "type": "yellow",
-            "team": "away",
-            "player": "Sedat Dursun"
-          },
-          {
-            "minute": 28,
-            "type": "yellow",
-            "team": "away",
-            "player": "Fatih Mehmet Ekinci"
-          },
-          {
-            "minute": 54,
-            "type": "yellow",
-            "team": "away",
-            "player": "Umut Mert Toy"
-          }
-        ]
+        "events": []
       }
     },
     {
