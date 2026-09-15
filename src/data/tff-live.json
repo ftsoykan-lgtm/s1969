@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-14T21:43:12.872Z",
+  "updatedAt": "2026-09-15T04:17:36.079Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -593,8 +593,279 @@
             "role": "Dördüncü Hakem"
           }
         ],
-        "lineups": null,
-        "events": []
+        "lineups": {
+          "home": {
+            "starters": [
+              {
+                "number": 43,
+                "name": "Ahmet Daş"
+              },
+              {
+                "number": 4,
+                "name": "Mete Yıldız"
+              },
+              {
+                "number": 99,
+                "name": "Harun Özcan"
+              },
+              {
+                "number": 9,
+                "name": "İlker Karakaş"
+              },
+              {
+                "number": 10,
+                "name": "Veysel Sönmezsoy"
+              },
+              {
+                "number": 14,
+                "name": "Cemal Kızılateş"
+              },
+              {
+                "number": 20,
+                "name": "Rıdvan Dönmez"
+              },
+              {
+                "number": 22,
+                "name": "Furkan Şan"
+              },
+              {
+                "number": 23,
+                "name": "Burak Yamaç"
+              },
+              {
+                "number": 58,
+                "name": "Burak Asan"
+              },
+              {
+                "number": 61,
+                "name": "Yasin Dülger"
+              }
+            ],
+            "subs": [
+              {
+                "number": 1,
+                "name": "Efe Eren Sancak"
+              },
+              {
+                "number": 6,
+                "name": "Talha Özcan"
+              },
+              {
+                "number": 11,
+                "name": "Eren Altıntaş"
+              },
+              {
+                "number": 7,
+                "name": "Ahmet Arda Tuzcu"
+              },
+              {
+                "number": 17,
+                "name": "Bulut Uysal"
+              },
+              {
+                "number": 19,
+                "name": "Güneş Güventürk"
+              },
+              {
+                "number": 24,
+                "name": "Eren Karaağaç"
+              },
+              {
+                "number": 27,
+                "name": "Thierry Darnel Karadeniz"
+              },
+              {
+                "number": 77,
+                "name": "Umut Uzun"
+              },
+              {
+                "number": 45,
+                "name": "Mert Önal"
+              }
+            ],
+            "coach": "Turgay Karslı"
+          },
+          "away": {
+            "starters": [
+              {
+                "number": 20,
+                "name": "Abdulkadir Sünger"
+              },
+              {
+                "number": 70,
+                "name": "Fatih Mehmet Ekinci"
+              },
+              {
+                "number": 39,
+                "name": "İbrahim Sürgülü"
+              },
+              {
+                "number": 5,
+                "name": "Hasan Hatipoğlu"
+              },
+              {
+                "number": 6,
+                "name": "Umut Mert Toy"
+              },
+              {
+                "number": 4,
+                "name": "Muhammed Gönülaçar"
+              },
+              {
+                "number": 66,
+                "name": "Cebrail İrtürk"
+              },
+              {
+                "number": 10,
+                "name": "Çekdar Orhan"
+              },
+              {
+                "number": 14,
+                "name": "Özcan Aydın"
+              },
+              {
+                "number": 7,
+                "name": "Oğuzhan Doğan"
+              },
+              {
+                "number": 99,
+                "name": "Sinan Kurumuş"
+              }
+            ],
+            "subs": [
+              {
+                "number": 35,
+                "name": "Baran Demir"
+              },
+              {
+                "number": 27,
+                "name": "İlker Günaslan"
+              },
+              {
+                "number": 23,
+                "name": "Sedat Dursun"
+              },
+              {
+                "number": 19,
+                "name": "Tahsin Bülbül"
+              },
+              {
+                "number": 25,
+                "name": "Özgür Sert"
+              },
+              {
+                "number": 17,
+                "name": "Ahmet Karademir"
+              },
+              {
+                "number": 11,
+                "name": "Ali Aydemir"
+              },
+              {
+                "number": 9,
+                "name": "İbrahim Burak Işık"
+              },
+              {
+                "number": 16,
+                "name": "Yiğitali Bayrak"
+              },
+              {
+                "number": 52,
+                "name": "Hüsamettin Yener"
+              }
+            ],
+            "coach": "Gürses Kılıç"
+          }
+        },
+        "events": [
+          {
+            "minute": 14,
+            "type": "goal",
+            "team": "home",
+            "player": "Veysel Sönmezsoy",
+            "detail": "Penaltı"
+          },
+          {
+            "minute": 44,
+            "type": "goal",
+            "team": "home",
+            "player": "Harun Özcan"
+          },
+          {
+            "minute": 78,
+            "type": "goal",
+            "team": "home",
+            "player": "Yasin Dülger",
+            "detail": "Penaltı"
+          },
+          {
+            "minute": 23,
+            "type": "goal",
+            "team": "away",
+            "player": "Sinan Kurumuş",
+            "detail": "Penaltı"
+          },
+          {
+            "minute": 27,
+            "type": "goal",
+            "team": "away",
+            "player": "Cebrail İrtürk"
+          },
+          {
+            "minute": 83,
+            "type": "goal",
+            "team": "away",
+            "player": "İbrahim Burak Işık"
+          },
+          {
+            "minute": 43,
+            "type": "yellow",
+            "team": "home",
+            "player": "Burak Asan"
+          },
+          {
+            "minute": 69,
+            "type": "yellow",
+            "team": "home",
+            "player": "Harun Özcan"
+          },
+          {
+            "minute": 80,
+            "type": "yellow",
+            "team": "home",
+            "player": "Mert Önal"
+          },
+          {
+            "minute": 88,
+            "type": "yellow",
+            "team": "away",
+            "player": "Hasan Hatipoğlu"
+          },
+          {
+            "minute": 77,
+            "type": "yellow",
+            "team": "away",
+            "player": "Sinan Kurumuş"
+          },
+          {
+            "minute": 47,
+            "type": "yellow",
+            "team": "away",
+            "player": "Sedat Dursun"
+          },
+          {
+            "minute": 28,
+            "type": "yellow",
+            "team": "away",
+            "player": "Fatih Mehmet Ekinci"
+          },
+          {
+            "minute": 54,
+            "type": "yellow",
+            "team": "away",
+            "player": "Umut Mert Toy"
+          }
+        ]
       }
     },
     {
