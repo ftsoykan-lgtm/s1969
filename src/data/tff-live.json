@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-17T16:39:22.541Z",
+  "updatedAt": "2026-09-17T21:11:18.747Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -886,7 +886,24 @@
       "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
       "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000161_120x120.png",
       "detail": {
-        "referees": [],
+        "referees": [
+          {
+            "name": "Hatem Yarar",
+            "role": "Hakem"
+          },
+          {
+            "name": "Erdinç Tufan",
+            "role": "1. Yardımcı Hakem"
+          },
+          {
+            "name": "Hakan Özler",
+            "role": "2. Yardımcı Hakem"
+          },
+          {
+            "name": "Kemal Savaş",
+            "role": "Dördüncü Hakem"
+          }
+        ],
         "lineups": null,
         "events": []
       }
