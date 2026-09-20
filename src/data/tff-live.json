@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-19T20:22:18.056Z",
+  "updatedAt": "2026-09-20T04:19:59.967Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -877,7 +877,7 @@
       "homeScore": 1,
       "awayScore": 1,
       "date": "2026-09-19",
-      "dateText": "2026-09-19",
+      "dateText": "19 Eylül 2026",
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": true,
       "opponent": "ADANA DEMİRSPOR A.Ş.",
@@ -1088,7 +1088,64 @@
             "coach": "Volkan Kürşat Bekiroğlu"
           }
         },
-        "events": []
+        "events": [
+          {
+            "minute": 31,
+            "type": "goal",
+            "team": "away",
+            "player": "Sefa Gülay",
+            "detail": "Penaltı"
+          },
+          {
+            "minute": 35,
+            "type": "goal",
+            "team": "away",
+            "player": "Yusuf Buğra Demirkıran",
+            "detail": "Kendi kalesine"
+          },
+          {
+            "minute": 90,
+            "type": "yellow",
+            "team": "home",
+            "player": "Yiğitali Bayrak"
+          },
+          {
+            "minute": 85,
+            "type": "yellow",
+            "team": "home",
+            "player": "Muhammed Gönülaçar"
+          },
+          {
+            "minute": 77,
+            "type": "yellow",
+            "team": "home",
+            "player": "Özgür Sert"
+          },
+          {
+            "minute": 48,
+            "type": "yellow",
+            "team": "away",
+            "player": "Aslan Atay"
+          },
+          {
+            "minute": 90,
+            "type": "yellow",
+            "team": "away",
+            "player": "Gökdeniz Tunç"
+          },
+          {
+            "minute": 90,
+            "type": "yellow",
+            "team": "away",
+            "player": "Eren Fidan"
+          },
+          {
+            "minute": 63,
+            "type": "yellow",
+            "team": "away",
+            "player": "Toprak Bayar"
+          }
+        ]
       }
     },
     {
