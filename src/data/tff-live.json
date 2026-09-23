@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-23T04:11:56.918Z",
+  "updatedAt": "2026-09-23T11:11:55.392Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -1880,7 +1880,13 @@
         "name": "Ahmet Güneş",
         "tffId": "2088408",
         "number": null,
-        "position": null
+        "position": null,
+        "birthPlace": "Şanlıurfa",
+        "birthDate": "16.01.2006",
+        "nationality": "Türkiye",
+        "flagCode": "tr",
+        "licenseNo": "1946441",
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "Ahmet Karademir",
