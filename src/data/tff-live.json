@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-25T04:19:52.295Z",
+  "updatedAt": "2026-09-25T11:34:05.471Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -183,7 +183,7 @@
       "goalsAgainst": 5,
       "goalDiff": -3,
       "points": 3,
-      "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/010779_120x120.png"
+      "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/010779_120x120.jpg"
     },
     {
       "rank": 13,
@@ -288,7 +288,7 @@
     "SOMASPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012210_120x120.jpg",
     "İNEGÖL KAFKAS SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015360_120x120.jpg",
     "MENEMEN FUTBOL KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012893_120x120.jpg",
-    "ANKARASPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/010779_120x120.png",
+    "ANKARASPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/010779_120x120.jpg",
     "SEBAT SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/017989_120x120.jpg",
     "ISBAŞ ISPARTA 32 SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/013315_120x120.jpg",
     "ARKENT ARNAVUTKÖY BELEDİYESİ FUTBOL SK": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015675_120x120.jpg",
@@ -313,7 +313,7 @@
       "result": "G",
       "venue": "11 Nisan Stadyumu",
       "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
-      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/010779_120x120.png",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/010779_120x120.jpg",
       "detail": {
         "referees": [
           {
@@ -1166,24 +1166,7 @@
       "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/014755_120x120.jpg",
       "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
       "detail": {
-        "referees": [
-          {
-            "name": "Can Cengiz",
-            "role": "Hakem"
-          },
-          {
-            "name": "Emrah Altındağ",
-            "role": "1. Yardımcı Hakem"
-          },
-          {
-            "name": "Mahmut Can Çilkız",
-            "role": "2. Yardımcı Hakem"
-          },
-          {
-            "name": "Kadir Demir",
-            "role": "Dördüncü Hakem"
-          }
-        ],
+        "referees": [],
         "lineups": null,
         "events": []
       }
@@ -1501,7 +1484,7 @@
       "opponent": "ANKARASPOR",
       "result": null,
       "venue": "Sincan 15 Temmuz Milli Birlik Stadı",
-      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/010779_120x120.png",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/010779_120x120.jpg",
       "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
       "detail": {
         "referees": [],
