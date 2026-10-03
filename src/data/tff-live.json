@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-02T22:02:39.664Z",
+  "updatedAt": "2026-10-03T04:44:51.436Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -2219,13 +2219,7 @@
         "name": "Baran Demir",
         "tffId": "1760158",
         "number": null,
-        "position": null,
-        "birthPlace": "Seyhan",
-        "birthDate": "02.12.2005",
-        "nationality": "Türkiye",
-        "flagCode": "tr",
-        "licenseNo": "1046179",
-        "club": "Kızılkaya Tarım Şanlıurfaspor"
+        "position": null
       },
       {
         "name": "Cebrail İrtürk",
