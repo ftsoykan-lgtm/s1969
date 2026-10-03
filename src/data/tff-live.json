@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-03T16:04:12.255Z",
+  "updatedAt": "2026-10-03T20:52:09.342Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -2327,13 +2327,25 @@
         "name": "İbrahim Sürgülü",
         "tffId": "657075",
         "number": null,
-        "position": null
+        "position": null,
+        "birthPlace": "Polatlı",
+        "birthDate": "04.04.1993",
+        "nationality": "Türkiye",
+        "flagCode": "tr",
+        "licenseNo": "793295",
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "İbrahim Burak Işık",
         "tffId": "1963489",
         "number": null,
-        "position": null
+        "position": null,
+        "birthPlace": "Bodrum",
+        "birthDate": "11.07.2007",
+        "nationality": "Türkiye",
+        "flagCode": "tr",
+        "licenseNo": "3547820",
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "İbrahim Egemen Uğurlu",
