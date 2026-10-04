@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-03T20:52:09.342Z",
+  "updatedAt": "2026-10-04T05:13:45.586Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -52,6 +52,21 @@
     },
     {
       "rank": 4,
+      "team": "MENEMEN FUTBOL KULÜBÜ",
+      "kulupId": "1120",
+      "isSanliurfaspor": false,
+      "played": 5,
+      "won": 3,
+      "drawn": 0,
+      "lost": 2,
+      "goalsFor": 7,
+      "goalsAgainst": 7,
+      "goalDiff": 0,
+      "points": 9,
+      "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012893_120x120.jpg"
+    },
+    {
+      "rank": 5,
       "team": "GÜZİDE GEBZE SPOR KULÜBÜ",
       "kulupId": "746",
       "isSanliurfaspor": false,
@@ -66,7 +81,7 @@
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012493_120x120.jpg"
     },
     {
-      "rank": 5,
+      "rank": 6,
       "team": "ÇORLU SPOR 1947",
       "kulupId": "5044",
       "isSanliurfaspor": false,
@@ -81,7 +96,7 @@
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/011578_120x120.jpg"
     },
     {
-      "rank": 6,
+      "rank": 7,
       "team": "İNEGÖL KAFKAS SPOR KULÜBÜ",
       "kulupId": "3276",
       "isSanliurfaspor": false,
@@ -96,7 +111,7 @@
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015360_120x120.jpg"
     },
     {
-      "rank": 7,
+      "rank": 8,
       "team": "EFOR ÇAY ERBAASPOR",
       "kulupId": "3641",
       "isSanliurfaspor": false,
@@ -111,7 +126,7 @@
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000203_120x120.jpg"
     },
     {
-      "rank": 8,
+      "rank": 9,
       "team": "SOMASPOR",
       "kulupId": "497",
       "isSanliurfaspor": false,
@@ -126,22 +141,22 @@
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012210_120x120.jpg"
     },
     {
-      "rank": 9,
-      "team": "MENEMEN FUTBOL KULÜBÜ",
-      "kulupId": "1120",
+      "rank": 10,
+      "team": "ISBAŞ ISPARTA 32 SPOR KULÜBÜ",
+      "kulupId": "1484",
       "isSanliurfaspor": false,
-      "played": 4,
+      "played": 5,
       "won": 2,
-      "drawn": 0,
+      "drawn": 1,
       "lost": 2,
-      "goalsFor": 5,
-      "goalsAgainst": 7,
-      "goalDiff": -2,
-      "points": 6,
-      "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012893_120x120.jpg"
+      "goalsFor": 8,
+      "goalsAgainst": 8,
+      "goalDiff": 0,
+      "points": 7,
+      "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/013315_120x120.jpg"
     },
     {
-      "rank": 10,
+      "rank": 11,
       "team": "68 AKSARAY BELEDİYE SPOR",
       "kulupId": "6496",
       "isSanliurfaspor": false,
@@ -156,7 +171,7 @@
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015868_120x120.jpg"
     },
     {
-      "rank": 11,
+      "rank": 12,
       "team": "KIZILKAYA TARIM ŞANLIURFASPOR",
       "kulupId": "31",
       "isSanliurfaspor": true,
@@ -169,21 +184,6 @@
       "goalDiff": 0,
       "points": 5,
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png"
-    },
-    {
-      "rank": 12,
-      "team": "ISBAŞ ISPARTA 32 SPOR KULÜBÜ",
-      "kulupId": "1484",
-      "isSanliurfaspor": false,
-      "played": 4,
-      "won": 1,
-      "drawn": 1,
-      "lost": 2,
-      "goalsFor": 7,
-      "goalsAgainst": 8,
-      "goalDiff": -1,
-      "points": 4,
-      "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/013315_120x120.jpg"
     },
     {
       "rank": 13,
@@ -250,13 +250,13 @@
       "team": "HATAYSPOR",
       "kulupId": "121",
       "isSanliurfaspor": false,
-      "played": 4,
+      "played": 5,
       "won": 1,
       "drawn": 1,
-      "lost": 2,
+      "lost": 3,
       "goalsFor": 2,
-      "goalsAgainst": 3,
-      "goalDiff": -1,
+      "goalsAgainst": 4,
+      "goalDiff": -2,
       "points": -2,
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000122_120x120.png"
     },
@@ -265,13 +265,13 @@
       "team": "ADANA DEMİRSPOR A.Ş.",
       "kulupId": "3603",
       "isSanliurfaspor": false,
-      "played": 4,
+      "played": 5,
       "won": 1,
       "drawn": 1,
-      "lost": 2,
+      "lost": 3,
       "goalsFor": 3,
-      "goalsAgainst": 7,
-      "goalDiff": -4,
+      "goalsAgainst": 9,
+      "goalDiff": -6,
       "points": -44,
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000161_120x120.png"
     }
@@ -280,15 +280,15 @@
     "MUŞ SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/017249_120x120.jpg",
     "ALİAĞA FUTBOL A.Ş.": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/014755_120x120.jpg",
     "SEZA ÇİMENTO ELAZIĞSPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000036_120x120.png",
+    "MENEMEN FUTBOL KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012893_120x120.jpg",
     "GÜZİDE GEBZE SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012493_120x120.jpg",
     "ÇORLU SPOR 1947": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/011578_120x120.jpg",
     "İNEGÖL KAFKAS SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015360_120x120.jpg",
     "EFOR ÇAY ERBAASPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000203_120x120.jpg",
     "SOMASPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012210_120x120.jpg",
-    "MENEMEN FUTBOL KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012893_120x120.jpg",
+    "ISBAŞ ISPARTA 32 SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/013315_120x120.jpg",
     "68 AKSARAY BELEDİYE SPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015868_120x120.jpg",
     "KIZILKAYA TARIM ŞANLIURFASPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
-    "ISBAŞ ISPARTA 32 SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/013315_120x120.jpg",
     "ANKARASPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/010779_120x120.png",
     "SEBAT SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/017989_120x120.jpg",
     "ARKENT ARNAVUTKÖY BELEDİYESİ FUTBOL SK": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015675_120x120.jpg",
