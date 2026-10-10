@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-10T05:14:29.692Z",
+  "updatedAt": "2026-10-10T12:15:32.151Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -1729,7 +1729,190 @@
             "role": "Dördüncü Hakem"
           }
         ],
-        "lineups": null,
+        "lineups": {
+          "home": {
+            "starters": [
+              {
+                "number": 1,
+                "name": "Ahmet Pekgöz"
+              },
+              {
+                "number": 19,
+                "name": "Yusuf Kaplan"
+              },
+              {
+                "number": 6,
+                "name": "Barış Zeren"
+              },
+              {
+                "number": 10,
+                "name": "Mahsun Çapkan"
+              },
+              {
+                "number": 35,
+                "name": "Alpay Koldaş"
+              },
+              {
+                "number": 33,
+                "name": "Ali Eren İyican"
+              },
+              {
+                "number": 17,
+                "name": "Batuhan Ekinci"
+              },
+              {
+                "number": 9,
+                "name": "Adnan Karahisar"
+              },
+              {
+                "number": 13,
+                "name": "Yılmaz Ceylan"
+              },
+              {
+                "number": 77,
+                "name": "Recep Yemişci"
+              },
+              {
+                "number": 14,
+                "name": "Volkan Uluğ"
+              }
+            ],
+            "subs": [
+              {
+                "number": 99,
+                "name": "Hüseyin Koç"
+              },
+              {
+                "number": 91,
+                "name": "Esat Yiğit Alkurt"
+              },
+              {
+                "number": 61,
+                "name": "Recai Efe Kaygusuz"
+              },
+              {
+                "number": 7,
+                "name": "Ali Han Tunçer"
+              },
+              {
+                "number": 23,
+                "name": "Ömer Faruk Aydemir"
+              },
+              {
+                "number": 68,
+                "name": "Sinan Baki Usluer"
+              },
+              {
+                "number": 98,
+                "name": "Anıl Hekimoğulları"
+              },
+              {
+                "number": 50,
+                "name": "Efe Geçim"
+              },
+              {
+                "number": 2,
+                "name": "Asım Efe Işık"
+              },
+              {
+                "number": 3,
+                "name": "Muharrem Doğan"
+              }
+            ],
+            "coach": "Cihan Erdil"
+          },
+          "away": {
+            "starters": [
+              {
+                "number": 20,
+                "name": "Abdulkadir Sünger"
+              },
+              {
+                "number": 3,
+                "name": "Alper Tursun"
+              },
+              {
+                "number": 4,
+                "name": "Muhammed Gönülaçar"
+              },
+              {
+                "number": 6,
+                "name": "Umut Mert Toy"
+              },
+              {
+                "number": 8,
+                "name": "Ferhan Evren"
+              },
+              {
+                "number": 10,
+                "name": "Çekdar Orhan"
+              },
+              {
+                "number": 11,
+                "name": "Ali Aydemir"
+              },
+              {
+                "number": 14,
+                "name": "Özcan Aydın"
+              },
+              {
+                "number": 23,
+                "name": "Sedat Dursun"
+              },
+              {
+                "number": 27,
+                "name": "İlker Günaslan"
+              },
+              {
+                "number": 52,
+                "name": "Hüsamettin Yener"
+              }
+            ],
+            "subs": [
+              {
+                "number": 35,
+                "name": "Baran Demir"
+              },
+              {
+                "number": 7,
+                "name": "Oğuzhan Doğan"
+              },
+              {
+                "number": 9,
+                "name": "İbrahim Burak Işık"
+              },
+              {
+                "number": 17,
+                "name": "Ahmet Karademir"
+              },
+              {
+                "number": 19,
+                "name": "Tahsin Bülbül"
+              },
+              {
+                "number": 25,
+                "name": "Özgür Sert"
+              },
+              {
+                "number": 39,
+                "name": "İbrahim Sürgülü"
+              },
+              {
+                "number": 66,
+                "name": "Cebrail İrtürk"
+              },
+              {
+                "number": 70,
+                "name": "Fatih Mehmet Ekinci"
+              },
+              {
+                "number": 77,
+                "name": "Aslan Gök"
+              }
+            ],
+            "coach": "Ahmet Yıldırım"
+          }
+        },
         "events": []
       }
     },
@@ -2384,13 +2567,7 @@
         "name": "Abdulkadir Sünger",
         "tffId": "1474032",
         "number": null,
-        "position": null,
-        "birthPlace": "Denizli",
-        "birthDate": "24.05.2000",
-        "nationality": "Türkiye",
-        "flagCode": "tr",
-        "licenseNo": "1891464",
-        "club": "Kızılkaya Tarım Şanlıurfaspor"
+        "position": null
       },
       {
         "name": "Ahmet Güneş",
@@ -2600,13 +2777,7 @@
         "name": "İbrahim Egemen Uğurlu",
         "tffId": "1851743",
         "number": null,
-        "position": null,
-        "birthPlace": "Şişli",
-        "birthDate": "28.04.2005",
-        "nationality": "Türkiye",
-        "flagCode": "tr",
-        "licenseNo": "2626589",
-        "club": "Kızılkaya Tarım Şanlıurfaspor"
+        "position": null
       },
       {
         "name": "İlker Günaslan",
