@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-10T12:15:32.151Z",
+  "updatedAt": "2026-10-10T21:26:30.790Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -10,14 +10,14 @@
       "team": "MUŞ SPOR KULÜBÜ",
       "kulupId": "8722",
       "isSanliurfaspor": false,
-      "played": 5,
-      "won": 4,
+      "played": 6,
+      "won": 5,
       "drawn": 1,
       "lost": 0,
-      "goalsFor": 15,
+      "goalsFor": 16,
       "goalsAgainst": 7,
-      "goalDiff": 8,
-      "points": 13,
+      "goalDiff": 9,
+      "points": 16,
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/017249_120x120.jpg"
     },
     {
@@ -25,14 +25,14 @@
       "team": "ALİAĞA FUTBOL A.Ş.",
       "kulupId": "2720",
       "isSanliurfaspor": false,
-      "played": 5,
-      "won": 4,
+      "played": 6,
+      "won": 5,
       "drawn": 0,
       "lost": 1,
-      "goalsFor": 12,
+      "goalsFor": 13,
       "goalsAgainst": 9,
-      "goalDiff": 3,
-      "points": 12,
+      "goalDiff": 4,
+      "points": 15,
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/014755_120x120.jpg"
     },
     {
@@ -55,18 +55,48 @@
       "team": "ÇORLU SPOR 1947",
       "kulupId": "5044",
       "isSanliurfaspor": false,
-      "played": 5,
+      "played": 6,
       "won": 3,
       "drawn": 1,
-      "lost": 1,
-      "goalsFor": 11,
-      "goalsAgainst": 5,
-      "goalDiff": 6,
+      "lost": 2,
+      "goalsFor": 13,
+      "goalsAgainst": 8,
+      "goalDiff": 5,
       "points": 10,
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/011578_120x120.jpg"
     },
     {
       "rank": 5,
+      "team": "İNEGÖL KAFKAS SPOR KULÜBÜ",
+      "kulupId": "3276",
+      "isSanliurfaspor": false,
+      "played": 6,
+      "won": 3,
+      "drawn": 1,
+      "lost": 2,
+      "goalsFor": 11,
+      "goalsAgainst": 8,
+      "goalDiff": 3,
+      "points": 10,
+      "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015360_120x120.jpg"
+    },
+    {
+      "rank": 6,
+      "team": "ISBAŞ ISPARTA 32 SPOR KULÜBÜ",
+      "kulupId": "1484",
+      "isSanliurfaspor": false,
+      "played": 6,
+      "won": 3,
+      "drawn": 1,
+      "lost": 2,
+      "goalsFor": 11,
+      "goalsAgainst": 10,
+      "goalDiff": 1,
+      "points": 10,
+      "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/013315_120x120.jpg"
+    },
+    {
+      "rank": 7,
       "team": "GÜZİDE GEBZE SPOR KULÜBÜ",
       "kulupId": "746",
       "isSanliurfaspor": false,
@@ -81,37 +111,37 @@
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012493_120x120.jpg"
     },
     {
-      "rank": 6,
+      "rank": 8,
+      "team": "KIZILKAYA TARIM ŞANLIURFASPOR",
+      "kulupId": "31",
+      "isSanliurfaspor": true,
+      "played": 6,
+      "won": 2,
+      "drawn": 3,
+      "lost": 1,
+      "goalsFor": 10,
+      "goalsAgainst": 9,
+      "goalDiff": 1,
+      "points": 9,
+      "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png"
+    },
+    {
+      "rank": 9,
       "team": "MENEMEN FUTBOL KULÜBÜ",
       "kulupId": "1120",
       "isSanliurfaspor": false,
-      "played": 5,
+      "played": 6,
       "won": 3,
       "drawn": 0,
-      "lost": 2,
+      "lost": 3,
       "goalsFor": 7,
-      "goalsAgainst": 7,
-      "goalDiff": 0,
+      "goalsAgainst": 8,
+      "goalDiff": -1,
       "points": 9,
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012893_120x120.jpg"
     },
     {
-      "rank": 7,
-      "team": "İNEGÖL KAFKAS SPOR KULÜBÜ",
-      "kulupId": "3276",
-      "isSanliurfaspor": false,
-      "played": 5,
-      "won": 2,
-      "drawn": 1,
-      "lost": 2,
-      "goalsFor": 9,
-      "goalsAgainst": 7,
-      "goalDiff": 2,
-      "points": 7,
-      "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015360_120x120.jpg"
-    },
-    {
-      "rank": 8,
+      "rank": 10,
       "team": "EFOR ÇAY ERBAASPOR",
       "kulupId": "3641",
       "isSanliurfaspor": false,
@@ -126,7 +156,7 @@
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000203_120x120.jpg"
     },
     {
-      "rank": 9,
+      "rank": 11,
       "team": "SOMASPOR",
       "kulupId": "497",
       "isSanliurfaspor": false,
@@ -141,77 +171,47 @@
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012210_120x120.jpg"
     },
     {
-      "rank": 10,
-      "team": "ISBAŞ ISPARTA 32 SPOR KULÜBÜ",
-      "kulupId": "1484",
-      "isSanliurfaspor": false,
-      "played": 5,
-      "won": 2,
-      "drawn": 1,
-      "lost": 2,
-      "goalsFor": 8,
-      "goalsAgainst": 8,
-      "goalDiff": 0,
-      "points": 7,
-      "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/013315_120x120.jpg"
-    },
-    {
-      "rank": 11,
-      "team": "KIZILKAYA TARIM ŞANLIURFASPOR",
-      "kulupId": "31",
-      "isSanliurfaspor": true,
-      "played": 5,
-      "won": 1,
-      "drawn": 3,
-      "lost": 1,
-      "goalsFor": 7,
-      "goalsAgainst": 7,
-      "goalDiff": 0,
-      "points": 6,
-      "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png"
-    },
-    {
       "rank": 12,
-      "team": "ANKARASPOR",
-      "kulupId": "4355",
-      "isSanliurfaspor": false,
-      "played": 5,
-      "won": 2,
-      "drawn": 0,
-      "lost": 3,
-      "goalsFor": 3,
-      "goalsAgainst": 6,
-      "goalDiff": -3,
-      "points": 6,
-      "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/010779_120x120.png"
-    },
-    {
-      "rank": 13,
       "team": "68 AKSARAY BELEDİYE SPOR",
       "kulupId": "6496",
       "isSanliurfaspor": false,
-      "played": 5,
+      "played": 6,
       "won": 1,
-      "drawn": 2,
+      "drawn": 3,
       "lost": 2,
-      "goalsFor": 9,
-      "goalsAgainst": 8,
+      "goalsFor": 10,
+      "goalsAgainst": 9,
       "goalDiff": 1,
-      "points": 5,
+      "points": 6,
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015868_120x120.jpg"
+    },
+    {
+      "rank": 13,
+      "team": "ANKARASPOR",
+      "kulupId": "4355",
+      "isSanliurfaspor": false,
+      "played": 6,
+      "won": 2,
+      "drawn": 0,
+      "lost": 4,
+      "goalsFor": 4,
+      "goalsAgainst": 8,
+      "goalDiff": -4,
+      "points": 6,
+      "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/010779_120x120.png"
     },
     {
       "rank": 14,
       "team": "GMG KASTAMONUSPOR",
       "kulupId": "4342",
       "isSanliurfaspor": false,
-      "played": 5,
+      "played": 6,
       "won": 2,
       "drawn": 0,
-      "lost": 3,
+      "lost": 4,
       "goalsFor": 4,
-      "goalsAgainst": 13,
-      "goalDiff": -9,
+      "goalsAgainst": 14,
+      "goalDiff": -10,
       "points": 3,
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/010766_120x120.jpg"
     },
@@ -220,14 +220,14 @@
       "team": "SEBAT SPOR KULÜBÜ",
       "kulupId": "10300",
       "isSanliurfaspor": false,
-      "played": 4,
+      "played": 5,
       "won": 0,
-      "drawn": 1,
+      "drawn": 2,
       "lost": 3,
-      "goalsFor": 6,
-      "goalsAgainst": 10,
+      "goalsFor": 7,
+      "goalsAgainst": 11,
       "goalDiff": -4,
-      "points": 1,
+      "points": 2,
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/017989_120x120.jpg"
     },
     {
@@ -235,13 +235,13 @@
       "team": "ARKENT ARNAVUTKÖY BELEDİYESİ FUTBOL SK",
       "kulupId": "6039",
       "isSanliurfaspor": false,
-      "played": 5,
+      "played": 6,
       "won": 0,
       "drawn": 0,
-      "lost": 5,
-      "goalsFor": 2,
-      "goalsAgainst": 11,
-      "goalDiff": -9,
+      "lost": 6,
+      "goalsFor": 4,
+      "goalsAgainst": 14,
+      "goalDiff": -10,
       "points": 0,
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015675_120x120.jpg"
     },
@@ -281,15 +281,15 @@
     "ALİAĞA FUTBOL A.Ş.": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/014755_120x120.jpg",
     "SEZA ÇİMENTO ELAZIĞSPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000036_120x120.png",
     "ÇORLU SPOR 1947": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/011578_120x120.jpg",
-    "GÜZİDE GEBZE SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012493_120x120.jpg",
-    "MENEMEN FUTBOL KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012893_120x120.jpg",
     "İNEGÖL KAFKAS SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015360_120x120.jpg",
+    "ISBAŞ ISPARTA 32 SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/013315_120x120.jpg",
+    "GÜZİDE GEBZE SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012493_120x120.jpg",
+    "KIZILKAYA TARIM ŞANLIURFASPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
+    "MENEMEN FUTBOL KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012893_120x120.jpg",
     "EFOR ÇAY ERBAASPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000203_120x120.jpg",
     "SOMASPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012210_120x120.jpg",
-    "ISBAŞ ISPARTA 32 SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/013315_120x120.jpg",
-    "KIZILKAYA TARIM ŞANLIURFASPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
-    "ANKARASPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/010779_120x120.png",
     "68 AKSARAY BELEDİYE SPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015868_120x120.jpg",
+    "ANKARASPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/010779_120x120.png",
     "GMG KASTAMONUSPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/010766_120x120.jpg",
     "SEBAT SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/017989_120x120.jpg",
     "ARKENT ARNAVUTKÖY BELEDİYESİ FUTBOL SK": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015675_120x120.jpg",
@@ -1699,14 +1699,14 @@
       "time": "15:30",
       "homeTeam": "ÇORLU SPOR 1947",
       "awayTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
-      "homeScore": null,
-      "awayScore": null,
+      "homeScore": 2,
+      "awayScore": 3,
       "date": "2026-10-10",
-      "dateText": "2026-10-10",
+      "dateText": "10 Ekim 2026",
       "competition": "Nesine 2. Lig Beyaz",
       "isHome": false,
       "opponent": "ÇORLU SPOR 1947",
-      "result": null,
+      "result": "G",
       "venue": "General Basri Saran",
       "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/011578_120x120.jpg",
       "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
@@ -1729,190 +1729,7 @@
             "role": "Dördüncü Hakem"
           }
         ],
-        "lineups": {
-          "home": {
-            "starters": [
-              {
-                "number": 1,
-                "name": "Ahmet Pekgöz"
-              },
-              {
-                "number": 19,
-                "name": "Yusuf Kaplan"
-              },
-              {
-                "number": 6,
-                "name": "Barış Zeren"
-              },
-              {
-                "number": 10,
-                "name": "Mahsun Çapkan"
-              },
-              {
-                "number": 35,
-                "name": "Alpay Koldaş"
-              },
-              {
-                "number": 33,
-                "name": "Ali Eren İyican"
-              },
-              {
-                "number": 17,
-                "name": "Batuhan Ekinci"
-              },
-              {
-                "number": 9,
-                "name": "Adnan Karahisar"
-              },
-              {
-                "number": 13,
-                "name": "Yılmaz Ceylan"
-              },
-              {
-                "number": 77,
-                "name": "Recep Yemişci"
-              },
-              {
-                "number": 14,
-                "name": "Volkan Uluğ"
-              }
-            ],
-            "subs": [
-              {
-                "number": 99,
-                "name": "Hüseyin Koç"
-              },
-              {
-                "number": 91,
-                "name": "Esat Yiğit Alkurt"
-              },
-              {
-                "number": 61,
-                "name": "Recai Efe Kaygusuz"
-              },
-              {
-                "number": 7,
-                "name": "Ali Han Tunçer"
-              },
-              {
-                "number": 23,
-                "name": "Ömer Faruk Aydemir"
-              },
-              {
-                "number": 68,
-                "name": "Sinan Baki Usluer"
-              },
-              {
-                "number": 98,
-                "name": "Anıl Hekimoğulları"
-              },
-              {
-                "number": 50,
-                "name": "Efe Geçim"
-              },
-              {
-                "number": 2,
-                "name": "Asım Efe Işık"
-              },
-              {
-                "number": 3,
-                "name": "Muharrem Doğan"
-              }
-            ],
-            "coach": "Cihan Erdil"
-          },
-          "away": {
-            "starters": [
-              {
-                "number": 20,
-                "name": "Abdulkadir Sünger"
-              },
-              {
-                "number": 3,
-                "name": "Alper Tursun"
-              },
-              {
-                "number": 4,
-                "name": "Muhammed Gönülaçar"
-              },
-              {
-                "number": 6,
-                "name": "Umut Mert Toy"
-              },
-              {
-                "number": 8,
-                "name": "Ferhan Evren"
-              },
-              {
-                "number": 10,
-                "name": "Çekdar Orhan"
-              },
-              {
-                "number": 11,
-                "name": "Ali Aydemir"
-              },
-              {
-                "number": 14,
-                "name": "Özcan Aydın"
-              },
-              {
-                "number": 23,
-                "name": "Sedat Dursun"
-              },
-              {
-                "number": 27,
-                "name": "İlker Günaslan"
-              },
-              {
-                "number": 52,
-                "name": "Hüsamettin Yener"
-              }
-            ],
-            "subs": [
-              {
-                "number": 35,
-                "name": "Baran Demir"
-              },
-              {
-                "number": 7,
-                "name": "Oğuzhan Doğan"
-              },
-              {
-                "number": 9,
-                "name": "İbrahim Burak Işık"
-              },
-              {
-                "number": 17,
-                "name": "Ahmet Karademir"
-              },
-              {
-                "number": 19,
-                "name": "Tahsin Bülbül"
-              },
-              {
-                "number": 25,
-                "name": "Özgür Sert"
-              },
-              {
-                "number": 39,
-                "name": "İbrahim Sürgülü"
-              },
-              {
-                "number": 66,
-                "name": "Cebrail İrtürk"
-              },
-              {
-                "number": 70,
-                "name": "Fatih Mehmet Ekinci"
-              },
-              {
-                "number": 77,
-                "name": "Aslan Gök"
-              }
-            ],
-            "coach": "Ahmet Yıldırım"
-          }
-        },
+        "lineups": null,
         "events": []
       }
     },
@@ -2236,328 +2053,6 @@
         "lineups": null,
         "events": []
       }
-    },
-    {
-      "week": 21,
-      "macId": "318568",
-      "time": "",
-      "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
-      "awayTeam": "ALİAĞA FUTBOL A.Ş.",
-      "homeScore": null,
-      "awayScore": null,
-      "date": "2027-02-07",
-      "dateText": "2027-02-07",
-      "competition": "Nesine 2. Lig Beyaz",
-      "isHome": true,
-      "opponent": "ALİAĞA FUTBOL A.Ş.",
-      "result": null,
-      "venue": "11 Nisan Stadyumu",
-      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
-      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/014755_120x120.jpg",
-      "detail": {
-        "referees": [],
-        "lineups": null,
-        "events": []
-      }
-    },
-    {
-      "week": 22,
-      "macId": "318580",
-      "time": "",
-      "homeTeam": "GÜZİDE GEBZE SPOR KULÜBÜ",
-      "awayTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
-      "homeScore": null,
-      "awayScore": null,
-      "date": "2027-02-14",
-      "dateText": "2027-02-14",
-      "competition": "Nesine 2. Lig Beyaz",
-      "isHome": false,
-      "opponent": "GÜZİDE GEBZE SPOR KULÜBÜ",
-      "result": null,
-      "venue": "Gebze Alaettin Kurt Stadı",
-      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012493_120x120.jpg",
-      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
-      "detail": {
-        "referees": [],
-        "lineups": null,
-        "events": []
-      }
-    },
-    {
-      "week": 23,
-      "macId": "318585",
-      "time": "",
-      "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
-      "awayTeam": "ÇORLU SPOR 1947",
-      "homeScore": null,
-      "awayScore": null,
-      "date": "2027-02-20",
-      "dateText": "2027-02-20",
-      "competition": "Nesine 2. Lig Beyaz",
-      "isHome": true,
-      "opponent": "ÇORLU SPOR 1947",
-      "result": null,
-      "venue": "11 Nisan Stadyumu",
-      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
-      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/011578_120x120.jpg",
-      "detail": {
-        "referees": [],
-        "lineups": null,
-        "events": []
-      }
-    },
-    {
-      "week": 24,
-      "macId": "318593",
-      "time": "",
-      "homeTeam": "HATAYSPOR",
-      "awayTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
-      "homeScore": null,
-      "awayScore": null,
-      "date": "2027-02-24",
-      "dateText": "2027-02-24",
-      "competition": "Nesine 2. Lig Beyaz",
-      "isHome": false,
-      "opponent": "HATAYSPOR",
-      "result": null,
-      "venue": "Reyhanlı Tayfur Sökmen",
-      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000122_120x120.png",
-      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
-      "detail": {
-        "referees": [],
-        "lineups": null,
-        "events": []
-      }
-    },
-    {
-      "week": 25,
-      "macId": "318608",
-      "time": "",
-      "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
-      "awayTeam": "ARKENT ARNAVUTKÖY BELEDİYESİ FUTBOL SK",
-      "homeScore": null,
-      "awayScore": null,
-      "date": "2027-02-28",
-      "dateText": "2027-02-28",
-      "competition": "Nesine 2. Lig Beyaz",
-      "isHome": true,
-      "opponent": "ARKENT ARNAVUTKÖY BELEDİYESİ FUTBOL SK",
-      "result": null,
-      "venue": "11 Nisan Stadyumu",
-      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
-      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015675_120x120.jpg",
-      "detail": {
-        "referees": [],
-        "lineups": null,
-        "events": []
-      }
-    },
-    {
-      "week": 26,
-      "macId": "318615",
-      "time": "",
-      "homeTeam": "ISBAŞ ISPARTA 32 SPOR KULÜBÜ",
-      "awayTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
-      "homeScore": null,
-      "awayScore": null,
-      "date": "2027-03-07",
-      "dateText": "2027-03-07",
-      "competition": "Nesine 2. Lig Beyaz",
-      "isHome": false,
-      "opponent": "ISBAŞ ISPARTA 32 SPOR KULÜBÜ",
-      "result": null,
-      "venue": "Isparta Atatürk Stadı",
-      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/013315_120x120.jpg",
-      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
-      "detail": {
-        "referees": [],
-        "lineups": null,
-        "events": []
-      }
-    },
-    {
-      "week": 27,
-      "macId": "318625",
-      "time": "",
-      "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
-      "awayTeam": "SEZA ÇİMENTO ELAZIĞSPOR",
-      "homeScore": null,
-      "awayScore": null,
-      "date": "2027-03-14",
-      "dateText": "2027-03-14",
-      "competition": "Nesine 2. Lig Beyaz",
-      "isHome": true,
-      "opponent": "SEZA ÇİMENTO ELAZIĞSPOR",
-      "result": null,
-      "venue": "11 Nisan Stadyumu",
-      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
-      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000036_120x120.png",
-      "detail": {
-        "referees": [],
-        "lineups": null,
-        "events": []
-      }
-    },
-    {
-      "week": 28,
-      "macId": "318630",
-      "time": "",
-      "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
-      "awayTeam": "GMG KASTAMONUSPOR",
-      "homeScore": null,
-      "awayScore": null,
-      "date": "2027-03-20",
-      "dateText": "2027-03-20",
-      "competition": "Nesine 2. Lig Beyaz",
-      "isHome": true,
-      "opponent": "GMG KASTAMONUSPOR",
-      "result": null,
-      "venue": "11 Nisan Stadyumu",
-      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
-      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/010766_120x120.jpg",
-      "detail": {
-        "referees": [],
-        "lineups": null,
-        "events": []
-      }
-    },
-    {
-      "week": 29,
-      "macId": "318643",
-      "time": "",
-      "homeTeam": "EFOR ÇAY ERBAASPOR",
-      "awayTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
-      "homeScore": null,
-      "awayScore": null,
-      "date": "2027-03-24",
-      "dateText": "2027-03-24",
-      "competition": "Nesine 2. Lig Beyaz",
-      "isHome": false,
-      "opponent": "EFOR ÇAY ERBAASPOR",
-      "result": null,
-      "venue": "Erbaa İlçe",
-      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000203_120x120.jpg",
-      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
-      "detail": {
-        "referees": [],
-        "lineups": null,
-        "events": []
-      }
-    },
-    {
-      "week": 30,
-      "macId": "318649",
-      "time": "",
-      "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
-      "awayTeam": "MENEMEN FUTBOL KULÜBÜ",
-      "homeScore": null,
-      "awayScore": null,
-      "date": "2027-03-28",
-      "dateText": "2027-03-28",
-      "competition": "Nesine 2. Lig Beyaz",
-      "isHome": true,
-      "opponent": "MENEMEN FUTBOL KULÜBÜ",
-      "result": null,
-      "venue": "11 Nisan Stadyumu",
-      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
-      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012893_120x120.jpg",
-      "detail": {
-        "referees": [],
-        "lineups": null,
-        "events": []
-      }
-    },
-    {
-      "week": 31,
-      "macId": "318656",
-      "time": "",
-      "homeTeam": "SOMASPOR",
-      "awayTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
-      "homeScore": null,
-      "awayScore": null,
-      "date": "2027-04-04",
-      "dateText": "2027-04-04",
-      "competition": "Nesine 2. Lig Beyaz",
-      "isHome": false,
-      "opponent": "SOMASPOR",
-      "result": null,
-      "venue": "Soma Nazım Yavuz",
-      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012210_120x120.jpg",
-      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
-      "detail": {
-        "referees": [],
-        "lineups": null,
-        "events": []
-      }
-    },
-    {
-      "week": 32,
-      "macId": "318671",
-      "time": "",
-      "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
-      "awayTeam": "68 AKSARAY BELEDİYE SPOR",
-      "homeScore": null,
-      "awayScore": null,
-      "date": "2027-04-11",
-      "dateText": "2027-04-11",
-      "competition": "Nesine 2. Lig Beyaz",
-      "isHome": true,
-      "opponent": "68 AKSARAY BELEDİYE SPOR",
-      "result": null,
-      "venue": "11 Nisan Stadyumu",
-      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
-      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015868_120x120.jpg",
-      "detail": {
-        "referees": [],
-        "lineups": null,
-        "events": []
-      }
-    },
-    {
-      "week": 33,
-      "macId": "318758",
-      "time": "",
-      "homeTeam": "İNEGÖL KAFKAS SPOR KULÜBÜ",
-      "awayTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
-      "homeScore": null,
-      "awayScore": null,
-      "date": "2027-04-18",
-      "dateText": "2027-04-18",
-      "competition": "Nesine 2. Lig Beyaz",
-      "isHome": false,
-      "opponent": "İNEGÖL KAFKAS SPOR KULÜBÜ",
-      "result": null,
-      "venue": "İnegöl İlçe Stadı",
-      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015360_120x120.jpg",
-      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
-      "detail": {
-        "referees": [],
-        "lineups": null,
-        "events": []
-      }
-    },
-    {
-      "week": 34,
-      "macId": "318773",
-      "time": "",
-      "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
-      "awayTeam": "MUŞ SPOR KULÜBÜ",
-      "homeScore": null,
-      "awayScore": null,
-      "date": "2027-04-24",
-      "dateText": "2027-04-24",
-      "competition": "Nesine 2. Lig Beyaz",
-      "isHome": true,
-      "opponent": "MUŞ SPOR KULÜBÜ",
-      "result": null,
-      "venue": "11 Nisan Stadyumu",
-      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
-      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/017249_120x120.jpg",
-      "detail": {
-        "referees": [],
-        "lineups": null,
-        "events": []
-      }
     }
   ],
   "squad": {
@@ -2567,7 +2062,13 @@
         "name": "Abdulkadir Sünger",
         "tffId": "1474032",
         "number": null,
-        "position": null
+        "position": null,
+        "birthPlace": "Denizli",
+        "birthDate": "24.05.2000",
+        "nationality": "Türkiye",
+        "flagCode": "tr",
+        "licenseNo": "1891464",
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "Ahmet Güneş",
@@ -2777,7 +2278,13 @@
         "name": "İbrahim Egemen Uğurlu",
         "tffId": "1851743",
         "number": null,
-        "position": null
+        "position": null,
+        "birthPlace": "Şişli",
+        "birthDate": "28.04.2005",
+        "nationality": "Türkiye",
+        "flagCode": "tr",
+        "licenseNo": "2626589",
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "İlker Günaslan",
