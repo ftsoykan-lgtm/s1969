@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-11T12:28:35.652Z",
+  "updatedAt": "2026-10-11T21:43:53.827Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -40,18 +40,33 @@
       "team": "SEZA ÇİMENTO ELAZIĞSPOR",
       "kulupId": "37",
       "isSanliurfaspor": false,
-      "played": 5,
-      "won": 3,
+      "played": 6,
+      "won": 4,
       "drawn": 1,
       "lost": 1,
-      "goalsFor": 12,
+      "goalsFor": 15,
       "goalsAgainst": 4,
-      "goalDiff": 8,
-      "points": 10,
+      "goalDiff": 11,
+      "points": 13,
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000036_120x120.png"
     },
     {
       "rank": 4,
+      "team": "GÜZİDE GEBZE SPOR KULÜBÜ",
+      "kulupId": "746",
+      "isSanliurfaspor": false,
+      "played": 6,
+      "won": 3,
+      "drawn": 3,
+      "lost": 0,
+      "goalsFor": 9,
+      "goalsAgainst": 5,
+      "goalDiff": 4,
+      "points": 12,
+      "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012493_120x120.jpg"
+    },
+    {
+      "rank": 5,
       "team": "ÇORLU SPOR 1947",
       "kulupId": "5044",
       "isSanliurfaspor": false,
@@ -66,7 +81,7 @@
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/011578_120x120.jpg"
     },
     {
-      "rank": 5,
+      "rank": 6,
       "team": "İNEGÖL KAFKAS SPOR KULÜBÜ",
       "kulupId": "3276",
       "isSanliurfaspor": false,
@@ -81,7 +96,7 @@
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015360_120x120.jpg"
     },
     {
-      "rank": 6,
+      "rank": 7,
       "team": "ISBAŞ ISPARTA 32 SPOR KULÜBÜ",
       "kulupId": "1484",
       "isSanliurfaspor": false,
@@ -94,21 +109,6 @@
       "goalDiff": 1,
       "points": 10,
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/013315_120x120.jpg"
-    },
-    {
-      "rank": 7,
-      "team": "GÜZİDE GEBZE SPOR KULÜBÜ",
-      "kulupId": "746",
-      "isSanliurfaspor": false,
-      "played": 5,
-      "won": 2,
-      "drawn": 3,
-      "lost": 0,
-      "goalsFor": 7,
-      "goalsAgainst": 4,
-      "goalDiff": 3,
-      "points": 9,
-      "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012493_120x120.jpg"
     },
     {
       "rank": 8,
@@ -145,13 +145,13 @@
       "team": "EFOR ÇAY ERBAASPOR",
       "kulupId": "3641",
       "isSanliurfaspor": false,
-      "played": 5,
+      "played": 6,
       "won": 2,
       "drawn": 1,
-      "lost": 2,
-      "goalsFor": 13,
-      "goalsAgainst": 12,
-      "goalDiff": 1,
+      "lost": 3,
+      "goalsFor": 14,
+      "goalsAgainst": 14,
+      "goalDiff": 0,
       "points": 7,
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000203_120x120.jpg"
     },
@@ -160,13 +160,13 @@
       "team": "SOMASPOR",
       "kulupId": "497",
       "isSanliurfaspor": false,
-      "played": 4,
+      "played": 5,
       "won": 2,
       "drawn": 1,
-      "lost": 1,
+      "lost": 2,
       "goalsFor": 8,
-      "goalsAgainst": 7,
-      "goalDiff": 1,
+      "goalsAgainst": 10,
+      "goalDiff": -2,
       "points": 7,
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012210_120x120.jpg"
     },
@@ -250,13 +250,13 @@
       "team": "HATAYSPOR",
       "kulupId": "121",
       "isSanliurfaspor": false,
-      "played": 5,
+      "played": 6,
       "won": 1,
       "drawn": 1,
-      "lost": 3,
+      "lost": 4,
       "goalsFor": 2,
-      "goalsAgainst": 4,
-      "goalDiff": -2,
+      "goalsAgainst": 7,
+      "goalDiff": -5,
       "points": -2,
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000122_120x120.png"
     },
@@ -265,14 +265,14 @@
       "team": "ADANA DEMİRSPOR A.Ş.",
       "kulupId": "3603",
       "isSanliurfaspor": false,
-      "played": 5,
-      "won": 1,
+      "played": 6,
+      "won": 2,
       "drawn": 1,
       "lost": 3,
-      "goalsFor": 3,
+      "goalsFor": 6,
       "goalsAgainst": 9,
-      "goalDiff": -6,
-      "points": -44,
+      "goalDiff": -3,
+      "points": -41,
       "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000161_120x120.png"
     }
   ],
@@ -280,10 +280,10 @@
     "MUŞ SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/017249_120x120.jpg",
     "ALİAĞA FUTBOL A.Ş.": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/014755_120x120.jpg",
     "SEZA ÇİMENTO ELAZIĞSPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000036_120x120.png",
+    "GÜZİDE GEBZE SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012493_120x120.jpg",
     "ÇORLU SPOR 1947": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/011578_120x120.jpg",
     "İNEGÖL KAFKAS SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015360_120x120.jpg",
     "ISBAŞ ISPARTA 32 SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/013315_120x120.jpg",
-    "GÜZİDE GEBZE SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012493_120x120.jpg",
     "KIZILKAYA TARIM ŞANLIURFASPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
     "MENEMEN FUTBOL KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012893_120x120.jpg",
     "EFOR ÇAY ERBAASPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000203_120x120.jpg",
@@ -1729,8 +1729,253 @@
             "role": "Dördüncü Hakem"
           }
         ],
-        "lineups": null,
-        "events": []
+        "lineups": {
+          "home": {
+            "starters": [
+              {
+                "number": 1,
+                "name": "Ahmet Pekgöz"
+              },
+              {
+                "number": 19,
+                "name": "Yusuf Kaplan"
+              },
+              {
+                "number": 6,
+                "name": "Barış Zeren"
+              },
+              {
+                "number": 10,
+                "name": "Mahsun Çapkan"
+              },
+              {
+                "number": 35,
+                "name": "Alpay Koldaş"
+              },
+              {
+                "number": 33,
+                "name": "Ali Eren İyican"
+              },
+              {
+                "number": 17,
+                "name": "Batuhan Ekinci"
+              },
+              {
+                "number": 9,
+                "name": "Adnan Karahisar"
+              },
+              {
+                "number": 13,
+                "name": "Yılmaz Ceylan"
+              },
+              {
+                "number": 77,
+                "name": "Recep Yemişci"
+              },
+              {
+                "number": 14,
+                "name": "Volkan Uluğ"
+              }
+            ],
+            "subs": [
+              {
+                "number": 99,
+                "name": "Hüseyin Koç"
+              },
+              {
+                "number": 91,
+                "name": "Esat Yiğit Alkurt"
+              },
+              {
+                "number": 61,
+                "name": "Recai Efe Kaygusuz"
+              },
+              {
+                "number": 7,
+                "name": "Ali Han Tunçer"
+              },
+              {
+                "number": 23,
+                "name": "Ömer Faruk Aydemir"
+              },
+              {
+                "number": 68,
+                "name": "Sinan Baki Usluer"
+              },
+              {
+                "number": 98,
+                "name": "Anıl Hekimoğulları"
+              },
+              {
+                "number": 50,
+                "name": "Efe Geçim"
+              },
+              {
+                "number": 2,
+                "name": "Asım Efe Işık"
+              },
+              {
+                "number": 3,
+                "name": "Muharrem Doğan"
+              }
+            ],
+            "coach": "Cihan Erdil"
+          },
+          "away": {
+            "starters": [
+              {
+                "number": 20,
+                "name": "Abdulkadir Sünger"
+              },
+              {
+                "number": 3,
+                "name": "Alper Tursun"
+              },
+              {
+                "number": 4,
+                "name": "Muhammed Gönülaçar"
+              },
+              {
+                "number": 6,
+                "name": "Umut Mert Toy"
+              },
+              {
+                "number": 8,
+                "name": "Ferhan Evren"
+              },
+              {
+                "number": 10,
+                "name": "Çekdar Orhan"
+              },
+              {
+                "number": 11,
+                "name": "Ali Aydemir"
+              },
+              {
+                "number": 14,
+                "name": "Özcan Aydın"
+              },
+              {
+                "number": 23,
+                "name": "Sedat Dursun"
+              },
+              {
+                "number": 27,
+                "name": "İlker Günaslan"
+              },
+              {
+                "number": 52,
+                "name": "Hüsamettin Yener"
+              }
+            ],
+            "subs": [
+              {
+                "number": 35,
+                "name": "Baran Demir"
+              },
+              {
+                "number": 7,
+                "name": "Oğuzhan Doğan"
+              },
+              {
+                "number": 9,
+                "name": "İbrahim Burak Işık"
+              },
+              {
+                "number": 17,
+                "name": "Ahmet Karademir"
+              },
+              {
+                "number": 19,
+                "name": "Tahsin Bülbül"
+              },
+              {
+                "number": 25,
+                "name": "Özgür Sert"
+              },
+              {
+                "number": 39,
+                "name": "İbrahim Sürgülü"
+              },
+              {
+                "number": 66,
+                "name": "Cebrail İrtürk"
+              },
+              {
+                "number": 70,
+                "name": "Fatih Mehmet Ekinci"
+              },
+              {
+                "number": 77,
+                "name": "Aslan Gök"
+              }
+            ],
+            "coach": "Ahmet Yıldırım"
+          }
+        },
+        "events": [
+          {
+            "minute": 62,
+            "type": "goal",
+            "team": "home",
+            "player": "Yusuf Kaplan"
+          },
+          {
+            "minute": 80,
+            "type": "goal",
+            "team": "home",
+            "player": "Ali Han Tunçer",
+            "detail": "Penaltı"
+          },
+          {
+            "minute": 29,
+            "type": "goal",
+            "team": "away",
+            "player": "Hüsamettin Yener"
+          },
+          {
+            "minute": 55,
+            "type": "goal",
+            "team": "away",
+            "player": "Özcan Aydın"
+          },
+          {
+            "minute": 72,
+            "type": "goal",
+            "team": "away",
+            "player": "Ahmet Karademir"
+          },
+          {
+            "minute": 40,
+            "type": "yellow",
+            "team": "home",
+            "player": "Yusuf Kaplan"
+          },
+          {
+            "minute": 26,
+            "type": "yellow",
+            "team": "home",
+            "player": "Batuhan Ekinci"
+          },
+          {
+            "minute": 69,
+            "type": "yellow",
+            "team": "away",
+            "player": "Muhammed Gönülaçar"
+          },
+          {
+            "minute": 77,
+            "type": "red",
+            "team": "away",
+            "player": "Sedat Dursun"
+          },
+          {
+            "minute": 90,
+            "type": "yellow",
+            "team": "away",
+            "player": "Oğuzhan Doğan"
+          }
+        ]
       }
     },
     {
