@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-13T00:26:25.336Z",
+  "updatedAt": "2026-10-13T13:56:05.611Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -48,7 +48,7 @@
       "goalsAgainst": 4,
       "goalDiff": 11,
       "points": 13,
-      "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000036_120x120.png"
+      "logo": null
     },
     {
       "rank": 4,
@@ -279,7 +279,6 @@
   "logos": {
     "MUŞ SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/017249_120x120.jpg",
     "ALİAĞA FUTBOL A.Ş.": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/014755_120x120.jpg",
-    "SEZA ÇİMENTO ELAZIĞSPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000036_120x120.png",
     "GÜZİDE GEBZE SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012493_120x120.jpg",
     "ÇORLU SPOR 1947": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/011578_120x120.jpg",
     "İNEGÖL KAFKAS SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015360_120x120.jpg",
@@ -2004,7 +2003,7 @@
     {
       "week": 8,
       "macId": "318743",
-      "time": "15:00",
+      "time": "13:00",
       "homeTeam": "ARKENT ARNAVUTKÖY BELEDİYESİ FUTBOL SK",
       "awayTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
       "homeScore": null,
