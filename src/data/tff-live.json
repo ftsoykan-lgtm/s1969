@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-14T04:19:56.978Z",
+  "updatedAt": "2026-10-14T11:33:34.640Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -2004,7 +2004,7 @@
     {
       "week": 8,
       "macId": "318743",
-      "time": "13:00",
+      "time": "15:00",
       "homeTeam": "ARKENT ARNAVUTKÖY BELEDİYESİ FUTBOL SK",
       "awayTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
       "homeScore": null,
@@ -2018,6 +2018,29 @@
       "venue": "Bolluca",
       "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015675_120x120.jpg",
       "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
+      "detail": {
+        "referees": [],
+        "lineups": null,
+        "events": []
+      }
+    },
+    {
+      "week": null,
+      "macId": "373143",
+      "time": "15:00",
+      "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
+      "awayTeam": "GÖLCÜKSPOR",
+      "homeScore": null,
+      "awayScore": null,
+      "date": "2026-10-28",
+      "dateText": "2026-10-28",
+      "competition": "Ziraat Türkiye Kupası",
+      "isHome": true,
+      "opponent": "GÖLCÜKSPOR",
+      "result": null,
+      "venue": "11 Nisan Stadyumu",
+      "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
+      "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000201_120x120.png",
       "detail": {
         "referees": [],
         "lineups": null,
