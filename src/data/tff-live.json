@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-13T22:31:17.305Z",
+  "updatedAt": "2026-10-14T04:19:56.978Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -2689,7 +2689,13 @@
         "name": "Aslan Gök",
         "tffId": "995191",
         "number": null,
-        "position": null
+        "position": null,
+        "birthPlace": "Amasya",
+        "birthDate": "22.09.1994",
+        "nationality": "Türkiye",
+        "flagCode": "tr",
+        "licenseNo": "1022495",
+        "club": "Kızılkaya Tarım Şanlıurfaspor"
       },
       {
         "name": "Aydın Bağ",
