@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-17T20:24:10.022Z",
+  "updatedAt": "2026-10-18T03:55:30.089Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -2198,7 +2198,57 @@
             "coach": "Mehmet Hakkı Hocaoğlu"
           }
         },
-        "events": []
+        "events": [
+          {
+            "minute": 29,
+            "type": "goal",
+            "team": "home",
+            "player": "Çekdar Orhan"
+          },
+          {
+            "minute": 34,
+            "type": "goal",
+            "team": "home",
+            "player": "Hüsamettin Yener"
+          },
+          {
+            "minute": 63,
+            "type": "goal",
+            "team": "home",
+            "player": "Tahsin Bülbül"
+          },
+          {
+            "minute": 3,
+            "type": "goal",
+            "team": "home",
+            "player": "Ali Aydemir"
+          },
+          {
+            "minute": 19,
+            "type": "goal",
+            "team": "away",
+            "player": "Mustafa Çınar Baytar"
+          },
+          {
+            "minute": 7,
+            "type": "goal",
+            "team": "away",
+            "player": "Taylan Özgün",
+            "detail": "Penaltı"
+          },
+          {
+            "minute": 90,
+            "type": "yellow",
+            "team": "home",
+            "player": "Ali Aydemir"
+          },
+          {
+            "minute": 45,
+            "type": "yellow",
+            "team": "away",
+            "player": "Recep Burak Yılmaz"
+          }
+        ]
       }
     },
     {
