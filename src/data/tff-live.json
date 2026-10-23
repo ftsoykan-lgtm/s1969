@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-23T11:20:41.442Z",
+  "updatedAt": "2026-10-23T16:50:04.042Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -93,7 +93,7 @@
       "goalsAgainst": 9,
       "goalDiff": 4,
       "points": 13,
-      "logo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015360_120x120.jpg"
+      "logo": null
     },
     {
       "rank": 7,
@@ -282,7 +282,6 @@
     "SEZA ÇİMENTO ELAZIĞSPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000036_120x120.png",
     "GÜZİDE GEBZE SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/012493_120x120.jpg",
     "ÇORLU SPOR 1947": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/011578_120x120.jpg",
-    "İNEGÖL KAFKAS SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015360_120x120.jpg",
     "KIZILKAYA TARIM ŞANLIURFASPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
     "ISBAŞ ISPARTA 32 SPOR KULÜBÜ": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/013315_120x120.jpg",
     "68 AKSARAY BELEDİYE SPOR": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015868_120x120.jpg",
@@ -2269,24 +2268,7 @@
       "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015675_120x120.jpg",
       "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
       "detail": {
-        "referees": [
-          {
-            "name": "Oğuzhan Hamitoğlu",
-            "role": "Hakem"
-          },
-          {
-            "name": "Harun Günaydın",
-            "role": "1. Yardımcı Hakem"
-          },
-          {
-            "name": "Volkan Altuntaş",
-            "role": "2. Yardımcı Hakem"
-          },
-          {
-            "name": "Tufan Gönoğlu",
-            "role": "Dördüncü Hakem"
-          }
-        ],
+        "referees": [],
         "lineups": null,
         "events": []
       }
