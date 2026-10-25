@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-24T20:33:49.095Z",
+  "updatedAt": "2026-10-25T04:03:19.613Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -2471,7 +2471,44 @@
             "coach": "Ahmet Yıldırım"
           }
         },
-        "events": []
+        "events": [
+          {
+            "minute": 30,
+            "type": "goal",
+            "team": "away",
+            "player": "Ali Aydemir"
+          },
+          {
+            "minute": 55,
+            "type": "goal",
+            "team": "away",
+            "player": "Ali Aydemir"
+          },
+          {
+            "minute": 25,
+            "type": "yellow",
+            "team": "home",
+            "player": "Berkan Burak Turan"
+          },
+          {
+            "minute": 32,
+            "type": "yellow",
+            "team": "home",
+            "player": "Can Ediz Yıldız"
+          },
+          {
+            "minute": 14,
+            "type": "yellow",
+            "team": "away",
+            "player": "Muhammed Gönülaçar"
+          },
+          {
+            "minute": 73,
+            "type": "yellow",
+            "team": "away",
+            "player": "Ferhan Evren"
+          }
+        ]
       }
     },
     {
