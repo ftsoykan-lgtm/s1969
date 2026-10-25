@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-25T11:04:00.230Z",
+  "updatedAt": "2026-10-25T15:54:37.724Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -2265,7 +2265,7 @@
       "isHome": false,
       "opponent": "ARKENT ARNAVUTKÖY BELEDİYESİ FUTBOL SK",
       "result": "G",
-      "venue": "Bolluca",
+      "venue": "Bolluca Stadı",
       "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/015675_120x120.jpg",
       "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
       "detail": {
@@ -2471,7 +2471,44 @@
             "coach": "Ahmet Yıldırım"
           }
         },
-        "events": []
+        "events": [
+          {
+            "minute": 30,
+            "type": "goal",
+            "team": "away",
+            "player": "Ali Aydemir"
+          },
+          {
+            "minute": 55,
+            "type": "goal",
+            "team": "away",
+            "player": "Ali Aydemir"
+          },
+          {
+            "minute": 25,
+            "type": "yellow",
+            "team": "home",
+            "player": "Berkan Burak Turan"
+          },
+          {
+            "minute": 32,
+            "type": "yellow",
+            "team": "home",
+            "player": "Can Ediz Yıldız"
+          },
+          {
+            "minute": 14,
+            "type": "yellow",
+            "team": "away",
+            "player": "Muhammed Gönülaçar"
+          },
+          {
+            "minute": 73,
+            "type": "yellow",
+            "team": "away",
+            "player": "Ferhan Evren"
+          }
+        ]
       }
     },
     {
@@ -3174,13 +3211,7 @@
         "name": "Aydın Bağ",
         "tffId": "1226755",
         "number": null,
-        "position": null,
-        "birthPlace": "Alaşehir",
-        "birthDate": "05.09.1993",
-        "nationality": "Türkiye",
-        "flagCode": "tr",
-        "licenseNo": "1864019",
-        "club": "Kızılkaya Tarım Şanlıurfaspor"
+        "position": null
       },
       {
         "name": "Baran Demir",
@@ -3330,13 +3361,7 @@
         "name": "İlker Günaslan",
         "tffId": "1283090",
         "number": null,
-        "position": null,
-        "birthPlace": "Oğuzeli",
-        "birthDate": "15.01.1997",
-        "nationality": "Türkiye",
-        "flagCode": "tr",
-        "licenseNo": "1449412",
-        "club": "Kızılkaya Tarım Şanlıurfaspor"
+        "position": null
       },
       {
         "name": "Mahmut Küçük",
@@ -3366,13 +3391,7 @@
         "name": "Oğuzhan Doğan",
         "tffId": "1433352",
         "number": null,
-        "position": null,
-        "birthPlace": "Kastamonu",
-        "birthDate": "01.09.2000",
-        "nationality": "Türkiye",
-        "flagCode": "tr",
-        "licenseNo": "848981",
-        "club": "Kızılkaya Tarım Şanlıurfaspor"
+        "position": null
       },
       {
         "name": "Özcan Aydın",
