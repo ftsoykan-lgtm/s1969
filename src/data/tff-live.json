@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-28T12:30:08.960Z",
+  "updatedAt": "2026-10-28T22:25:57.197Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -2517,14 +2517,14 @@
       "time": "15:00",
       "homeTeam": "KIZILKAYA TARIM ŞANLIURFASPOR",
       "awayTeam": "GÖLCÜKSPOR",
-      "homeScore": null,
-      "awayScore": null,
+      "homeScore": 3,
+      "awayScore": 1,
       "date": "2026-10-28",
-      "dateText": "2026-10-28",
+      "dateText": "28 Ekim 2026",
       "competition": "Ziraat Türkiye Kupası",
       "isHome": true,
       "opponent": "GÖLCÜKSPOR",
-      "result": null,
+      "result": "G",
       "venue": "11 Nisan Stadyumu",
       "homeTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000030_120x120.png",
       "awayTeamLogo": "https://fys.tff.org/TFFUploadFolder/KulupLogolari/000201_120x120.png",
@@ -2535,11 +2535,11 @@
             "role": "Hakem"
           },
           {
-            "name": "Yunus Yıldız",
+            "name": "Volkan Esen",
             "role": "1. Yardımcı Hakem"
           },
           {
-            "name": "Volkan Esen",
+            "name": "Yunus Yıldız",
             "role": "2. Yardımcı Hakem"
           },
           {
@@ -2547,178 +2547,7 @@
             "role": "Dördüncü Hakem"
           }
         ],
-        "lineups": {
-          "home": {
-            "starters": [
-              {
-                "number": 1,
-                "name": "Ahmet Güneş"
-              },
-              {
-                "number": 70,
-                "name": "Fatih Mehmet Ekinci"
-              },
-              {
-                "number": 77,
-                "name": "Aslan Gök"
-              },
-              {
-                "number": 23,
-                "name": "Sedat Dursun"
-              },
-              {
-                "number": 55,
-                "name": "Emin Metehan Ataşsalar"
-              },
-              {
-                "number": 66,
-                "name": "Cebrail İrtürk"
-              },
-              {
-                "number": 25,
-                "name": "Özgür Sert"
-              },
-              {
-                "number": 63,
-                "name": "Mahmut Küçük"
-              },
-              {
-                "number": 75,
-                "name": "Eyüp Can Özel"
-              },
-              {
-                "number": 7,
-                "name": "Oğuzhan Doğan"
-              },
-              {
-                "number": 9,
-                "name": "İbrahim Burak Işık"
-              }
-            ],
-            "subs": [
-              {
-                "number": 35,
-                "name": "Baran Demir"
-              },
-              {
-                "number": 16,
-                "name": "Yiğitali Bayrak"
-              },
-              {
-                "number": 4,
-                "name": "Muhammed Gönülaçar"
-              },
-              {
-                "number": 6,
-                "name": "Umut Mert Toy"
-              },
-              {
-                "number": 3,
-                "name": "Alper Tursun"
-              },
-              {
-                "number": 81,
-                "name": "Ahmet Uğur Karacan"
-              },
-              {
-                "number": 82,
-                "name": "Muhammet Enes Biter"
-              },
-              {
-                "number": 85,
-                "name": "Ali Aybar"
-              },
-              {
-                "number": 17,
-                "name": "Ahmet Karademir"
-              },
-              {
-                "number": 84,
-                "name": "Yiğithan Fahran"
-              }
-            ],
-            "coach": "Ahmet Yıldırım"
-          },
-          "away": {
-            "starters": [
-              {
-                "number": 24,
-                "name": "Servet Gaburga"
-              },
-              {
-                "number": 53,
-                "name": "Eyüp Ensar Bozkurt"
-              },
-              {
-                "number": 44,
-                "name": "Kuban Altunbudak"
-              },
-              {
-                "number": 23,
-                "name": "İbrahim Demirer"
-              },
-              {
-                "number": 33,
-                "name": "Atakan Kargoğlu"
-              },
-              {
-                "number": 88,
-                "name": "Yağız Subaşı"
-              },
-              {
-                "number": 6,
-                "name": "Eren Yavuz"
-              },
-              {
-                "number": 11,
-                "name": "Emirhan Durmuş"
-              },
-              {
-                "number": 91,
-                "name": "Hamza Selen"
-              },
-              {
-                "number": 30,
-                "name": "Arif Ensar Aksoy"
-              },
-              {
-                "number": 65,
-                "name": "Sercan Tüktaş"
-              }
-            ],
-            "subs": [
-              {
-                "number": 13,
-                "name": "Mert Şerif Aktı"
-              },
-              {
-                "number": 46,
-                "name": "Fatih Gümüşel"
-              },
-              {
-                "number": 90,
-                "name": "Azat Çakar"
-              },
-              {
-                "number": 39,
-                "name": "Emre Şimşek"
-              },
-              {
-                "number": 19,
-                "name": "Ömer Asaf Aksoy"
-              },
-              {
-                "number": 29,
-                "name": "Muhammed Aziz Çelik"
-              },
-              {
-                "number": 2,
-                "name": "Abdulsamet Demirtürk"
-              }
-            ],
-            "coach": "Yusuf Tokuş"
-          }
-        },
+        "lineups": null,
         "events": []
       }
     },
