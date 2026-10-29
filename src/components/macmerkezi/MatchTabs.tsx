@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 const TABS = [
   { label: 'Son Maçlar', href: '/mac-merkezi' },
   { label: 'Tüm Maçlar', href: '/mac-merkezi/gecmis-maclar' },
+  { label: 'Puan Durumu', href: '/mac-merkezi/puan-durumu' },
 ]
 
 export default function MatchTabs() {

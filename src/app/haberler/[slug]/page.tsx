@@ -1,10 +1,18 @@
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
-import { getNews, getNewsBySlug, getCategories } from '@/lib/supabase/news-server'
-import { formatDate } from '@/lib/utils'
-import { ArrowLeft, Calendar } from 'lucide-react'
+import { CalendarDays, Clock } from 'lucide-react'
 import type { Metadata } from 'next'
+import { getNews, getNewsBySlug, getCategories } from '@/lib/supabase/news-server'
+import { newsListHref, readingMinutes, relatedNews } from '@/lib/news'
+import { SITE_URL } from '@/lib/site'
+import { formatDate } from '@/lib/utils'
+import NewsCard from '@/components/news/NewsCard'
+import ShareBox from '@/components/news/ShareBox'
+import NextMatchSide from '@/components/macmerkezi/NextMatchSide'
+import { Breadcrumb, SectionHead } from '@/components/news/NewsPageHead'
+import { CategoryBox, LatestBox } from '@/components/news/NewsSidebar'
+import { categoryName, categoryTone } from '@/components/news/categoryTone'
 
 interface Props { params: Promise<{ slug: string }> }
 
@@ -14,62 +22,88 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const item = await getNewsBySlug(slug)
   if (!item) return {}
-  return { title: item.title, description: item.excerpt }
+  return {
+    title: item.title,
+    description: item.excerpt,
+    openGraph: { title: item.title, description: item.excerpt, images: item.imageUrl ? [item.imageUrl] : undefined, type: 'article' },
+  }
 }
+
+/* Metin gövdesi: boş satırla ayrılmış bloklar → paragraf (tek satır kırılımları korunur) */
+const paragraphs = (text: string) => text.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean)
 
 export default async function HaberDetayPage({ params }: Props) {
   const { slug } = await params
   const [item, all, cats] = await Promise.all([getNewsBySlug(slug), getNews(), getCategories()])
   if (!item) notFound()
 
-  const catName = cats.find((c) => c.slug === item.category)?.name ?? item.category
-  const related = all.filter((n) => n.slug !== item.slug).slice(0, 3)
+  const catName = categoryName(item.category, cats)
+  const tone = categoryTone(item.category, cats)
+  const related = relatedNews(all, item, 4)
 
   return (
     <div className="min-h-screen bg-[#f5f9f6]">
-      {/* Hero */}
-      <div className="relative h-[300px] md:h-[440px]">
-        <Image src={item.imageUrl} alt={item.title} fill priority sizes="100vw" className="object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-ugreenm/98 via-ugreend/60 to-transparent" />
-      </div>
+      <div className="mx-auto max-w-7xl px-4 pb-20 pt-8 sm:px-6 lg:px-8">
+        <Breadcrumb items={[
+          { label: 'Ana sayfa', href: '/' },
+          { label: 'Haberler', href: '/haberler' },
+          { label: catName, href: newsListHref({ kategori: item.category }) },
+        ]} />
 
-      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 -mt-28 relative pb-16">
-        <Link href="/haberler" className="inline-flex items-center gap-2 text-sm text-white/70 hover:text-white transition-colors mb-6 font-medium">
-          <ArrowLeft size={16} /> Tüm Haberlere Dön
-        </Link>
+        <div className="mt-6 grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_340px]">
+          <article className="min-w-0 rounded-2xl border border-[#e3ede7] bg-white p-5 sm:p-8 lg:p-10">
+            <header>
+              <Link href={newsListHref({ kategori: item.category })}
+                className={`inline-block rounded-md px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-[0.14em] transition-opacity hover:opacity-85 ${tone.badge}`}>
+                {catName}
+              </Link>
+              <h1 className="mt-4 font-heading text-[1.9rem] font-extrabold leading-[1.08] tracking-[-0.02em] text-ugreenm sm:text-[2.5rem] lg:text-[2.8rem]">
+                {item.title}
+              </h1>
+              {item.excerpt && (
+                <p className="mt-5 border-l-4 border-ugold pl-4 text-[17px] font-medium leading-relaxed text-utxt2">{item.excerpt}</p>
+              )}
+              <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 border-b border-[#edf5f0] pb-6 text-[11px] font-extrabold uppercase tracking-wider text-[#7aab8e]">
+                <time dateTime={item.date} className="inline-flex items-center gap-1.5"><CalendarDays size={13} aria-hidden />{formatDate(item.date)}</time>
+                <span className="inline-flex items-center gap-1.5"><Clock size={13} aria-hidden />{readingMinutes(item.content)} dk okuma</span>
+              </div>
+            </header>
 
-        <article className="bg-white rounded-2xl border border-[#ddeae2] shadow-lg overflow-hidden">
-          <div className="p-6 md:p-10">
-            <span className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-extrabold tracking-widest uppercase mb-5 bg-ugold text-ugreenm">
-              {catName}
-            </span>
-            <h1 className="text-3xl md:text-4xl font-extrabold text-ugreenm leading-tight tracking-tight mb-4">{item.title}</h1>
-            <div className="flex items-center gap-2 text-sm text-utxt2 mb-8 pb-8 border-b border-[#ddeae2]">
-              <Calendar size={14} />
-              <span>{formatDate(item.date)}</span>
+            {item.imageUrl && (
+              <figure className="relative mt-7 aspect-[16/9] overflow-hidden rounded-xl bg-[#edf5f0]">
+                <Image src={item.imageUrl} alt={item.title} fill priority sizes="(min-width:1024px) 780px, 100vw" className="object-cover" />
+              </figure>
+            )}
+
+            <div className="mt-8 space-y-5 text-[17px] leading-[1.8] text-[#23453a]">
+              {paragraphs(item.content).map((p, i) => <p key={i} className="whitespace-pre-line">{p}</p>)}
             </div>
-            {item.excerpt && <p className="text-lg text-utxt2 font-medium leading-relaxed mb-6">{item.excerpt}</p>}
-            <div className="text-ugreenm leading-relaxed text-base whitespace-pre-line">{item.content}</div>
-          </div>
-        </article>
+
+            <div className="mt-10">
+              <ShareBox url={`${SITE_URL}/haberler/${item.slug}`} title={item.title} />
+            </div>
+          </article>
+
+          <aside className="space-y-6 lg:sticky lg:top-28 lg:self-start">
+            <NextMatchSide />
+            <CategoryBox news={all} categories={cats} active={null} />
+            <LatestBox news={all} excludeId={item.id} />
+          </aside>
+        </div>
 
         {related.length > 0 && (
-          <div className="mt-12">
-            <h2 className="text-xl font-extrabold text-ugreenm mb-5">İlgili Haberler</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {related.map((rel) => (
-                <Link key={rel.id} href={`/haberler/${rel.slug}`}
-                  className="group relative block rounded-xl overflow-hidden h-48 border border-[#ddeae2] shadow-sm hover:shadow-md hover:border-ugreen/40 transition-all">
-                  <Image src={rel.imageUrl} alt={rel.title} fill sizes="33vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-ugreenm/95 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-4">
-                    <p className="text-white text-sm font-bold line-clamp-2">{rel.title}</p>
-                    <p className="text-[11px] text-ugold/70 mt-1">{formatDate(rel.date)}</p>
-                  </div>
-                </Link>
+          <section className="mt-16">
+            <SectionHead eyebrow="Devamı" title="İlgili Haberler" aside={
+              <Link href="/haberler" className="rounded-xl border border-[#ddeae2] bg-white px-4 py-2.5 text-[12px] font-extrabold uppercase tracking-wide text-ugreenm transition-colors hover:border-ugreen hover:bg-ugreen hover:text-white">
+                Tüm Haberler →
+              </Link>
+            } />
+            <div className="mt-7 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {related.map((n) => (
+                <NewsCard key={n.id} item={n} compact categoryLabel={categoryName(n.category, cats)} tone={categoryTone(n.category, cats)} />
               ))}
             </div>
-          </div>
+          </section>
         )}
       </div>
     </div>

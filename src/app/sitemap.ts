@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next'
-import { clubInfo } from '@/data/club'
+import { SITE_URL } from '@/lib/site'
 import { getLiveTff, getSeasons, getTffBySeason } from '@/lib/supabase/tff-server'
 import { getNews } from '@/lib/supabase/news-server'
 import { matchSlug } from '@/lib/tff'
@@ -7,13 +7,13 @@ import { matchSlug } from '@/lib/tff'
 // Saatte bir yenilenir; TFF'den yeni maç/haber geldikçe otomatik büyür.
 export const revalidate = 3600
 
-const BASE = (process.env.NEXT_PUBLIC_SITE_URL || clubInfo.website || 'https://www.sanliurfaspor.org').replace(/\/+$/, '')
+const BASE = SITE_URL
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date()
 
   const staticPaths = [
-    '', '/haberler', '/kadro', '/takvim', '/mac-merkezi', '/mac-merkezi/gecmis-maclar',
+    '', '/haberler', '/kadro', '/takvim', '/mac-merkezi', '/mac-merkezi/gecmis-maclar', '/mac-merkezi/puan-durumu',
     '/fikstur', '/kulup/tarihce', '/kulup/yonetim', '/iletisim',
   ]
   const staticEntries: MetadataRoute.Sitemap = staticPaths.map((p) => ({

@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { Trophy } from 'lucide-react'
 import type { StandingRow } from '@/types'
+import { zoneOf, type Zone } from '@/lib/standings'
 
 /* ════════════════════════════════════════════════════════════════
    Tek kaynak — sitenin HER yerinde aynı puan durumu tasarımı
@@ -12,12 +13,15 @@ import type { StandingRow } from '@/types'
 
 const COLS = 'grid-cols-[24px_1fr_22px_22px_22px_22px_32px_30px]'
 
-// Sıra renk barı: 1 şampiyon · 2–5 play-off · son 3 küme düşme
+// Bölge renkleri — kural @/lib/standings zoneOf'ta (1 şampiyon · 2–5 play-off · son 3 küme düşme)
+export const ZONE_STYLE: Record<Zone, { bar: string; label: string }> = {
+  champion: { bar: 'bg-ugreen', label: 'Şampiyon' },
+  playoff: { bar: 'bg-ugold', label: 'Play-Off' },
+  relegation: { bar: 'bg-[#d01b2a]', label: 'Küme Düşme' },
+}
 function barColor(rank: number, total: number) {
-  if (rank === 1) return 'bg-ugreen'
-  if (rank >= 2 && rank <= 5) return 'bg-ugold'
-  if (total > 0 && rank > total - 3) return 'bg-[#d01b2a]'
-  return 'bg-transparent'
+  const z = zoneOf(rank, total)
+  return z ? ZONE_STYLE[z].bar : 'bg-transparent'
 }
 
 export default function StandingsTable({
@@ -97,9 +101,7 @@ export default function StandingsTable({
 
       {/* Açıklama — renk barı anlamları */}
       <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 px-1">
-        <Legend color="bg-ugreen" label="Şampiyon" />
-        <Legend color="bg-ugold" label="Play-Off" />
-        <Legend color="bg-[#d01b2a]" label="Küme Düşme" />
+        {Object.values(ZONE_STYLE).map((z) => <Legend key={z.label} color={z.bar} label={z.label} />)}
       </div>
     </div>
   )
