@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-29T05:09:50.165Z",
+  "updatedAt": "2026-10-29T12:39:48.147Z",
   "source": "tff.org",
   "league": "TFF 2. Lig — Beyaz Grup",
   "season": "2026-2027",
@@ -331,6 +331,14 @@
           {
             "name": "Eşref Kurban",
             "role": "Dördüncü Hakem"
+          },
+          {
+            "name": "Ömer Murat Ülger",
+            "role": "Gözlemci"
+          },
+          {
+            "name": "Servet Reyhan",
+            "role": "Temsilci"
           }
         ],
         "lineups": {
@@ -522,7 +530,9 @@
             "minute": 85,
             "type": "goal",
             "team": "home",
-            "player": "Sinan Kurumuş"
+            "player": "Sinan Kurumuş",
+            "detail": "Ayak",
+            "goalType": "F"
           },
           {
             "minute": 90,
@@ -553,6 +563,69 @@
             "type": "yellow",
             "team": "away",
             "player": "Yusuf Buğra Koşal"
+          },
+          {
+            "minute": 58,
+            "type": "sub",
+            "team": "home",
+            "player": "Özcan Aydın",
+            "playerOut": "Yiğitali Bayrak"
+          },
+          {
+            "minute": 58,
+            "type": "sub",
+            "team": "home",
+            "player": "Ahmet Karademir",
+            "playerOut": "Ali Aydemir"
+          },
+          {
+            "minute": 83,
+            "type": "sub",
+            "team": "home",
+            "player": "Hüsamettin Yener",
+            "playerOut": "Fatih Mehmet Ekinci"
+          },
+          {
+            "minute": 68,
+            "type": "sub",
+            "team": "home",
+            "player": "Cebrail İrtürk",
+            "playerOut": "Oğuzhan Doğan"
+          },
+          {
+            "minute": 68,
+            "type": "sub",
+            "team": "home",
+            "player": "İbrahim Burak Işık",
+            "playerOut": "Özgür Sert"
+          },
+          {
+            "minute": 68,
+            "type": "sub",
+            "team": "away",
+            "player": "Berkant Gündem",
+            "playerOut": "Alaaddin Okumuş"
+          },
+          {
+            "minute": 77,
+            "type": "sub",
+            "team": "away",
+            "player": "Samet Emre Gündüz",
+            "playerOut": "Serdarcan Eralp"
+          },
+          {
+            "minute": 86,
+            "type": "sub",
+            "team": "away",
+            "player": "Oğuzhan Çapar",
+            "playerOut": "Mehmet Burak Tarlabölen"
+          },
+          {
+            "minute": 77,
+            "type": "sub",
+            "team": "away",
+            "player": "Selman Enes Canlı",
+            "playerOut": "Halil İbrahim Esen"
           }
         ]
       }
@@ -591,6 +664,18 @@
           {
             "name": "Giray Şaylan",
             "role": "Dördüncü Hakem"
+          },
+          {
+            "name": "Mehmet Yıldırım",
+            "role": "Gözlemci"
+          },
+          {
+            "name": "Nahit Karakaş",
+            "role": "Temsilci"
+          },
+          {
+            "name": "Ümit Doğan Üstün",
+            "role": "Temsilci"
           }
         ],
         "lineups": {
@@ -783,39 +868,48 @@
             "type": "goal",
             "team": "home",
             "player": "Veysel Sönmezsoy",
-            "detail": "Penaltı"
+            "detail": "Penaltı",
+            "goalType": "P"
           },
           {
             "minute": 44,
             "type": "goal",
             "team": "home",
-            "player": "Harun Özcan"
+            "player": "Harun Özcan",
+            "detail": "Ayak",
+            "goalType": "F"
           },
           {
             "minute": 78,
             "type": "goal",
             "team": "home",
             "player": "Yasin Dülger",
-            "detail": "Penaltı"
+            "detail": "Penaltı",
+            "goalType": "P"
           },
           {
             "minute": 23,
             "type": "goal",
             "team": "away",
             "player": "Sinan Kurumuş",
-            "detail": "Penaltı"
+            "detail": "Penaltı",
+            "goalType": "P"
           },
           {
             "minute": 27,
             "type": "goal",
             "team": "away",
-            "player": "Cebrail İrtürk"
+            "player": "Cebrail İrtürk",
+            "detail": "Ayak",
+            "goalType": "F"
           },
           {
             "minute": 83,
             "type": "goal",
             "team": "away",
-            "player": "İbrahim Burak Işık"
+            "player": "İbrahim Burak Işık",
+            "detail": "Ayak",
+            "goalType": "F"
           },
           {
             "minute": 43,
@@ -864,6 +958,69 @@
             "type": "yellow",
             "team": "away",
             "player": "Umut Mert Toy"
+          },
+          {
+            "minute": 65,
+            "type": "sub",
+            "team": "home",
+            "player": "Mert Önal",
+            "playerOut": "Burak Asan"
+          },
+          {
+            "minute": 75,
+            "type": "sub",
+            "team": "home",
+            "player": "Thierry Darnel Karadeniz",
+            "playerOut": "Harun Özcan"
+          },
+          {
+            "minute": 85,
+            "type": "sub",
+            "team": "home",
+            "player": "Güneş Güventürk",
+            "playerOut": "Cemal Kızılateş"
+          },
+          {
+            "minute": 75,
+            "type": "sub",
+            "team": "home",
+            "player": "Eren Karaağaç",
+            "playerOut": "Rıdvan Dönmez"
+          },
+          {
+            "minute": 46,
+            "type": "sub",
+            "team": "away",
+            "player": "Ali Aydemir",
+            "playerOut": "Özcan Aydın"
+          },
+          {
+            "minute": 46,
+            "type": "sub",
+            "team": "away",
+            "player": "Tahsin Bülbül",
+            "playerOut": "Oğuzhan Doğan"
+          },
+          {
+            "minute": 60,
+            "type": "sub",
+            "team": "away",
+            "player": "Yiğitali Bayrak",
+            "playerOut": "Çekdar Orhan"
+          },
+          {
+            "minute": 31,
+            "type": "sub",
+            "team": "away",
+            "player": "Sedat Dursun",
+            "playerOut": "Fatih Mehmet Ekinci"
+          },
+          {
+            "minute": 79,
+            "type": "sub",
+            "team": "away",
+            "player": "İbrahim Burak Işık",
+            "playerOut": "Cebrail İrtürk"
           }
         ]
       }
@@ -902,6 +1059,18 @@
           {
             "name": "Kemal Savaş",
             "role": "Dördüncü Hakem"
+          },
+          {
+            "name": "Alkan Akgül",
+            "role": "Gözlemci"
+          },
+          {
+            "name": "Nurullah Öztürk",
+            "role": "Temsilci"
+          },
+          {
+            "name": "Kadir Kantekin",
+            "role": "Temsilci"
           }
         ],
         "lineups": {
@@ -1094,20 +1263,23 @@
             "type": "goal",
             "team": "away",
             "player": "Sefa Gülay",
-            "detail": "Penaltı"
+            "detail": "Penaltı",
+            "goalType": "P"
           },
           {
             "minute": 35,
             "type": "goal",
             "team": "away",
             "player": "Yusuf Buğra Demirkıran",
-            "detail": "Kendi kalesine"
+            "detail": "Kendi kalesine",
+            "goalType": "K"
           },
           {
             "minute": 90,
             "type": "yellow",
             "team": "home",
-            "player": "Yiğitali Bayrak"
+            "player": "Yiğitali Bayrak",
+            "extra": 4
           },
           {
             "minute": 85,
@@ -1131,19 +1303,92 @@
             "minute": 90,
             "type": "yellow",
             "team": "away",
-            "player": "Gökdeniz Tunç"
+            "player": "Gökdeniz Tunç",
+            "extra": 5
           },
           {
             "minute": 90,
             "type": "yellow",
             "team": "away",
-            "player": "Eren Fidan"
+            "player": "Eren Fidan",
+            "extra": 1
           },
           {
             "minute": 63,
             "type": "yellow",
             "team": "away",
             "player": "Toprak Bayar"
+          },
+          {
+            "minute": 77,
+            "type": "sub",
+            "team": "home",
+            "player": "Hüsamettin Yener",
+            "playerOut": "İlker Günaslan"
+          },
+          {
+            "minute": 46,
+            "type": "sub",
+            "team": "home",
+            "player": "İbrahim Burak Işık",
+            "playerOut": "Ahmet Karademir"
+          },
+          {
+            "minute": 46,
+            "type": "sub",
+            "team": "home",
+            "player": "Yiğitali Bayrak",
+            "playerOut": "Fatih Mehmet Ekinci"
+          },
+          {
+            "minute": 46,
+            "type": "sub",
+            "team": "home",
+            "player": "Sedat Dursun",
+            "playerOut": "Cebrail İrtürk"
+          },
+          {
+            "minute": 69,
+            "type": "sub",
+            "team": "home",
+            "player": "Özgür Sert",
+            "playerOut": "Çekdar Orhan"
+          },
+          {
+            "minute": 87,
+            "type": "sub",
+            "team": "away",
+            "player": "Ahmet Arda Birinci",
+            "playerOut": "Kürşat Türkeş Küçük"
+          },
+          {
+            "minute": 87,
+            "type": "sub",
+            "team": "away",
+            "player": "Mert Menemencioğlu",
+            "playerOut": "Enes Demirtaş"
+          },
+          {
+            "minute": 90,
+            "type": "sub",
+            "team": "away",
+            "player": "Ahmet Yılmaz",
+            "extra": 3,
+            "playerOut": "Toprak Bayar"
+          },
+          {
+            "minute": 76,
+            "type": "sub",
+            "team": "away",
+            "player": "Yücel Gürol",
+            "playerOut": "Seyfi Efe Irga"
+          },
+          {
+            "minute": 87,
+            "type": "sub",
+            "team": "away",
+            "player": "Muhammed Enes Gül",
+            "playerOut": "Sefa Gülay"
           }
         ]
       }
@@ -1182,6 +1427,18 @@
           {
             "name": "Kadir Demir",
             "role": "Dördüncü Hakem"
+          },
+          {
+            "name": "Mukaddem Gülpınar",
+            "role": "Gözlemci"
+          },
+          {
+            "name": "Celalettin Yavuz",
+            "role": "Temsilci"
+          },
+          {
+            "name": "Hilmi Alper Şenkal",
+            "role": "Temsilci"
           }
         ],
         "lineups": {
@@ -1373,20 +1630,26 @@
             "minute": 58,
             "type": "goal",
             "team": "home",
-            "player": "Muammer Sarıkaya"
+            "player": "Muammer Sarıkaya",
+            "detail": "Ayak",
+            "goalType": "F"
           },
           {
-            "minute": 2,
+            "minute": 90,
             "type": "goal",
             "team": "home",
-            "player": "Okan Derici"
+            "player": "Okan Derici",
+            "extra": 2,
+            "detail": "Ayak",
+            "goalType": "F"
           },
           {
             "minute": 79,
             "type": "goal",
             "team": "away",
             "player": "Sinan Kurumuş",
-            "detail": "Penaltı"
+            "detail": "Penaltı",
+            "goalType": "P"
           },
           {
             "minute": 12,
@@ -1417,6 +1680,80 @@
             "type": "yellow",
             "team": "away",
             "player": "Tahsin Bülbül"
+          },
+          {
+            "minute": 65,
+            "type": "sub",
+            "team": "home",
+            "player": "Okan Derici",
+            "playerOut": "İzzet Furkan Malak"
+          },
+          {
+            "minute": 90,
+            "type": "sub",
+            "team": "home",
+            "player": "Muhammed Mustafa Yıldırım",
+            "extra": 1,
+            "playerOut": "Sercan Demirkıran"
+          },
+          {
+            "minute": 65,
+            "type": "sub",
+            "team": "home",
+            "player": "Mehmet Uysal",
+            "playerOut": "Emrehan Gedikli"
+          },
+          {
+            "minute": 71,
+            "type": "sub",
+            "team": "home",
+            "player": "Adnan Aktaş",
+            "playerOut": "Caner Cavlun"
+          },
+          {
+            "minute": 90,
+            "type": "sub",
+            "team": "home",
+            "player": "Berkay Topdemir",
+            "extra": 1,
+            "playerOut": "Ahmet Metin Arslan"
+          },
+          {
+            "minute": 66,
+            "type": "sub",
+            "team": "away",
+            "player": "Oğuzhan Doğan",
+            "playerOut": "Özcan Aydın"
+          },
+          {
+            "minute": 90,
+            "type": "sub",
+            "team": "away",
+            "player": "Aslan Gök",
+            "extra": 1,
+            "playerOut": "İlker Günaslan"
+          },
+          {
+            "minute": 66,
+            "type": "sub",
+            "team": "away",
+            "player": "Yiğitali Bayrak",
+            "playerOut": "Cebrail İrtürk"
+          },
+          {
+            "minute": 90,
+            "type": "sub",
+            "team": "away",
+            "player": "Hüsamettin Yener",
+            "extra": 1,
+            "playerOut": "Çekdar Orhan"
+          },
+          {
+            "minute": 46,
+            "type": "sub",
+            "team": "away",
+            "player": "Ali Aydemir",
+            "playerOut": "Tahsin Bülbül"
           }
         ]
       }
@@ -1455,6 +1792,14 @@
           {
             "name": "Ramazan Doğanay",
             "role": "Dördüncü Hakem"
+          },
+          {
+            "name": "Öner Fırat",
+            "role": "Gözlemci"
+          },
+          {
+            "name": "Ömer Çoban",
+            "role": "Temsilci"
           }
         ],
         "lineups": {
@@ -1646,13 +1991,17 @@
             "minute": 75,
             "type": "goal",
             "team": "home",
-            "player": "Özcan Aydın"
+            "player": "Özcan Aydın",
+            "detail": "Ayak",
+            "goalType": "F"
           },
           {
             "minute": 34,
             "type": "goal",
             "team": "away",
-            "player": "Mutlu Güler"
+            "player": "Mutlu Güler",
+            "detail": "Kafa",
+            "goalType": "H"
           },
           {
             "minute": 41,
@@ -1670,7 +2019,8 @@
             "minute": 45,
             "type": "yellow",
             "team": "away",
-            "player": "Mustafa Batuhan Altıntaş"
+            "player": "Mustafa Batuhan Altıntaş",
+            "extra": 2
           },
           {
             "minute": 88,
@@ -1689,6 +2039,62 @@
             "type": "yellow",
             "team": "away",
             "player": "Mustafa Erkasap"
+          },
+          {
+            "minute": 46,
+            "type": "sub",
+            "team": "home",
+            "player": "Alper Tursun",
+            "playerOut": "İbrahim Sürgülü"
+          },
+          {
+            "minute": 46,
+            "type": "sub",
+            "team": "home",
+            "player": "Hüsamettin Yener",
+            "playerOut": "Sinan Kurumuş"
+          },
+          {
+            "minute": 72,
+            "type": "sub",
+            "team": "home",
+            "player": "Özcan Aydın",
+            "playerOut": "Muhammed Gönülaçar"
+          },
+          {
+            "minute": 46,
+            "type": "sub",
+            "team": "home",
+            "player": "Oğuzhan Doğan",
+            "playerOut": "İbrahim Burak Işık"
+          },
+          {
+            "minute": 72,
+            "type": "sub",
+            "team": "home",
+            "player": "Ferhan Evren",
+            "playerOut": "Çekdar Orhan"
+          },
+          {
+            "minute": 68,
+            "type": "sub",
+            "team": "away",
+            "player": "Mustafa Hüseyin Seyhan",
+            "playerOut": "Süleyman Güneş"
+          },
+          {
+            "minute": 85,
+            "type": "sub",
+            "team": "away",
+            "player": "Enes Kuşçu",
+            "playerOut": "Mustafa Batuhan Altıntaş"
+          },
+          {
+            "minute": 71,
+            "type": "sub",
+            "team": "away",
+            "player": "Berkan Aksoy",
+            "playerOut": "Abdurrahman Üresin"
           }
         ]
       }
@@ -1727,6 +2133,18 @@
           {
             "name": "Furkan Sarıoğlan",
             "role": "Dördüncü Hakem"
+          },
+          {
+            "name": "Bülent Türkekul",
+            "role": "Gözlemci"
+          },
+          {
+            "name": "Bülent Kar",
+            "role": "Temsilci"
+          },
+          {
+            "name": "Cengiz Aydın",
+            "role": "Temsilci"
           }
         ],
         "lineups": {
@@ -1918,32 +2336,41 @@
             "minute": 62,
             "type": "goal",
             "team": "home",
-            "player": "Yusuf Kaplan"
+            "player": "Yusuf Kaplan",
+            "detail": "Kafa",
+            "goalType": "H"
           },
           {
             "minute": 80,
             "type": "goal",
             "team": "home",
             "player": "Ali Han Tunçer",
-            "detail": "Penaltı"
+            "detail": "Penaltı",
+            "goalType": "P"
           },
           {
             "minute": 29,
             "type": "goal",
             "team": "away",
-            "player": "Hüsamettin Yener"
+            "player": "Hüsamettin Yener",
+            "detail": "Ayak",
+            "goalType": "F"
           },
           {
             "minute": 55,
             "type": "goal",
             "team": "away",
-            "player": "Özcan Aydın"
+            "player": "Özcan Aydın",
+            "detail": "Ayak",
+            "goalType": "F"
           },
           {
             "minute": 72,
             "type": "goal",
             "team": "away",
-            "player": "Ahmet Karademir"
+            "player": "Ahmet Karademir",
+            "detail": "Ayak",
+            "goalType": "F"
           },
           {
             "minute": 40,
@@ -1973,7 +2400,64 @@
             "minute": 90,
             "type": "yellow",
             "team": "away",
-            "player": "Oğuzhan Doğan"
+            "player": "Oğuzhan Doğan",
+            "extra": 5
+          },
+          {
+            "minute": 58,
+            "type": "sub",
+            "team": "home",
+            "player": "Ali Han Tunçer",
+            "playerOut": "Barış Zeren"
+          },
+          {
+            "minute": 72,
+            "type": "sub",
+            "team": "home",
+            "player": "Muharrem Doğan",
+            "playerOut": "Ali Eren İyican"
+          },
+          {
+            "minute": 72,
+            "type": "sub",
+            "team": "home",
+            "player": "Esat Yiğit Alkurt",
+            "playerOut": "Yusuf Kaplan"
+          },
+          {
+            "minute": 82,
+            "type": "sub",
+            "team": "away",
+            "player": "İbrahim Burak Işık",
+            "playerOut": "Hüsamettin Yener"
+          },
+          {
+            "minute": 67,
+            "type": "sub",
+            "team": "away",
+            "player": "Ahmet Karademir",
+            "playerOut": "Ali Aydemir"
+          },
+          {
+            "minute": 82,
+            "type": "sub",
+            "team": "away",
+            "player": "İbrahim Sürgülü",
+            "playerOut": "Çekdar Orhan"
+          },
+          {
+            "minute": 67,
+            "type": "sub",
+            "team": "away",
+            "player": "Oğuzhan Doğan",
+            "playerOut": "Özcan Aydın"
+          },
+          {
+            "minute": 74,
+            "type": "sub",
+            "team": "away",
+            "player": "Özgür Sert",
+            "playerOut": "Ferhan Evren"
           }
         ]
       }
@@ -2012,6 +2496,18 @@
           {
             "name": "Fatih Karakurt",
             "role": "Dördüncü Hakem"
+          },
+          {
+            "name": "Mehmet Şükrü Közcü",
+            "role": "Gözlemci"
+          },
+          {
+            "name": "Erdem Eroğlu",
+            "role": "Temsilci"
+          },
+          {
+            "name": "Ferhat Yıldız",
+            "role": "Temsilci"
           }
         ],
         "lineups": {
@@ -2203,50 +2699,149 @@
             "minute": 29,
             "type": "goal",
             "team": "home",
-            "player": "Çekdar Orhan"
+            "player": "Çekdar Orhan",
+            "detail": "Ayak",
+            "goalType": "F"
           },
           {
             "minute": 34,
             "type": "goal",
             "team": "home",
-            "player": "Hüsamettin Yener"
+            "player": "Hüsamettin Yener",
+            "detail": "Kafa",
+            "goalType": "H"
           },
           {
             "minute": 63,
             "type": "goal",
             "team": "home",
-            "player": "Tahsin Bülbül"
+            "player": "Tahsin Bülbül",
+            "detail": "Ayak",
+            "goalType": "F"
           },
           {
-            "minute": 3,
+            "minute": 90,
             "type": "goal",
             "team": "home",
-            "player": "Ali Aydemir"
+            "player": "Ali Aydemir",
+            "extra": 3,
+            "detail": "Ayak",
+            "goalType": "F"
           },
           {
             "minute": 19,
             "type": "goal",
             "team": "away",
-            "player": "Mustafa Çınar Baytar"
+            "player": "Mustafa Çınar Baytar",
+            "detail": "Ayak",
+            "goalType": "F"
           },
           {
-            "minute": 7,
+            "minute": 90,
             "type": "goal",
             "team": "away",
             "player": "Taylan Özgün",
-            "detail": "Penaltı"
+            "extra": 7,
+            "detail": "Penaltı",
+            "goalType": "P"
           },
           {
             "minute": 90,
             "type": "yellow",
             "team": "home",
-            "player": "Ali Aydemir"
+            "player": "Ali Aydemir",
+            "extra": 3
           },
           {
             "minute": 45,
             "type": "yellow",
             "team": "away",
-            "player": "Recep Burak Yılmaz"
+            "player": "Recep Burak Yılmaz",
+            "extra": 1
+          },
+          {
+            "minute": 46,
+            "type": "sub",
+            "team": "home",
+            "player": "Ali Aydemir",
+            "playerOut": "Hüsamettin Yener"
+          },
+          {
+            "minute": 68,
+            "type": "sub",
+            "team": "home",
+            "player": "İbrahim Burak Işık",
+            "playerOut": "Özcan Aydın"
+          },
+          {
+            "minute": 68,
+            "type": "sub",
+            "team": "home",
+            "player": "Yiğitali Bayrak",
+            "playerOut": "Ferhan Evren"
+          },
+          {
+            "minute": 68,
+            "type": "sub",
+            "team": "home",
+            "player": "Oğuzhan Doğan",
+            "playerOut": "Tahsin Bülbül"
+          },
+          {
+            "minute": 73,
+            "type": "sub",
+            "team": "home",
+            "player": "Baran Demir",
+            "playerOut": "Abdulkadir Sünger"
+          },
+          {
+            "minute": 81,
+            "type": "sub",
+            "team": "home",
+            "player": "Cebrail İrtürk",
+            "playerOut": "Çekdar Orhan"
+          },
+          {
+            "minute": 44,
+            "type": "sub",
+            "team": "away",
+            "player": "Mustafa Said Aydın",
+            "playerOut": "Seyit Gazanfer"
+          },
+          {
+            "minute": 85,
+            "type": "sub",
+            "team": "away",
+            "player": "Sinan Özen",
+            "playerOut": "Halil Can Cemali"
+          },
+          {
+            "minute": 63,
+            "type": "sub",
+            "team": "away",
+            "player": "Birhan Vatansever",
+            "playerOut": "Barış Uzel"
+          },
+          {
+            "minute": 85,
+            "type": "sub",
+            "team": "away",
+            "player": "Taylan Özgün",
+            "playerOut": "Alperen Alaca"
+          },
+          {
+            "minute": 46,
+            "type": "sub",
+            "team": "away",
+            "player": "Ali Eren Tan",
+            "playerOut": "Cemil Berk Aksu"
+          },
+          {
+            "minute": 46,
+            "type": "sub",
+            "team": "away",
+            "player": "İbrahim Efe Sucuoğlu",
+            "playerOut": "Mustafa Çınar Baytar"
           }
         ]
       }
@@ -2285,6 +2880,18 @@
           {
             "name": "Tufan Gönoğlu",
             "role": "Dördüncü Hakem"
+          },
+          {
+            "name": "Sacit Keşkek",
+            "role": "Gözlemci"
+          },
+          {
+            "name": "Ramazan Gök",
+            "role": "Temsilci"
+          },
+          {
+            "name": "Atakan Yıldız",
+            "role": "Temsilci"
           }
         ],
         "lineups": {
@@ -2476,13 +3083,17 @@
             "minute": 30,
             "type": "goal",
             "team": "away",
-            "player": "Ali Aydemir"
+            "player": "Ali Aydemir",
+            "detail": "Ayak",
+            "goalType": "F"
           },
           {
             "minute": 55,
             "type": "goal",
             "team": "away",
-            "player": "Ali Aydemir"
+            "player": "Ali Aydemir",
+            "detail": "Ayak",
+            "goalType": "F"
           },
           {
             "minute": 25,
@@ -2507,6 +3118,76 @@
             "type": "yellow",
             "team": "away",
             "player": "Ferhan Evren"
+          },
+          {
+            "minute": 88,
+            "type": "sub",
+            "team": "home",
+            "player": "Mehmet Efe Şahin",
+            "playerOut": "Hüseyin İkiz"
+          },
+          {
+            "minute": 66,
+            "type": "sub",
+            "team": "home",
+            "player": "Cebrail Koç",
+            "playerOut": "Furkan Ulupınar"
+          },
+          {
+            "minute": 82,
+            "type": "sub",
+            "team": "home",
+            "player": "Eren Can Cömert",
+            "playerOut": "Can Ediz Yıldız"
+          },
+          {
+            "minute": 46,
+            "type": "sub",
+            "team": "home",
+            "player": "Kerem Çapan",
+            "playerOut": "Semih Mert Korkmaz"
+          },
+          {
+            "minute": 66,
+            "type": "sub",
+            "team": "home",
+            "player": "Baran Erdoğan",
+            "playerOut": "Mustafa Yıldırım"
+          },
+          {
+            "minute": 60,
+            "type": "sub",
+            "team": "away",
+            "player": "Yiğitali Bayrak",
+            "playerOut": "Muhammed Gönülaçar"
+          },
+          {
+            "minute": 77,
+            "type": "sub",
+            "team": "away",
+            "player": "Aslan Gök",
+            "playerOut": "Özcan Aydın"
+          },
+          {
+            "minute": 60,
+            "type": "sub",
+            "team": "away",
+            "player": "Sedat Dursun",
+            "playerOut": "Tahsin Bülbül"
+          },
+          {
+            "minute": 77,
+            "type": "sub",
+            "team": "away",
+            "player": "Ahmet Karademir",
+            "playerOut": "İlker Günaslan"
+          },
+          {
+            "minute": 83,
+            "type": "sub",
+            "team": "away",
+            "player": "İbrahim Burak Işık",
+            "playerOut": "Çekdar Orhan"
           }
         ]
       }
@@ -2545,6 +3226,14 @@
           {
             "name": "Mert Yıldırım",
             "role": "Dördüncü Hakem"
+          },
+          {
+            "name": "Alkan Akgül",
+            "role": "Gözlemci"
+          },
+          {
+            "name": "Abdülkadir Kardaş",
+            "role": "Temsilci"
           }
         ],
         "lineups": {
@@ -2719,7 +3408,122 @@
             "coach": "Yusuf Tokuş"
           }
         },
-        "events": []
+        "events": [
+          {
+            "minute": 10,
+            "type": "goal",
+            "team": "home",
+            "player": "Fatih Mehmet Ekinci",
+            "detail": "Ayak",
+            "goalType": "F"
+          },
+          {
+            "minute": 43,
+            "type": "goal",
+            "team": "home",
+            "player": "Oğuzhan Doğan",
+            "detail": "Ayak",
+            "goalType": "F"
+          },
+          {
+            "minute": 63,
+            "type": "goal",
+            "team": "home",
+            "player": "İbrahim Burak Işık",
+            "detail": "Ayak",
+            "goalType": "F"
+          },
+          {
+            "minute": 86,
+            "type": "goal",
+            "team": "away",
+            "player": "Fatih Gümüşel",
+            "detail": "Ayak",
+            "goalType": "F"
+          },
+          {
+            "minute": 37,
+            "type": "yellow",
+            "team": "home",
+            "player": "Sedat Dursun"
+          },
+          {
+            "minute": 87,
+            "type": "yellow",
+            "team": "away",
+            "player": "Azat Çakar"
+          },
+          {
+            "minute": 64,
+            "type": "sub",
+            "team": "home",
+            "player": "Ahmet Karademir",
+            "playerOut": "Sedat Dursun"
+          },
+          {
+            "minute": 80,
+            "type": "sub",
+            "team": "home",
+            "player": "Yiğithan Fahran",
+            "playerOut": "Özgür Sert"
+          },
+          {
+            "minute": 80,
+            "type": "sub",
+            "team": "home",
+            "player": "Ahmet Uğur Karacan",
+            "playerOut": "Eyüp Can Özel"
+          },
+          {
+            "minute": 70,
+            "type": "sub",
+            "team": "home",
+            "player": "Muhammet Enes Biter",
+            "playerOut": "Mahmut Küçük"
+          },
+          {
+            "minute": 80,
+            "type": "sub",
+            "team": "home",
+            "player": "Ali Aybar",
+            "playerOut": "Emin Metehan Ataşsalar"
+          },
+          {
+            "minute": 46,
+            "type": "sub",
+            "team": "away",
+            "player": "Abdulsamet Demirtürk",
+            "playerOut": "Eren Yavuz"
+          },
+          {
+            "minute": 46,
+            "type": "sub",
+            "team": "away",
+            "player": "Fatih Gümüşel",
+            "playerOut": "Emirhan Durmuş"
+          },
+          {
+            "minute": 46,
+            "type": "sub",
+            "team": "away",
+            "player": "Azat Çakar",
+            "playerOut": "Sercan Tüktaş"
+          },
+          {
+            "minute": 58,
+            "type": "sub",
+            "team": "away",
+            "player": "Emre Şimşek",
+            "playerOut": "Arif Ensar Aksoy"
+          },
+          {
+            "minute": 86,
+            "type": "sub",
+            "team": "away",
+            "player": "Muhammed Aziz Çelik",
+            "playerOut": "Yağız Subaşı"
+          }
+        ]
       }
     },
     {
