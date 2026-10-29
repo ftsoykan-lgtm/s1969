@@ -92,6 +92,67 @@ async function oyuncuProfilleriYaz(squad) {
   }
 }
 
+/* ─── Maç detayı dayanıklılığı ─────────────────────────────────
+   Eski hata: detay sayfası bir kez zaman aşımına uğrarsa `catch {}` sessizce yutuyor,
+   maç boş detayla yazılıyor ve önceki iyi veri (kadro/olaylar) EZİLİYORDU.
+   Şimdi: yeniden dene → yine olmazsa önceki veriyi koru → anomaliyi raporla. */
+const DETAY_UYARILARI = []
+const previousDetails = new Map()   // macId → önceki çalıştırmadaki detail (Supabase/JSON)
+
+async function withRetry(label, fn, tries = 3) {
+  let lastErr
+  for (let i = 1; i <= tries; i++) {
+    try { return await fn() } catch (e) {
+      lastErr = e
+      if (i < tries) { log(`↻ ${label}: deneme ${i} başarısız (${e.message}) — tekrar deneniyor`); await new Promise((r) => setTimeout(r, 1500 * i)) }
+    }
+  }
+  throw lastErr
+}
+
+/** Önceki veriyi yükle: önce canlı Supabase (tff_data), yoksa yerel JSON. */
+async function oncekiDetaylariYukle() {
+  let fixtures = null
+  if (SUPABASE_URL && SUPABASE_SERVICE_KEY) {
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/tff_data?id=eq.1&select=data`,
+        { headers: { apikey: SUPABASE_SERVICE_KEY, Authorization: `Bearer ${SUPABASE_SERVICE_KEY}` } })
+      if (res.ok) fixtures = (await res.json())?.[0]?.data?.sanliurfasporFixtures || null
+    } catch {}
+  }
+  if (!fixtures && existsSync(OUT_FILE)) {
+    try { fixtures = JSON.parse(readFileSync(OUT_FILE, 'utf-8')).sanliurfasporFixtures || null } catch {}
+  }
+  for (const f of fixtures || []) if (f.macId && f.detail) previousDetails.set(String(f.macId), f.detail)
+  log(`Önceki maç detayları yüklendi: ${previousDetails.size} maç (boşla ezilmeye karşı koruma)`)
+}
+
+/** Taze veri boş/eksikse öncekini koru. Taze olaylar skorla tutarlıysa TFF kaynaktır
+   (sonradan yapılan düzeltmeler de gelsin); değilse daha dolu olan seçilir. */
+function mergeDetail(prev, fresh, skor = null) {
+  if (!prev) return fresh
+  const golSay = (evs) => (evs || []).filter((e) => e.type === 'goal' && !e.shootout).length
+  const prevEv = prev.events || [], freshEv = fresh.events || []
+  const freshTutarli = skor != null && freshEv.length > 0 && golSay(freshEv) === skor
+  const events = freshTutarli || freshEv.length >= prevEv.length ? freshEv : prevEv
+  return {
+    referees: (fresh.referees?.length || 0) >= (prev.referees?.length || 0) ? fresh.referees : prev.referees,
+    lineups: fresh.lineups || prev.lineups || null,
+    events,
+  }
+}
+
+/** Oynanmış maçta eksik/tutarsız veri → rapora yaz (sessiz eksik kalmasın). */
+function denetleMacDetay(f, uyarilar) {
+  if (f.homeScore == null || f.awayScore == null) return
+  const ad = `${f.macId} (${f.homeTeam} - ${f.awayTeam})`
+  const d = f.detail || {}
+  if (!d.lineups) uyarilar.push(`${ad}: oynandı ama kadro yok (TFF henüz girmemiş olabilir)`)
+  const goller = (d.events || []).filter((e) => e.type === 'goal' && !e.shootout).length
+  const skor = f.homeScore + f.awayScore
+  if (goller !== skor) uyarilar.push(`${ad}: olaylardaki gol (${goller}) skorla (${skor}) uyuşmuyor${goller === 0 ? ' — olaylar henüz girilmemiş olabilir / hükmen' : ''}`)
+}
+
 async function supabaseYaz(data, { archive = true } = {}) {
   if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
     console.log('[TFF] (Supabase env yok — sadece JSON yazıldı)')
@@ -374,14 +435,19 @@ async function cekFikstur(page, season = SEASON) {
 
   // Her maçın detayını çek (saat, stadyum, hakemler, kadrolar) — pageID=29&macID
   log('Maç detayları çekiliyor (saat, stadyum, hakem, kadro)...')
-  let saatli = 0, statli = 0, detayli = 0, kadrolu = 0, logolu2 = 0, tarihli2 = 0
+  let saatli = 0, statli = 0, detayli = 0, kadrolu = 0, logolu2 = 0, tarihli2 = 0, olayli = 0
+  const hataliMaclar = []
   for (const f of fixtures) {
     if (!f.macId) continue
+    const prevDetail = previousDetails.get(String(f.macId)) || null
     try {
-      await page.goto(`https://www.tff.org/Default.aspx?pageID=29&macID=${f.macId}`,
+      const fetchDetail = (attempt) => withRetry(`maç ${f.macId}`, async () => {
+      // attempt>0 → önbellek kırıcı parametre (TFF farklı sunuculardan eski sayfa dönebiliyor)
+      await page.goto(`https://www.tff.org/Default.aspx?pageID=29&macID=${f.macId}${attempt ? `&_r=${Date.now()}` : ''}`,
         { waitUntil: 'domcontentloaded', timeout: 25000 })
+      await page.waitForSelector('[id$="dtMacBilgisi_lblTarih"], [id$="dtMacBilgisi_lnkTakim1"]', { timeout: 8000 }).catch(() => {})
       await page.waitForTimeout(400)
-      const d = await page.evaluate(({ homeName, awayName }) => {
+      return page.evaluate(({ homeName, awayName }) => {
         const clean = (s) => (s || '').replace(/\s+/g, ' ').trim()
         const body = document.body.innerText
 
@@ -401,12 +467,18 @@ async function cekFikstur(page, season = SEASON) {
           if (vm) { const stat = vm[1].split(/\s+-\s+/)[0].trim(); if (stat && stat.length >= 4 && !/\d{2}:\d{2}/.test(stat)) venue = stat }
         }
 
-        // Hakemler
+        // Maç görevlileri — hakemler + gözlemci + temsilciler (DOM: lnkHakem / lnkgoz / lnkTem)
         const referees = []
-        body.split('\n').forEach((l) => {
-          const m = clean(l).match(/^(.+?)\((Hakem|\d+\. Yardımcı Hakem|Dördüncü Hakem)\)$/)
-          if (m) referees.push({ name: m[1].trim(), role: m[2] })
+        document.querySelectorAll('[id$="_lnkHakem"], [id$="_lnkgoz"], [id$="_lnkTem"]').forEach((el) => {
+          const m = clean(el.textContent).match(/^(.+?)\(([^)]+)\)$/)
+          if (m) referees.push({ name: m[1].trim(), role: m[2].trim() })
         })
+        if (!referees.length) {
+          body.split('\n').forEach((l) => {
+            const m = clean(l).match(/^(.+?)\((Hakem|\d+\. Yardımcı Hakem|Dördüncü Hakem|Gözlemci|Temsilci)\)$/)
+            if (m) referees.push({ name: m[1].trim(), role: m[2] })
+          })
+        }
 
         /* ── Kadrolar / olaylar — TFF DOM yapısından ────────────────
            grdTakim1 = ev sahibi, grdTakim2 = deplasman.
@@ -424,24 +496,57 @@ async function cekFikstur(page, season = SEASON) {
           const a = document.querySelector(`a[id*="${gr}_rptTeknikKadro"][id$="_lnkTeknikSorumlu"]`)
           return a ? clean(a.textContent) : null
         }
+        // Dakika: "72.dk" → {72}, "90+5.dk" → {90, extra 5} (uzatma kaybolmasın)
+        const parseMin = (s) => {
+          const mm = (s || '').match(/(\d{1,3})\s*(?:\+\s*(\d{1,2}))?\s*\.?\s*dk/i) || (s || '').match(/(\d{1,3})(?:\s*\+\s*(\d{1,2}))?/)
+          return mm ? { minute: parseInt(mm[1], 10), extra: mm[2] ? parseInt(mm[2], 10) : null } : { minute: null, extra: null }
+        }
+        // TFF gol tipleri: F=Ayak, H=Kafa, K=Kendi Kalesine, P=Penaltı, S=Seri Penaltı
+        const GOAL_TYPES = { F: 'Ayak', H: 'Kafa', K: 'Kendi kalesine', P: 'Penaltı', S: 'Seri penaltı' }
         const readGoals = (gr, team) =>
           Array.from(document.querySelectorAll(`a[id*="${gr}_rptGoller"][id$="_lblGol"]`)).map((a) => {
-            const t = clean(a.textContent)                 // "İSİM,14.dk (P)"
+            const t = clean(a.textContent)                 // "İSİM,14.dk (P)" / "İSİM,90+3.dk (H)"
             const name = t.split(',')[0].trim()
-            const mm = t.match(/(\d{1,3})\.?\s*dk/i)
-            const note = (t.match(/\(([^)]+)\)/) || [])[1]
-            const detail = note === 'P' ? 'Penaltı' : note === 'K' ? 'Kendi kalesine' : null
-            return { minute: mm ? parseInt(mm[1], 10) : null, type: 'goal', team, player: name, detail }
+            const note = ((t.match(/\(([A-ZÇĞİÖŞÜ])\)\s*$/) || [])[1] || '').toUpperCase()
+            return {
+              ...parseMin(t.slice(name.length)), type: 'goal', team, player: name,
+              goalType: note || null, detail: GOAL_TYPES[note] || null, shootout: note === 'S',
+            }
           }).filter((e) => e.player)
         const readCards = (gr, team) =>
           Array.from(document.querySelectorAll(`a[id*="${gr}_rptKartlar"][id$="_lblKart"]`)).map((a) => {
             const img = document.getElementById(a.id.replace('_lblKart', '_k'))
             const dEl = document.getElementById(a.id.replace('_lblKart', '_d'))
-            const alt = img ? (img.getAttribute('alt') || '') : ''
-            const type = /kırmızı/i.test(alt) ? 'red' : 'yellow'
-            const mm = txt(dEl).match(/(\d{1,3})/)
-            return { minute: mm ? parseInt(mm[1], 10) : null, type, team, player: clean(a.textContent), detail: null }
+            const sig = img ? `${img.getAttribute('alt') || ''} ${img.getAttribute('src') || ''}`.toLocaleLowerCase('tr-TR') : ''
+            const isRed = /kırmızı|kirmizi/.test(sig)
+            const secondYellow = isRed && /sarı|sari|ikinci|çift|cift/.test(sig)
+            return {
+              ...parseMin(txt(dEl)), type: isRed ? 'red' : 'yellow', team, player: clean(a.textContent),
+              detail: secondYellow ? 'İkinci sarıdan' : null,
+            }
           }).filter((e) => e.player)
+        // Oyuncu değişiklikleri: rptCikanlar (lblCikan + oc) / rptGirenler (lblGiren + og)
+        // TFF ikisini ayrı listeler → aynı dakikadakiler sırayla eşleştirilir.
+        const readSubs = (gr, team) => {
+          const read = (rep, lbl, dk) =>
+            Array.from(document.querySelectorAll(`a[id*="${gr}_${rep}"][id$="_${lbl}"]`)).map((a) => ({
+              name: clean(a.textContent), ...parseMin(txt(document.getElementById(a.id.replace(`_${lbl}`, `_${dk}`)))),
+            })).filter((p) => p.name)
+          const outs = read('rptCikanlar', 'lblCikan', 'oc')
+          const ins = read('rptGirenler', 'lblGiren', 'og')
+          const key = (p) => `${p.minute}+${p.extra ?? 0}`
+          const used = new Set()
+          const subs = ins.map((p) => {
+            const oi = outs.findIndex((o, i) => !used.has(i) && key(o) === key(p))
+            if (oi >= 0) used.add(oi)
+            return { minute: p.minute, extra: p.extra, type: 'sub', team, player: p.name, playerOut: oi >= 0 ? outs[oi].name : null, detail: null }
+          })
+          // Girenle eşleşmeyen çıkan (sakatlık vb.) — yine de akışta görünsün
+          outs.forEach((o, i) => {
+            if (!used.has(i)) subs.push({ minute: o.minute, extra: o.extra, type: 'sub', team, player: o.name, playerOut: null, detail: 'Oyundan çıktı' })
+          })
+          return subs
+        }
 
         const lineBlocks = {
           home: { starters: readSquad('grdTakim1_rptKadrolar'), subs: readSquad('grdTakim1_rptYedekler'), coach: readCoach('grdTakim1') },
@@ -450,6 +555,7 @@ async function cekFikstur(page, season = SEASON) {
         const events = [
           ...readGoals('grdTakim1', 'home'), ...readGoals('grdTakim2', 'away'),
           ...readCards('grdTakim1', 'home'), ...readCards('grdTakim2', 'away'),
+          ...readSubs('grdTakim1', 'home'), ...readSubs('grdTakim2', 'away'),
         ]
 
         // Kulüp logoları (ev + deplasman) — grup dışı rakipler için de buradan gelir
@@ -458,6 +564,24 @@ async function cekFikstur(page, season = SEASON) {
 
         return { time, venue, date, referees, lineups: lineBlocks, events, clubLogos }
       }, { homeName: f.homeTeam, awayName: f.awayTeam })
+      })
+
+      // TFF bazen sayfayı EKSİK bölümlerle döndürüyor (kadro var ama goller/değişiklikler yok,
+      // ya da hiç kadro yok). Oynanmış maçta veri skorla tutarsızsa birkaç kez yeniden çek,
+      // en dolu sonucu al. (Gerçek vaka: 318720 — aynı gün bir çekimde 18 olay, diğerinde 0.)
+      let d = await fetchDetail(0)
+      if (f.homeScore != null && f.awayScore != null) {
+        const skor = f.homeScore + f.awayScore
+        const starters = (x) => Math.max(x.lineups.home.starters.length, x.lineups.away.starters.length)
+        const golSay = (x) => x.events.filter((e) => e.type === 'goal' && !e.shootout).length
+        const tamam = (x) => starters(x) >= 7 && golSay(x) === skor
+        const zenginlik = (x) => x.events.length * 10 + starters(x) + (golSay(x) === skor ? 1000 : 0)
+        for (let a = 1; !tamam(d) && a <= 3; a++) {
+          await page.waitForTimeout(2000 * a)
+          const d2 = await fetchDetail(a).catch(() => null)
+          if (d2 && zenginlik(d2) > zenginlik(d)) d = d2
+        }
+      }
 
       if (d.time) { f.time = d.time; saatli++ }
       if (d.venue) { f.venue = titleCaseTr(d.venue); statli++ }
@@ -482,11 +606,17 @@ async function cekFikstur(page, season = SEASON) {
       const tc = (arr) => arr.map((p) => ({ number: p.number, name: titleCaseTr(p.name) }))
       const homeStart = tc(d.lineups.home.starters), awayStart = tc(d.lineups.away.starters)
       const hasLineup = homeStart.length >= 7 || awayStart.length >= 7
-      const events = (d.events || []).map((e) => ({
-        minute: e.minute, type: e.type, team: e.team, player: titleCaseTr(e.player), detail: e.detail || undefined,
-      }))
+      const events = (d.events || []).map((e) => {
+        const ev = { minute: e.minute, type: e.type, team: e.team, player: titleCaseTr(e.player) }
+        if (e.extra) ev.extra = e.extra
+        if (e.detail) ev.detail = e.detail
+        if (e.goalType) ev.goalType = e.goalType
+        if (e.shootout) ev.shootout = true
+        if (e.playerOut) ev.playerOut = titleCaseTr(e.playerOut)
+        return ev
+      })
 
-      f.detail = {
+      const fresh = {
         referees: d.referees.map((r) => ({ name: titleCaseTr(r.name), role: r.role })),
         lineups: hasLineup ? {
           home: { starters: homeStart, subs: tc(d.lineups.home.subs), coach: d.lineups.home.coach ? titleCaseTr(d.lineups.home.coach) : null },
@@ -494,10 +624,19 @@ async function cekFikstur(page, season = SEASON) {
         } : null,
         events,
       }
-      if (hasLineup) kadrolu++
-    } catch {}
+      f.detail = mergeDetail(prevDetail, fresh, f.homeScore != null && f.awayScore != null ? f.homeScore + f.awayScore : null)
+      if (f.detail.lineups) kadrolu++
+      if (f.detail.events.length) olayli++
+      denetleMacDetay(f, hataliMaclar)
+    } catch (e) {
+      // Sessizce yutma: logla, raporla ve önceki iyi veriyi koru (boşla ezme)
+      log(`⚠ Maç ${f.macId} detayı alınamadı (${e.message}) — önceki veri korunuyor`)
+      hataliMaclar.push(`${f.macId} (${f.homeTeam} - ${f.awayTeam}): detay çekilemedi`)
+      if (prevDetail) f.detail = prevDetail
+    }
   }
-  log(`✓ Saat: ${saatli}/${fixtures.length} · Stadyum: ${statli}/${fixtures.length} · Detaydan tarih: ${tarihli2} · Hakem: ${detayli}/${fixtures.length} · Kadro: ${kadrolu}/${fixtures.length} · Logo: ${logolu2}/${fixtures.length}`)
+  log(`✓ Saat: ${saatli}/${fixtures.length} · Stadyum: ${statli}/${fixtures.length} · Detaydan tarih: ${tarihli2} · Hakem: ${detayli}/${fixtures.length} · Kadro: ${kadrolu}/${fixtures.length} · Olay: ${olayli}/${fixtures.length} · Logo: ${logolu2}/${fixtures.length}`)
+  DETAY_UYARILARI.splice(0, DETAY_UYARILARI.length, ...hataliMaclar)
 
   // macId'yi koru (detay sayfası linki için), geçici alan yok
   return fixtures
@@ -705,6 +844,7 @@ async function main() {
   const page = await context.newPage()
 
   try {
+    await oncekiDetaylariYukle()
     const standings = await cekPuanDurumu(page)
     const logos = await cekLogolar(page, standings)
 
@@ -761,12 +901,20 @@ async function main() {
     if (rapor.fikstur > 0 && rapor.tarihli === 0) uyarilar.push('Fikstür var ama HİÇ tarih yok — TFF henüz tarih/saat yayınlamamış (normal olabilir, sezon başı)')
     if (rapor.fikstur > 0 && rapor.macLogolu < rapor.fikstur) uyarilar.push(`${rapor.fikstur - rapor.macLogolu} maçta kulüp logosu eksik`)
     if (rapor.kadro === 0) uyarilar.push('Kadro BOŞ — hiçbir sezonda oyuncu bulunamadı')
+    DETAY_UYARILARI.forEach((u) => uyarilar.push(`Maç detayı — ${u}`))
 
     console.log('\n════════════ VERİ DENETİM RAPORU ════════════')
     console.table(rapor)
     if (uyarilar.length) { console.log('⚠ ANOMALİLER:'); uyarilar.forEach((u) => console.log('   • ' + u)) }
     else console.log('✓ Anomali yok — tüm aşamalar sağlıklı.')
     console.log('═════════════════════════════════════════════\n')
+
+    // TFF_DRY_RUN=1 → hiçbir yere yazma (TFF_OUT verilirse sadece oraya JSON) — test için
+    if (process.env.TFF_DRY_RUN) {
+      if (process.env.TFF_OUT) writeFileSync(process.env.TFF_OUT, JSON.stringify(data, null, 2), 'utf-8')
+      log(`🧪 DRY RUN — Supabase/JSON yazılmadı${process.env.TFF_OUT ? ` (çıktı: ${process.env.TFF_OUT})` : ''}`)
+      return
+    }
 
     mkdirSync(dirname(OUT_FILE), { recursive: true })
     writeFileSync(OUT_FILE, JSON.stringify(data, null, 2), 'utf-8')

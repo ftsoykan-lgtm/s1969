@@ -31,14 +31,37 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return { title: `${m.homeTeam} - ${m.awayTeam}`, alternates: { canonical: `/mac/${matchSlug(m)}` } }
 }
 
-const ROLE_ORDER = ['Hakem', '1. Yardımcı Hakem', '2. Yardımcı Hakem', 'Dördüncü Hakem']
+const ROLE_ORDER = ['Hakem', '1. Yardımcı Hakem', '2. Yardımcı Hakem', 'Dördüncü Hakem', 'VAR', 'AVAR', 'Gözlemci', 'Temsilci']
+// Listede olmayan rol (TFF yeni bir görev eklerse) sona düşsün, baş hakemin önüne geçmesin
+const roleRank = (role: string) => { const i = ROLE_ORDER.indexOf(role); return i < 0 ? ROLE_ORDER.length : i }
+
+/* Dakika etiketi: 72' / 90+5' */
+const minuteLabel = (e: MatchEvent) => (e.minute == null ? '·' : `${e.minute}${e.extra ? `+${e.extra}` : ''}'`)
+/* Sıralama anahtarı: 45+2, 46'dan önce gelir */
+const minuteKey = (e: MatchEvent) => (e.minute ?? 0) + (e.extra ?? 0) / 100
 
 /* Olay ikonu */
 function EventIcon({ type }: { type: MatchEvent['type'] }) {
   if (type === 'goal') return <span className="text-[17px] leading-none">⚽</span>
   if (type === 'yellow') return <span className="inline-block w-3 rounded-[2px] bg-ugold shadow" style={{ height: 17 }} />
   if (type === 'red') return <span className="inline-block w-3 rounded-[2px] bg-[#d01b2a] shadow" style={{ height: 17 }} />
-  return <span className="text-ugreen">↔</span>
+  return <span className="flex h-[18px] w-[18px] items-center justify-center rounded-full bg-[#e3f1e9] text-[11px] font-extrabold text-ugreen">⇄</span>
+}
+
+/* Olay metni — değişiklikte giren (▲) + çıkan (▼); "Ayak" golü varsayılan, gösterme */
+function EventText({ e, align }: { e: MatchEvent; align: 'left' | 'right' }) {
+  if (e.type === 'sub' && e.playerOut) {
+    return (
+      <span className={`flex flex-col leading-tight ${align === 'right' ? 'items-end' : 'items-start'}`}>
+        <span className="text-sm font-bold text-ugreenm"><span className="text-ugreen text-[10px] mr-1">▲</span>{e.player}</span>
+        <span className="text-xs text-[#7aab8e]"><span className="text-[#d01b2a] text-[10px] mr-1">▼</span>{e.playerOut}</span>
+      </span>
+    )
+  }
+  const detail = e.goalType === 'F' ? null : e.detail
+  return (
+    <span className="text-sm font-bold text-ugreenm">{e.player}{detail ? <span className="text-[#7aab8e] font-normal"> · {detail}</span> : null}</span>
+  )
 }
 
 export default async function MacDetayPage({ params }: Props) {
@@ -64,20 +87,21 @@ export default async function MacDetayPage({ params }: Props) {
     .slice(0, 4)
   // Kadromuzdaki oyuncuların profil slug'ları (İlk 11'de tıklanabilir link için)
   const profileSlugs = new Set(await getAllProfileSlugs())
-  const referees = (match.referees ?? []).slice().sort(
-    (a, b) => ROLE_ORDER.indexOf(a.role) - ROLE_ORDER.indexOf(b.role)
-  )
+  const referees = (match.referees ?? []).slice().sort((a, b) => roleRank(a.role) - roleRank(b.role))
   const lineups = match.lineups
-  const events = (match.events ?? []).slice().sort((a, b) => (a.minute ?? 0) - (b.minute ?? 0))
+  const allEvents = (match.events ?? []).slice().sort((a, b) => minuteKey(a) - minuteKey(b))
+  // Seri penaltılar maç akışına/skora dahil değil → ayrı bölümde
+  const events = allEvents.filter((e) => !e.shootout)
+  const shootout = allEvents.filter((e) => e.shootout)
   const hasLineups = !!(lineups && (lineups.home.starters.length || lineups.away.starters.length))
 
-  // İlk yarı skoru (≤45. dk goller)
+  // İlk yarı skoru (≤45. dk goller; 45+2 de ilk yarıdır)
   const goals = events.filter((e) => e.type === 'goal')
   const htHome = goals.filter((e) => e.team === 'home' && (e.minute ?? 0) <= 45).length
   const htAway = goals.filter((e) => e.team === 'away' && (e.minute ?? 0) <= 45).length
 
   // Zaman çizelgesi kilometre taşları
-  type TL = { kind: 'start' } | { kind: 'half' } | { kind: 'end' } | { kind: 'event'; e: MatchEvent }
+  type TL = { kind: 'start' } | { kind: 'half' } | { kind: 'end' } | { kind: 'shootout' } | { kind: 'event'; e: MatchEvent }
   const timeline: TL[] = []
   if (match.isCompleted) {
     timeline.push({ kind: 'start' })
@@ -88,7 +112,13 @@ export default async function MacDetayPage({ params }: Props) {
     }
     if (!htDone) timeline.push({ kind: 'half' })
     timeline.push({ kind: 'end' })
+    if (shootout.length) {
+      timeline.push({ kind: 'shootout' })
+      shootout.forEach((e) => timeline.push({ kind: 'event', e }))
+    }
   }
+  const soHome = shootout.filter((e) => e.team === 'home').length
+  const soAway = shootout.filter((e) => e.team === 'away').length
 
   return (
     <div className="min-h-screen bg-[#f5f9f6]">
@@ -168,20 +198,19 @@ export default async function MacDetayPage({ params }: Props) {
                   if (t.kind === 'start') return <Milestone key={i} emoji="⚽" label="Maç Başladı" tone="green" />
                   if (t.kind === 'half') return <Milestone key={i} emoji="⏱️" label="İlk Yarı Sonucu" score={`${htHome} - ${htAway}`} tone="amber" />
                   if (t.kind === 'end') return <Milestone key={i} emoji="🏁" label="Maç Sonucu" score={`${match.homeScore} - ${match.awayScore}`} tone="green" />
+                  if (t.kind === 'shootout') return <Milestone key={i} emoji="🎯" label="Seri Penaltılar" score={`${soHome} - ${soAway}`} tone="amber" />
                   const e = t.e
                   const isHome = e.team === 'home'
                   return (
                     <div key={i} className="relative grid grid-cols-[1fr_auto_1fr] items-center gap-3">
-                      <div className={`flex items-center gap-2 ${isHome ? 'justify-end text-right' : 'opacity-0 pointer-events-none'}`}>
-                        <span className="text-sm font-bold text-ugreenm">{e.player}{e.detail ? <span className="text-[#7aab8e] font-normal"> · {e.detail}</span> : null}</span>
-                        <EventIcon type={e.type} />
+                      <div className={`flex items-center gap-2 ${isHome ? 'justify-end text-right' : 'invisible'}`}>
+                        {isHome && <><EventText e={e} align="right" /><EventIcon type={e.type} /></>}
                       </div>
                       <span className="relative z-10 flex h-8 min-w-8 px-2 items-center justify-center rounded-full bg-ugreend text-[11px] font-extrabold text-white tabular-nums shadow">
-                        {e.minute != null ? `${e.minute}'` : '·'}
+                        {e.shootout ? '·' : minuteLabel(e)}
                       </span>
-                      <div className={`flex items-center gap-2 ${!isHome ? 'justify-start text-left' : 'opacity-0 pointer-events-none'}`}>
-                        <EventIcon type={e.type} />
-                        <span className="text-sm font-bold text-ugreenm">{e.player}{e.detail ? <span className="text-[#7aab8e] font-normal"> · {e.detail}</span> : null}</span>
+                      <div className={`flex items-center gap-2 ${!isHome ? 'justify-start text-left' : 'invisible'}`}>
+                        {!isHome && <><EventIcon type={e.type} /><EventText e={e} align="left" /></>}
                       </div>
                     </div>
                   )
@@ -220,10 +249,10 @@ export default async function MacDetayPage({ params }: Props) {
 
         {/* ════ HAKEMLER ════ */}
         {referees.length > 0 && (
-          <Card title="Hakemler" icon={Flag}>
+          <Card title="Maç Görevlileri" icon={Flag}>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {referees.map((r, i) => {
-                const main = i === 0
+              {referees.map((r) => {
+                const main = r.role === 'Hakem'
                 return (
                   <div key={r.name + r.role}
                     className={`flex items-center gap-3 rounded-xl px-4 py-3.5 border ${main ? 'bg-gradient-to-br from-ugreend to-[#0c3a20] border-transparent' : 'bg-[#f8faf9] border-[#edf7f2]'}`}>

@@ -58,9 +58,18 @@ export interface LineupPlayer {
 
 export interface MatchEvent {
   minute?: number | null
+  /** Uzatma dakikası: "90+5" → minute 90, extra 5 */
+  extra?: number | null
   type: 'goal' | 'yellow' | 'red' | 'sub'
   team: 'home' | 'away'
+  /** Gol/kart: oyuncu · Değişiklik: oyuna giren */
   player: string
+  /** Değişiklik: oyundan çıkan */
+  playerOut?: string | null
+  /** TFF gol tipi kodu: F Ayak, H Kafa, K Kendi kalesine, P Penaltı, S Seri penaltı */
+  goalType?: string | null
+  /** Seri penaltı golü — skora ve akış dakikalarına sayılmaz */
+  shootout?: boolean
   detail?: string
 }
 
