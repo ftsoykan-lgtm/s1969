@@ -166,12 +166,11 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
     pathname === href || (href !== '/' && href !== '#' && pathname.startsWith(href + '/'))
 
   // Bar SABİT yükseklikte kalır; arma bardan büyüktür ve alttan taşar.
+  // Kaydırınca küçülme YOK (istek) — bar ve arma her zaman aynı boyutta.
   const BAR_H = 86
-  const BAR_H_SCROLLED = 66
   const LOGO_MIN = 104
   const MOBILE_LOGO = 60
-  const logoBase = Math.max(LOGO_MIN, Math.min(club.logoSize || LOGO_MIN, 150))
-  const emblemPx = scrolled ? Math.round(logoBase * 0.62) : logoBase
+  const emblemPx = Math.max(LOGO_MIN, Math.min(club.logoSize || LOGO_MIN, 150))
 
   // Hap menü — footer'ın rounded-full dili. Aktif olan ALTIN dolgulu.
   const pillBase = 'nav-pill group relative flex items-center gap-1.5 rounded-full px-[15px] h-[38px] text-[13.2px] font-bold tracking-[0.05em] uppercase whitespace-nowrap transition-colors duration-300'
@@ -263,19 +262,18 @@ export default function Navbar({ club = defaultClub }: { club?: ClubInfo }) {
           </div>
 
           {/* ── MASAÜSTÜ BAR — 1fr/auto/1fr: menü barın ortasında kalır ── */}
-          <div className="hidden lg:grid grid-cols-[1fr_auto_1fr] items-center gap-6 transition-all duration-300"
-            style={{ height: scrolled ? BAR_H_SCROLLED : BAR_H }}>
+          <div className="hidden lg:grid grid-cols-[1fr_auto_1fr] items-center gap-6"
+            style={{ height: BAR_H }}>
 
             {/* SOL — arma doğrudan yüzeyde (halka/daire YOK) + marka adı */}
             <Link href="/" aria-label={club.name} className={cn('relative flex h-full items-center justify-self-start rounded-lg', focusOnDark)}
               style={{ paddingLeft: emblemPx + 10 }}>
               {hasLogo ? (
                 <ClubLogo src={club.logoUrl} size={emblemPx} optSize={120} priority
-                  className={cn('absolute left-0 object-contain drop-shadow-[0_3px_12px_rgba(0,0,0,0.45)] transition-all duration-300',
-                    scrolled ? 'top-1' : 'top-[5px]', mounted && 'crest-settle')} />
+                  className={cn('absolute left-0 top-[5px] object-contain drop-shadow-[0_3px_12px_rgba(0,0,0,0.45)]', mounted && 'crest-settle')} />
               ) : (
                 <div style={{ height: emblemPx, width: emblemPx }}
-                  className={cn('absolute left-0 rounded-full bg-ugold flex items-center justify-center', scrolled ? 'top-1' : 'top-[5px]')}>
+                  className="absolute left-0 top-[5px] rounded-full bg-ugold flex items-center justify-center">
                   <span className="font-heading font-extrabold text-sm text-ugreenm">{club.shortCode}</span>
                 </div>
               )}

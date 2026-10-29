@@ -383,19 +383,9 @@ img {
 /* Menü hapı — footer'ın rounded-full sosyal/rozet dili menüye taşındı.
    Hover: white/5 hap belirir (footer yüzey dili). Aktif/açık: ALTIN
    dolgu + koyu yeşil metin (footer sosyal hover'ının aynısı). */
+/* Menü hapı — hover'da beliren zemin efekti kaldırıldı (istek: sade menü);
+   yalnız metin rengi hafifçe açılır, klavye odağı focusOnDark halkasıyla görünür. */
 .nav-pill { position: relative; }
-.nav-pill::before {
-  content: ''; position: absolute; inset: 0; border-radius: 9999px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.10);
-  opacity: 0; transform: scale(0.94);
-  transition: opacity 260ms var(--ease-snap), transform 320ms var(--ease-snap);
-  pointer-events: none;
-}
-.nav-pill:hover::before,
-.nav-pill:focus-visible::before { opacity: 1; transform: scale(1); }
-/* aktif hap altın dolguludur → arkasındaki white/5 hap gizlenir */
-.nav-pill[data-active="true"]::before { opacity: 0; }
 
 /* Footer'ın link nokta işaretçisi — hover'da altına döner ve büyür */
 .dot-marker {
@@ -457,7 +447,7 @@ img {
   animation-delay: calc(40ms + var(--i, 0) * 45ms); }
 
 @media (prefers-reduced-motion: reduce) {
-  .nav-pill::before, .dot-marker { transition: none !important; }
+  .dot-marker { transition: none !important; }
   .cta-premium:hover .cta-sweep { animation: none !important; }
   .drawer-item { animation: none !important; opacity: 1 !important; transform: none !important; }
   .hairline-draw, .crest-settle, .nav-stagger {
